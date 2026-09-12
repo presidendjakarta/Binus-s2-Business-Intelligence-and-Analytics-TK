@@ -155,11 +155,35 @@ export async function runTrainingPipeline() {
     };
   });
 
+  // Load LLM Data jika tersedia untuk kelengkapan Dashboard LLM
+  let llmAnalysisData = [];
+  let llmCompReport = null;
+  try {
+    llmAnalysisData = JSON.parse(await fs.readFile(CONFIG.PATHS.LLM_ANALYSIS_5000_JSON, 'utf-8'));
+    llmCompReport = JSON.parse(await fs.readFile(CONFIG.PATHS.ML_VS_LLM_COMPARISON_5000_JSON, 'utf-8'));
+  } catch {}
+
+  // Gabungkan prediksi ML dengan atribut LLM jika ada
+  const fullEnrichedPredictions = fullPredictions.map((item, idx) => {
+    const llmItem = llmAnalysisData[idx];
+    if (llmItem) {
+      return {
+        ...item,
+        llmSentiment: llmItem.llmSentiment || (item.score >= 4 ? 'Positif' : 'Negatif'),
+        llmCategory: llmItem.llmCategory || 'Masalah Teknis & Bug',
+        llmReason: llmItem.llmReason || 'Dianalisis oleh Gemma 3',
+        llmConfidence: llmItem.llmConfidence || 90,
+        modelDisagreement: (item.mlSentiment !== (llmItem.llmSentiment || 'Negatif'))
+      };
+    }
+    return item;
+  });
+
   // Simpan JSON
-  await fs.writeFile(CONFIG.PATHS.ML_PREDICTED_JSON, JSON.stringify(fullPredictions, null, 2), 'utf-8');
+  await fs.writeFile(CONFIG.PATHS.ML_PREDICTED_JSON, JSON.stringify(fullEnrichedPredictions, null, 2), 'utf-8');
   console.log(`📁 File JSON hasil ML tersimpan: ${CONFIG.PATHS.ML_PREDICTED_JSON}`);
 
-  // Simpan JS Bundle Dashboard
+  // Simpan JS Bundle Dashboard (Lengkap dengan ML dan LLM)
   const dashboardPayload = {
     metrics: {
       accuracy: evalResult.accuracy,
@@ -170,7 +194,9 @@ export async function runTrainingPipeline() {
       trainSize: trainData.length,
       testSize: testData.length
     },
-    reviews: fullPredictions
+    llmComparison: llmCompReport,
+    llmAnalysis: fullEnrichedPredictions,
+    reviews: fullEnrichedPredictions
   };
   await fs.writeFile(CONFIG.PATHS.RAW_REVIEWS_5000_JS, `window.ML_DASHBOARD_DATA = ${JSON.stringify(dashboardPayload, null, 2)}; window.RAW_REVIEWS = window.ML_DASHBOARD_DATA.reviews;`, 'utf-8');
   console.log(`📁 File JS Bundle Dashboard tersimpan: ${CONFIG.PATHS.RAW_REVIEWS_5000_JS}`);

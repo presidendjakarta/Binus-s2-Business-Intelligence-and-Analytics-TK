@@ -624,7 +624,7 @@
         modelMetrics: { naiveBayes: { accuracy: 88.0 }, gemma3LLM: { accuracy: 92.6 } },
         categoryBreakdown: { 'Masalah Teknis & Bug': 1937, 'Apresiasi & Kepuasan': 2416, 'Fitur & UI/UX': 436, 'Layanan Faskes & Antrean': 196, 'Administrasi & Iuran': 15 }
       };
-      const llmRecords = dataPayload.llmAnalysis || [];
+      const llmRecords = (dataPayload.llmAnalysis && dataPayload.llmAnalysis.length > 0) ? dataPayload.llmAnalysis : (dataPayload.reviews || []);
 
       // Update KPI Cards
       const totalCount = comp.evaluatedSamples || llmRecords.length || 5000;
