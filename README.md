@@ -28,7 +28,7 @@ npm install
 
 ## 🚀 Perintah Utama (Main Workflow)
 
-Tersedia 4 perintah utama untuk menjalankan seluruh pipeline:
+Tersedia 5 perintah utama untuk menjalankan seluruh pipeline:
 
 ```bash
 # 1. Scraping 5.000 Ulasan Terbaru Mobile JKN dari Google Play Store
@@ -40,8 +40,11 @@ npm run train
 # 3. Menjalankan Pipeline Analisis LLM (Ollama Gemma 3) & Studi Komparatif
 npm run llm
 
-# 4. Membuka Dashboard Visualisasi Grafik Interaktif & AI Benchmark di Browser
+# 4. Membuka Dashboard Machine Learning (5.000 Data Ulasan)
 npm run dashboard
+
+# 5. Membuka Dashboard Generative AI & LLM Gemma 3 Intelligence Hub
+npm run dashboard:llm
 ```
 
 ---
