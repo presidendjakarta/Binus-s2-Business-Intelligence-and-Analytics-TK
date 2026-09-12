@@ -23,7 +23,10 @@ const slangDictionary = {
   'mulu': 'terus', 'molo': 'terus', 'lemot': 'lambat', 'lelet': 'lambat',
   'antre': 'antri', 'antrian': 'antrean', 'ruwet': 'sulit', 'ribet': 'rumit',
   'jelek': 'buruk', 'wuelek': 'buruk', 'ancur': 'hancur', 'bego': 'buruk',
-  'parah': 'buruk', 'gagal': 'gagal', 'susah': 'sulit', 'ssah': 'sulit'
+  'parah': 'buruk', 'gagal': 'gagal', 'susah': 'sulit', 'ssah': 'sulit',
+  'mempermudah': 'mudah', 'memudahkan': 'mudah', 'dipermudah': 'mudah',
+  'mempersulit': 'sulit', 'dipersulit': 'sulit', 'mengecewakan': 'kecewa',
+  'membantu': 'bantu', 'terbantu': 'bantu'
 };
 
 const indonesianStopwords = new Set([
@@ -34,7 +37,8 @@ const indonesianStopwords = new Set([
   'agar', 'supaya', 'kalau', 'kalo', 'jika', 'bila', 'apabila', 'atau', 'tapi', 'namun',
   'tetapi', 'walaupun', 'meskipun', 'terus', 'bgt', 'nya', 'yg', 'dgn', 'utk', 'tp',
   'sy', 'udh', 'sdh', 'aja', 'saja', 'ya', 'yah', 'kok', 'sih', 'kan', 'dong', 'deh',
-  'lah', 'pas', 'aplikasi', 'mobile', 'jkn', 'bpjs', 'kesehatan'
+  'lah', 'pas', 'aplikasi', 'mobile', 'jkn', 'bpjs', 'kesehatan',
+  'tiap', 'setiap', 'bulan', 'bulannya', 'hari', 'harinya', 'tahun', 'minggu'
 ]);
 
 // Helper Preprocessing
