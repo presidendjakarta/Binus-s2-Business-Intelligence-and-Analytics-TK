@@ -1,12 +1,8 @@
-/**
- * Entrypoint Script: Pipeline Analisis Sentimen Berbasis LLM Lokal (Gemma 3)
- * Menggunakan Arsitektur Modular src/llm/llmPipeline.js
- */
 import fs from 'fs/promises';
 import path from 'path';
 import { createObjectCsvWriter } from 'csv-writer';
-import { CONFIG } from './src/config/constants.js';
-import { LLMPipeline } from './src/llm/llmPipeline.js';
+import { CONFIG } from '../src/config/constants.js';
+import { LLMPipeline } from '../src/llm/llmPipeline.js';
 
 async function main() {
   const args = process.argv.slice(2);
@@ -46,7 +42,6 @@ async function main() {
   let nbCorrect = 0;
   let llmCorrect = 0;
   let bothCorrect = 0;
-  let llmWinCases = [];
   const categoryDistribution = {};
 
   results.forEach(r => {
@@ -59,17 +54,6 @@ async function main() {
     if (nb === gt) nbCorrect++;
     if (llm === gt) llmCorrect++;
     if (nb === gt && llm === gt) bothCorrect++;
-
-    if (nb !== gt && llm === gt) {
-      llmWinCases.push({
-        score: r.score,
-        text: r.rawText,
-        gt,
-        nb,
-        llm,
-        reason: r.llmResult.reason
-      });
-    }
   });
 
   const total = results.length;
@@ -86,18 +70,6 @@ async function main() {
     console.log(`  - ${cat.padEnd(28)}: ${count} (${((count / total) * 100).toFixed(1)}%)`);
   });
   console.log('================================================================\n');
-
-  if (llmWinCases.length > 0) {
-    console.log(`💡 CONTOH KASUS DI MANA GEMMA 3 LEBIH UNGGUL DARI NAIVE BAYES:`);
-    llmWinCases.slice(0, 3).forEach((c, idx) => {
-      console.log(`\n[Kasus ${idx + 1}] Rating: ★${c.score} | Target: ${c.gt}`);
-      console.log(`Ulasan: "${c.text}"`);
-      console.log(`❌ Prediksi Naive Bayes : ${c.nb}`);
-      console.log(`✅ Prediksi Gemma 3     : ${c.llm}`);
-      console.log(`💭 Alasan AI (Gemma 3)  : ${c.reason}`);
-    });
-    console.log('');
-  }
 
   // Simpan JSON Output
   const finalAnalysis = results.map(r => ({
@@ -139,26 +111,6 @@ async function main() {
 
   await fs.writeFile(CONFIG.PATHS.ML_VS_LLM_COMPARISON_JSON, JSON.stringify(compReport, null, 2), 'utf-8');
   console.log(`📁 File Komparasi tersimpan: ${CONFIG.PATHS.ML_VS_LLM_COMPARISON_JSON}`);
-
-  // Simpan CSV
-  const csvWriter = createObjectCsvWriter({
-    path: CONFIG.PATHS.ML_VS_LLM_COMPARISON_CSV,
-    header: [
-      { id: 'no', title: 'No' },
-      { id: 'userName', title: 'Pengguna' },
-      { id: 'score', title: 'Rating' },
-      { id: 'date', title: 'Tanggal' },
-      { id: 'rawText', title: 'Isi Ulasan' },
-      { id: 'groundTruth', title: 'Ground Truth' },
-      { id: 'nbSentiment', title: 'Prediksi Naive Bayes' },
-      { id: 'llmSentiment', title: 'Prediksi Gemma 3 LLM' },
-      { id: 'llmCategory', title: 'Kategori Isu (LLM)' },
-      { id: 'llmReason', title: 'Alasan Penalaran AI' },
-      { id: 'modelDisagreement', title: 'Beda Pendapat ML vs LLM' }
-    ]
-  });
-  await csvWriter.writeRecords(finalAnalysis);
-  console.log(`📊 File CSV Komparasi tersimpan: ${CONFIG.PATHS.ML_VS_LLM_COMPARISON_CSV}\n`);
 }
 
 main().catch(err => {
