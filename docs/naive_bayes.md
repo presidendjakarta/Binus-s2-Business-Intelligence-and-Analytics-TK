@@ -15,8 +15,7 @@ Dokumen ini merupakan panduan akademis dan teknis mendalam mengenai algoritma **
 7. [Penanganan Khusus: Ulasan Berbasis Emoji vs Simbol Non-Teks](#7-penanganan-khusus-ulasan-berbasis-emoji-vs-simbol-non-teks)
 8. [Simulasi Perhitungan Manual Langkah-demi-Langkah (*Numerical Example*)](#8-simulasi-perhitungan-manual-langkah-demi-langkah-numerical-example)
 9. [Hasil Evaluasi & Metrik Kinerja pada 5.000 Data](#9-hasil-evaluasi--metrik-kinerja-pada-5000-data)
-10. [Komparasi: Naive Bayes vs Large Language Model (Gemma 3)](#10-komparasi-naive-bayes-vs-large-language-model-gemma-3)
-11. [Cheat Sheet Sidang: 7 Pertanyaan Dosen Penguji tentang Naive Bayes](#11-cheat-sheet-sidang-7-pertanyaan-dosen-penguji-tentang-naive-bayes)
+10. [Cheat Sheet Sidang: 7 Pertanyaan Dosen Penguji tentang Naive Bayes](#10-cheat-sheet-sidang-7-pertanyaan-dosen-penguji-tentang-naive-bayes)
 
 ---
 
@@ -235,21 +234,7 @@ Classification Report:
 
 ---
 
-## 10. Komparasi: Naive Bayes vs Large Language Model (Gemma 3)
-
-| Dimensi Evaluasi | Multinomial Naive Bayes (ML) | Gemma 3 LLM (Generative AI) |
-| :--- | :--- | :--- |
-| **Kecepatan Inferensi** | ⚡ **Super Cepat (~0.05 ms per ulasan)** | 🐢 Sedang (~1.2 detik per ulasan) |
-| **Kebutuhan Komputasi** | 💻 Ringan (Cukup CPU, RAM < 50MB) | 🎮 Berat (Memerlukan GPU/VRAM 4GB+) |
-| **Akurasi Sentimen** | 🎯 **90.50%** | 🧠 **92.60%** |
-| **Penanganan Sarkasme** | ⚠️ Terbatas pada pola N-Gram & Rule | 🌟 **Sangat Unggul (Memahami konteks tersirat)** |
-| **Ekstraksi Kategori Isu** | ❌ Perlu model klasifikasi terpisah | ✅ **Otomatis multi-tasking (5 Kategori Isu)** |
-| **Alasan Penalaran (Reasoning)** | ❌ Output berupa angka probabilitas | ✅ **Menghasilkan penjelasan teks manusiawi** |
-| **Peran Terbaik di Industri** | **High-throughput Batch Screening** | **Deep Semantic Diagnostic & Root-Cause Analysis** |
-
----
-
-## 11. Cheat Sheet Sidang: 7 Pertanyaan Dosen Penguji tentang Naive Bayes
+## 10. Cheat Sheet Sidang: 7 Pertanyaan Dosen Penguji tentang Naive Bayes
 
 ### 💬 Q1: *"Kenapa Anda menggunakan Naive Bayes, bukan SVM atau Random Forest?"*
 > **Template Jawaban Anda:**
@@ -287,6 +272,6 @@ Classification Report:
 
 ---
 
-### 💬 Q7: *"Apa keunggulan arsitektur Hybrid AI (Naive Bayes + LLM) di penelitian Anda?"*
+### 💬 Q7: *"Apa manfaat praktis analisis sentimen Naive Bayes ini bagi manajemen BPJS Kesehatan?"*
 > **Template Jawaban Anda:**
-> *"Kami menggabungkan kecepatan dan efisiensi Naive Bayes untuk menyaring 5.000 data ulasan secara instan, dengan kemampuan penalaran mendalam LLM Gemma 3 untuk mendiagnosis ulasan ambigu, mengekstrak 5 kategori isu, dan memberikan rekomendasi strategis bagi manajemen BPJS Kesehatan."*
+> *"Sistem ini memberikan dashboard visualisasi eksekutif yang memproses ribuan ulasan secara instan, mengidentifikasi 5 klaster keluhan utama secara objektif (OTP, login, antrean, biometrik, NIK), serta memfilter 211 anomali rating bintang sehingga feedback pengguna dapat ditindaklanjuti secara cepat dan akurat."*
