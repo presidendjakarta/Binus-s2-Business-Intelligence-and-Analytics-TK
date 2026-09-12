@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MineStore AI • Multi-App Sentiment Mining & Naive Bayes BI</title>
+  <title>Executive Business Intelligence • Sentiment Analytics & Naive Bayes</title>
 
-  <!-- Google Fonts: Plus Jakarta Sans & Outfit -->
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <!-- Bootstrap 5 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -20,553 +20,209 @@
   <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.min.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.2/css/responsive.bootstrap5.min.css">
 
-  <!-- Modern Enterprise Dark & Glassmorphism Design System -->
+  <!-- Custom Enterprise Business Intelligence Style (Power BI / Tableau Inspired) -->
   <style>
     :root {
-      --bg-dark: #070b14;
-      --bg-surface: #0d1424;
-      --bg-surface-elevated: #131c31;
-      --bg-glass: rgba(19, 28, 49, 0.75);
-      --bg-glass-hover: rgba(26, 38, 66, 0.85);
-      --border-subtle: rgba(255, 255, 255, 0.08);
-      --border-focus: rgba(99, 102, 241, 0.5);
-
-      --color-primary: #6366f1;
-      --color-primary-glow: rgba(99, 102, 241, 0.25);
-      --color-secondary: #8b5cf6;
-      --color-positive: #10b981;
-      --color-positive-glow: rgba(16, 185, 129, 0.25);
-      --color-negative: #f43f5e;
-      --color-negative-glow: rgba(244, 63, 94, 0.25);
-      --color-warning: #f59e0b;
-      --color-cyan: #06b6d4;
-
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
-      --text-dim: #64748b;
-
-      --sidebar-width: 270px;
-      --sidebar-collapsed-width: 80px;
-      --topbar-height: 70px;
+      --bi-primary: #0078d4;         /* PowerBI Classic Blue */
+      --bi-primary-dark: #005a9e;
+      --bi-secondary: #2b579a;
+      --bi-success: #107c41;         /* Excel/BI Emerald */
+      --bi-warning: #d83b01;         /* BI Amber Alert */
+      --bi-danger: #a80000;          /* BI Crimson Red */
+      --bi-info: #008272;            /* BI Teal */
+      --bi-purple: #5c2d91;          /* BI Purple Analytics */
+      
+      --bi-bg: #f4f6f9;              /* Enterprise Slate Background */
+      --bi-card-bg: #ffffff;
+      --bi-border: #e2e8f0;
+      --bi-border-subtle: #edf2f7;
+      
+      --bi-text-main: #1e293b;
+      --bi-text-muted: #64748b;
+      --bi-text-light: #94a3b8;
     }
 
     * {
       box-sizing: border-box;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-    }
-
-    h1, h2, h3, h4, h5, h6, .font-outfit {
-      font-family: 'Outfit', sans-serif;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
 
     body {
-      background-color: var(--bg-dark);
-      color: var(--text-main);
+      background-color: var(--bi-bg);
+      color: var(--bi-text-main);
       min-height: 100vh;
-      overflow-x: hidden;
-      background-image: 
-        radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.06) 0%, transparent 40%),
-        radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.05) 0%, transparent 40%);
-      background-attachment: fixed;
+      font-size: 0.9rem;
     }
 
-    /* Scrollbar */
-    ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: var(--bg-dark); }
-    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }
-    ::-webkit-scrollbar-thumb:hover { background: #334155; }
-
-    /* LAYOUT WRAPPER */
-    .app-layout {
-      display: flex;
-      min-height: 100vh;
-    }
-
-    /* SIDEBAR */
-    .app-sidebar {
-      width: var(--sidebar-width);
-      background: var(--bg-surface);
-      border-right: 1px solid var(--border-subtle);
-      position: fixed;
+    /* TOP NAVBAR */
+    .bi-navbar {
+      background: #ffffff;
+      border-bottom: 1px solid var(--bi-border);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      padding: 0.75rem 1.5rem;
+      position: sticky;
       top: 0;
-      bottom: 0;
-      left: 0;
-      z-index: 1000;
-      display: flex;
-      flex-direction: column;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      backdrop-filter: blur(16px);
+      z-index: 1020;
     }
 
-    .sidebar-brand {
-      height: var(--topbar-height);
-      display: flex;
-      align-items: center;
-      padding: 0 1.25rem;
-      border-bottom: 1px solid var(--border-subtle);
-      gap: 0.75rem;
-    }
-
-    .brand-icon {
-      width: 40px;
-      height: 40px;
+    .bi-brand-icon {
+      width: 42px;
+      height: 42px;
       border-radius: 10px;
-      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+      background: linear-gradient(135deg, #0078d4 0%, #004578 100%);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #fff;
+      color: #ffffff;
       font-size: 1.25rem;
-      box-shadow: 0 0 15px var(--color-primary-glow);
+      overflow: hidden;
     }
-
-    .brand-title {
-      font-size: 1.1rem;
-      font-weight: 800;
-      color: #fff;
-      letter-spacing: -0.5px;
-      line-height: 1.2;
-    }
-    .brand-subtitle {
-      font-size: 0.7rem;
-      color: var(--color-cyan);
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    /* SIDEBAR NAV LINKS */
-    .sidebar-nav {
-      flex: 1;
-      padding: 1.25rem 0.75rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.35rem;
-      overflow-y: auto;
-    }
-
-    .nav-group-title {
-      font-size: 0.7rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--text-dim);
-      padding: 0.5rem 0.75rem 0.25rem;
-    }
-
-    .nav-item-link {
-      display: flex;
-      align-items: center;
-      gap: 0.85rem;
-      padding: 0.75rem 1rem;
-      border-radius: 10px;
-      color: var(--text-muted);
-      text-decoration: none;
-      font-weight: 500;
-      font-size: 0.88rem;
-      transition: all 0.2s ease;
-      position: relative;
-    }
-
-    .nav-item-link i {
-      font-size: 1.1rem;
-      width: 22px;
-      text-align: center;
-      transition: all 0.2s;
-    }
-
-    .nav-item-link:hover {
-      color: #fff;
-      background: rgba(255, 255, 255, 0.05);
-      transform: translateX(3px);
-    }
-
-    .nav-item-link.active {
-      color: #fff;
-      background: linear-gradient(90deg, rgba(99, 102, 241, 0.2) 0%, rgba(99, 102, 241, 0.05) 100%);
-      border-left: 3px solid var(--color-primary);
-      font-weight: 600;
-    }
-    .nav-item-link.active i {
-      color: var(--color-primary);
-      filter: drop-shadow(0 0 8px var(--color-primary-glow));
-    }
-
-    .nav-badge {
-      margin-left: auto;
-      font-size: 0.7rem;
-      font-weight: 700;
-      padding: 2px 7px;
-      border-radius: 20px;
-      background: rgba(255, 255, 255, 0.1);
-      color: var(--text-muted);
-    }
-    .nav-item-link.active .nav-badge {
-      background: var(--color-primary);
-      color: #fff;
-    }
-
-    /* SIDEBAR FOOTER CARD */
-    .sidebar-footer {
-      padding: 1rem;
-      border-top: 1px solid var(--border-subtle);
-    }
-    .active-engine-card {
-      background: var(--bg-surface-elevated);
-      border: 1px solid var(--border-subtle);
-      border-radius: 12px;
-      padding: 0.85rem;
-    }
-
-    /* MAIN CONTENT WRAPPER */
-    .app-main {
-      margin-left: var(--sidebar-width);
-      flex: 1;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    /* TOPBAR */
-    .app-topbar {
-      height: var(--topbar-height);
-      background: rgba(13, 20, 36, 0.8);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border-subtle);
-      position: sticky;
-      top: 0;
-      z-index: 999;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 1.75rem;
-    }
-
-    .topbar-breadcrumbs {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.85rem;
-    }
-    .breadcrumb-root { color: var(--text-dim); }
-    .breadcrumb-current { color: #fff; font-weight: 700; }
-
-    .topbar-actions {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    /* ACTIVE PROJECT DROPDOWN PILL */
-    .project-pill-dropdown {
-      display: flex;
-      align-items: center;
-      gap: 0.65rem;
-      background: var(--bg-surface-elevated);
-      border: 1px solid var(--border-subtle);
-      border-radius: 30px;
-      padding: 5px 14px 5px 6px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .project-pill-dropdown:hover {
-      border-color: var(--border-focus);
-      box-shadow: 0 0 15px rgba(99, 102, 241, 0.15);
-    }
-
-    .pill-app-icon {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
+    .bi-brand-icon img {
+      width: 100%;
+      height: 100%;
       object-fit: cover;
     }
 
-    .pill-app-name {
-      font-size: 0.85rem;
+    /* PROJECT SELECTOR DROPDOWN */
+    .project-selector-container {
+      background: #f8fafc;
+      border: 1px solid var(--bi-border);
+      border-radius: 8px;
+      padding: 3px 8px;
+    }
+    .project-select {
+      border: none;
+      background: transparent;
       font-weight: 700;
-      color: #fff;
-      max-width: 180px;
+      font-size: 0.85rem;
+      color: var(--bi-text-main);
+      cursor: pointer;
+      outline: none;
+      max-width: 260px;
+    }
+
+    /* SUB-NAV TABS */
+    .bi-nav-tabs {
+      background: #ffffff;
+      border-bottom: 1px solid var(--bi-border);
+      padding: 0 1.5rem;
+      display: flex;
+      gap: 0.5rem;
+      overflow-x: auto;
+    }
+    .bi-tab-btn {
+      background: transparent;
+      border: none;
+      border-bottom: 3px solid transparent;
+      padding: 0.85rem 1.25rem;
+      font-weight: 600;
+      font-size: 0.88rem;
+      color: var(--bi-text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.2s;
       white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+    }
+    .bi-tab-btn:hover {
+      color: var(--bi-primary);
+      background: rgba(0, 120, 212, 0.04);
+    }
+    .bi-tab-btn.active {
+      color: var(--bi-primary);
+      border-bottom-color: var(--bi-primary);
+      background: rgba(0, 120, 212, 0.04);
     }
 
-    /* PAGE VIEWS CONTAINER */
-    .content-container {
-      padding: 2rem 1.75rem 4rem;
-      flex: 1;
-    }
-
-    .page-view {
+    /* PAGE VIEWS */
+    .tab-content-view {
       display: none;
-      animation: fadeIn 0.3s ease forwards;
+      padding: 1.75rem 1.5rem 3.5rem;
     }
-    .page-view.active {
+    .tab-content-view.active {
       display: block;
+      animation: fadeIn 0.2s ease-in-out;
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(8px); }
+      from { opacity: 0; transform: translateY(4px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* GLASS CARDS & UI COMPONENTS */
-    .glass-card {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-subtle);
-      border-radius: 16px;
-      padding: 1.5rem;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
-    }
-    .glass-card:hover {
-      border-color: rgba(255, 255, 255, 0.15);
-    }
-    .glass-card-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 1.25rem;
-    }
-    .card-title-text {
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: #fff;
-      margin: 0;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    /* KPI SCORECARDS */
-    .kpi-card {
-      background: linear-gradient(135deg, rgba(19, 28, 49, 0.9) 0%, rgba(13, 20, 36, 0.9) 100%);
-      border: 1px solid var(--border-subtle);
-      border-radius: 16px;
-      padding: 1.25rem 1.5rem;
-      position: relative;
-      overflow: hidden;
-      transition: all 0.25s ease;
-    }
-    .kpi-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
-      border-color: rgba(255, 255, 255, 0.18);
-    }
-    .kpi-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; height: 3px;
-      background: var(--kpi-accent, var(--color-primary));
-    }
-    .kpi-label {
-      font-size: 0.8rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: var(--text-muted);
-      margin-bottom: 0.35rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .kpi-value {
-      font-size: 2.2rem;
-      font-weight: 800;
-      font-family: 'Outfit', sans-serif;
-      color: #fff;
-      line-height: 1.1;
-      margin-bottom: 0.35rem;
-    }
-    .kpi-subtext {
-      font-size: 0.78rem;
-      color: var(--text-dim);
-      display: flex;
-      align-items: center;
-      gap: 0.35rem;
-    }
-
-    /* BADGES */
-    .badge-positive {
-      background: rgba(16, 185, 129, 0.15);
-      color: var(--color-positive);
-      border: 1px solid rgba(16, 185, 129, 0.3);
-      font-weight: 700;
-      padding: 3px 8px;
-      border-radius: 6px;
-    }
-    .badge-negative {
-      background: rgba(244, 63, 94, 0.15);
-      color: var(--color-negative);
-      border: 1px solid rgba(244, 63, 94, 0.3);
-      font-weight: 700;
-      padding: 3px 8px;
-      border-radius: 6px;
-    }
-    .badge-anomaly {
-      background: rgba(245, 158, 11, 0.15);
-      color: var(--color-warning);
-      border: 1px solid rgba(245, 158, 11, 0.3);
-      font-weight: 700;
-      padding: 3px 8px;
-      border-radius: 6px;
-    }
-    .badge-neutral {
-      background: rgba(148, 163, 184, 0.15);
-      color: var(--text-muted);
-      border: 1px solid rgba(148, 163, 184, 0.3);
-      font-weight: 700;
-      padding: 3px 8px;
-      border-radius: 6px;
-    }
-
-    /* BUTTONS */
-    .btn-gradient-primary {
-      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
-      color: #fff;
-      border: none;
-      font-weight: 600;
-      padding: 0.6rem 1.25rem;
+    /* SCORECARD CARDS */
+    .bi-scorecard {
+      background: var(--bi-card-bg);
+      border: 1px solid var(--bi-border);
       border-radius: 10px;
-      box-shadow: 0 4px 15px var(--color-primary-glow);
-      transition: all 0.2s;
+      padding: 1.25rem 1.4rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
     }
-    .btn-gradient-primary:hover {
+    .bi-scorecard:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
-      color: #fff;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.05);
     }
-    .btn-glass {
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid var(--border-subtle);
-      color: var(--text-main);
-      font-weight: 600;
-      border-radius: 10px;
-      padding: 0.5rem 1rem;
-      transition: all 0.2s;
+    .bi-scorecard::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; bottom: 0;
+      width: 4px;
+      background: var(--bi-primary);
     }
-    .btn-glass:hover {
-      background: rgba(255, 255, 255, 0.12);
-      border-color: rgba(255, 255, 255, 0.2);
-      color: #fff;
-    }
+    .bi-scorecard.card-primary::before { background: var(--bi-primary); }
+    .bi-scorecard.card-success::before { background: var(--bi-success); }
+    .bi-scorecard.card-warning::before { background: var(--bi-warning); }
+    .bi-scorecard.card-purple::before { background: var(--bi-purple); }
 
-    /* PROJECT CARDS GRID */
-    .project-card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
-      gap: 1.5rem;
-    }
-    .project-app-card {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-subtle);
-      border-radius: 16px;
-      padding: 1.5rem;
-      transition: all 0.25s ease;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-    }
-    .project-app-card:hover {
-      transform: translateY(-4px);
-      border-color: var(--border-focus);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
-    }
-    .project-card-hero {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 1.25rem;
-    }
-    .project-card-icon {
-      width: 54px;
-      height: 54px;
-      border-radius: 14px;
-      object-fit: cover;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    }
-    .project-card-meta {
-      flex: 1;
-      overflow: hidden;
-    }
-    .project-card-name {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: #fff;
-      margin: 0;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .project-card-dev {
+    .scorecard-label {
       font-size: 0.8rem;
-      color: var(--text-dim);
-    }
-
-    /* LIVE SIMULATOR / PLAYGROUND */
-    .simulator-box {
-      background: var(--bg-surface-elevated);
-      border: 1px solid var(--border-subtle);
-      border-radius: 14px;
-      padding: 1.25rem;
-    }
-    .simulator-textarea {
-      background: var(--bg-dark);
-      border: 1px solid var(--border-subtle);
-      color: #fff;
-      border-radius: 10px;
-      padding: 0.85rem;
-      font-size: 0.95rem;
-      width: 100%;
-      min-height: 110px;
-      resize: vertical;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-    .simulator-textarea:focus {
-      border-color: var(--color-primary);
-      box-shadow: 0 0 12px var(--color-primary-glow);
-    }
-
-    .preset-chip {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--border-subtle);
-      border-radius: 20px;
-      padding: 4px 12px;
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      cursor: pointer;
-      transition: all 0.2s;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-    }
-    .preset-chip:hover {
-      background: rgba(99, 102, 241, 0.15);
-      border-color: var(--color-primary);
-      color: #fff;
-    }
-
-    .pipeline-step-node {
-      background: var(--bg-dark);
-      border: 1px solid var(--border-subtle);
-      border-radius: 10px;
-      padding: 0.85rem;
-      margin-bottom: 0.75rem;
-    }
-    .pipeline-step-title {
-      font-size: 0.78rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      color: var(--color-cyan);
+      color: var(--bi-text-muted);
       margin-bottom: 0.35rem;
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      gap: 0.4rem;
+    }
+    .scorecard-value {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--bi-text-main);
+      line-height: 1.2;
+    }
+    .scorecard-subtext {
+      font-size: 0.78rem;
+      color: var(--bi-text-muted);
+      margin-top: 0.35rem;
+    }
+
+    /* BI STANDARD CARDS */
+    .bi-card {
+      background: var(--bi-card-bg);
+      border: 1px solid var(--bi-border);
+      border-radius: 10px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+      margin-bottom: 1.5rem;
+    }
+    .bi-card-header {
+      background: #ffffff;
+      border-bottom: 1px solid var(--bi-border-subtle);
+      padding: 1rem 1.25rem;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--bi-text-main);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+    }
+    .bi-card-body {
+      padding: 1.25rem;
     }
 
     /* CONFUSION MATRIX */
@@ -576,1974 +232,1609 @@
       border-spacing: 6px;
     }
     .cm-cell {
-      background: var(--bg-dark);
-      border: 1px solid var(--border-subtle);
-      border-radius: 10px;
-      padding: 1rem;
+      background: #f8fafc;
+      border: 1px solid var(--bi-border);
+      border-radius: 8px;
+      padding: 0.9rem;
       text-align: center;
-      cursor: pointer;
       transition: all 0.2s;
     }
-    .cm-cell:hover {
-      transform: scale(1.03);
-      border-color: var(--color-primary);
-    }
-    .cm-cell.cell-tp { border-color: rgba(16, 185, 129, 0.4); background: rgba(16, 185, 129, 0.08); }
-    .cm-cell.cell-tn { border-color: rgba(99, 102, 241, 0.4); background: rgba(99, 102, 241, 0.08); }
-    .cm-cell.cell-fp { border-color: rgba(244, 63, 94, 0.4); background: rgba(244, 63, 94, 0.08); }
-    .cm-cell.cell-fn { border-color: rgba(245, 158, 11, 0.4); background: rgba(245, 158, 11, 0.08); }
+    .cm-cell.cell-tp { background: #e8f5e9; border-color: #c8e6c9; }
+    .cm-cell.cell-tn { background: #e3f2fd; border-color: #bbdefb; }
+    .cm-cell.cell-fp { background: #ffebee; border-color: #ffcdd2; }
+    .cm-cell.cell-fn { background: #fff8e1; border-color: #ffecb3; }
 
-    /* DATATABLES DARK THEME */
-    table.dataTable {
-      color: var(--text-main) !important;
-      border-color: var(--border-subtle) !important;
+    /* BADGES */
+    .badge-sentiment-pos {
+      background: #e8f5e9;
+      color: var(--bi-success);
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 0.78rem;
     }
-    .dataTables_wrapper .dataTables_length,
-    .dataTables_wrapper .dataTables_filter,
-    .dataTables_wrapper .dataTables_info,
-    .dataTables_wrapper .dataTables_paginate {
-      color: var(--text-muted) !important;
-      font-size: 0.85rem;
+    .badge-sentiment-neg {
+      background: #ffebee;
+      color: var(--bi-danger);
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 0.78rem;
     }
-    .dataTables_wrapper .dataTables_filter input,
-    .dataTables_wrapper .dataTables_length select {
-      background: var(--bg-surface-elevated) !important;
-      border: 1px solid var(--border-subtle) !important;
-      color: #fff !important;
-      border-radius: 8px !important;
-      padding: 4px 10px !important;
-      outline: none;
-    }
-    .dataTables_wrapper .page-item.active .page-link {
-      background-color: var(--color-primary) !important;
-      border-color: var(--color-primary) !important;
-    }
-    .dataTables_wrapper .page-link {
-      background-color: var(--bg-surface-elevated) !important;
-      border-color: var(--border-subtle) !important;
-      color: var(--text-muted) !important;
+    .badge-anomaly-high {
+      background: #fff3e0;
+      color: var(--bi-warning);
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 0.75rem;
     }
 
-    /* MODAL DARK */
-    .modal-content {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-subtle);
-      color: var(--text-main);
-      border-radius: 18px;
+    /* PRESET CHIPS */
+    .preset-chip {
+      background: #f1f5f9;
+      border: 1px solid var(--bi-border);
+      border-radius: 16px;
+      padding: 4px 12px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--bi-text-main);
+      cursor: pointer;
+      display: inline-block;
+      transition: all 0.15s;
     }
-    .modal-header, .modal-footer {
-      border-color: var(--border-subtle);
-    }
-    .form-control, .form-select {
-      background-color: var(--bg-dark);
-      border-color: var(--border-subtle);
-      color: #fff;
-    }
-    .form-control:focus, .form-select:focus {
-      background-color: var(--bg-dark);
-      border-color: var(--color-primary);
-      color: #fff;
-      box-shadow: 0 0 12px var(--color-primary-glow);
+    .preset-chip:hover {
+      background: #e2e8f0;
+      color: var(--bi-primary);
+      border-color: var(--bi-primary);
     }
 
-    /* APP PREVIEW CARD IN MODAL */
+    /* APP PREVIEW CARD */
     .app-preview-card {
-      background: var(--bg-surface-elevated);
-      border: 1px solid var(--border-subtle);
-      border-radius: 12px;
-      padding: 1rem;
+      background: #f8fafc;
+      border: 1px solid var(--bi-border);
+      border-radius: 10px;
+      padding: 0.85rem 1rem;
       display: flex;
       align-items: center;
       gap: 1rem;
     }
 
-    /* RESPONSIVE */
-    @media (max-width: 992px) {
-      .app-sidebar {
-        transform: translateX(-100%);
-      }
-      .app-sidebar.show {
-        transform: translateX(0);
-      }
-      .app-main {
-        margin-left: 0;
-      }
+    /* DATATABLES BI STYLING */
+    table.dataTable thead th {
+      background-color: #f8fafc !important;
+      color: var(--bi-text-muted) !important;
+      font-size: 0.8rem !important;
+      font-weight: 700 !important;
+      text-transform: uppercase !important;
+      border-bottom: 2px solid var(--bi-border) !important;
+      padding: 10px 14px !important;
+    }
+    table.dataTable tbody td {
+      padding: 10px 14px !important;
+      font-size: 0.86rem !important;
+      border-bottom: 1px solid var(--bi-border-subtle) !important;
+      vertical-align: middle !important;
+    }
+    .dataTables_wrapper .dataTables_filter input {
+      border: 1px solid var(--bi-border) !important;
+      border-radius: 6px !important;
+      padding: 5px 10px !important;
+      outline: none;
     }
   </style>
 </head>
 <body>
 
-<div class="app-layout">
-  <!-- SIDEBAR -->
-  <aside class="app-sidebar" id="appSidebar">
-    <div class="sidebar-brand">
-      <div class="brand-icon">
-        <i class="fa-solid fa-atom"></i>
+  <!-- ===================================================================== -->
+  <!-- TOP NAVBAR                                                            -->
+  <!-- ===================================================================== -->
+  <header class="bi-navbar d-flex flex-wrap align-items-center justify-content-between gap-3">
+    <div class="d-flex align-items-center gap-3">
+      <div class="bi-brand-icon" id="headerAppIconContainer">
+        <img src="https://play-lh.googleusercontent.com/rN5o_e2373oTvdVz5x-m-Gq_oK23Mv5M1h7x-x8_y-4z8z_z-z" id="headerAppIcon" alt="App Icon">
       </div>
       <div>
-        <div class="brand-title">MINESTORE</div>
-        <div class="brand-subtitle">Naive Bayes BI Studio</div>
-      </div>
-    </div>
-
-    <nav class="sidebar-nav">
-      <div class="nav-group-title">Menu Utama</div>
-      
-      <a href="#projects" class="nav-item-link" data-route="projects">
-        <i class="fa-solid fa-layer-group"></i>
-        <span>Projects Hub</span>
-        <span class="nav-badge" id="navProjectCount">2</span>
-      </a>
-
-      <a href="#dashboard" class="nav-item-link active" data-route="dashboard">
-        <i class="fa-solid fa-chart-pie"></i>
-        <span>Executive BI</span>
-      </a>
-
-      <a href="#ml-studio" class="nav-item-link" data-route="ml-studio">
-        <i class="fa-solid fa-brain"></i>
-        <span>Naive Bayes Studio</span>
-        <span class="nav-badge" style="background: rgba(16, 185, 129, 0.2); color: #10b981;">Live</span>
-      </a>
-
-      <a href="#explorer" class="nav-item-link" data-route="explorer">
-        <i class="fa-solid fa-table-list"></i>
-        <span>Data Explorer</span>
-      </a>
-
-      <div class="nav-group-title mt-2">Analisis Lanjutan</div>
-
-      <a href="#compare" class="nav-item-link" data-route="compare">
-        <i class="fa-solid fa-chart-simple"></i>
-        <span>App Comparison</span>
-      </a>
-
-      <a href="#anomalies" class="nav-item-link" data-route="anomalies">
-        <i class="fa-solid fa-triangle-exclamation"></i>
-        <span>Anomaly Center</span>
-        <span class="nav-badge" style="background: rgba(245, 158, 11, 0.2); color: #f59e0b;" id="navAnomalyBadge">0</span>
-      </a>
-    </nav>
-
-    <div class="sidebar-footer">
-      <div class="active-engine-card">
-        <div class="d-flex align-items-center justify-content-between mb-1">
-          <span style="font-size: 0.75rem; font-weight: 700; color: #fff;">
-            <i class="fa-solid fa-microchip text-primary me-1"></i> MNB Engine
-          </span>
-          <span class="badge bg-success" style="font-size: 0.65rem;">Active</span>
+        <div class="d-flex align-items-center gap-2">
+          <h5 class="fw-bold mb-0 text-dark" id="headerAppName">Mobile JKN (BPJS Kesehatan)</h5>
+          <span class="badge bg-primary px-2 py-1" style="font-size: 0.7rem;">Multinomial Naive Bayes</span>
         </div>
-        <div style="font-size: 0.7rem; color: var(--text-dim);">
-          Laplace &alpha;=1.0 &bull; Sastrawi Stemmer
+        <div class="text-muted" style="font-size: 0.78rem;">
+          Business Intelligence & Analytics &bull; 
+          <span class="text-success fw-semibold"><i class="fa-solid fa-check-circle"></i> Sastrawi Stemmer &bull; TF-IDF &bull; Laplace &alpha;=1.0</span>
         </div>
       </div>
     </div>
-  </aside>
 
-  <!-- MAIN CONTENT AREA -->
-  <main class="app-main">
-    <!-- TOPBAR -->
-    <header class="app-topbar">
-      <div class="d-flex align-items-center gap-3">
-        <button class="btn btn-glass d-lg-none" id="sidebarToggleBtn">
-          <i class="fa-solid fa-bars"></i>
-        </button>
-        <div class="topbar-breadcrumbs">
-          <span class="breadcrumb-root">MINESTORE</span>
-          <i class="fa-solid fa-chevron-right text-dim" style="font-size: 0.7rem;"></i>
-          <span class="breadcrumb-current" id="topbarPageTitle">Executive BI Dashboard</span>
-        </div>
+    <div class="d-flex align-items-center gap-2">
+      <!-- PROJECT SELECTOR DROPDOWN -->
+      <div class="project-selector-container d-flex align-items-center gap-2">
+        <label for="projectSelect" class="text-muted small fw-bold mb-0 ps-1"><i class="fa-solid fa-folder-open text-primary me-1"></i>Project:</label>
+        <select id="projectSelect" class="project-select">
+          <option value="mobile-jkn">Memuat daftar project...</option>
+        </select>
       </div>
 
-      <div class="topbar-actions">
-        <!-- ACTIVE PROJECT SELECTOR PILL -->
-        <div class="dropdown">
-          <div class="project-pill-dropdown" data-bs-toggle="dropdown" id="activeProjectPill">
-            <img src="https://play-lh.googleusercontent.com/rN5o_e2373oTvdVz5x-m-Gq_oK23Mv5M1h7x-x8_y-4z8z_z-z" class="pill-app-icon" id="topbarAppIcon" alt="App Icon">
-            <span class="pill-app-name" id="topbarAppName">Mobile JKN</span>
-            <i class="fa-solid fa-chevron-down text-dim" style="font-size: 0.75rem;"></i>
-          </div>
-          <ul class="dropdown-menu dropdown-menu-end shadow-lg" id="topbarProjectDropdown" style="background: var(--bg-surface-elevated); border-color: var(--border-subtle); min-width: 260px;">
-            <!-- Populated via JS -->
-          </ul>
-        </div>
+      <!-- CREATE NEW PROJECT BUTTON -->
+      <button class="btn btn-primary btn-sm fw-bold px-3 py-2" data-bs-toggle="modal" data-bs-target="#createProjectModal">
+        <i class="fa-solid fa-plus me-1"></i> Buat Project Baru
+      </button>
+    </div>
+  </header>
 
-        <!-- NEW PROJECT CTA BUTTON -->
-        <button class="btn btn-gradient-primary" data-bs-toggle="modal" data-bs-target="#newProjectModal">
-          <i class="fa-solid fa-plus me-1"></i> Buat Project Baru
-        </button>
-      </div>
-    </header>
+  <!-- ===================================================================== -->
+  <!-- SUB-NAV TABS (MULTI-PAGE VIEWS)                                       -->
+  <!-- ===================================================================== -->
+  <nav class="bi-nav-tabs">
+    <button class="bi-tab-btn active" onclick="switchTab('dashboard')">
+      <i class="fa-solid fa-chart-pie"></i> Executive Overview
+    </button>
+    <button class="bi-tab-btn" onclick="switchTab('ml-studio')">
+      <i class="fa-solid fa-brain"></i> Naive Bayes Model & Simulator
+    </button>
+    <button class="bi-tab-btn" onclick="switchTab('explorer')">
+      <i class="fa-solid fa-table-list"></i> Review Data Explorer
+    </button>
+    <button class="bi-tab-btn" onclick="switchTab('compare')">
+      <i class="fa-solid fa-chart-simple"></i> Komparasi Multi-Aplikasi
+    </button>
+    <button class="bi-tab-btn" onclick="switchTab('anomalies')">
+      <i class="fa-solid fa-triangle-exclamation"></i> Pusat Deteksi Anomali
+    </button>
+  </nav>
 
-    <!-- CONTENT BODY -->
-    <div class="content-container">
-
-      <!-- ================================================================= -->
-      <!-- VIEW 1: PROJECTS HUB (#projects)                                  -->
-      <!-- ================================================================= -->
-      <section class="page-view" id="view-projects">
-        <div class="d-flex align-items-center justify-content-between mb-4">
+  <!-- ===================================================================== -->
+  <!-- TAB 1: EXECUTIVE OVERVIEW DASHBOARD                                   -->
+  <!-- ===================================================================== -->
+  <section class="tab-content-view active" id="tab-dashboard">
+    <!-- APP HERO INFO BANNER -->
+    <div class="bi-card mb-4" style="background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);">
+      <div class="bi-card-body d-flex flex-wrap align-items-center justify-content-between gap-3">
+        <div class="d-flex align-items-center gap-3">
+          <img src="" id="heroAppIcon" class="rounded-3 border" style="width: 56px; height: 56px; object-fit: cover;" alt="App Icon">
           <div>
-            <h2 class="font-outfit fw-bold text-white mb-1">Projects & Apps Workspace</h2>
-            <p class="text-muted mb-0">Kelola dan bandingkan seluruh hasil scraping & training Naive Bayes aplikasi Play Store.</p>
-          </div>
-          <button class="btn btn-gradient-primary" data-bs-toggle="modal" data-bs-target="#newProjectModal">
-            <i class="fa-solid fa-plus me-1"></i> Analisis Aplikasi Baru
-          </button>
-        </div>
-
-        <!-- PROJECTS STATS BANNER -->
-        <div class="row g-3 mb-4">
-          <div class="col-md-3">
-            <div class="kpi-card" style="--kpi-accent: var(--color-primary);">
-              <div class="kpi-label">Total Aplikasi <i class="fa-solid fa-mobile-screen"></i></div>
-              <div class="kpi-value" id="hubTotalApps">0</div>
-              <div class="kpi-subtext"><i class="fa-solid fa-check text-success"></i> Siap dianalisis</div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="kpi-card" style="--kpi-accent: var(--color-cyan);">
-              <div class="kpi-label">Total Ulasan <i class="fa-solid fa-comments"></i></div>
-              <div class="kpi-value" id="hubTotalReviews">0</div>
-              <div class="kpi-subtext"><i class="fa-solid fa-database text-info"></i> Play Store Dataset</div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="kpi-card" style="--kpi-accent: var(--color-positive);">
-              <div class="kpi-label">Rata-Rata Akurasi <i class="fa-solid fa-bullseye"></i></div>
-              <div class="kpi-value" id="hubAvgAccuracy">0%</div>
-              <div class="kpi-subtext"><i class="fa-solid fa-shield-halved text-success"></i> Model Naive Bayes</div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="kpi-card" style="--kpi-accent: var(--color-warning);">
-              <div class="kpi-label">Total Anomali <i class="fa-solid fa-triangle-exclamation"></i></div>
-              <div class="kpi-value" id="hubTotalAnomalies">0</div>
-              <div class="kpi-subtext"><i class="fa-solid fa-bug text-warning"></i> Sarcasm & Misclicks</div>
+            <h5 class="fw-bold text-dark mb-1" id="heroAppTitle">Mobile JKN</h5>
+            <div class="text-muted" style="font-size: 0.85rem;">
+              <span id="heroDeveloper">BPJS Kesehatan</span> &bull; 
+              <span class="text-warning fw-bold"><i class="fa-solid fa-star"></i> <span id="heroScore">4.5</span></span> Play Store Rating &bull;
+              <span id="heroSampleCount">5.000</span> Ulasan Dianalisis
             </div>
           </div>
         </div>
-
-        <!-- PROJECT CARDS GRID -->
-        <div class="project-card-grid" id="projectCardsContainer">
-          <!-- Populated by JS -->
+        <div>
+          <span class="badge bg-light text-dark border p-2 fw-normal" style="font-size: 0.8rem;">
+            <i class="fa-solid fa-clock text-primary me-1"></i> Terakhir Diperbarui: <strong id="heroCreatedAt">-</strong>
+          </span>
         </div>
-      </section>
+      </div>
+    </div>
 
-      <!-- ================================================================= -->
-      <!-- VIEW 2: EXECUTIVE BI DASHBOARD (#dashboard)                       -->
-      <!-- ================================================================= -->
-      <section class="page-view active" id="view-dashboard">
-        <!-- ACTIVE APP HERO BANNER -->
-        <div class="glass-card mb-4" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.12) 0%, rgba(13, 20, 36, 0.95) 100%);">
-          <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
-            <div class="d-flex align-items-center gap-3">
-              <img src="" id="dashHeroAppIcon" class="rounded-4" style="width: 64px; height: 64px; object-fit: cover;" alt="App Icon">
+    <!-- 4 EXECUTIVE SCORECARDS -->
+    <div class="row g-3 mb-4">
+      <div class="col-md-3">
+        <div class="bi-scorecard card-primary">
+          <div class="scorecard-label">Total Ulasan <i class="fa-solid fa-comments text-primary"></i></div>
+          <div class="scorecard-value" id="kpiTotalReviews">-</div>
+          <div class="scorecard-subtext"><i class="fa-solid fa-database me-1 text-primary"></i> Play Store Live Scraper</div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="bi-scorecard card-success">
+          <div class="scorecard-label">Akurasi Naive Bayes <i class="fa-solid fa-bullseye text-success"></i></div>
+          <div class="scorecard-value text-success" id="kpiAccuracy">-</div>
+          <div class="scorecard-subtext"><i class="fa-solid fa-shield-halved me-1 text-success"></i> Laplace Smoothing &alpha;=1.0</div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="bi-scorecard card-purple">
+          <div class="scorecard-label">Proporsi Sentimen <i class="fa-solid fa-scale-balanced text-primary"></i></div>
+          <div class="scorecard-value" style="font-size: 1.6rem;" id="kpiSentimentRatio">-</div>
+          <div class="scorecard-subtext" id="kpiSentimentDetail">Positif vs Negatif</div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="bi-scorecard card-warning">
+          <div class="scorecard-label">Anomali Terdeteksi <i class="fa-solid fa-triangle-exclamation text-warning"></i></div>
+          <div class="scorecard-value text-warning" id="kpiAnomalies">-</div>
+          <div class="scorecard-subtext" id="kpiAnomalyRatio"><i class="fa-solid fa-bug me-1 text-warning"></i> Sarcasm & Mismatch</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHARTS ROW 1: 3-WAY COMPARISON & SENTIMENT DOUGHNUT -->
+    <div class="row g-4 mb-4">
+      <div class="col-lg-8">
+        <div class="bi-card h-100">
+          <div class="bi-card-header">
+            <span><i class="fa-solid fa-chart-column text-primary me-2"></i>Komparasi Sentimen 3-Parameter</span>
+            <span class="badge bg-light text-secondary border">Rating vs Ground Truth vs Naive Bayes</span>
+          </div>
+          <div class="bi-card-body" style="height: 320px; position: relative;">
+            <canvas id="chartComparison"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="bi-card h-100">
+          <div class="bi-card-header">
+            <span><i class="fa-solid fa-chart-pie text-success me-2"></i>Proporsi Sentimen ML</span>
+            <span class="badge bg-success" id="badgePosRatio">0% Positif</span>
+          </div>
+          <div class="bi-card-body">
+            <div style="height: 220px; position: relative;">
+              <canvas id="chartSentimentDoughnut"></canvas>
+            </div>
+            <div class="d-flex justify-content-around mt-3 pt-2 border-top text-center">
               <div>
-                <div class="d-flex align-items-center gap-2 mb-1">
-                  <h3 class="font-outfit fw-bold text-white mb-0" id="dashHeroAppName">Memuat...</h3>
-                  <span class="badge bg-primary" id="dashHeroAppId">com.app</span>
-                </div>
-                <div class="text-muted" style="font-size: 0.88rem;">
-                  <span id="dashHeroDeveloper">Pengembang</span> &bull; 
-                  <span class="text-warning"><i class="fa-solid fa-star"></i> <span id="dashHeroRating">-</span> Play Store</span> &bull;
-                  <span id="dashHeroSampleCount">5.000</span> Ulasan Dianalisis
-                </div>
+                <div class="text-success fw-bold" id="legendPosVal">0</div>
+                <div class="text-muted" style="font-size: 0.75rem;">Positif</div>
               </div>
-            </div>
-            <div class="d-flex gap-2">
-              <button class="btn btn-glass" onclick="switchRoute('ml-studio')">
-                <i class="fa-solid fa-brain text-primary me-1"></i> Live Sandbox
-              </button>
-              <button class="btn btn-glass" onclick="switchRoute('explorer')">
-                <i class="fa-solid fa-table me-1"></i> Data Explorer
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- KPI CARDS -->
-        <div class="row g-3 mb-4">
-          <div class="col-md-3">
-            <div class="kpi-card" style="--kpi-accent: var(--color-cyan);">
-              <div class="kpi-label">Ulasan Teranalisis <i class="fa-solid fa-comments"></i></div>
-              <div class="kpi-value" id="kpiTotalReviews">-</div>
-              <div class="kpi-subtext"><i class="fa-solid fa-bolt text-cyan"></i> Google Play Store Scraper</div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="kpi-card" style="--kpi-accent: var(--color-primary);">
-              <div class="kpi-label">Akurasi Naive Bayes <i class="fa-solid fa-bullseye"></i></div>
-              <div class="kpi-value" id="kpiAccuracy">-</div>
-              <div class="kpi-subtext"><i class="fa-solid fa-check text-success"></i> Laplace Smoothing &alpha;=1.0</div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="kpi-card" style="--kpi-accent: var(--color-positive);">
-              <div class="kpi-label">Net Sentiment Score <i class="fa-solid fa-chart-line"></i></div>
-              <div class="kpi-value" id="kpiNSS">-</div>
-              <div class="kpi-subtext" id="kpiNSSStatus"><i class="fa-solid fa-arrow-up text-success"></i> Positif vs Negatif</div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="kpi-card" style="--kpi-accent: var(--color-warning);">
-              <div class="kpi-label">Anomali Terdeteksi <i class="fa-solid fa-triangle-exclamation"></i></div>
-              <div class="kpi-value" id="kpiAnomalies">-</div>
-              <div class="kpi-subtext" id="kpiAnomalyRatio"><i class="fa-solid fa-exclamation text-warning"></i> Sarcasm & Mismatch</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- CHARTS ROW 1: 3-WAY COMPARISON & SENTIMENT DOUGHNUT -->
-        <div class="row g-4 mb-4">
-          <div class="col-lg-8">
-            <div class="glass-card h-100">
-              <div class="glass-card-header">
-                <h5 class="card-title-text">
-                  <i class="fa-solid fa-chart-column text-primary"></i> Komparasi Sentimen 3-Parameter
-                </h5>
-                <span class="badge bg-secondary" style="font-size: 0.75rem;">Star vs Ground Truth vs Naive Bayes</span>
+              <div>
+                <div class="text-danger fw-bold" id="legendNegVal">0</div>
+                <div class="text-muted" style="font-size: 0.75rem;">Negatif</div>
               </div>
-              <div style="height: 320px; position: relative;">
-                <canvas id="chartComparison"></canvas>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4">
-            <div class="glass-card h-100">
-              <div class="glass-card-header">
-                <h5 class="card-title-text">
-                  <i class="fa-solid fa-chart-pie text-cyan"></i> Proporsi Sentimen ML
-                </h5>
-                <span class="badge bg-success" id="badgePosRatio">0% Pos</span>
-              </div>
-              <div style="height: 240px; position: relative;">
-                <canvas id="chartSentimentDoughnut"></canvas>
-              </div>
-              <div class="d-flex justify-content-around mt-3 pt-2 border-top border-secondary border-opacity-25 text-center">
-                <div>
-                  <div class="text-success fw-bold" id="legendPosVal">0</div>
-                  <div class="text-dim" style="font-size: 0.75rem;">Positif</div>
-                </div>
-                <div>
-                  <div class="text-danger fw-bold" id="legendNegVal">0</div>
-                  <div class="text-dim" style="font-size: 0.75rem;">Negatif</div>
-                </div>
-                <div>
-                  <div class="text-muted fw-bold" id="legendNeuVal">0</div>
-                  <div class="text-dim" style="font-size: 0.75rem;">Netral</div>
-                </div>
+              <div>
+                <div class="text-secondary fw-bold" id="legendNeuVal">0</div>
+                <div class="text-muted" style="font-size: 0.75rem;">Netral</div>
               </div>
             </div>
           </div>
         </div>
-
-        <!-- CHARTS ROW 2: TOP TF-IDF DRIVERS (POSITIF & NEGATIF) -->
-        <div class="row g-4 mb-4">
-          <div class="col-lg-6">
-            <div class="glass-card h-100">
-              <div class="glass-card-header">
-                <h5 class="card-title-text text-success">
-                  <i class="fa-solid fa-thumbs-up me-1"></i> Top 10 Driver Sentimen Positif (Pujian)
-                </h5>
-                <span class="badge bg-success bg-opacity-25 text-success">TF-IDF Importance</span>
-              </div>
-              <div style="height: 300px; position: relative;">
-                <canvas id="chartTopPositive"></canvas>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-6">
-            <div class="glass-card h-100">
-              <div class="glass-card-header">
-                <h5 class="card-title-text text-danger">
-                  <i class="fa-solid fa-thumbs-down me-1"></i> Top 10 Driver Sentimen Negatif (Keluhan)
-                </h5>
-                <span class="badge bg-danger bg-opacity-25 text-danger">TF-IDF Importance</span>
-              </div>
-              <div style="height: 300px; position: relative;">
-                <canvas id="chartTopNegative"></canvas>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ================================================================= -->
-      <!-- VIEW 3: NAIVE BAYES ML STUDIO & LIVE SIMULATOR (#ml-studio)       -->
-      <!-- ================================================================= -->
-      <section class="page-view" id="view-ml-studio">
-        <div class="d-flex align-items-center justify-content-between mb-4">
-          <div>
-            <h2 class="font-outfit fw-bold text-white mb-1">Multinomial Naive Bayes ML Studio</h2>
-            <p class="text-muted mb-0">Uji inferensi model real-time, evaluasi Confusion Matrix, dan bedah matematis algoritma.</p>
-          </div>
-          <span class="badge bg-primary px-3 py-2" style="font-size: 0.85rem;">
-            <i class="fa-solid fa-code-branch me-1"></i> Sastrawi + TF-IDF + MNB
-          </span>
-        </div>
-
-        <!-- ROW 1: LIVE SENTIMENT PLAYGROUND -->
-        <div class="row g-4 mb-4">
-          <div class="col-lg-7">
-            <div class="glass-card h-100">
-              <div class="glass-card-header">
-                <h5 class="card-title-text text-white">
-                  <i class="fa-solid fa-bolt text-warning"></i> Live Sentiment Playground (Sandbox)
-                </h5>
-                <span class="badge bg-primary bg-opacity-25 text-primary">Real-Time Inference</span>
-              </div>
-
-              <div class="mb-3">
-                <label class="form-label text-muted small fw-bold">Ketik teks ulasan apa pun untuk diuji:</label>
-                <textarea class="simulator-textarea" id="simInputText" placeholder="Contoh: Aplikasinya mantap bgt prosesnya cepet 👍👍 suka sekali"></textarea>
-              </div>
-
-              <!-- PRESET CHIPS -->
-              <div class="mb-3">
-                <div class="text-dim small mb-2 fw-semibold">Coba Preset Contoh Ulasan:</div>
-                <div class="d-flex flex-wrap gap-2">
-                  <span class="preset-chip" onclick="setSimPreset('pujian')">
-                    <i class="fa-solid fa-thumbs-up text-success"></i> Pujian Pelayanan
-                  </span>
-                  <span class="preset-chip" onclick="setSimPreset('sarkas')">
-                    <i class="fa-solid fa-masks-theater text-warning"></i> Sarkasme 5★
-                  </span>
-                  <span class="preset-chip" onclick="setSimPreset('salah_klik')">
-                    <i class="fa-solid fa-arrow-pointer text-info"></i> Pujian Bintang 1
-                  </span>
-                  <span class="preset-chip" onclick="setSimPreset('emoji')">
-                    <i class="fa-solid fa-face-smile text-primary"></i> Emoji Bertubi-tubi
-                  </span>
-                  <span class="preset-chip" onclick="setSimPreset('slang')">
-                    <i class="fa-solid fa-comment-dots text-danger"></i> Slang / Bahasa Gaul
-                  </span>
-                </div>
-              </div>
-
-              <div class="d-flex justify-content-between align-items-center pt-2 border-top border-secondary border-opacity-25">
-                <div class="text-muted small">
-                  Model Aktif: <strong class="text-white" id="simActiveModelName">Mobile JKN</strong>
-                </div>
-                <button class="btn btn-gradient-primary" id="btnSimPredict" onclick="runLivePrediction()">
-                  <i class="fa-solid fa-paper-plane me-1"></i> Prediksi Sentimen Real-Time
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <!-- LIVE PREDICTION RESULT CARD -->
-          <div class="col-lg-5">
-            <div class="glass-card h-100" id="simResultContainer">
-              <div class="glass-card-header">
-                <h5 class="card-title-text">
-                  <i class="fa-solid fa-gauge-high text-cyan"></i> Hasil Prediksi Model
-                </h5>
-                <span class="badge bg-secondary" id="simStatusBadge">Menunggu Input</span>
-              </div>
-
-              <div id="simEmptyState" class="text-center py-5 text-muted">
-                <i class="fa-solid fa-wand-magic-sparkles mb-3" style="font-size: 2.5rem; opacity: 0.4;"></i>
-                <p class="mb-0">Ketik kalimat ulasan dan tekan <strong>Prediksi Sentimen</strong> untuk melihat visualisasi langkah demi langkah.</p>
-              </div>
-
-              <div id="simActiveResult" style="display: none;">
-                <!-- DECISION HERO -->
-                <div class="p-3 rounded-3 mb-3 text-center" id="simDecisionBanner" style="background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.3);">
-                  <div class="text-dim small text-uppercase fw-bold">Hasil Klasifikasi Naive Bayes</div>
-                  <div class="font-outfit fw-bold text-success display-6 my-1" id="simResultLabel">Positif</div>
-                  <div class="text-white small">Confidence Score: <strong id="simResultConfidence">99.45%</strong></div>
-                </div>
-
-                <!-- PROBABILITY BARS -->
-                <div class="mb-3">
-                  <div class="d-flex justify-content-between small text-muted mb-1">
-                    <span>Probabilitas Positif:</span>
-                    <strong class="text-success" id="simProbPos">99.45%</strong>
-                  </div>
-                  <div class="progress mb-2" style="height: 6px; background: var(--bg-dark);">
-                    <div class="progress-bar bg-success" id="simBarPos" style="width: 99.45%;"></div>
-                  </div>
-
-                  <div class="d-flex justify-content-between small text-muted mb-1">
-                    <span>Probabilitas Negatif:</span>
-                    <strong class="text-danger" id="simProbNeg">0.55%</strong>
-                  </div>
-                  <div class="progress" style="height: 6px; background: var(--bg-dark);">
-                    <div class="progress-bar bg-danger" id="simBarNeg" style="width: 0.55%;"></div>
-                  </div>
-                </div>
-
-                <!-- STEP BY STEP PIPELINE ACCORDION -->
-                <div class="pipeline-step-node">
-                  <div class="pipeline-step-title"><i class="fa-solid fa-1"></i> 1. Emoji & Slang Normalized</div>
-                  <div class="text-white small" id="simStepEmojiSlang">-</div>
-                </div>
-
-                <div class="pipeline-step-node">
-                  <div class="pipeline-step-title"><i class="fa-solid fa-2"></i> 2. Sastrawi Morphological Stemming</div>
-                  <div class="text-white small" id="simStepStemmed">-</div>
-                </div>
-
-                <div class="pipeline-step-node mb-0">
-                  <div class="pipeline-step-title"><i class="fa-solid fa-3"></i> 3. Fitur TF-IDF & Log-Probabilitas</div>
-                  <div class="d-flex flex-wrap gap-1" id="simMatchedTermsContainer">
-                    <!-- Chips -->
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ROW 2: CONFUSION MATRIX & MODEL METRICS -->
-        <div class="row g-4 mb-4">
-          <div class="col-lg-6">
-            <div class="glass-card h-100">
-              <div class="glass-card-header">
-                <h5 class="card-title-text">
-                  <i class="fa-solid fa-border-all text-primary"></i> Confusion Matrix Interaktif (Data Uji 20%)
-                </h5>
-                <span class="badge bg-secondary">Test Set Evaluasi</span>
-              </div>
-
-              <div class="table-responsive">
-                <table class="cm-table">
-                  <thead>
-                    <tr>
-                      <th class="text-dim text-center small">Actual \ Predicted</th>
-                      <th class="text-success text-center small fw-bold">Prediksi POSITIF</th>
-                      <th class="text-danger text-center small fw-bold">Prediksi NEGATIF</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td class="text-success small fw-bold text-center">Actual POSITIF</td>
-                      <td class="cm-cell cell-tp" onclick="filterExplorerByCM('TP')">
-                        <div class="text-success font-outfit fw-bold fs-4" id="cmTP">441</div>
-                        <div class="text-dim" style="font-size: 0.72rem;">True Positive (TP)</div>
-                      </td>
-                      <td class="cm-cell cell-fn" onclick="filterExplorerByCM('FN')">
-                        <div class="text-warning font-outfit fw-bold fs-4" id="cmFN">35</div>
-                        <div class="text-dim" style="font-size: 0.72rem;">False Negative (FN)</div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="text-danger small fw-bold text-center">Actual NEGATIF</td>
-                      <td class="cm-cell cell-fp" onclick="filterExplorerByCM('FP')">
-                        <div class="text-danger font-outfit fw-bold fs-4" id="cmFP">60</div>
-                        <div class="text-dim" style="font-size: 0.72rem;">False Positive (FP)</div>
-                      </td>
-                      <td class="cm-cell cell-tn" onclick="filterExplorerByCM('TN')">
-                        <div class="text-primary font-outfit fw-bold fs-4" id="cmTN">464</div>
-                        <div class="text-dim" style="font-size: 0.72rem;">True Negative (TN)</div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <div class="text-dim small mt-2 text-center">
-                <i class="fa-solid fa-circle-info me-1"></i> Klik kotak cell di atas untuk melihat ulasan terkait di Data Explorer.
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-6">
-            <div class="glass-card h-100">
-              <div class="glass-card-header">
-                <h5 class="card-title-text">
-                  <i class="fa-solid fa-square-poll-vertical text-success"></i> Metrik Evaluasi Model (Classification Report)
-                </h5>
-                <span class="badge bg-success" id="evalAccBadge">Akurasi 90.50%</span>
-              </div>
-
-              <div class="table-responsive">
-                <table class="table table-dark table-borderless align-middle mb-0">
-                  <thead>
-                    <tr class="border-bottom border-secondary border-opacity-25 text-dim small">
-                      <th>KELAS SENTIMEN</th>
-                      <th class="text-center">PRECISION</th>
-                      <th class="text-center">RECALL</th>
-                      <th class="text-center">F1-SCORE</th>
-                      <th class="text-center">SUPPORT</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td class="text-success fw-bold"><i class="fa-solid fa-circle text-success me-1" style="font-size: 0.5rem;"></i> Positif</td>
-                      <td class="text-center fw-semibold text-white" id="metricPosPrec">94.24%</td>
-                      <td class="text-center fw-semibold text-white" id="metricPosRec">92.64%</td>
-                      <td class="text-center fw-semibold text-white" id="metricPosF1">93.43%</td>
-                      <td class="text-center text-muted" id="metricPosSupp">476</td>
-                    </tr>
-                    <tr>
-                      <td class="text-danger fw-bold"><i class="fa-solid fa-circle text-danger me-1" style="font-size: 0.5rem;"></i> Negatif</td>
-                      <td class="text-center fw-semibold text-white" id="metricNegPrec">86.43%</td>
-                      <td class="text-center fw-semibold text-white" id="metricNegRec">93.67%</td>
-                      <td class="text-center fw-semibold text-white" id="metricNegF1">89.90%</td>
-                      <td class="text-center text-muted" id="metricNegSupp">524</td>
-                    </tr>
-                    <tr class="border-top border-secondary border-opacity-25">
-                      <td class="text-primary fw-bold">Macro Average</td>
-                      <td class="text-center fw-bold text-cyan" id="metricMacroPrec">90.33%</td>
-                      <td class="text-center fw-bold text-cyan" id="metricMacroRec">93.15%</td>
-                      <td class="text-center fw-bold text-cyan" id="metricMacroF1">61.11%</td>
-                      <td class="text-center text-muted">1.000</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-
-              <div class="mt-3 p-2 rounded-3 bg-dark border border-secondary border-opacity-25 small text-muted">
-                <i class="fa-solid fa-calculator text-primary me-1"></i> Laplace Smoothing: <strong>&alpha; = 1.0</strong> | Vocabulary TF-IDF: <strong id="evalVocabSize">5.537 fitur</strong>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ================================================================= -->
-      <!-- VIEW 4: DATA EXPLORER (#explorer)                                 -->
-      <!-- ================================================================= -->
-      <section class="page-view" id="view-explorer">
-        <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
-          <div>
-            <h2 class="font-outfit fw-bold text-white mb-1">Review Data Explorer</h2>
-            <p class="text-muted mb-0">Eksplorasi dataset ulasan lengkap dengan filter multi-dimensi dan inspeksi probabilitas.</p>
-          </div>
-          <div class="d-flex gap-2">
-            <button class="btn btn-glass" onclick="exportCurrentTable('csv')">
-              <i class="fa-solid fa-file-csv text-success me-1"></i> Export CSV
-            </button>
-            <button class="btn btn-glass" onclick="exportCurrentTable('json')">
-              <i class="fa-solid fa-file-code text-cyan me-1"></i> Export JSON
-            </button>
-          </div>
-        </div>
-
-        <!-- FILTER TOOLBAR -->
-        <div class="glass-card mb-4">
-          <div class="row g-3 align-items-end">
-            <div class="col-md-3">
-              <label class="form-label text-dim small fw-bold">Filter Sentimen ML</label>
-              <select class="form-select" id="filterSentiment" onchange="applyTableFilters()">
-                <option value="ALL">Semua Sentimen</option>
-                <option value="Positif">Hanya Positif</option>
-                <option value="Negatif">Hanya Negatif</option>
-                <option value="Netral">Hanya Netral</option>
-              </select>
-            </div>
-
-            <div class="col-md-3">
-              <label class="form-label text-dim small fw-bold">Filter Rating Bintang</label>
-              <select class="form-select" id="filterRating" onchange="applyTableFilters()">
-                <option value="ALL">Semua Rating Bintang</option>
-                <option value="5">⭐⭐⭐⭐⭐ (5 Bintang)</option>
-                <option value="4">⭐⭐⭐⭐ (4 Bintang)</option>
-                <option value="3">⭐⭐⭐ (3 Bintang)</option>
-                <option value="2">⭐⭐ (2 Bintang)</option>
-                <option value="1">⭐ (1 Bintang)</option>
-              </select>
-            </div>
-
-            <div class="col-md-3">
-              <label class="form-label text-dim small fw-bold">Filter Status Anomali</label>
-              <select class="form-select" id="filterAnomaly" onchange="applyTableFilters()">
-                <option value="ALL">Semua Status</option>
-                <option value="ANOMALY">Hanya Ulasan Anomali</option>
-                <option value="NORMAL">Hanya Sesuai (Non-Anomali)</option>
-              </select>
-            </div>
-
-            <div class="col-md-3">
-              <button class="btn btn-glass w-100" onclick="resetTableFilters()">
-                <i class="fa-solid fa-rotate-left me-1"></i> Reset Semua Filter
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- DATATABLE CARD -->
-        <div class="glass-card">
-          <div class="table-responsive">
-            <table class="table table-dark table-hover align-middle mb-0" id="mainDataTable" style="width:100%;">
-              <thead>
-                <tr class="text-dim small border-bottom border-secondary border-opacity-25">
-                  <th style="width: 50px;">No</th>
-                  <th style="width: 140px;">Pengguna</th>
-                  <th style="width: 90px;">Rating</th>
-                  <th>Isi Ulasan Pengguna</th>
-                  <th style="width: 110px;">Prediksi ML</th>
-                  <th style="width: 90px;">Confidence</th>
-                  <th style="width: 130px;">Status</th>
-                  <th style="width: 70px;">Aksi</th>
-                </tr>
-              </thead>
-              <tbody id="reviewsTableBody">
-                <!-- Populated via DataTables JS -->
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      <!-- ================================================================= -->
-      <!-- VIEW 5: APP COMPARISON & BENCHMARK (#compare)                     -->
-      <!-- ================================================================= -->
-      <section class="page-view" id="view-compare">
-        <div class="d-flex align-items-center justify-content-between mb-4">
-          <div>
-            <h2 class="font-outfit fw-bold text-white mb-1">Multi-App Benchmark & Comparison</h2>
-            <p class="text-muted mb-0">Komparasi performa kepuasan pengguna dan akurasi model antar aplikasi.</p>
-          </div>
-          <button class="btn btn-gradient-primary" onclick="loadComparisonData()">
-            <i class="fa-solid fa-rotate me-1"></i> Refresh Komparasi
-          </button>
-        </div>
-
-        <!-- COMPARATIVE CHARTS ROW -->
-        <div class="row g-4 mb-4">
-          <div class="col-lg-6">
-            <div class="glass-card h-100">
-              <div class="glass-card-header">
-                <h5 class="card-title-text">
-                  <i class="fa-solid fa-chart-column text-primary"></i> Perbandingan Akurasi Model (%)
-                </h5>
-                <span class="badge bg-secondary">Naive Bayes MNB</span>
-              </div>
-              <div style="height: 280px; position: relative;">
-                <canvas id="chartCompareAccuracy"></canvas>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-6">
-            <div class="glass-card h-100">
-              <div class="glass-card-header">
-                <h5 class="card-title-text text-success">
-                  <i class="fa-solid fa-face-smile text-success"></i> Net Sentiment Score (NSS) Komparasi
-                </h5>
-                <span class="badge bg-success bg-opacity-25 text-success">% Positif - % Negatif</span>
-              </div>
-              <div style="height: 280px; position: relative;">
-                <canvas id="chartCompareNSS"></canvas>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- BENCHMARK TABLE -->
-        <div class="glass-card">
-          <div class="glass-card-header">
-            <h5 class="card-title-text">
-              <i class="fa-solid fa-trophy text-warning"></i> Matriks Benchmark Seluruh Aplikasi
-            </h5>
-            <span class="badge bg-primary">Leaderboard</span>
-          </div>
-
-          <div class="table-responsive">
-            <table class="table table-dark table-hover align-middle mb-0">
-              <thead>
-                <tr class="text-dim small border-bottom border-secondary border-opacity-25">
-                  <th>APLIKASI</th>
-                  <th>DEVELOPER</th>
-                  <th class="text-center">SAMPEL</th>
-                  <th class="text-center">AKURASI ML</th>
-                  <th class="text-center">PROPORSI POSITIF</th>
-                  <th class="text-center">PROPORSI NEGATIF</th>
-                  <th class="text-center">NET SENTIMENT</th>
-                  <th class="text-center">ANOMALI</th>
-                  <th class="text-center">AKSI</th>
-                </tr>
-              </thead>
-              <tbody id="compareTableBody">
-                <!-- Populated via JS -->
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      <!-- ================================================================= -->
-      <!-- VIEW 6: ANOMALY & SARCASM CENTER (#anomalies)                     -->
-      <!-- ================================================================= -->
-      <section class="page-view" id="view-anomalies">
-        <div class="d-flex align-items-center justify-content-between mb-4">
-          <div>
-            <h2 class="font-outfit fw-bold text-white mb-1">Anomaly & Sarcasm Investigation Center</h2>
-            <p class="text-muted mb-0">Deteksi ulasan dengan ketidaksesuaian antara rating bintang dan teks ulasan sebenarnya.</p>
-          </div>
-          <span class="badge bg-warning text-dark px-3 py-2 fw-bold" style="font-size: 0.85rem;">
-            <i class="fa-solid fa-triangle-exclamation me-1"></i> NLP Sarcasm Filter
-          </span>
-        </div>
-
-        <!-- ANOMALY STATS -->
-        <div class="row g-3 mb-4">
-          <div class="col-md-4">
-            <div class="kpi-card" style="--kpi-accent: var(--color-warning);">
-              <div class="kpi-label">Total Anomali Terdeteksi <i class="fa-solid fa-bug"></i></div>
-              <div class="kpi-value text-warning" id="anomalyCenterCount">0</div>
-              <div class="kpi-subtext" id="anomalyCenterRatio">0% dari total ulasan</div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="kpi-card" style="--kpi-accent: var(--color-negative);">
-              <div class="kpi-label">Taktik Komplain Bintang 5 <i class="fa-solid fa-masks-theater"></i></div>
-              <div class="kpi-value text-danger" id="anomalyCenterTypeA">0</div>
-              <div class="kpi-subtext">⭐ 4-5 tapi teks komplain pedas</div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="kpi-card" style="--kpi-accent: var(--color-positive);">
-              <div class="kpi-label">Pujian Bintang 1 (Salah Klik) <i class="fa-solid fa-arrow-pointer"></i></div>
-              <div class="kpi-value text-success" id="anomalyCenterTypeB">0</div>
-              <div class="kpi-subtext">⭐ 1-2 tapi teks ulasan memuji</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ANOMALY FEED CARDS -->
-        <div class="glass-card">
-          <div class="glass-card-header">
-            <h5 class="card-title-text text-warning">
-              <i class="fa-solid fa-list-check"></i> Daftar Ulasan Anomali Teridentifikasi
-            </h5>
-            <span class="badge bg-warning text-dark fw-bold" id="anomalyFeedCountBadge">0 Ulasan</span>
-          </div>
-
-          <div class="row g-3" id="anomalyCardsFeed">
-            <!-- Populated via JS -->
-          </div>
-        </div>
-      </section>
-
+      </div>
     </div>
-  </main>
-</div>
 
-<!-- ======================================================================= -->
-<!-- MODAL: BUAT PROJECT BARU (NEW ANALYSIS WIZARD)                          -->
-<!-- ======================================================================= -->
-<div class="modal fade" id="newProjectModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title font-outfit fw-bold text-white">
-          <i class="fa-solid fa-plus-circle text-primary me-2"></i> Buat Project Analisis Aplikasi Baru
-        </h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+    <!-- CHARTS ROW 2: TOP TF-IDF DRIVERS (POSITIF & NEGATIF) -->
+    <div class="row g-4">
+      <div class="col-lg-6">
+        <div class="bi-card h-100">
+          <div class="bi-card-header text-success">
+            <span><i class="fa-solid fa-thumbs-up me-2"></i>Top 10 Driver Sentimen Positif (Pujian)</span>
+            <span class="badge bg-success bg-opacity-10 text-success border border-success">TF-IDF Importance</span>
+          </div>
+          <div class="bi-card-body" style="height: 300px; position: relative;">
+            <canvas id="chartTopPositive"></canvas>
+          </div>
+        </div>
       </div>
 
-      <div class="modal-body p-4">
-        <!-- FORM BODY -->
-        <div id="newProjectFormSection">
-          <div class="mb-3">
-            <label class="form-label text-dim small fw-bold">Nama Project Analisis</label>
-            <input type="text" class="form-control" id="inputProjectName" placeholder="Contoh: Analisis Sentimen BCA Mobile">
+      <div class="col-lg-6">
+        <div class="bi-card h-100">
+          <div class="bi-card-header text-danger">
+            <span><i class="fa-solid fa-thumbs-down me-2"></i>Top 10 Driver Sentimen Negatif (Keluhan)</span>
+            <span class="badge bg-danger bg-opacity-10 text-danger border border-danger">TF-IDF Importance</span>
           </div>
-
-          <div class="mb-3">
-            <label class="form-label text-dim small fw-bold">Sumber Data</label>
-            <input type="text" class="form-control" value="Google Play Store (Live Scraper)" readonly disabled>
+          <div class="bi-card-body" style="height: 300px; position: relative;">
+            <canvas id="chartTopNegative"></canvas>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-          <div class="mb-3">
-            <label class="form-label text-dim small fw-bold">URL Google Play Store / Package ID Aplikasi</label>
-            <div class="input-group">
-              <input type="text" class="form-control" id="inputAppUrlOrId" placeholder="Contoh: https://play.google.com/store/apps/details?id=com.bca atau com.bca">
-              <button class="btn btn-glass" type="button" onclick="triggerAppLookup()">
-                <i class="fa-solid fa-magnifying-glass me-1"></i> Periksa App
+  <!-- ===================================================================== -->
+  <!-- TAB 2: NAIVE BAYES MODEL & LIVE SIMULATOR                             -->
+  <!-- ===================================================================== -->
+  <section class="tab-content-view" id="tab-ml-studio">
+    <!-- ROW 1: LIVE SIMULATOR -->
+    <div class="row g-4 mb-4">
+      <div class="col-lg-7">
+        <div class="bi-card h-100">
+          <div class="bi-card-header">
+            <span><i class="fa-solid fa-bolt text-warning me-2"></i>Live Sentiment Simulator (Sandbox Uji Teks)</span>
+            <span class="badge bg-primary">Real-Time NLP Inference</span>
+          </div>
+          <div class="bi-card-body">
+            <div class="mb-3">
+              <label class="form-label text-muted small fw-bold">Ketik atau tempel ulasan apa pun untuk diuji:</label>
+              <textarea class="form-control" id="simInputText" rows="3" placeholder="Contoh: Aplikasinya sangat membantu, pelayanan cepat dan mudah digunakan 👍👍"></textarea>
+            </div>
+
+            <!-- PRESET CHIPS -->
+            <div class="mb-3">
+              <div class="text-muted small mb-2 fw-semibold">Preset Contoh Ulasan:</div>
+              <div class="d-flex flex-wrap gap-2">
+                <span class="preset-chip" onclick="setSimPreset('pujian')">👍 Pujian Pelayanan</span>
+                <span class="preset-chip" onclick="setSimPreset('sarkas')">🎭 Sarkasme Bintang 5</span>
+                <span class="preset-chip" onclick="setSimPreset('salah_klik')">💡 Pujian Bintang 1</span>
+                <span class="preset-chip" onclick="setSimPreset('emoji')">❤️ Emoji Sentimen</span>
+                <span class="preset-chip" onclick="setSimPreset('slang')">💬 Slang / Bahasa Gaul</span>
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center pt-2 border-top">
+              <div class="text-muted small">
+                Model Aktif: <strong class="text-dark" id="simActiveModelName">Mobile JKN</strong>
+              </div>
+              <button class="btn btn-primary fw-bold" id="btnSimPredict" onclick="runLivePrediction()">
+                <i class="fa-solid fa-paper-plane me-1"></i> Prediksi Sentimen Real-Time
               </button>
             </div>
-            <div class="form-text text-dim">Tempel link Google Play Store atau ketik Package ID aplikasi Android.</div>
           </div>
+        </div>
+      </div>
 
-          <!-- QUICK PRESETS CHIPS -->
-          <div class="mb-3">
-            <label class="form-label text-dim small fw-bold">Pilih Cepat Preset Aplikasi Populer:</label>
-            <div class="d-flex flex-wrap gap-2">
-              <span class="preset-chip" onclick="applyAppPreset('PLN Mobile', 'com.icon.pln123')">⚡ PLN Mobile</span>
-              <span class="preset-chip" onclick="applyAppPreset('SATUSEHAT', 'com.telkom.tracencare')">🏥 SATUSEHAT</span>
-              <span class="preset-chip" onclick="applyAppPreset('BCA Mobile', 'com.bca')">🏦 BCA Mobile</span>
-              <span class="preset-chip" onclick="applyAppPreset('Shopee', 'com.shopee.id')">🛍️ Shopee</span>
-              <span class="preset-chip" onclick="applyAppPreset('Tokopedia', 'com.tokopedia.tkpd')">🛒 Tokopedia</span>
-              <span class="preset-chip" onclick="applyAppPreset('Gojek', 'com.gojek.app')">🛵 Gojek</span>
-              <span class="preset-chip" onclick="applyAppPreset('MyTelkomsel', 'com.telkomsel.telkomselcm')">📶 MyTelkomsel</span>
-              <span class="preset-chip" onclick="applyAppPreset('Livin Mandiri', 'id.bmri.livin')">💳 Livin by Mandiri</span>
-              <span class="preset-chip" onclick="applyAppPreset('DANA', 'id.dana')">👛 DANA</span>
+      <!-- PREDICTION OUTCOME CARD -->
+      <div class="col-lg-5">
+        <div class="bi-card h-100">
+          <div class="bi-card-header">
+            <span><i class="fa-solid fa-gauge-high text-primary me-2"></i>Hasil Prediksi Model</span>
+            <span class="badge bg-secondary" id="simStatusBadge">Menunggu Input</span>
+          </div>
+          <div class="bi-card-body">
+            <div id="simEmptyState" class="text-center py-4 text-muted">
+              <i class="fa-solid fa-wand-magic-sparkles mb-2" style="font-size: 2rem; opacity: 0.4;"></i>
+              <p class="small mb-0">Ketik teks ulasan dan klik <strong>Prediksi Sentimen Real-Time</strong>.</p>
+            </div>
+
+            <div id="simActiveResult" style="display: none;">
+              <!-- DECISION BOX -->
+              <div class="p-3 rounded-3 text-center mb-3" id="simDecisionBanner" style="background: #e8f5e9; border: 1px solid #c8e6c9;">
+                <div class="text-muted small fw-bold text-uppercase">Hasil Klasifikasi Naive Bayes</div>
+                <div class="fs-2 fw-bold text-success my-1" id="simResultLabel">Positif</div>
+                <div class="text-muted small">Confidence Score: <strong id="simResultConfidence">99.45%</strong></div>
+              </div>
+
+              <!-- PROBABILITY BARS -->
+              <div class="mb-3">
+                <div class="d-flex justify-content-between small text-muted mb-1">
+                  <span>Probabilitas Positif:</span>
+                  <strong class="text-success" id="simProbPos">99.45%</strong>
+                </div>
+                <div class="progress mb-2" style="height: 6px;">
+                  <div class="progress-bar bg-success" id="simBarPos" style="width: 99.45%;"></div>
+                </div>
+
+                <div class="d-flex justify-content-between small text-muted mb-1">
+                  <span>Probabilitas Negatif:</span>
+                  <strong class="text-danger" id="simProbNeg">0.55%</strong>
+                </div>
+                <div class="progress" style="height: 6px;">
+                  <div class="progress-bar bg-danger" id="simBarNeg" style="width: 0.55%;"></div>
+                </div>
+              </div>
+
+              <!-- PIPELINE STEPS -->
+              <div class="p-2 rounded bg-light border mb-2 small">
+                <strong class="text-primary"><i class="fa-solid fa-1 me-1"></i> Emoji & Slang:</strong>
+                <div class="text-dark" id="simStepEmojiSlang">-</div>
+              </div>
+
+              <div class="p-2 rounded bg-light border mb-2 small">
+                <strong class="text-primary"><i class="fa-solid fa-2 me-1"></i> Sastrawi Stemming:</strong>
+                <div class="text-dark" id="simStepStemmed">-</div>
+              </div>
+
+              <div class="p-2 rounded bg-light border small">
+                <strong class="text-primary"><i class="fa-solid fa-3 me-1"></i> Fitur TF-IDF Terdeteksi:</strong>
+                <div class="d-flex flex-wrap gap-1 mt-1" id="simMatchedTermsContainer">
+                  <!-- Chips -->
+                </div>
+              </div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
 
-          <!-- APP PREVIEW CARD (REAL-TIME LOOKUP) -->
-          <div class="app-preview-card mb-3" id="appPreviewCard" style="display: none;">
-            <img src="" id="previewAppIcon" class="rounded-3" style="width: 48px; height: 48px; object-fit: cover;" alt="App Icon">
-            <div class="flex-1">
-              <div class="fw-bold text-white" id="previewAppTitle">Nama Aplikasi</div>
-              <div class="small text-muted" id="previewAppDev">Developer &bull; Rating ⭐ -</div>
-            </div>
-            <span class="badge bg-success" id="previewAppBadge">Valid</span>
+    <!-- ROW 2: CONFUSION MATRIX & EVALUATION REPORT -->
+    <div class="row g-4">
+      <div class="col-lg-6">
+        <div class="bi-card h-100">
+          <div class="bi-card-header">
+            <span><i class="fa-solid fa-border-all text-primary me-2"></i>Confusion Matrix (Testing Set 20%)</span>
+            <span class="badge bg-light text-dark border">Test Data Evaluasi</span>
           </div>
+          <div class="bi-card-body">
+            <table class="cm-table">
+              <thead>
+                <tr>
+                  <th class="text-muted text-center small">Actual \ Predicted</th>
+                  <th class="text-success text-center small fw-bold">Prediksi POSITIF</th>
+                  <th class="text-danger text-center small fw-bold">Prediksi NEGATIF</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="text-success small fw-bold text-center">Actual POSITIF</td>
+                  <td class="cm-cell cell-tp">
+                    <div class="text-success fw-bold fs-4" id="cmTP">441</div>
+                    <div class="text-muted" style="font-size: 0.72rem;">True Positive (TP)</div>
+                  </td>
+                  <td class="cm-cell cell-fn">
+                    <div class="text-warning fw-bold fs-4" id="cmFN">35</div>
+                    <div class="text-muted" style="font-size: 0.72rem;">False Negative (FN)</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="text-danger small fw-bold text-center">Actual NEGATIF</td>
+                  <td class="cm-cell cell-fp">
+                    <div class="text-danger fw-bold fs-4" id="cmFP">60</div>
+                    <div class="text-muted" style="font-size: 0.72rem;">False Positive (FP)</div>
+                  </td>
+                  <td class="cm-cell cell-tn">
+                    <div class="text-primary fw-bold fs-4" id="cmTN">464</div>
+                    <div class="text-muted" style="font-size: 0.72rem;">True Negative (TN)</div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
 
-          <!-- SAMPLE SIZE SELECTOR -->
-          <div class="mb-3">
-            <label class="form-label text-dim small fw-bold">Jumlah Sampel Ulasan yang Mau Diambil & Dilatih</label>
-            <select class="form-select" id="inputSampleSize">
-              <option value="500">500 Ulasan (Cepat ~15 detik)</option>
-              <option value="1000" selected>1.000 Ulasan (Rekomendasi ~30 detik)</option>
-              <option value="2500">2.500 Ulasan (Lengkap ~1 menit)</option>
-              <option value="5000">5.000 Ulasan (Dataset Penuh ~2-3 menit)</option>
+      <div class="col-lg-6">
+        <div class="bi-card h-100">
+          <div class="bi-card-header">
+            <span><i class="fa-solid fa-square-poll-vertical text-success me-2"></i>Classification Report</span>
+            <span class="badge bg-success" id="evalAccBadge">Akurasi 90.50%</span>
+          </div>
+          <div class="bi-card-body">
+            <table class="table table-bordered align-middle mb-0">
+              <thead class="table-light text-muted small">
+                <tr>
+                  <th>KELAS SENTIMEN</th>
+                  <th class="text-center">PRECISION</th>
+                  <th class="text-center">RECALL</th>
+                  <th class="text-center">F1-SCORE</th>
+                  <th class="text-center">SUPPORT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="text-success fw-bold">Positif</td>
+                  <td class="text-center fw-semibold" id="metricPosPrec">94.24%</td>
+                  <td class="text-center fw-semibold" id="metricPosRec">92.64%</td>
+                  <td class="text-center fw-semibold" id="metricPosF1">93.43%</td>
+                  <td class="text-center text-muted" id="metricPosSupp">476</td>
+                </tr>
+                <tr>
+                  <td class="text-danger fw-bold">Negatif</td>
+                  <td class="text-center fw-semibold" id="metricNegPrec">86.43%</td>
+                  <td class="text-center fw-semibold" id="metricNegRec">93.67%</td>
+                  <td class="text-center fw-semibold" id="metricNegF1">89.90%</td>
+                  <td class="text-center text-muted" id="metricNegSupp">524</td>
+                </tr>
+                <tr class="table-light">
+                  <td class="text-primary fw-bold">Macro Average</td>
+                  <td class="text-center fw-bold text-primary" id="metricMacroPrec">90.33%</td>
+                  <td class="text-center fw-bold text-primary" id="metricMacroRec">93.15%</td>
+                  <td class="text-center fw-bold text-primary" id="metricMacroF1">61.11%</td>
+                  <td class="text-center text-muted">1.000</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="mt-3 p-2 rounded bg-light border text-muted small">
+              <i class="fa-solid fa-calculator text-primary me-1"></i> Laplace Smoothing: <strong>&alpha; = 1.0</strong> | Vocabulary TF-IDF: <strong id="evalVocabSize">5.537 fitur</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- TAB 3: REVIEW DATA EXPLORER                                           -->
+  <!-- ===================================================================== -->
+  <section class="tab-content-view" id="tab-explorer">
+    <div class="bi-card mb-4">
+      <div class="bi-card-body">
+        <div class="row g-3 align-items-end">
+          <div class="col-md-3">
+            <label class="form-label text-muted small fw-bold">Filter Sentimen ML:</label>
+            <select class="form-select form-select-sm" id="filterSentiment" onchange="applyTableFilters()">
+              <option value="ALL">Semua Sentimen</option>
+              <option value="Positif">Hanya Positif</option>
+              <option value="Negatif">Hanya Negatif</option>
+              <option value="Netral">Hanya Netral</option>
             </select>
           </div>
-        </div>
 
-        <!-- PROGRESS SECTION (DURING TRAINING) -->
-        <div id="newProjectProgressSection" style="display: none;" class="py-4 text-center">
-          <div class="spinner-border text-primary mb-3" style="width: 3.5rem; height: 3.5rem;" role="status"></div>
-          <h4 class="font-outfit fw-bold text-white mb-2" id="progressStatusText">Mengambil Data Ulasan Play Store...</h4>
-          <p class="text-muted small mb-0" id="progressDetailText">Proses ini otomatis menjalankan Scraping &rarr; Preprocessing NLP &rarr; Sastrawi Stemmer &rarr; TF-IDF &rarr; Naive Bayes Training.</p>
+          <div class="col-md-3">
+            <label class="form-label text-muted small fw-bold">Filter Rating Bintang:</label>
+            <select class="form-select form-select-sm" id="filterRating" onchange="applyTableFilters()">
+              <option value="ALL">Semua Bintang</option>
+              <option value="5">⭐⭐⭐⭐⭐ (5 Bintang)</option>
+              <option value="4">⭐⭐⭐⭐ (4 Bintang)</option>
+              <option value="3">⭐⭐⭐ (3 Bintang)</option>
+              <option value="2">⭐⭐ (2 Bintang)</option>
+              <option value="1">⭐ (1 Bintang)</option>
+            </select>
+          </div>
+
+          <div class="col-md-3">
+            <label class="form-label text-muted small fw-bold">Filter Status Anomali:</label>
+            <select class="form-select form-select-sm" id="filterAnomaly" onchange="applyTableFilters()">
+              <option value="ALL">Semua Status</option>
+              <option value="ANOMALY">Hanya Ulasan Anomali</option>
+              <option value="NORMAL">Hanya Sesuai (Non-Anomali)</option>
+            </select>
+          </div>
+
+          <div class="col-md-3 d-flex gap-2">
+            <button class="btn btn-outline-secondary btn-sm w-100" onclick="resetTableFilters()">
+              <i class="fa-solid fa-rotate-left me-1"></i> Reset Filter
+            </button>
+            <button class="btn btn-success btn-sm w-100 fw-semibold" onclick="exportCurrentTable('csv')">
+              <i class="fa-solid fa-file-csv me-1"></i> Export CSV
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DATATABLE CARD -->
+    <div class="bi-card">
+      <div class="bi-card-body p-0">
+        <div class="table-responsive p-3">
+          <table class="table table-hover align-middle mb-0" id="mainDataTable" style="width:100%;">
+            <thead>
+              <tr>
+                <th style="width: 50px;">No</th>
+                <th style="width: 140px;">Pengguna</th>
+                <th style="width: 90px;">Rating</th>
+                <th>Isi Ulasan Pengguna</th>
+                <th style="width: 110px;">Prediksi ML</th>
+                <th style="width: 90px;">Confidence</th>
+                <th style="width: 140px;">Status Anomali</th>
+                <th style="width: 60px;">Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="reviewsTableBody">
+              <!-- Populated via DataTables -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- TAB 4: MULTI-APP BENCHMARK & COMPARISON                               -->
+  <!-- ===================================================================== -->
+  <section class="tab-content-view" id="tab-compare">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <div>
+        <h5 class="fw-bold mb-1 text-dark">Komparasi Performa Multi-Aplikasi</h5>
+        <p class="text-muted small mb-0">Bandingkan kepuasan ulasan dan akurasi model antar aplikasi yang telah dibuat.</p>
+      </div>
+      <button class="btn btn-primary btn-sm fw-bold" onclick="loadComparisonData()">
+        <i class="fa-solid fa-rotate me-1"></i> Refresh Data Komparasi
+      </button>
+    </div>
+
+    <!-- COMPARISON CHARTS -->
+    <div class="row g-4 mb-4">
+      <div class="col-lg-6">
+        <div class="bi-card h-100">
+          <div class="bi-card-header">
+            <span><i class="fa-solid fa-chart-column text-primary me-2"></i>Perbandingan Akurasi Model (%)</span>
+          </div>
+          <div class="bi-card-body" style="height: 280px; position: relative;">
+            <canvas id="chartCompareAccuracy"></canvas>
+          </div>
         </div>
       </div>
 
-      <div class="modal-footer" id="newProjectModalFooter">
-        <button type="button" class="btn btn-glass" data-bs-dismiss="modal">Batal</button>
-        <button type="button" class="btn btn-gradient-primary" id="btnStartCreateProject" onclick="startCreateProject()">
-          <i class="fa-solid fa-play me-1"></i> Mulai Analisa & Training
-        </button>
+      <div class="col-lg-6">
+        <div class="bi-card h-100">
+          <div class="bi-card-header text-success">
+            <span><i class="fa-solid fa-face-smile me-2"></i>Net Sentiment Score (NSS = %Pos - %Neg)</span>
+          </div>
+          <div class="bi-card-body" style="height: 280px; position: relative;">
+            <canvas id="chartCompareNSS"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LEADERBOARD TABLE -->
+    <div class="bi-card">
+      <div class="bi-card-header">
+        <span><i class="fa-solid fa-trophy text-warning me-2"></i>Matriks Benchmark Aplikasi</span>
+      </div>
+      <div class="bi-card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-hover align-middle mb-0">
+            <thead class="table-light text-muted small">
+              <tr>
+                <th>APLIKASI</th>
+                <th>DEVELOPER</th>
+                <th class="text-center">SAMPEL</th>
+                <th class="text-center">AKURASI ML</th>
+                <th class="text-center">POSITIF (%)</th>
+                <th class="text-center">NEGATIF (%)</th>
+                <th class="text-center">NET SENTIMENT</th>
+                <th class="text-center">ANOMALI</th>
+                <th class="text-center">AKSI</th>
+              </tr>
+            </thead>
+            <tbody id="compareTableBody">
+              <!-- Populated via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- TAB 5: ANOMALY INVESTIGATION CENTER                                   -->
+  <!-- ===================================================================== -->
+  <section class="tab-content-view" id="tab-anomalies">
+    <div class="row g-3 mb-4">
+      <div class="col-md-4">
+        <div class="bi-scorecard card-warning">
+          <div class="scorecard-label">Total Anomali <i class="fa-solid fa-bug text-warning"></i></div>
+          <div class="scorecard-value text-warning" id="anomalyCenterCount">0</div>
+          <div class="scorecard-subtext" id="anomalyCenterRatio">0% dari total ulasan</div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="bi-scorecard card-primary" style="--bi-primary: var(--bi-danger);">
+          <div class="scorecard-label">Taktik Komplain Bintang 5 <i class="fa-solid fa-masks-theater text-danger"></i></div>
+          <div class="scorecard-value text-danger" id="anomalyCenterTypeA">0</div>
+          <div class="scorecard-subtext">⭐ 4-5 tapi teks keluhan pedas</div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="bi-scorecard card-success">
+          <div class="scorecard-label">Pujian Bintang 1 (Salah Klik) <i class="fa-solid fa-arrow-pointer text-success"></i></div>
+          <div class="scorecard-value text-success" id="anomalyCenterTypeB">0</div>
+          <div class="scorecard-subtext">⭐ 1-2 tapi teks ulasan memuji</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ANOMALY FEED -->
+    <div class="bi-card">
+      <div class="bi-card-header text-warning">
+        <span><i class="fa-solid fa-list-check me-2"></i>Daftar Ulasan Anomali Teridentifikasi</span>
+        <span class="badge bg-warning text-dark fw-bold" id="anomalyFeedCountBadge">0 Ulasan</span>
+      </div>
+      <div class="bi-card-body">
+        <div class="row g-3" id="anomalyCardsFeed">
+          <!-- Populated via JS -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- MODAL: BUAT PROJECT BARU (CREATE PROJECT WIZARD)                      -->
+  <!-- ===================================================================== -->
+  <div class="modal fade" id="createProjectModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title fw-bold text-dark">
+            <i class="fa-solid fa-plus-circle text-primary me-2"></i> Buat Project Analisis Aplikasi Baru
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="modalCloseBtn"></button>
+        </div>
+
+        <div class="modal-body p-4">
+          <form id="createProjectForm">
+            <!-- PROJECT NAME -->
+            <div class="mb-3">
+              <label class="form-label text-muted small fw-bold">Nama Project Analisis</label>
+              <input type="text" class="form-control" id="inputProjectName" placeholder="Contoh: Analisis Sentimen PLN Mobile">
+            </div>
+
+            <!-- DATA SOURCE -->
+            <div class="mb-3">
+              <label class="form-label text-muted small fw-bold">Sumber Data</label>
+              <input type="text" class="form-control" value="Google Play Store (Live Scraper)" readonly disabled>
+            </div>
+
+            <!-- PLAY STORE URL OR PACKAGE ID -->
+            <div class="mb-3">
+              <label class="form-label text-muted small fw-bold">URL Google Play Store / Package ID Aplikasi</label>
+              <div class="input-group">
+                <input type="text" class="form-control" id="inputAppUrlOrId" placeholder="Contoh: https://play.google.com/store/apps/details?id=com.icon.pln123 atau com.icon.pln123" required>
+                <button class="btn btn-outline-secondary" type="button" id="btnLookupApp" onclick="triggerAppLookup()">
+                  <i class="fa-solid fa-magnifying-glass me-1"></i> Periksa App
+                </button>
+              </div>
+              <div class="form-text text-muted">Tempel link Google Play Store atau ketik Package ID aplikasi Android.</div>
+            </div>
+
+            <!-- QUICK PRESET CHIPS -->
+            <div class="mb-3">
+              <label class="form-label text-muted small fw-bold">Pilih Cepat Preset Aplikasi Populer:</label>
+              <div class="d-flex flex-wrap gap-2">
+                <span class="preset-chip" onclick="applyAppPreset('PLN Mobile', 'com.icon.pln123')">⚡ PLN Mobile</span>
+                <span class="preset-chip" onclick="applyAppPreset('SATUSEHAT', 'com.telkom.tracencare')">🏥 SATUSEHAT</span>
+                <span class="preset-chip" onclick="applyAppPreset('BCA Mobile', 'com.bca')">🏦 BCA Mobile</span>
+                <span class="preset-chip" onclick="applyAppPreset('Shopee', 'com.shopee.id')">🛍️ Shopee</span>
+                <span class="preset-chip" onclick="applyAppPreset('Tokopedia', 'com.tokopedia.tkpd')">🛒 Tokopedia</span>
+                <span class="preset-chip" onclick="applyAppPreset('Gojek', 'com.gojek.app')">🛵 Gojek</span>
+                <span class="preset-chip" onclick="applyAppPreset('MyTelkomsel', 'com.telkomsel.telkomselcm')">📶 MyTelkomsel</span>
+                <span class="preset-chip" onclick="applyAppPreset('Livin Mandiri', 'id.bmri.livin')">💳 Livin by Mandiri</span>
+                <span class="preset-chip" onclick="applyAppPreset('DANA', 'id.dana')">👛 DANA</span>
+              </div>
+            </div>
+
+            <!-- APP PREVIEW CARD -->
+            <div class="app-preview-card mb-3" id="appPreviewCard" style="display: none;">
+              <img src="" id="previewAppIcon" class="rounded-3 border" style="width: 48px; height: 48px; object-fit: cover;" alt="App Icon">
+              <div class="flex-grow-1">
+                <div class="fw-bold text-dark" id="previewAppTitle">Nama Aplikasi</div>
+                <div class="small text-muted" id="previewAppDev">Developer &bull; Rating ⭐ -</div>
+              </div>
+              <span class="badge bg-success">Valid</span>
+            </div>
+
+            <!-- SAMPLE SIZE -->
+            <div class="mb-3">
+              <label class="form-label text-muted small fw-bold">Jumlah Sampel Ulasan yang Mau Diambil & Dilatih</label>
+              <select class="form-select" id="inputSampleSize">
+                <option value="500">500 Ulasan (Cepat ~15 detik)</option>
+                <option value="1000" selected>1.000 Ulasan (Rekomendasi ~30 detik)</option>
+                <option value="2500">2.500 Ulasan (Lengkap ~1 menit)</option>
+                <option value="5000">5.000 Ulasan (Dataset Penuh ~2-3 menit)</option>
+              </select>
+            </div>
+
+            <!-- PROCESSING SPINNER -->
+            <div id="processingSection" style="display: none;" class="py-4 text-center border-top mt-3">
+              <div class="spinner-border text-primary mb-3" style="width: 3rem; height: 3rem;" role="status"></div>
+              <h5 class="fw-bold text-dark mb-1" id="processingStatusTitle">Sedang Mengambil Ulasan Play Store...</h5>
+              <p class="text-muted small mb-0" id="processingStatusDesc">Proses ini otomatis menjalankan Scraping &rarr; Preprocessing NLP &rarr; Sastrawi Stemmer &rarr; TF-IDF &rarr; Naive Bayes Training.</p>
+            </div>
+
+            <div class="modal-footer px-0 pb-0 pt-3 mt-3 border-top" id="modalFooterBtns">
+              <button type="button" class="btn btn-light border" data-bs-dismiss="modal" id="btnCancelModal">Batal</button>
+              <button type="submit" class="btn btn-primary fw-bold" id="btnSubmitProject">
+                <i class="fa-solid fa-play me-1"></i> Mulai Analisa & Training
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- ======================================================================= -->
-<!-- MODAL: REVIEW DETAIL INSPECTOR                                          -->
-<!-- ======================================================================= -->
-<div class="modal fade" id="reviewDetailModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title font-outfit fw-bold text-white">
-          <i class="fa-solid fa-magnifying-glass-chart text-cyan me-2"></i> Inspeksi Detail Ulasan & Inferensi ML
-        </h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-
-      <div class="modal-body p-4" id="reviewDetailModalBody">
-        <!-- Populated via JS -->
-      </div>
-
-      <div class="modal-footer">
-        <button type="button" class="btn btn-glass" data-bs-dismiss="modal">Tutup</button>
+  <!-- ===================================================================== -->
+  <!-- MODAL: REVIEW DETAIL INSPECTOR                                        -->
+  <!-- ===================================================================== -->
+  <div class="modal fade" id="reviewDetailModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title fw-bold text-dark">
+            <i class="fa-solid fa-magnifying-glass-chart text-primary me-2"></i> Inspeksi Detail Ulasan & Inferensi ML
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-4" id="reviewDetailModalBody">
+          <!-- Populated via JS -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Tutup</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- SCRIPTS: jQuery, Bootstrap 5, Chart.js, DataTables -->
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
-<script src="https://cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.min.js"></script>
-<script src="https://cdn.datatables.net/responsive/3.0.2/js/dataTables.responsive.min.js"></script>
+  <!-- SCRIPTS: jQuery, Bootstrap 5, Chart.js, DataTables -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.min.js"></script>
+  <script src="https://cdn.datatables.net/responsive/3.0.2/js/dataTables.responsive.min.js"></script>
 
-<!-- APPLICATION CLIENT LOGIC & ROUTER -->
-<script>
-// =========================================================================
-// GLOBAL STATE & VARIABLES
-// =========================================================================
-let ALL_PROJECTS = [];
-let CURRENT_PROJECT_ID = 'mobile-jkn';
-let CURRENT_PROJECT_META = null;
-let CURRENT_REVIEWS = [];
-let DATA_TABLE_INSTANCE = null;
+  <!-- APPLICATION LOGIC & CHARTS -->
+  <script>
+    let ALL_PROJECTS = [];
+    let CURRENT_PROJECT_ID = 'mobile-jkn';
+    let CURRENT_PROJECT_META = null;
+    let CURRENT_REVIEWS = [];
+    let DATA_TABLE_INSTANCE = null;
 
-// Chart Instances
-let CHART_COMPARISON = null;
-let CHART_DOUGHNUT = null;
-let CHART_TOP_POS = null;
-let CHART_TOP_NEG = null;
-let CHART_COMP_ACC = null;
-let CHART_COMP_NSS = null;
+    // Chart Instances
+    let CHART_COMPARISON = null;
+    let CHART_DOUGHNUT = null;
+    let CHART_TOP_POS = null;
+    let CHART_TOP_NEG = null;
+    let CHART_COMP_ACC = null;
+    let CHART_COMP_NSS = null;
 
-// =========================================================================
-// ROUTER & NAVIGATION
-// =========================================================================
-const ROUTES = ['projects', 'dashboard', 'ml-studio', 'explorer', 'compare', 'anomalies'];
-const ROUTE_TITLES = {
-  'projects': 'Projects & Apps Workspace',
-  'dashboard': 'Executive BI Dashboard',
-  'ml-studio': 'Naive Bayes ML Studio & Live Simulator',
-  'explorer': 'Review Data Explorer',
-  'compare': 'Multi-App Benchmark & Comparison',
-  'anomalies': 'Anomaly & Sarcasm Investigation Center'
-};
+    // TAB SWITCHER
+    function switchTab(tabId) {
+      document.querySelectorAll('.bi-tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.tab-content-view').forEach(view => view.classList.remove('active'));
 
-function switchRoute(route) {
-  if (!ROUTES.includes(route)) route = 'dashboard';
-  window.location.hash = `#${route}`;
+      const targetBtn = Array.from(document.querySelectorAll('.bi-tab-btn')).find(b => b.getAttribute('onclick')?.includes(tabId));
+      if (targetBtn) targetBtn.classList.add('active');
 
-  // Update Nav Links
-  document.querySelectorAll('.nav-item-link').forEach(link => {
-    link.classList.toggle('active', link.dataset.route === route);
-  });
+      const targetView = document.getElementById(`tab-${tabId}`);
+      if (targetView) targetView.classList.add('active');
 
-  // Update Page Views
-  document.querySelectorAll('.page-view').forEach(view => {
-    view.classList.remove('active');
-  });
-  const targetView = document.getElementById(`view-${route}`);
-  if (targetView) targetView.classList.add('active');
-
-  // Update Topbar Title
-  const titleElem = document.getElementById('topbarPageTitle');
-  if (titleElem) titleElem.textContent = ROUTE_TITLES[route] || 'Executive BI Dashboard';
-
-  // Specific view loaders
-  if (route === 'compare') {
-    loadComparisonData();
-  } else if (route === 'explorer') {
-    if (DATA_TABLE_INSTANCE) DATA_TABLE_INSTANCE.columns.adjust().responsive.recalc();
-  }
-}
-
-window.addEventListener('hashchange', () => {
-  const hash = window.location.hash.replace('#', '').trim();
-  switchRoute(hash);
-});
-
-// =========================================================================
-// INITIALIZATION
-// =========================================================================
-document.addEventListener('DOMContentLoaded', async () => {
-  // Setup Sidebar Toggle for mobile
-  document.getElementById('sidebarToggleBtn')?.addEventListener('click', () => {
-    document.getElementById('appSidebar')?.classList.toggle('show');
-  });
-
-  // Setup initial route
-  const initialHash = window.location.hash.replace('#', '').trim() || 'dashboard';
-  switchRoute(initialHash);
-
-  // Load Projects List
-  await fetchProjectsList();
-
-  // Load Active Project
-  await loadProjectData(CURRENT_PROJECT_ID);
-
-  // Setup debounced lookup for new project modal
-  const urlInput = document.getElementById('inputAppUrlOrId');
-  let lookupTimer = null;
-  urlInput?.addEventListener('input', () => {
-    clearTimeout(lookupTimer);
-    lookupTimer = setTimeout(triggerAppLookup, 600);
-  });
-});
-
-// =========================================================================
-// DATA FETCHING & PROJECT MANAGEMENT
-// =========================================================================
-async function fetchProjectsList() {
-  try {
-    const res = await fetch('/api/projects');
-    const data = await res.json();
-    if (data.success) {
-      ALL_PROJECTS = data.projects;
-      renderProjectsHub();
-      renderTopbarDropdown();
-      document.getElementById('navProjectCount').textContent = ALL_PROJECTS.length;
-    }
-  } catch (err) {
-    console.error('Gagal mengambil daftar project:', err);
-  }
-}
-
-async function loadProjectData(projectId) {
-  try {
-    const res = await fetch(`/api/projects/${projectId}`);
-    const data = await res.json();
-
-    if (data.success) {
-      CURRENT_PROJECT_ID = projectId;
-      CURRENT_PROJECT_META = data.meta;
-      CURRENT_REVIEWS = data.reviews;
-
-      // Update Topbar Pill
-      document.getElementById('topbarAppIcon').src = CURRENT_PROJECT_META.icon || 'https://play-lh.googleusercontent.com/rN5o_e2373oTvdVz5x-m-Gq_oK23Mv5M1h7x-x8_y-4z8z_z-z';
-      document.getElementById('topbarAppName').textContent = CURRENT_PROJECT_META.appName || CURRENT_PROJECT_META.name;
-      document.getElementById('simActiveModelName').textContent = CURRENT_PROJECT_META.appName || CURRENT_PROJECT_META.name;
-
-      // Render all subviews with this project's data
-      renderDashboardView();
-      renderMLStudioView();
-      renderDataExplorerView();
-      renderAnomalyCenterView();
-    }
-  } catch (err) {
-    console.error('Gagal memuat data project:', err);
-  }
-}
-
-function renderTopbarDropdown() {
-  const container = document.getElementById('topbarProjectDropdown');
-  if (!container) return;
-
-  container.innerHTML = ALL_PROJECTS.map(p => `
-    <li>
-      <a class="dropdown-item d-flex align-items-center gap-2 py-2 ${p.id === CURRENT_PROJECT_ID ? 'active' : ''}" 
-         href="javascript:void(0)" onclick="loadProjectData('${p.id}')">
-        <img src="${p.icon || 'https://play-lh.googleusercontent.com/rN5o_e2373oTvdVz5x-m-Gq_oK23Mv5M1h7x-x8_y-4z8z_z-z'}" 
-             style="width: 24px; height: 24px; border-radius: 6px; object-fit: cover;">
-        <div class="flex-1 overflow-hidden">
-          <div class="small fw-bold text-truncate">${p.appName || p.name}</div>
-          <div style="font-size: 0.7rem; color: var(--text-dim);">${p.sampleCount || 0} ulasan &bull; Akurasi ${p.accuracy || 90}%</div>
-        </div>
-      </a>
-    </li>
-  `).join('') + `
-    <li><hr class="dropdown-divider border-secondary border-opacity-25"></li>
-    <li>
-      <a class="dropdown-item text-primary small fw-bold text-center py-2" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#newProjectModal">
-        <i class="fa-solid fa-plus me-1"></i> Tambah Project Baru
-      </a>
-    </li>
-  `;
-}
-
-// =========================================================================
-// VIEW 1: PROJECTS HUB RENDERER
-// =========================================================================
-function renderProjectsHub() {
-  const container = document.getElementById('projectCardsContainer');
-  if (!container) return;
-
-  let totalReviews = 0;
-  let totalAccSum = 0;
-
-  container.innerHTML = ALL_PROJECTS.map(p => {
-    totalReviews += (p.sampleCount || 0);
-    totalAccSum += (p.accuracy || 90);
-
-    return `
-      <div class="project-app-card">
-        <div class="project-card-hero">
-          <img src="${p.icon || 'https://play-lh.googleusercontent.com/rN5o_e2373oTvdVz5x-m-Gq_oK23Mv5M1h7x-x8_y-4z8z_z-z'}" 
-               class="project-card-icon" alt="Icon">
-          <div class="project-card-meta">
-            <h4 class="project-card-name">${p.appName || p.name}</h4>
-            <div class="project-card-dev">${p.developer || 'Pengembang Android'}</div>
-          </div>
-        </div>
-
-        <div class="d-flex justify-content-between align-items-center mb-3 p-2 rounded-3" style="background: var(--bg-dark);">
-          <div class="text-center">
-            <div class="text-dim" style="font-size: 0.7rem;">SAMPEL ULASAN</div>
-            <div class="fw-bold text-white fs-6">${(p.sampleCount || 0).toLocaleString()}</div>
-          </div>
-          <div class="text-center">
-            <div class="text-dim" style="font-size: 0.7rem;">AKURASI MNB</div>
-            <div class="fw-bold text-success fs-6">${p.accuracy || 90.5}%</div>
-          </div>
-          <div class="text-center">
-            <div class="text-dim" style="font-size: 0.7rem;">SUMBER</div>
-            <div class="fw-bold text-cyan" style="font-size: 0.78rem;">Play Store</div>
-          </div>
-        </div>
-
-        <div class="d-flex gap-2 mt-auto">
-          <button class="btn btn-gradient-primary flex-1 py-1 small" onclick="openProjectInDashboard('${p.id}')">
-            <i class="fa-solid fa-chart-pie me-1"></i> Buka BI
-          </button>
-          <button class="btn btn-glass py-1 small" onclick="openProjectInStudio('${p.id}')" title="Uji di ML Studio">
-            <i class="fa-solid fa-brain text-success"></i>
-          </button>
-          ${p.id !== 'mobile-jkn' ? `
-          <button class="btn btn-glass py-1 small text-danger" onclick="confirmDeleteProject('${p.id}', '${p.appName || p.name}')" title="Hapus Project">
-            <i class="fa-solid fa-trash"></i>
-          </button>
-          ` : ''}
-        </div>
-      </div>
-    `;
-  }).join('');
-
-  // Hub Stats Banner
-  document.getElementById('hubTotalApps').textContent = ALL_PROJECTS.length;
-  document.getElementById('hubTotalReviews').textContent = totalReviews.toLocaleString();
-  document.getElementById('hubAvgAccuracy').textContent = ALL_PROJECTS.length ? ((totalAccSum / ALL_PROJECTS.length).toFixed(1) + '%') : '0%';
-}
-
-function openProjectInDashboard(projectId) {
-  loadProjectData(projectId);
-  switchRoute('dashboard');
-}
-
-function openProjectInStudio(projectId) {
-  loadProjectData(projectId);
-  switchRoute('ml-studio');
-}
-
-async function confirmDeleteProject(id, name) {
-  if (confirm(`Apakah Anda yakin ingin menghapus project '${name}'?`)) {
-    try {
-      const res = await fetch(`/api/projects/${id}`, { method: 'DELETE' });
-      const data = await res.json();
-      if (data.success) {
-        ALL_PROJECTS = data.projects;
-        renderProjectsHub();
-        renderTopbarDropdown();
-        if (CURRENT_PROJECT_ID === id) {
-          loadProjectData('mobile-jkn');
-        }
+      if (tabId === 'compare') {
+        loadComparisonData();
+      } else if (tabId === 'explorer') {
+        if (DATA_TABLE_INSTANCE) DATA_TABLE_INSTANCE.columns.adjust().responsive.recalc();
       }
-    } catch (err) {
-      alert('Gagal menghapus project: ' + err.message);
     }
-  }
-}
 
-// =========================================================================
-// VIEW 2: EXECUTIVE BI DASHBOARD RENDERER
-// =========================================================================
-function renderDashboardView() {
-  if (!CURRENT_PROJECT_META || !CURRENT_REVIEWS) return;
+    // INITIALIZATION
+    document.addEventListener('DOMContentLoaded', async () => {
+      await fetchProjectsList();
+      await loadProjectData(CURRENT_PROJECT_ID);
 
-  const meta = CURRENT_PROJECT_META;
-  const reviews = CURRENT_REVIEWS;
+      $('#projectSelect').on('change', function() {
+        const selectedId = $(this).val();
+        if (selectedId) loadProjectData(selectedId);
+      });
 
-  // Hero Banner
-  document.getElementById('dashHeroAppIcon').src = meta.icon || 'https://play-lh.googleusercontent.com/rN5o_e2373oTvdVz5x-m-Gq_oK23Mv5M1h7x-x8_y-4z8z_z-z';
-  document.getElementById('dashHeroAppName').textContent = meta.appName || meta.name;
-  document.getElementById('dashHeroAppId').textContent = meta.appId || 'app.playstore';
-  document.getElementById('dashHeroDeveloper').textContent = meta.developer || 'Pengembang Android';
-  document.getElementById('dashHeroRating').textContent = meta.score ? meta.score.toFixed(1) : '4.5';
-  document.getElementById('dashHeroSampleCount').textContent = reviews.length.toLocaleString();
+      const urlInput = document.getElementById('inputAppUrlOrId');
+      let lookupTimer = null;
+      urlInput?.addEventListener('input', () => {
+        clearTimeout(lookupTimer);
+        lookupTimer = setTimeout(triggerAppLookup, 600);
+      });
+    });
 
-  // Calculate Metrics
-  let posCount = 0, negCount = 0, neuCount = 0;
-  let starCounts = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
-  let gtCounts = { 'Positif': 0, 'Negatif': 0, 'Netral': 0 };
-  let anomalyCount = 0;
+    // FETCH PROJECTS LIST
+    async function fetchProjectsList() {
+      try {
+        const res = await fetch('/api/projects');
+        const data = await res.json();
+        if (data.success) {
+          ALL_PROJECTS = data.projects;
+          const select = document.getElementById('projectSelect');
+          select.innerHTML = ALL_PROJECTS.map(p => `
+            <option value="${p.id}" ${p.id === CURRENT_PROJECT_ID ? 'selected' : ''}>
+              ${p.appName || p.name} (${p.sampleCount || 0} ulasan)
+            </option>
+          `).join('');
+        }
+      } catch (err) {
+        console.error('Gagal mengambil daftar project:', err);
+      }
+    }
 
-  reviews.forEach(r => {
-    if (r.mlSentiment === 'Positif') posCount++;
-    else if (r.mlSentiment === 'Negatif') negCount++;
-    else neuCount++;
+    // LOAD ACTIVE PROJECT DATA
+    async function loadProjectData(projectId) {
+      try {
+        const res = await fetch(`/api/projects/${projectId}`);
+        const data = await res.json();
 
-    if (starCounts[r.score] !== undefined) starCounts[r.score]++;
-    if (gtCounts[r.groundTruth] !== undefined) gtCounts[r.groundTruth]++;
-    if (r.isAnomaly) anomalyCount++;
-  });
+        if (data.success) {
+          CURRENT_PROJECT_ID = projectId;
+          CURRENT_PROJECT_META = data.meta;
+          CURRENT_REVIEWS = data.reviews;
 
-  const total = reviews.length || 1;
-  const posRatio = ((posCount / total) * 100).toFixed(1);
-  const negRatio = ((negCount / total) * 100).toFixed(1);
-  const nss = (((posCount - negCount) / total) * 100).toFixed(1);
+          $('#projectSelect').val(projectId);
 
-  // Update KPI Cards
-  document.getElementById('kpiTotalReviews').textContent = total.toLocaleString();
-  document.getElementById('kpiAccuracy').textContent = (meta.metrics?.accuracy || 90.5).toFixed(1) + '%';
-  document.getElementById('kpiNSS').textContent = (nss > 0 ? '+' : '') + nss;
-  document.getElementById('kpiAnomalies').textContent = anomalyCount.toLocaleString();
-  document.getElementById('kpiAnomalyRatio').innerHTML = `<i class="fa-solid fa-exclamation text-warning"></i> ${((anomalyCount / total) * 100).toFixed(1)}% dari total ulasan`;
-  document.getElementById('navAnomalyBadge').textContent = anomalyCount;
+          // Update Navbar
+          document.getElementById('headerAppIcon').src = CURRENT_PROJECT_META.icon || 'https://play-lh.googleusercontent.com/rN5o_e2373oTvdVz5x-m-Gq_oK23Mv5M1h7x-x8_y-4z8z_z-z';
+          document.getElementById('headerAppName').textContent = CURRENT_PROJECT_META.appName || CURRENT_PROJECT_META.name;
+          document.getElementById('simActiveModelName').textContent = CURRENT_PROJECT_META.appName || CURRENT_PROJECT_META.name;
 
-  // Sentiment Doughnut Badges
-  document.getElementById('badgePosRatio').textContent = `${posRatio}% Positif`;
-  document.getElementById('legendPosVal').textContent = posCount.toLocaleString();
-  document.getElementById('legendNegVal').textContent = negCount.toLocaleString();
-  document.getElementById('legendNeuVal').textContent = neuCount.toLocaleString();
+          // Render Views
+          renderDashboardView();
+          renderMLStudioView();
+          renderDataExplorerView();
+          renderAnomalyCenterView();
+        }
+      } catch (err) {
+        console.error('Gagal memuat data project:', err);
+      }
+    }
 
-  // Render Charts
-  renderComparisonChart(starCounts, gtCounts, posCount, negCount, neuCount);
-  renderSentimentDoughnut(posCount, negCount, neuCount);
-  renderTopDriverCharts(meta.topPositiveTerms || [], meta.topNegativeTerms || []);
-}
+    // RENDER DASHBOARD VIEW
+    function renderDashboardView() {
+      if (!CURRENT_PROJECT_META || !CURRENT_REVIEWS) return;
 
-function renderComparisonChart(stars, gt, mlPos, mlNeg, mlNeu) {
-  const ctx = document.getElementById('chartComparison');
-  if (!ctx) return;
-  if (CHART_COMPARISON) CHART_COMPARISON.destroy();
+      const meta = CURRENT_PROJECT_META;
+      const reviews = CURRENT_REVIEWS;
 
-  const starPos = (stars[4] || 0) + (stars[5] || 0);
-  const starNeg = (stars[1] || 0) + (stars[2] || 0);
-  const starNeu = stars[3] || 0;
+      // Hero Banner
+      document.getElementById('heroAppIcon').src = meta.icon || 'https://play-lh.googleusercontent.com/rN5o_e2373oTvdVz5x-m-Gq_oK23Mv5M1h7x-x8_y-4z8z_z-z';
+      document.getElementById('heroAppTitle').textContent = meta.appName || meta.name;
+      document.getElementById('heroDeveloper').textContent = meta.developer || 'Pengembang Android';
+      document.getElementById('heroScore').textContent = meta.score ? meta.score.toFixed(1) : '4.5';
+      document.getElementById('heroSampleCount').textContent = reviews.length.toLocaleString('id-ID');
+      document.getElementById('heroCreatedAt').textContent = new Date(meta.createdAt).toLocaleString('id-ID');
 
-  CHART_COMPARISON = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ['Rating Bintang Play Store', 'Master Ground Truth', 'Prediksi Naive Bayes ML'],
-      datasets: [
-        {
-          label: 'Positif',
-          data: [starPos, gt['Positif'] || 0, mlPos],
-          backgroundColor: '#10b981',
-          borderRadius: 6
+      // Metric Counts
+      let posCount = 0, negCount = 0, neuCount = 0;
+      let starCounts = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+      let gtCounts = { 'Positif': 0, 'Negatif': 0, 'Netral': 0 };
+      let anomalyCount = 0;
+
+      reviews.forEach(r => {
+        if (r.mlSentiment === 'Positif') posCount++;
+        else if (r.mlSentiment === 'Negatif') negCount++;
+        else neuCount++;
+
+        if (starCounts[r.score] !== undefined) starCounts[r.score]++;
+        if (gtCounts[r.groundTruth] !== undefined) gtCounts[r.groundTruth]++;
+        if (r.isAnomaly) anomalyCount++;
+      });
+
+      const total = reviews.length || 1;
+      const posRatio = ((posCount / total) * 100).toFixed(1);
+      const negRatio = ((negCount / total) * 100).toFixed(1);
+
+      // Scorecards
+      document.getElementById('kpiTotalReviews').textContent = total.toLocaleString('id-ID');
+      document.getElementById('kpiAccuracy').textContent = (meta.metrics?.accuracy || 90.5).toFixed(1) + '%';
+      document.getElementById('kpiSentimentRatio').textContent = `${posRatio}% / ${negRatio}%`;
+      document.getElementById('kpiSentimentDetail').textContent = `${posCount.toLocaleString()} Positif | ${negCount.toLocaleString()} Negatif`;
+      document.getElementById('kpiAnomalies').textContent = anomalyCount.toLocaleString('id-ID');
+      document.getElementById('kpiAnomalyRatio').innerHTML = `<i class="fa-solid fa-bug me-1 text-warning"></i> ${((anomalyCount / total) * 100).toFixed(1)}% dari total ulasan`;
+
+      // Doughnut
+      document.getElementById('badgePosRatio').textContent = `${posRatio}% Positif`;
+      document.getElementById('legendPosVal').textContent = posCount.toLocaleString('id-ID');
+      document.getElementById('legendNegVal').textContent = negCount.toLocaleString('id-ID');
+      document.getElementById('legendNeuVal').textContent = neuCount.toLocaleString('id-ID');
+
+      // Render Charts
+      renderComparisonChart(starCounts, gtCounts, posCount, negCount, neuCount);
+      renderSentimentDoughnut(posCount, negCount, neuCount);
+      renderTopDriverCharts(meta.topPositiveTerms || [], meta.topNegativeTerms || []);
+    }
+
+    function renderComparisonChart(stars, gt, mlPos, mlNeg, mlNeu) {
+      const ctx = document.getElementById('chartComparison');
+      if (!ctx) return;
+      if (CHART_COMPARISON) CHART_COMPARISON.destroy();
+
+      const starPos = (stars[4] || 0) + (stars[5] || 0);
+      const starNeg = (stars[1] || 0) + (stars[2] || 0);
+      const starNeu = stars[3] || 0;
+
+      CHART_COMPARISON = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['Rating Play Store', 'Master Ground Truth', 'Prediksi Naive Bayes'],
+          datasets: [
+            {
+              label: 'Positif',
+              data: [starPos, gt['Positif'] || 0, mlPos],
+              backgroundColor: '#107c41',
+              borderRadius: 4
+            },
+            {
+              label: 'Negatif',
+              data: [starNeg, gt['Negatif'] || 0, mlNeg],
+              backgroundColor: '#a80000',
+              borderRadius: 4
+            },
+            {
+              label: 'Netral',
+              data: [starNeu, gt['Netral'] || 0, mlNeu],
+              backgroundColor: '#64748b',
+              borderRadius: 4
+            }
+          ]
         },
-        {
-          label: 'Negatif',
-          data: [starNeg, gt['Negatif'] || 0, mlNeg],
-          backgroundColor: '#f43f5e',
-          borderRadius: 6
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { position: 'top' } },
+          scales: {
+            x: { grid: { display: false } },
+            y: { grid: { color: '#f1f5f9' } }
+          }
+        }
+      });
+    }
+
+    function renderSentimentDoughnut(pos, neg, neu) {
+      const ctx = document.getElementById('chartSentimentDoughnut');
+      if (!ctx) return;
+      if (CHART_DOUGHNUT) CHART_DOUGHNUT.destroy();
+
+      CHART_DOUGHNUT = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Positif', 'Negatif', 'Netral'],
+          datasets: [{
+            data: [pos, neg, neu],
+            backgroundColor: ['#107c41', '#a80000', '#64748b'],
+            borderWidth: 2
+          }]
         },
-        {
-          label: 'Netral',
-          data: [starNeu, gt['Netral'] || 0, mlNeu],
-          backgroundColor: '#64748b',
-          borderRadius: 6
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          cutout: '70%',
+          plugins: { legend: { display: false } }
         }
-      ]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: { labels: { color: '#94a3b8', font: { family: 'Plus Jakarta Sans' } } }
-      },
-      scales: {
-        x: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } },
-        y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } }
+      });
+    }
+
+    function renderTopDriverCharts(posTerms, negTerms) {
+      const ctxPos = document.getElementById('chartTopPositive');
+      if (ctxPos) {
+        if (CHART_TOP_POS) CHART_TOP_POS.destroy();
+        CHART_TOP_POS = new Chart(ctxPos, {
+          type: 'bar',
+          data: {
+            labels: posTerms.map(t => t.word),
+            datasets: [{
+              data: posTerms.map(t => t.count),
+              backgroundColor: '#107c41',
+              borderRadius: 4
+            }]
+          },
+          options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+              x: { grid: { color: '#f1f5f9' } },
+              y: { grid: { display: false }, ticks: { font: { weight: '600' } } }
+            }
+          }
+        });
+      }
+
+      const ctxNeg = document.getElementById('chartTopNegative');
+      if (ctxNeg) {
+        if (CHART_TOP_NEG) CHART_TOP_NEG.destroy();
+        CHART_TOP_NEG = new Chart(ctxNeg, {
+          type: 'bar',
+          data: {
+            labels: negTerms.map(t => t.word),
+            datasets: [{
+              data: negTerms.map(t => t.count),
+              backgroundColor: '#a80000',
+              borderRadius: 4
+            }]
+          },
+          options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+              x: { grid: { color: '#f1f5f9' } },
+              y: { grid: { display: false }, ticks: { font: { weight: '600' } } }
+            }
+          }
+        });
       }
     }
-  });
-}
 
-function renderSentimentDoughnut(pos, neg, neu) {
-  const ctx = document.getElementById('chartSentimentDoughnut');
-  if (!ctx) return;
-  if (CHART_DOUGHNUT) CHART_DOUGHNUT.destroy();
+    // RENDER ML STUDIO VIEW
+    function renderMLStudioView() {
+      if (!CURRENT_PROJECT_META) return;
+      const m = CURRENT_PROJECT_META.metrics || {};
 
-  CHART_DOUGHNUT = new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-      labels: ['Positif', 'Negatif', 'Netral'],
-      datasets: [{
-        data: [pos, neg, neu],
-        backgroundColor: ['#10b981', '#f43f5e', '#64748b'],
-        borderWidth: 0
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      cutout: '72%',
-      plugins: { legend: { display: false } }
+      const cm = m.confusionMatrix || {};
+      const tp = cm['Positif']?.['Positif'] || 441;
+      const fn = cm['Positif']?.['Negatif'] || 35;
+      const fp = cm['Negatif']?.['Positif'] || 60;
+      const tn = cm['Negatif']?.['Negatif'] || 464;
+
+      document.getElementById('cmTP').textContent = tp;
+      document.getElementById('cmFN').textContent = fn;
+      document.getElementById('cmFP').textContent = fp;
+      document.getElementById('cmTN').textContent = tn;
+
+      const cmClass = m.classMetrics || {};
+      document.getElementById('evalAccBadge').textContent = `Akurasi ${(m.accuracy || 90.5).toFixed(2)}%`;
+      document.getElementById('metricPosPrec').textContent = `${cmClass['Positif']?.precision || 94.24}%`;
+      document.getElementById('metricPosRec').textContent = `${cmClass['Positif']?.recall || 92.64}%`;
+      document.getElementById('metricPosF1').textContent = `${cmClass['Positif']?.f1 || 93.43}%`;
+      document.getElementById('metricPosSupp').textContent = `${cmClass['Positif']?.support || 476}`;
+
+      document.getElementById('metricNegPrec').textContent = `${cmClass['Negatif']?.precision || 86.43}%`;
+      document.getElementById('metricNegRec').textContent = `${cmClass['Negatif']?.recall || 93.67}%`;
+      document.getElementById('metricNegF1').textContent = `${cmClass['Negatif']?.f1 || 89.90}%`;
+      document.getElementById('metricNegSupp').textContent = `${cmClass['Negatif']?.support || 524}`;
+
+      document.getElementById('metricMacroF1').textContent = `${(m.macroF1 || 61.11).toFixed(2)}%`;
+      document.getElementById('evalVocabSize').textContent = `${(m.vocabSize || 5537).toLocaleString('id-ID')} fitur`;
     }
-  });
-}
 
-function renderTopDriverCharts(posTerms, negTerms) {
-  // Top Positive
-  const ctxPos = document.getElementById('chartTopPositive');
-  if (ctxPos) {
-    if (CHART_TOP_POS) CHART_TOP_POS.destroy();
-    CHART_TOP_POS = new Chart(ctxPos, {
-      type: 'bar',
-      data: {
-        labels: posTerms.map(t => t.word),
-        datasets: [{
-          data: posTerms.map(t => t.count),
-          backgroundColor: '#10b981',
-          borderRadius: 6
-        }]
-      },
-      options: {
-        indexAxis: 'y',
+    function setSimPreset(type) {
+      const input = document.getElementById('simInputText');
+      if (!input) return;
+
+      const presets = {
+        'pujian': 'Pelayanan aplikasi ini sangat membantu, transaksinya cepat dan mudah digunakan 👍👍❤️',
+        'sarkas': 'Bintang 5 biar dibaca developer, padahal aplikasi sering error dan gak bisa login sama sekali 😡🔪',
+        'salah_klik': 'Bagus banget aplikasinya sangat mudah digunakan dan praktis',
+        'emoji': 'Keren abisss ❤️🔥👏 lancar jaya mantappp',
+        'slang': 'Apk ampas parah bgt lemot sering force close bikin kesel'
+      };
+
+      input.value = presets[type] || '';
+      runLivePrediction();
+    }
+
+    async function runLivePrediction() {
+      const text = document.getElementById('simInputText')?.value?.trim();
+      if (!text) {
+        alert('Silakan ketik teks ulasan terlebih dahulu.');
+        return;
+      }
+
+      const btn = document.getElementById('btnSimPredict');
+      if (btn) btn.innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span> Menganalisa...`;
+
+      try {
+        const res = await fetch('/api/predict', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text, projectId: CURRENT_PROJECT_ID })
+        });
+
+        const data = await res.json();
+        if (data.success) {
+          document.getElementById('simEmptyState').style.display = 'none';
+          document.getElementById('simActiveResult').style.display = 'block';
+
+          const isPos = data.prediction.label === 'Positif';
+          const badge = document.getElementById('simStatusBadge');
+          badge.textContent = 'Inferensi Selesai';
+          badge.className = isPos ? 'badge bg-success' : 'badge bg-danger';
+
+          const decisionBanner = document.getElementById('simDecisionBanner');
+          decisionBanner.style.background = isPos ? '#e8f5e9' : '#ffebee';
+          decisionBanner.style.borderColor = isPos ? '#c8e6c9' : '#ffcdd2';
+
+          const label = document.getElementById('simResultLabel');
+          label.textContent = data.prediction.label;
+          label.className = `fs-2 fw-bold my-1 ${isPos ? 'text-success' : 'text-danger'}`;
+
+          document.getElementById('simResultConfidence').textContent = `${data.prediction.confidence}%`;
+          document.getElementById('simProbPos').textContent = `${data.prediction.probPos}%`;
+          document.getElementById('simBarPos').style.width = `${data.prediction.probPos}%`;
+          document.getElementById('simProbNeg').textContent = `${data.prediction.probNeg}%`;
+          document.getElementById('simBarNeg').style.width = `${data.prediction.probNeg}%`;
+
+          document.getElementById('simStepEmojiSlang').textContent = data.steps.emojiTranslated || text;
+          document.getElementById('simStepStemmed').textContent = data.steps.stemmedTokens?.map(t => t.rootWord).join(' ') || '-';
+
+          const termsContainer = document.getElementById('simMatchedTermsContainer');
+          termsContainer.innerHTML = (data.steps.matchedFeatures || []).slice(0, 8).map(f => `
+            <span class="badge ${f.impact === 'Positif' ? 'bg-success' : 'bg-danger'} p-1" style="font-size: 0.75rem;">
+              ${f.term} (TF-IDF: ${f.tfidf})
+            </span>
+          `).join('') || '<span class="text-muted small">Tidak ada fitur TF-IDF khusus</span>';
+        }
+      } catch (err) {
+        alert('Gagal menjalankan inferensi: ' + err.message);
+      } finally {
+        if (btn) btn.innerHTML = `<i class="fa-solid fa-paper-plane me-1"></i> Prediksi Sentimen Real-Time`;
+      }
+    }
+
+    // RENDER DATA EXPLORER
+    function renderDataExplorerView() {
+      if (!CURRENT_REVIEWS) return;
+
+      if (DATA_TABLE_INSTANCE) {
+        DATA_TABLE_INSTANCE.destroy();
+      }
+
+      const tbody = document.getElementById('reviewsTableBody');
+      tbody.innerHTML = CURRENT_REVIEWS.map(r => `
+        <tr>
+          <td class="text-muted small">${r.no}</td>
+          <td class="fw-semibold text-dark small">${escapeHtml(r.userName || 'Pengguna')}</td>
+          <td>
+            <span class="text-warning small">${'★'.repeat(r.score)}${'☆'.repeat(5 - r.score)}</span>
+          </td>
+          <td class="small text-secondary" style="max-width: 320px;">
+            <div class="text-truncate">${escapeHtml(r.rawText)}</div>
+          </td>
+          <td>
+            <span class="${r.mlSentiment === 'Positif' ? 'badge-sentiment-pos' : r.mlSentiment === 'Negatif' ? 'badge-sentiment-neg' : 'badge bg-light text-dark'}">
+              ${r.mlSentiment}
+            </span>
+          </td>
+          <td class="small fw-bold ${r.confidence >= 90 ? 'text-success' : 'text-warning'}">
+            ${r.confidence}%
+          </td>
+          <td>
+            ${r.isAnomaly ? `
+              <span class="badge-anomaly-high" title="${escapeHtml(r.anomalyDesc)}">
+                <i class="fa-solid fa-triangle-exclamation me-1"></i> Anomali
+              </span>
+            ` : `
+              <span class="text-success small fw-semibold"><i class="fa-solid fa-check me-1"></i>Sesuai</span>
+            `}
+          </td>
+          <td>
+            <button class="btn btn-light btn-sm border py-0 px-2" onclick="inspectReview(${r.no})">
+              <i class="fa-solid fa-eye text-primary"></i>
+            </button>
+          </td>
+        </tr>
+      `).join('');
+
+      DATA_TABLE_INSTANCE = $('#mainDataTable').DataTable({
         responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
-        scales: {
-          x: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } },
-          y: { ticks: { color: '#f8fafc', font: { weight: '600' } }, grid: { display: false } }
+        pageLength: 10,
+        language: {
+          search: "_INPUT_",
+          searchPlaceholder: "Cari ulasan / username...",
+          lengthMenu: "Tampilkan _MENU_ baris",
+          info: "Menampilkan _START_ s/d _END_ dari _TOTAL_ ulasan",
+          paginate: { next: "Berikutnya", previous: "Sebelumnya" }
         }
+      });
+    }
+
+    function applyTableFilters() {
+      if (!DATA_TABLE_INSTANCE) return;
+
+      const sent = document.getElementById('filterSentiment')?.value;
+      const rating = document.getElementById('filterRating')?.value;
+      const anomaly = document.getElementById('filterAnomaly')?.value;
+
+      $.fn.dataTable.ext.search.push((settings, data, dataIndex) => {
+        const row = CURRENT_REVIEWS[dataIndex];
+        if (!row) return true;
+
+        if (sent && sent !== 'ALL' && row.mlSentiment !== sent) return false;
+        if (rating && rating !== 'ALL' && row.score.toString() !== rating) return false;
+        if (anomaly === 'ANOMALY' && !row.isAnomaly) return false;
+        if (anomaly === 'NORMAL' && row.isAnomaly) return false;
+
+        return true;
+      });
+
+      DATA_TABLE_INSTANCE.draw();
+      $.fn.dataTable.ext.search.pop();
+    }
+
+    function resetTableFilters() {
+      document.getElementById('filterSentiment').value = 'ALL';
+      document.getElementById('filterRating').value = 'ALL';
+      document.getElementById('filterAnomaly').value = 'ALL';
+      if (DATA_TABLE_INSTANCE) {
+        DATA_TABLE_INSTANCE.search('').draw();
       }
-    });
-  }
-
-  // Top Negative
-  const ctxNeg = document.getElementById('chartTopNegative');
-  if (ctxNeg) {
-    if (CHART_TOP_NEG) CHART_TOP_NEG.destroy();
-    CHART_TOP_NEG = new Chart(ctxNeg, {
-      type: 'bar',
-      data: {
-        labels: negTerms.map(t => t.word),
-        datasets: [{
-          data: negTerms.map(t => t.count),
-          backgroundColor: '#f43f5e',
-          borderRadius: 6
-        }]
-      },
-      options: {
-        indexAxis: 'y',
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
-        scales: {
-          x: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } },
-          y: { ticks: { color: '#f8fafc', font: { weight: '600' } }, grid: { display: false } }
-        }
-      }
-    });
-  }
-}
-
-// =========================================================================
-// VIEW 3: NAIVE BAYES ML STUDIO & LIVE SIMULATOR
-// =========================================================================
-function renderMLStudioView() {
-  if (!CURRENT_PROJECT_META) return;
-  const m = CURRENT_PROJECT_META.metrics || {};
-
-  // Confusion Matrix Counts (from test set)
-  const cm = m.confusionMatrix || {};
-  const tp = cm['Positif']?.['Positif'] || 441;
-  const fn = cm['Positif']?.['Negatif'] || 35;
-  const fp = cm['Negatif']?.['Positif'] || 60;
-  const tn = cm['Negatif']?.['Negatif'] || 464;
-
-  document.getElementById('cmTP').textContent = tp;
-  document.getElementById('cmFN').textContent = fn;
-  document.getElementById('cmFP').textContent = fp;
-  document.getElementById('cmTN').textContent = tn;
-
-  // Classification Metrics
-  const cmClass = m.classMetrics || {};
-  document.getElementById('evalAccBadge').textContent = `Akurasi ${(m.accuracy || 90.5).toFixed(2)}%`;
-  document.getElementById('metricPosPrec').textContent = `${cmClass['Positif']?.precision || 94.24}%`;
-  document.getElementById('metricPosRec').textContent = `${cmClass['Positif']?.recall || 92.64}%`;
-  document.getElementById('metricPosF1').textContent = `${cmClass['Positif']?.f1 || 93.43}%`;
-  document.getElementById('metricPosSupp').textContent = `${cmClass['Positif']?.support || 476}`;
-
-  document.getElementById('metricNegPrec').textContent = `${cmClass['Negatif']?.precision || 86.43}%`;
-  document.getElementById('metricNegRec').textContent = `${cmClass['Negatif']?.recall || 93.67}%`;
-  document.getElementById('metricNegF1').textContent = `${cmClass['Negatif']?.f1 || 89.90}%`;
-  document.getElementById('metricNegSupp').textContent = `${cmClass['Negatif']?.support || 524}`;
-
-  document.getElementById('metricMacroF1').textContent = `${(m.macroF1 || 61.11).toFixed(2)}%`;
-  document.getElementById('evalVocabSize').textContent = `${(m.vocabSize || 5537).toLocaleString()} fitur`;
-}
-
-function setSimPreset(type) {
-  const input = document.getElementById('simInputText');
-  if (!input) return;
-
-  const presets = {
-    'pujian': 'Pelayanan aplikasi ini sangat membantu, transaksinya cepat dan mudah digunakan 👍👍❤️',
-    'sarkas': 'Bintang 5 biar dibaca developer, padahal aplikasi sering error dan gak bisa login sama sekali 😡🔪',
-    'salah_klik': 'Bagus banget aplikasinya sangat mudah digunakan dan praktis',
-    'emoji': 'Keren abisss ❤️🔥👏 lancar jaya mantappp',
-    'slang': 'Apk ampas parah bgt lemot sering force close bikin kesel'
-  };
-
-  input.value = presets[type] || '';
-  runLivePrediction();
-}
-
-async function runLivePrediction() {
-  const text = document.getElementById('simInputText')?.value?.trim();
-  if (!text) {
-    alert('Silakan ketik teks ulasan terlebih dahulu.');
-    return;
-  }
-
-  const btn = document.getElementById('btnSimPredict');
-  if (btn) btn.innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span> Menganalisa...`;
-
-  try {
-    const res = await fetch('/api/predict', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ text, projectId: CURRENT_PROJECT_ID })
-    });
-
-    const data = await res.json();
-    if (data.success) {
-      document.getElementById('simEmptyState').style.display = 'none';
-      document.getElementById('simActiveResult').style.display = 'block';
-
-      const isPos = data.prediction.label === 'Positif';
-      const badge = document.getElementById('simStatusBadge');
-      badge.textContent = 'Inferensi Selesai';
-      badge.className = isPos ? 'badge bg-success' : 'badge bg-danger';
-
-      const decisionBanner = document.getElementById('simDecisionBanner');
-      decisionBanner.style.background = isPos ? 'rgba(16, 185, 129, 0.15)' : 'rgba(244, 63, 94, 0.15)';
-      decisionBanner.style.borderColor = isPos ? 'rgba(16, 185, 129, 0.3)' : 'rgba(244, 63, 94, 0.3)';
-
-      const label = document.getElementById('simResultLabel');
-      label.textContent = data.prediction.label;
-      label.className = `font-outfit fw-bold display-6 my-1 ${isPos ? 'text-success' : 'text-danger'}`;
-
-      document.getElementById('simResultConfidence').textContent = `${data.prediction.confidence}%`;
-      document.getElementById('simProbPos').textContent = `${data.prediction.probPos}%`;
-      document.getElementById('simBarPos').style.width = `${data.prediction.probPos}%`;
-      document.getElementById('simProbNeg').textContent = `${data.prediction.probNeg}%`;
-      document.getElementById('simBarNeg').style.width = `${data.prediction.probNeg}%`;
-
-      // Steps
-      document.getElementById('simStepEmojiSlang').textContent = data.steps.emojiTranslated || text;
-      document.getElementById('simStepStemmed').textContent = data.steps.stemmedTokens?.map(t => t.rootWord).join(' ') || '-';
-
-      // Matched Features Chips
-      const termsContainer = document.getElementById('simMatchedTermsContainer');
-      termsContainer.innerHTML = (data.steps.matchedFeatures || []).slice(0, 8).map(f => `
-        <span class="badge ${f.impact === 'Positif' ? 'bg-success' : 'bg-danger'} bg-opacity-25 text-white" style="font-size: 0.75rem;">
-          ${f.term} (TF-IDF: ${f.tfidf})
-        </span>
-      `).join('') || '<span class="text-dim small">Tidak ada fitur TF-IDF khusus</span>';
     }
-  } catch (err) {
-    alert('Gagal menjalankan inferensi: ' + err.message);
-  } finally {
-    if (btn) btn.innerHTML = `<i class="fa-solid fa-paper-plane me-1"></i> Prediksi Sentimen Real-Time`;
-  }
-}
 
-function filterExplorerByCM(type) {
-  switchRoute('explorer');
-  const sentimentFilter = document.getElementById('filterSentiment');
-  if (type === 'TP' && sentimentFilter) sentimentFilter.value = 'Positif';
-  else if (type === 'TN' && sentimentFilter) sentimentFilter.value = 'Negatif';
-  else if (type === 'FP' && sentimentFilter) sentimentFilter.value = 'Positif';
-  else if (type === 'FN' && sentimentFilter) sentimentFilter.value = 'Negatif';
-  applyTableFilters();
-}
+    function inspectReview(reviewNo) {
+      const review = CURRENT_REVIEWS.find(r => r.no === reviewNo);
+      if (!review) return;
 
-// =========================================================================
-// VIEW 4: DATA EXPLORER RENDERER
-// =========================================================================
-function renderDataExplorerView() {
-  if (!CURRENT_REVIEWS) return;
-
-  if (DATA_TABLE_INSTANCE) {
-    DATA_TABLE_INSTANCE.destroy();
-  }
-
-  const tbody = document.getElementById('reviewsTableBody');
-  tbody.innerHTML = CURRENT_REVIEWS.map(r => `
-    <tr>
-      <td class="text-dim small">${r.no}</td>
-      <td class="fw-semibold text-white small">${r.userName || 'Pengguna'}</td>
-      <td>
-        <span class="text-warning small">${'★'.repeat(r.score)}${'☆'.repeat(5 - r.score)}</span>
-      </td>
-      <td class="small text-muted" style="max-width: 320px;">
-        <div class="text-truncate">${escapeHtml(r.rawText)}</div>
-      </td>
-      <td>
-        <span class="${r.mlSentiment === 'Positif' ? 'badge-positive' : r.mlSentiment === 'Negatif' ? 'badge-negative' : 'badge-neutral'}">
-          ${r.mlSentiment}
-        </span>
-      </td>
-      <td class="small fw-bold ${r.confidence >= 90 ? 'text-success' : 'text-warning'}">
-        ${r.confidence}%
-      </td>
-      <td>
-        ${r.isAnomaly ? `
-          <span class="badge-anomaly" title="${r.anomalyDesc}">
-            <i class="fa-solid fa-triangle-exclamation me-1"></i> Anomali
-          </span>
-        ` : `
-          <span class="badge-positive" style="font-size: 0.72rem;">Sesuai</span>
-        `}
-      </td>
-      <td>
-        <button class="btn btn-glass py-0 px-2 small" onclick="inspectReview(${r.no})">
-          <i class="fa-solid fa-eye text-cyan"></i>
-        </button>
-      </td>
-    </tr>
-  `).join('');
-
-  DATA_TABLE_INSTANCE = $('#mainDataTable').DataTable({
-    responsive: true,
-    pageLength: 10,
-    language: {
-      search: "_INPUT_",
-      searchPlaceholder: "Cari teks / user...",
-      lengthMenu: "_MENU_ baris",
-      info: "Menampilkan _START_ s/d _END_ dari _TOTAL_ ulasan",
-      paginate: { next: ">", previous: "<" }
-    }
-  });
-}
-
-function applyTableFilters() {
-  if (!DATA_TABLE_INSTANCE) return;
-
-  const sent = document.getElementById('filterSentiment')?.value;
-  const rating = document.getElementById('filterRating')?.value;
-  const anomaly = document.getElementById('filterAnomaly')?.value;
-
-  $.fn.dataTable.ext.search.push((settings, data, dataIndex) => {
-    const row = CURRENT_REVIEWS[dataIndex];
-    if (!row) return true;
-
-    if (sent && sent !== 'ALL' && row.mlSentiment !== sent) return false;
-    if (rating && rating !== 'ALL' && row.score.toString() !== rating) return false;
-    if (anomaly === 'ANOMALY' && !row.isAnomaly) return false;
-    if (anomaly === 'NORMAL' && row.isAnomaly) return false;
-
-    return true;
-  });
-
-  DATA_TABLE_INSTANCE.draw();
-  $.fn.dataTable.ext.search.pop();
-}
-
-function resetTableFilters() {
-  document.getElementById('filterSentiment').value = 'ALL';
-  document.getElementById('filterRating').value = 'ALL';
-  document.getElementById('filterAnomaly').value = 'ALL';
-  if (DATA_TABLE_INSTANCE) {
-    DATA_TABLE_INSTANCE.search('').draw();
-  }
-}
-
-function inspectReview(reviewNo) {
-  const review = CURRENT_REVIEWS.find(r => r.no === reviewNo);
-  if (!review) return;
-
-  const modalBody = document.getElementById('reviewDetailModalBody');
-  modalBody.innerHTML = `
-    <div class="p-3 rounded-3 mb-3" style="background: var(--bg-dark); border: 1px solid var(--border-subtle);">
-      <div class="d-flex justify-content-between align-items-center mb-2">
-        <span class="fw-bold text-white"><i class="fa-solid fa-user text-dim me-1"></i> ${escapeHtml(review.userName)}</span>
-        <span class="text-warning">${'★'.repeat(review.score)}${'☆'.repeat(5 - review.score)} (${review.score} Bintang)</span>
-      </div>
-      <p class="text-white mb-0" style="font-size: 1rem; line-height: 1.5;">"${escapeHtml(review.rawText)}"</p>
-    </div>
-
-    <div class="row g-3 mb-3">
-      <div class="col-md-6">
-        <div class="p-3 rounded-3 h-100" style="background: var(--bg-surface-elevated);">
-          <div class="text-dim small text-uppercase fw-bold mb-1">Prediksi Sentimen ML</div>
-          <div class="fs-4 fw-bold ${review.mlSentiment === 'Positif' ? 'text-success' : 'text-danger'}">${review.mlSentiment}</div>
-          <div class="small text-muted">Confidence Score: <strong>${review.confidence}%</strong></div>
+      const modalBody = document.getElementById('reviewDetailModalBody');
+      modalBody.innerHTML = `
+        <div class="p-3 rounded-3 bg-light border mb-3">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <span class="fw-bold text-dark"><i class="fa-solid fa-user me-1 text-muted"></i> ${escapeHtml(review.userName)}</span>
+            <span class="text-warning">${'★'.repeat(review.score)}${'☆'.repeat(5 - review.score)} (${review.score} Bintang)</span>
+          </div>
+          <p class="text-dark mb-0" style="font-size: 0.95rem; line-height: 1.5;">"${escapeHtml(review.rawText)}"</p>
         </div>
-      </div>
-      <div class="col-md-6">
-        <div class="p-3 rounded-3 h-100" style="background: var(--bg-surface-elevated);">
-          <div class="text-dim small text-uppercase fw-bold mb-1">Master Ground Truth</div>
-          <div class="fs-4 fw-bold text-white">${review.groundTruth}</div>
-          <div class="small text-muted">Anotasi Aturan Standar</div>
-        </div>
-      </div>
-    </div>
 
-    ${review.isAnomaly ? `
-      <div class="p-3 rounded-3 mb-3" style="background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.3);">
-        <div class="fw-bold text-warning mb-1"><i class="fa-solid fa-triangle-exclamation me-1"></i> Status Anomali Terdeteksi</div>
-        <div class="small text-white">${review.anomalyDesc}</div>
-      </div>
-    ` : ''}
-
-    <div>
-      <div class="d-flex justify-content-between small text-dim mb-1">
-        <span>Probabilitas Positif: ${review.probPos}%</span>
-        <span>Probabilitas Negatif: ${review.probNeg}%</span>
-      </div>
-      <div class="progress" style="height: 8px; background: var(--bg-dark);">
-        <div class="progress-bar bg-success" style="width: ${review.probPos}%;"></div>
-        <div class="progress-bar bg-danger" style="width: ${review.probNeg}%;"></div>
-      </div>
-    </div>
-  `;
-
-  new bootstrap.Modal(document.getElementById('reviewDetailModal')).show();
-}
-
-function exportCurrentTable(format) {
-  if (!CURRENT_REVIEWS || CURRENT_REVIEWS.length === 0) return;
-
-  if (format === 'csv') {
-    const headers = ['No', 'User', 'Score', 'Text', 'GroundTruth', 'MLSentiment', 'Confidence', 'AnomalyDesc'];
-    const rows = CURRENT_REVIEWS.map(r => [
-      r.no,
-      `"${(r.userName || '').replace(/"/g, '""')}"`,
-      r.score,
-      `"${(r.rawText || '').replace(/"/g, '""')}"`,
-      r.groundTruth,
-      r.mlSentiment,
-      r.confidence,
-      `"${r.anomalyDesc || 'Sesuai'}"`
-    ]);
-    const csvContent = "data:text/csv;charset=utf-8," + [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
-    const encodedUri = encodeURI(csvContent);
-    const link = document.createElement("a");
-    link.setAttribute("href", encodedUri);
-    link.setAttribute("download", `${CURRENT_PROJECT_ID}_reviews.csv`);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  } else if (format === 'json') {
-    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(CURRENT_REVIEWS, null, 2));
-    const link = document.createElement("a");
-    link.setAttribute("href", dataStr);
-    link.setAttribute("download", `${CURRENT_PROJECT_ID}_reviews.json`);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  }
-}
-
-// =========================================================================
-// VIEW 5: APP COMPARISON & BENCHMARK
-// =========================================================================
-async function loadComparisonData() {
-  try {
-    const res = await fetch('/api/projects/compare');
-    const data = await res.json();
-    if (data.success && data.comparison) {
-      renderComparisonView(data.comparison);
-    }
-  } catch (err) {
-    console.error('Gagal mengambil data komparasi:', err);
-  }
-}
-
-function renderComparisonView(comparisonList) {
-  const tbody = document.getElementById('compareTableBody');
-  if (tbody) {
-    tbody.innerHTML = comparisonList.map(c => `
-      <tr>
-        <td>
-          <div class="d-flex align-items-center gap-2">
-            <img src="${c.icon || 'https://play-lh.googleusercontent.com/rN5o_e2373oTvdVz5x-m-Gq_oK23Mv5M1h7x-x8_y-4z8z_z-z'}" 
-                 style="width: 32px; height: 32px; border-radius: 8px; object-fit: cover;">
-            <div>
-              <div class="fw-bold text-white small">${c.appName || c.name}</div>
-              <div class="text-dim" style="font-size: 0.7rem;">${c.appId}</div>
+        <div class="row g-3 mb-3">
+          <div class="col-md-6">
+            <div class="p-3 rounded-3 bg-light border h-100">
+              <div class="text-muted small text-uppercase fw-bold mb-1">Prediksi Sentimen ML</div>
+              <div class="fs-4 fw-bold ${review.mlSentiment === 'Positif' ? 'text-success' : 'text-danger'}">${review.mlSentiment}</div>
+              <div class="small text-muted">Confidence: <strong>${review.confidence}%</strong></div>
             </div>
           </div>
-        </td>
-        <td class="small text-muted">${c.developer || 'Developer'}</td>
-        <td class="text-center small fw-semibold text-white">${c.totalReviews.toLocaleString()}</td>
-        <td class="text-center small fw-bold text-success">${c.accuracy.toFixed(1)}%</td>
-        <td class="text-center small fw-semibold text-success">${c.posRatio}%</td>
-        <td class="text-center small fw-semibold text-danger">${c.negRatio}%</td>
-        <td class="text-center small fw-bold ${c.netSentimentScore > 0 ? 'text-success' : 'text-danger'}">
-          ${c.netSentimentScore > 0 ? '+' : ''}${c.netSentimentScore}
-        </td>
-        <td class="text-center small text-warning fw-semibold">${c.anomalyCount} (${c.anomalyRatio}%)</td>
-        <td class="text-center">
-          <button class="btn btn-glass py-1 px-2 small" onclick="openProjectInDashboard('${c.id}')">
-            <i class="fa-solid fa-arrow-right text-primary"></i>
-          </button>
-        </td>
-      </tr>
-    `).join('');
-  }
-
-  // Comparison Charts
-  const labels = comparisonList.map(c => c.appName || c.name);
-
-  // Chart Accuracy
-  const ctxAcc = document.getElementById('chartCompareAccuracy');
-  if (ctxAcc) {
-    if (CHART_COMP_ACC) CHART_COMP_ACC.destroy();
-    CHART_COMP_ACC = new Chart(ctxAcc, {
-      type: 'bar',
-      data: {
-        labels,
-        datasets: [{
-          label: 'Akurasi Naive Bayes (%)',
-          data: comparisonList.map(c => c.accuracy),
-          backgroundColor: '#6366f1',
-          borderRadius: 6
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
-        scales: {
-          x: { ticks: { color: '#94a3b8' }, grid: { display: false } },
-          y: { ticks: { color: '#94a3b8' }, min: 50, max: 100, grid: { color: 'rgba(255,255,255,0.05)' } }
-        }
-      }
-    });
-  }
-
-  // Chart NSS
-  const ctxNSS = document.getElementById('chartCompareNSS');
-  if (ctxNSS) {
-    if (CHART_COMP_NSS) CHART_COMP_NSS.destroy();
-    CHART_COMP_NSS = new Chart(ctxNSS, {
-      type: 'bar',
-      data: {
-        labels,
-        datasets: [{
-          label: 'Net Sentiment Score (NSS)',
-          data: comparisonList.map(c => c.netSentimentScore),
-          backgroundColor: comparisonList.map(c => c.netSentimentScore >= 0 ? '#10b981' : '#f43f5e'),
-          borderRadius: 6
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
-        scales: {
-          x: { ticks: { color: '#94a3b8' }, grid: { display: false } },
-          y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } }
-        }
-      }
-    });
-  }
-}
-
-// =========================================================================
-// VIEW 6: ANOMALY & SARCASM CENTER
-// =========================================================================
-function renderAnomalyCenterView() {
-  if (!CURRENT_REVIEWS) return;
-
-  const anomalies = CURRENT_REVIEWS.filter(r => r.isAnomaly);
-  const typeA = anomalies.filter(r => r.score >= 4 && r.mlSentiment === 'Negatif').length;
-  const typeB = anomalies.filter(r => r.score <= 2 && r.mlSentiment === 'Positif').length;
-
-  document.getElementById('anomalyCenterCount').textContent = anomalies.length.toLocaleString();
-  document.getElementById('anomalyCenterRatio').textContent = `${((anomalies.length / CURRENT_REVIEWS.length) * 100).toFixed(1)}% dari total ulasan`;
-  document.getElementById('anomalyCenterTypeA').textContent = typeA.toLocaleString();
-  document.getElementById('anomalyCenterTypeB').textContent = typeB.toLocaleString();
-  document.getElementById('anomalyFeedCountBadge').textContent = `${anomalies.length} Ulasan Terdeteksi`;
-
-  const feedContainer = document.getElementById('anomalyCardsFeed');
-  if (anomalies.length === 0) {
-    feedContainer.innerHTML = `
-      <div class="col-12 text-center py-5 text-muted">
-        <i class="fa-solid fa-circle-check text-success fs-1 mb-2"></i>
-        <p>Tidak ada ulasan anomali yang mencolok pada dataset ini.</p>
-      </div>
-    `;
-    return;
-  }
-
-  feedContainer.innerHTML = anomalies.slice(0, 30).map(r => `
-    <div class="col-md-6">
-      <div class="p-3 rounded-3 h-100" style="background: var(--bg-dark); border: 1px solid rgba(245, 158, 11, 0.25);">
-        <div class="d-flex justify-content-between align-items-center mb-2">
-          <span class="text-warning small">${'★'.repeat(r.score)}${'☆'.repeat(5 - r.score)} (${r.score} Bintang)</span>
-          <span class="${r.mlSentiment === 'Positif' ? 'badge-positive' : 'badge-negative'}">
-            Prediksi ML: ${r.mlSentiment}
-          </span>
+          <div class="col-md-6">
+            <div class="p-3 rounded-3 bg-light border h-100">
+              <div class="text-muted small text-uppercase fw-bold mb-1">Master Ground Truth</div>
+              <div class="fs-4 fw-bold text-dark">${review.groundTruth}</div>
+              <div class="small text-muted">Anotasi Aturan Baku</div>
+            </div>
+          </div>
         </div>
-        <p class="text-white small mb-2" style="line-height: 1.4;">"${escapeHtml(r.rawText)}"</p>
-        <div class="d-flex justify-content-between align-items-center pt-2 border-top border-secondary border-opacity-25" style="font-size: 0.72rem;">
-          <span class="text-warning fw-semibold">${r.anomalyDesc}</span>
-          <span class="text-dim">Keyakinan: ${r.confidence}%</span>
+
+        ${review.isAnomaly ? `
+          <div class="p-3 rounded-3 bg-warning bg-opacity-10 border border-warning mb-3">
+            <div class="fw-bold text-warning mb-1"><i class="fa-solid fa-triangle-exclamation me-1"></i> Status Anomali Terdeteksi</div>
+            <div class="small text-dark">${review.anomalyDesc}</div>
+          </div>
+        ` : ''}
+
+        <div>
+          <div class="d-flex justify-content-between small text-muted mb-1">
+            <span>Probabilitas Positif: ${review.probPos}%</span>
+            <span>Probabilitas Negatif: ${review.probNeg}%</span>
+          </div>
+          <div class="progress" style="height: 8px;">
+            <div class="progress-bar bg-success" style="width: ${review.probPos}%;"></div>
+            <div class="progress-bar bg-danger" style="width: ${review.probNeg}%;"></div>
+          </div>
         </div>
-      </div>
-    </div>
-  `).join('');
-}
+      `;
 
-// =========================================================================
-// NEW PROJECT CREATION WIZARD
-// =========================================================================
-function applyAppPreset(appName, appId) {
-  document.getElementById('inputProjectName').value = `Analisis Sentimen ${appName}`;
-  document.getElementById('inputAppUrlOrId').value = appId;
-  triggerAppLookup();
-}
+      new bootstrap.Modal(document.getElementById('reviewDetailModal')).show();
+    }
 
-async function triggerAppLookup() {
-  const urlOrId = document.getElementById('inputAppUrlOrId')?.value?.trim();
-  if (!urlOrId) {
-    document.getElementById('appPreviewCard').style.display = 'none';
-    return;
-  }
+    function exportCurrentTable(format) {
+      if (!CURRENT_REVIEWS || CURRENT_REVIEWS.length === 0) return;
 
-  try {
-    const res = await fetch(`/api/apps/lookup?urlOrId=${encodeURIComponent(urlOrId)}`);
-    const data = await res.json();
-    if (data.success && data.app) {
-      document.getElementById('appPreviewCard').style.display = 'flex';
-      document.getElementById('previewAppIcon').src = data.app.icon;
-      document.getElementById('previewAppTitle').textContent = data.app.title;
-      document.getElementById('previewAppDev').textContent = `${data.app.developer} • Rating ⭐ ${data.app.score ? data.app.score.toFixed(1) : '-'}`;
-      
-      const nameInput = document.getElementById('inputProjectName');
-      if (!nameInput.value) {
-        nameInput.value = `Analisis Sentimen ${data.app.title}`;
+      if (format === 'csv') {
+        const headers = ['No', 'User', 'Score', 'Text', 'GroundTruth', 'MLSentiment', 'Confidence', 'AnomalyDesc'];
+        const rows = CURRENT_REVIEWS.map(r => [
+          r.no,
+          `"${(r.userName || '').replace(/"/g, '""')}"`,
+          r.score,
+          `"${(r.rawText || '').replace(/"/g, '""')}"`,
+          r.groundTruth,
+          r.mlSentiment,
+          r.confidence,
+          `"${r.anomalyDesc || 'Sesuai'}"`
+        ]);
+        const csvContent = "data:text/csv;charset=utf-8," + [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", `${CURRENT_PROJECT_ID}_reviews.csv`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
       }
     }
-  } catch (err) {
-    document.getElementById('appPreviewCard').style.display = 'none';
-  }
-}
 
-async function startCreateProject() {
-  const projectName = document.getElementById('inputProjectName')?.value?.trim();
-  const appUrlOrId = document.getElementById('inputAppUrlOrId')?.value?.trim();
-  const sampleSize = document.getElementById('inputSampleSize')?.value || 1000;
+    // RENDER COMPARISON VIEW
+    async function loadComparisonData() {
+      try {
+        const res = await fetch('/api/projects/compare');
+        const data = await res.json();
+        if (data.success && data.comparison) {
+          renderComparisonView(data.comparison);
+        }
+      } catch (err) {
+        console.error('Gagal mengambil data komparasi:', err);
+      }
+    }
 
-  if (!appUrlOrId) {
-    alert('Silakan masukkan URL atau Package ID Play Store.');
-    return;
-  }
+    function renderComparisonView(comparisonList) {
+      const tbody = document.getElementById('compareTableBody');
+      if (tbody) {
+        tbody.innerHTML = comparisonList.map(c => `
+          <tr>
+            <td>
+              <div class="d-flex align-items-center gap-2">
+                <img src="${c.icon || 'https://play-lh.googleusercontent.com/rN5o_e2373oTvdVz5x-m-Gq_oK23Mv5M1h7x-x8_y-4z8z_z-z'}" 
+                     style="width: 28px; height: 28px; border-radius: 6px; object-fit: cover;">
+                <div>
+                  <div class="fw-bold text-dark small">${c.appName || c.name}</div>
+                  <div class="text-muted" style="font-size: 0.7rem;">${c.appId}</div>
+                </div>
+              </div>
+            </td>
+            <td class="small text-muted">${c.developer || 'Developer'}</td>
+            <td class="text-center small fw-semibold">${c.totalReviews.toLocaleString('id-ID')}</td>
+            <td class="text-center small fw-bold text-success">${c.accuracy.toFixed(1)}%</td>
+            <td class="text-center small fw-semibold text-success">${c.posRatio}%</td>
+            <td class="text-center small fw-semibold text-danger">${c.negRatio}%</td>
+            <td class="text-center small fw-bold ${c.netSentimentScore > 0 ? 'text-success' : 'text-danger'}">
+              ${c.netSentimentScore > 0 ? '+' : ''}${c.netSentimentScore}
+            </td>
+            <td class="text-center small text-warning fw-semibold">${c.anomalyCount} (${c.anomalyRatio}%)</td>
+            <td class="text-center">
+              <button class="btn btn-outline-primary btn-sm py-0 px-2" onclick="loadProjectData('${c.id}'); switchTab('dashboard');">
+                Buka
+              </button>
+            </td>
+          </tr>
+        `).join('');
+      }
 
-  // Switch to progress UI
-  document.getElementById('newProjectFormSection').style.display = 'none';
-  document.getElementById('newProjectProgressSection').style.display = 'block';
-  document.getElementById('newProjectModalFooter').style.display = 'none';
+      const labels = comparisonList.map(c => c.appName || c.name);
 
-  try {
-    const res = await fetch('/api/projects/create', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        projectName: projectName || appUrlOrId,
-        source: 'Google Play Store',
-        appUrlOrId,
-        sampleSize: parseInt(sampleSize)
-      })
+      const ctxAcc = document.getElementById('chartCompareAccuracy');
+      if (ctxAcc) {
+        if (CHART_COMP_ACC) CHART_COMP_ACC.destroy();
+        CHART_COMP_ACC = new Chart(ctxAcc, {
+          type: 'bar',
+          data: {
+            labels,
+            datasets: [{
+              label: 'Akurasi Naive Bayes (%)',
+              data: comparisonList.map(c => c.accuracy),
+              backgroundColor: '#0078d4',
+              borderRadius: 4
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+              x: { grid: { display: false } },
+              y: { min: 50, max: 100, grid: { color: '#f1f5f9' } }
+            }
+          }
+        });
+      }
+
+      const ctxNSS = document.getElementById('chartCompareNSS');
+      if (ctxNSS) {
+        if (CHART_COMP_NSS) CHART_COMP_NSS.destroy();
+        CHART_COMP_NSS = new Chart(ctxNSS, {
+          type: 'bar',
+          data: {
+            labels,
+            datasets: [{
+              label: 'Net Sentiment Score (NSS)',
+              data: comparisonList.map(c => c.netSentimentScore),
+              backgroundColor: comparisonList.map(c => c.netSentimentScore >= 0 ? '#107c41' : '#a80000'),
+              borderRadius: 4
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+              x: { grid: { display: false } },
+              y: { grid: { color: '#f1f5f9' } }
+            }
+          }
+        });
+      }
+    }
+
+    // RENDER ANOMALY CENTER
+    function renderAnomalyCenterView() {
+      if (!CURRENT_REVIEWS) return;
+
+      const anomalies = CURRENT_REVIEWS.filter(r => r.isAnomaly);
+      const typeA = anomalies.filter(r => r.score >= 4 && r.mlSentiment === 'Negatif').length;
+      const typeB = anomalies.filter(r => r.score <= 2 && r.mlSentiment === 'Positif').length;
+
+      document.getElementById('anomalyCenterCount').textContent = anomalies.length.toLocaleString('id-ID');
+      document.getElementById('anomalyCenterRatio').textContent = `${((anomalies.length / CURRENT_REVIEWS.length) * 100).toFixed(1)}% dari total ulasan`;
+      document.getElementById('anomalyCenterTypeA').textContent = typeA.toLocaleString('id-ID');
+      document.getElementById('anomalyCenterTypeB').textContent = typeB.toLocaleString('id-ID');
+      document.getElementById('anomalyFeedCountBadge').textContent = `${anomalies.length} Ulasan Terdeteksi`;
+
+      const feedContainer = document.getElementById('anomalyCardsFeed');
+      if (anomalies.length === 0) {
+        feedContainer.innerHTML = `
+          <div class="col-12 text-center py-4 text-muted">
+            <i class="fa-solid fa-circle-check text-success fs-2 mb-2"></i>
+            <p>Tidak ada ulasan anomali yang mencolok pada dataset ini.</p>
+          </div>
+        `;
+        return;
+      }
+
+      feedContainer.innerHTML = anomalies.slice(0, 30).map(r => `
+        <div class="col-md-6">
+          <div class="p-3 rounded-3 bg-light border h-100">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <span class="text-warning small">${'★'.repeat(r.score)}${'☆'.repeat(5 - r.score)} (${r.score} Bintang)</span>
+              <span class="${r.mlSentiment === 'Positif' ? 'badge-sentiment-pos' : 'badge-sentiment-neg'}">
+                Prediksi ML: ${r.mlSentiment}
+              </span>
+            </div>
+            <p class="text-dark small mb-2" style="line-height: 1.4;">"${escapeHtml(r.rawText)}"</p>
+            <div class="d-flex justify-content-between align-items-center pt-2 border-top small">
+              <span class="text-warning fw-semibold">${r.anomalyDesc}</span>
+              <span class="text-muted">Keyakinan: ${r.confidence}%</span>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // APP LOOKUP & WIZARD
+    function applyAppPreset(appName, appId) {
+      document.getElementById('inputProjectName').value = `Analisis Sentimen ${appName}`;
+      document.getElementById('inputAppUrlOrId').value = appId;
+      triggerAppLookup();
+    }
+
+    async function triggerAppLookup() {
+      const urlOrId = document.getElementById('inputAppUrlOrId')?.value?.trim();
+      if (!urlOrId) {
+        document.getElementById('appPreviewCard').style.display = 'none';
+        return;
+      }
+
+      try {
+        const res = await fetch(`/api/apps/lookup?urlOrId=${encodeURIComponent(urlOrId)}`);
+        const data = await res.json();
+        if (data.success && data.app) {
+          document.getElementById('appPreviewCard').style.display = 'flex';
+          document.getElementById('previewAppIcon').src = data.app.icon;
+          document.getElementById('previewAppTitle').textContent = data.app.title;
+          document.getElementById('previewAppDev').textContent = `${data.app.developer} • Rating ⭐ ${data.app.score ? data.app.score.toFixed(1) : '-'}`;
+          
+          const nameInput = document.getElementById('inputProjectName');
+          if (!nameInput.value) {
+            nameInput.value = `Analisis Sentimen ${data.app.title}`;
+          }
+        }
+      } catch (err) {
+        document.getElementById('appPreviewCard').style.display = 'none';
+      }
+    }
+
+    // FORM SUBMIT
+    document.getElementById('createProjectForm')?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const projectName = document.getElementById('inputProjectName')?.value?.trim();
+      const appUrlOrId = document.getElementById('inputAppUrlOrId')?.value?.trim();
+      const sampleSize = document.getElementById('inputSampleSize')?.value || 1000;
+
+      if (!appUrlOrId) {
+        alert('Mohon masukkan URL atau Package ID Play Store.');
+        return;
+      }
+
+      document.getElementById('btnSubmitProject').disabled = true;
+      document.getElementById('btnCancelModal').disabled = true;
+      document.getElementById('modalCloseBtn').disabled = true;
+      document.getElementById('processingSection').style.display = 'block';
+      document.getElementById('modalFooterBtns').style.display = 'none';
+
+      try {
+        const res = await fetch('/api/projects/create', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            projectName: projectName || appUrlOrId,
+            source: 'Google Play Store',
+            appUrlOrId,
+            sampleSize: parseInt(sampleSize)
+          })
+        });
+
+        const data = await res.json();
+        if (data.success) {
+          document.getElementById('processingStatusTitle').textContent = '🎉 Selesai!';
+          document.getElementById('processingStatusDesc').textContent = `Model Naive Bayes berhasil dilatih dengan akurasi ${data.project.metrics?.accuracy}%!`;
+
+          setTimeout(async () => {
+            const modalEl = document.getElementById('createProjectModal');
+            const modal = bootstrap.Modal.getInstance(modalEl);
+            if (modal) modal.hide();
+
+            document.getElementById('createProjectForm').reset();
+            document.getElementById('appPreviewCard').style.display = 'none';
+            document.getElementById('processingSection').style.display = 'none';
+            document.getElementById('modalFooterBtns').style.display = 'flex';
+            document.getElementById('btnSubmitProject').disabled = false;
+            document.getElementById('btnCancelModal').disabled = false;
+            document.getElementById('modalCloseBtn').disabled = false;
+
+            await fetchProjectsList();
+            await loadProjectData(data.project.id);
+            switchTab('dashboard');
+          }, 1000);
+        } else {
+          alert('Gagal membuat project: ' + (data.error || 'Terjadi kesalahan.'));
+          document.getElementById('processingSection').style.display = 'none';
+          document.getElementById('modalFooterBtns').style.display = 'flex';
+          document.getElementById('btnSubmitProject').disabled = false;
+          document.getElementById('btnCancelModal').disabled = false;
+          document.getElementById('modalCloseBtn').disabled = false;
+        }
+      } catch (err) {
+        alert('Gagal menghubungi server: ' + err.message);
+        document.getElementById('processingSection').style.display = 'none';
+        document.getElementById('modalFooterBtns').style.display = 'flex';
+        document.getElementById('btnSubmitProject').disabled = false;
+        document.getElementById('btnCancelModal').disabled = false;
+        document.getElementById('modalCloseBtn').disabled = false;
+      }
     });
 
-    const data = await res.json();
-    if (data.success) {
-      // Close modal
-      const modalEl = document.getElementById('newProjectModal');
-      const modal = bootstrap.Modal.getInstance(modalEl);
-      if (modal) modal.hide();
-
-      // Reset Modal
-      document.getElementById('newProjectFormSection').style.display = 'block';
-      document.getElementById('newProjectProgressSection').style.display = 'none';
-      document.getElementById('newProjectModalFooter').style.display = 'flex';
-      document.getElementById('inputProjectName').value = '';
-      document.getElementById('inputAppUrlOrId').value = '';
-
-      // Reload project list and switch to new project
-      await fetchProjectsList();
-      await loadProjectData(data.project.id);
-      switchRoute('dashboard');
-    } else {
-      throw new Error(data.error || 'Gagal memproses project');
+    function escapeHtml(text) {
+      if (!text) return '';
+      return String(text).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
     }
-  } catch (err) {
-    alert('Terjadi kesalahan: ' + err.message);
-    document.getElementById('newProjectFormSection').style.display = 'block';
-    document.getElementById('newProjectProgressSection').style.display = 'none';
-    document.getElementById('newProjectModalFooter').style.display = 'flex';
-  }
-}
-
-// Utility Escape HTML
-function escapeHtml(text) {
-  if (!text) return '';
-  return text
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
-}
-</script>
-
+  </script>
 </body>
 </html>
