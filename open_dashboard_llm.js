@@ -1,13 +1,40 @@
-import { exec } from 'child_process';
-import path from 'path';
+import { exec, spawn } from 'child_process';
+import http from 'http';
 
-const fileUrl = path.resolve('dashboard_llm.html');
-console.log(`🧠 Membuka LLM Intelligence Dashboard di browser: ${fileUrl}`);
+const URL = 'http://localhost:3000/dashboard_llm.html';
 
-exec(`start "" "${fileUrl}"`, (err) => {
-  if (err) {
-    console.error('Gagal membuka browser otomatis. Anda dapat membuka file secara manual:', fileUrl);
-  } else {
-    console.log('✅ LLM Dashboard berhasil dibuka di browser!');
+// Cek apakah server sudah running di port 3000
+function checkServer(callback) {
+  const req = http.get('http://localhost:3000', (res) => {
+    callback(true);
+  });
+  req.on('error', () => {
+    callback(false);
+  });
+  req.setTimeout(500, () => {
+    req.abort();
+    callback(false);
+  });
+}
+
+checkServer((isRunning) => {
+  if (!isRunning) {
+    console.log('🚀 Memulai local server (server.js) di port 3000...');
+    const child = spawn('node', ['server.js'], {
+      detached: true,
+      stdio: 'ignore'
+    });
+    child.unref();
   }
+
+  setTimeout(() => {
+    console.log(`🧠 Membuka Dashboard LLM di: ${URL}`);
+    exec(`start "" "${URL}"`, (err) => {
+      if (err) {
+        console.error('Buka browser manual di:', URL);
+      } else {
+        console.log('✅ Dashboard LLM berhasil dibuka!');
+      }
+    });
+  }, 800);
 });

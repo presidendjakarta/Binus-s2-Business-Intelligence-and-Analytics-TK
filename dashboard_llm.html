@@ -804,19 +804,39 @@ Rating: ${score}
 Ulasan: "${text}"
 Jawab HANYA JSON: {"sentiment": "Positif" atau "Negatif", "category": "Masalah Teknis & Bug" | "Layanan Faskes & Antrean" | "Fitur & UI/UX" | "Administrasi & Iuran" | "Apresiasi & Kepuasan", "reason": "alasan singkat", "confidence": 0.90}`;
 
-          // Tentukan Endpoint: Gunakan proxy server /api/generate jika tersedia, atau langsung ke 11434
-          const isHttp = window.location.protocol.startsWith('http');
-          const endpoint = isHttp ? '/api/generate' : 'http://localhost:11434/api/generate';
+          const payload = { model: 'gemma3:latest', prompt, stream: false, format: 'json' };
 
-          const res = await fetch(endpoint, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ model: 'gemma3:latest', prompt, stream: false, format: 'json' })
-          });
+          // Multi-endpoint fallback (handles localhost:3000 proxy and direct Ollama)
+          const endpoints = [
+            '/api/generate',
+            'http://localhost:3000/api/generate',
+            'http://127.0.0.1:3000/api/generate',
+            'http://localhost:11434/api/generate'
+          ];
 
-          if (!res.ok) throw new Error(`HTTP Error ${res.status}`);
-          const data = await res.json();
-          const parsed = JSON.parse(data.response.trim());
+          let parsed = null;
+          let lastErr = null;
+
+          for (const ep of endpoints) {
+            try {
+              const res = await fetch(ep, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+              });
+              if (res.ok) {
+                const data = await res.json();
+                parsed = JSON.parse(data.response.trim());
+                break;
+              }
+            } catch (e) {
+              lastErr = e;
+            }
+          }
+
+          if (!parsed) {
+            throw new Error('Tidak dapat terhubung ke server proxy (port 3000) atau Ollama lokal (port 11434).');
+          }
 
           const duration = Date.now() - startTime;
           $('#livePlaceholder').hide();
@@ -840,7 +860,7 @@ Jawab HANYA JSON: {"sentiment": "Positif" atau "Negatif", "category": "Masalah T
           $('#liveConfidenceText').text(`Skor Keyakinan: ${Math.round((parsed.confidence || 0.9) * 100)}%`);
 
         } catch (err) {
-          alert('Gagal menghubungi Ollama lokal (http://localhost:11434). Pastikan Ollama aktif di latar belakang!\nError: ' + err.message);
+          alert('Gagal menghubungi Ollama / Server Proxy!\n\n💡 Solusi:\n1. Buka dashboard melalui URL: http://localhost:3000/dashboard_llm.html (Jalankan: npm start di terminal)\n2. Pastikan Ollama aktif di latar belakang.\n\nDetail Error: ' + err.message);
         } finally {
           btn.prop('disabled', false).html('<i class="fa-solid fa-play me-1"></i> Analisis dengan Gemma 3');
         }
