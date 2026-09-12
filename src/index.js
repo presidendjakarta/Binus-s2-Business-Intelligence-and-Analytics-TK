@@ -16,3 +16,6 @@ export * from './ml/trainer.js';
 
 // Scraper Module
 export * from './scraper/playstoreScraper.js';
+
+// Project Management Module (Multi-App Workspace)
+export * from './project/projectManager.js';

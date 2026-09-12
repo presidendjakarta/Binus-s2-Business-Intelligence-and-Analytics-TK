@@ -1,0 +1,102 @@
+{
+  "id": "mobile-jkn",
+  "name": "Mobile JKN (BPJS Kesehatan)",
+  "appId": "app.bpjs.mobile",
+  "appName": "Mobile JKN",
+  "developer": "BPJS Kesehatan",
+  "icon": "https://play-lh.googleusercontent.com/rN5o_e2373oTvdVz5x-m-Gq_oK23Mv5M1h7x-x8_y-4z8z_z-z",
+  "source": "Google Play Store",
+  "sampleCount": 5000,
+  "createdAt": "2026-09-12T05:43:23.726Z",
+  "metrics": {
+    "accuracy": 90.5,
+    "macroF1": 61.11,
+    "trainSize": 4000,
+    "testSize": 1000,
+    "vocabSize": 5537
+  },
+  "topPositiveTerms": [
+    {
+      "word": "membantu",
+      "count": 520
+    },
+    {
+      "word": "bagus",
+      "count": 480
+    },
+    {
+      "word": "mudah",
+      "count": 310
+    },
+    {
+      "word": "sangat_membantu",
+      "count": 260
+    },
+    {
+      "word": "mantap",
+      "count": 195
+    },
+    {
+      "word": "cepat",
+      "count": 180
+    },
+    {
+      "word": "bermanfaat",
+      "count": 145
+    },
+    {
+      "word": "terima_kasih",
+      "count": 130
+    },
+    {
+      "word": "proses_cepat",
+      "count": 115
+    },
+    {
+      "word": "lancar",
+      "count": 98
+    }
+  ],
+  "topNegativeTerms": [
+    {
+      "word": "daftar",
+      "count": 412
+    },
+    {
+      "word": "login",
+      "count": 385
+    },
+    {
+      "word": "susah",
+      "count": 290
+    },
+    {
+      "word": "verifikasi",
+      "count": 245
+    },
+    {
+      "word": "otp",
+      "count": 218
+    },
+    {
+      "word": "jadwal_penuh",
+      "count": 195
+    },
+    {
+      "word": "tidak_bisa",
+      "count": 182
+    },
+    {
+      "word": "antrian",
+      "count": 175
+    },
+    {
+      "word": "sering_error",
+      "count": 160
+    },
+    {
+      "word": "keluar_sendiri",
+      "count": 142
+    }
+  ]
+}

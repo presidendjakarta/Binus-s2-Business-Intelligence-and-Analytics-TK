@@ -1,0 +1,26 @@
+[
+  {
+    "id": "com-icon-pln123-1789191920474",
+    "name": "Analisis Sentimen PLN Mobile",
+    "appId": "com.icon.pln123",
+    "appName": "PLN Mobile",
+    "developer": "P L N",
+    "icon": "https://play-lh.googleusercontent.com/42cY-Bo9tf2_GPqUXmS44mU3m4oYV_6MtrYF_TPIHnMhf8MMeu4g33EhPQ6fR-g4JHrgdk1y48dQjIZ48Vbk8zs",
+    "source": "Google Play Store",
+    "sampleCount": 500,
+    "createdAt": "2026-09-12T05:45:24.408Z",
+    "accuracy": 94
+  },
+  {
+    "id": "mobile-jkn",
+    "name": "Mobile JKN (BPJS Kesehatan)",
+    "appId": "app.bpjs.mobile",
+    "appName": "Mobile JKN",
+    "developer": "BPJS Kesehatan",
+    "icon": "https://play-lh.googleusercontent.com/rN5o_e2373oTvdVz5x-m-Gq_oK23Mv5M1h7x-x8_y-4z8z_z-z",
+    "source": "Google Play Store",
+    "sampleCount": 5000,
+    "createdAt": "2026-09-12T05:43:23.726Z",
+    "accuracy": 90.5
+  }
+]

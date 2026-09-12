@@ -5,16 +5,15 @@ Proyek penelitian **Data Mining & Natural Language Processing (NLP)** untuk meng
 
 ---
 
-## 🎯 Ringkasan Hasil Model Machine Learning (Sastrawi + Naive Bayes)
+## 🎯 Ringkasan Fitur & Kemampuan Machine Learning
 
-- **Dataset**: 5.000 Ulasan Google Play Store (`app.bpjs.mobile`)
-- **Pembagian Data**: 80% Data Latih (4.000 ulasan) & 20% Data Uji (1.000 ulasan)
-- **Akurasi Model (Accuracy)**: **90.50%** 🎯
-- **Macro F1-Score**: **61.11%**
-- **Precision (Kelas Positif)**: **94.24%** (Recall: 92.64% | F1-Score: **93.43%**)
-- **Recall (Kelas Negatif)**: **93.67%** (Precision: 86.43% | F1-Score: **89.90%**)
-- **TF-IDF Vocabulary**: **5.537 fitur kata, bigram, dan emoji semantik**
-- **Deteksi Anomali**: Mendeteksi taktik bintang 5 semu (sarkasme/komplain) & bintang 1 pujian tanpa false positive pada simbol/emoji.
+- **Multi-Project / Custom App Analyzer**: Mampu menganalisis ulasan aplikasi Google Play Store apa pun secara dinamis (Mobile JKN, PLN Mobile, BCA Mobile, Shopee, Tokopedia, Gojek, dll.) hanya dengan memasukkan URL / Package ID.
+- **Multinomial Naive Bayes (Laplace Smoothing $\alpha=1.0$)**: Supervised NLP Machine Learning murni berkecepatan tinggi tanpa ketergantungan API pihak ketiga.
+- **Sastrawi Indonesian Morphological Stemming**: Normalisasi kata berimbuhan bahasa Indonesia menjadi bentuk dasar kata.
+- **Emoji-to-Token Semantic Translation**: Mengubah sentimen emoji (`👍`, `🔪`, `😡`, `⭐`) menjadi token kosakata terukur.
+- **Deteksi Anomali Cerdas**: Mendeteksi taktik bintang 5 semu (sarkasme/komplain) & bintang 1 pujian tanpa *false positive* pada simbol/emoji.
+- **Dynamic TF-IDF Driver Extraction**: Menampilkan Top 10 kata kunci positif dan negatif yang secara otomatis menyesuaikan dengan domain aplikasi yang dianalisis.
+- **Interactive Executive BI Dashboard**: Tampilan visualisasi profesional (Power BI / Tableau style) dengan DataTables lengkap (Search, Filter Rating/Sentimen/Anomali, Export CSV & Print PDF).
 
 ---
 
@@ -49,7 +48,7 @@ npm test
 Dokumentasi lengkap terstruktur untuk keperluan skripsi, tesis, dan laporan tugas kuliah tersedia di folder [docs/](file:///x:/laragon/kuliah/playstore-mining/docs):
 
 1. 📐 **[docs/naive_bayes.md](file:///x:/laragon/kuliah/playstore-mining/docs/naive_bayes.md)**: **Rujukan Utama Naive Bayes**: Landasan matematis MNB, TF-IDF + L2, Laplace Smoothing ($\alpha=1$), simulasi perhitungan manual, penanganan emoji/simbol, dan 7 template jawaban sidang dosen penguji.
-2. 📖 **[docs/cara_pakai.md](file:///x:/laragon/kuliah/playstore-mining/docs/cara_pakai.md)**: Panduan instalasi, eksekusi CLI, mengoperasikan Dashboard interaktif, filter multi-kriteria, export CSV, dan troubleshooting.
+2. 📖 **[docs/cara_pakai.md](file:///x:/laragon/kuliah/playstore-mining/docs/cara_pakai.md)**: Panduan instalasi, eksekusi CLI, analisis aplikasi kustom (Multi-Project), mengoperasikan Dashboard interaktif, filter multi-kriteria, export CSV, dan REST API.
 3. 🔬 **[docs/metodologi_penelitian.md](file:///x:/laragon/kuliah/playstore-mining/docs/metodologi_penelitian.md)**: **Bahan Bab 3**: Kerangka kerja ilmiah CRISP-DM, teknik sampling 5.000 ulasan, Ground Truth, Train-Test Split (80:20), dan arsitektur ML.
 4. 📊 **[docs/analisis_dan_temuan.md](file:///x:/laragon/kuliah/playstore-mining/docs/analisis_dan_temuan.md)**: **Bahan Bab 4**: Pembahasan hasil riset 5.000 data, analisis anomali rating vs teks, Top 5 keluhan utama, dan rekomendasi strategis manajemen BPJS.
 5. 📐 **[docs/algoritma.md](file:///x:/laragon/kuliah/playstore-mining/docs/algoritma.md)**: **Landasan Teori Matematis**: Rumus TF-IDF, Sastrawi Stemmer, Multinomial Naive Bayes, Laplace Smoothing ($\alpha=1$), dan Confusion Matrix.
@@ -66,6 +65,7 @@ playstore-mining/
 │   ├── config/constants.js                   # Konfigurasi & path terpusat
 │   ├── nlp/                                  # Emoji dictionary, Slang, Stopwords, Sastrawi stemmer, Preprocessor
 │   ├── ml/                                   # TF-IDF vectorizer, Multinomial Naive Bayes, Evaluator, Trainer
+│   ├── project/                              # Multi-Project Manager (Live Scraper + Pipeline + Persistence)
 │   ├── scraper/                              # Google Play Store scraper engine
 │   └── index.js                              # Unified export
 ├── scripts/                                  # CLI execution scripts
@@ -74,8 +74,8 @@ playstore-mining/
 │   ├── test_nlp.js                           # npm test
 │   └── open_dashboard.js                     # npm run dashboard
 ├── docs/                                     # Dokumentasi akademik & panduan (Bab 2, Bab 3, Bab 4, Kamus, Panduan)
-├── data/                                     # Dataset 5.000 ulasan & hasil prediksi Naive Bayes
-├── dashboard.html                            # Executive BI Dashboard Multinomial Naive Bayes
-├── server.js                                 # Web Server (Zero Dependencies)
+├── data/                                     # Dataset & Multi-Project storage (data/projects/<id>/)
+├── dashboard.html                            # Executive BI Dashboard Multinomial Naive Bayes (Multi-Project)
+├── server.js                                 # Web Server & REST API (Zero Dependencies)
 └── package.json                              # Project manifest & dependencies
 ```

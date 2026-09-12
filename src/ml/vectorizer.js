@@ -7,6 +7,7 @@ export class TFIDFVectorizer {
     this.minDf = minDf;
     this.vocabulary = new Map();
     this.idf = new Map();
+    this.docFreq = new Map();
     this.numDocs = 0;
   }
 
@@ -20,6 +21,8 @@ export class TFIDFVectorizer {
         docFreq.set(w, (docFreq.get(w) || 0) + 1);
       });
     });
+
+    this.docFreq = docFreq;
 
     let idx = 0;
     docFreq.forEach((count, word) => {

@@ -9,11 +9,13 @@ Dokumen ini berisi panduan langkah demi langkah (*step-by-step user manual*) unt
 1. [Prasyarat Sistem (Prerequisites)](#1-prasyarat-sistem-prerequisites)
 2. [Instalasi Proyek](#2-instalasi-proyek)
 3. [Menjalankan Dashboard & Web Server](#3-menjalankan-dashboard--web-server)
-4. [Menjalankan Pipeline Machine Learning (Naive Bayes)](#4-menjalankan-pipeline-machine-learning-naive-bayes)
-5. [Scraping Data Ulasan Baru Google Play Store](#5-scraping-data-ulasan-baru-google-play-store)
-6. [Fitur-Fitur Dashboard Analisis Sentimen](#6-fitur-fitur-dashboard-analisis-sentimen)
-7. [Daftar Lengkap Perintah NPM (Cheat Sheet)](#7-daftar-lengkap-perintah-npm-cheat-sheet)
-8. [Troubleshooting & Solusi Kendala](#8-troubleshooting--solusi-kendala)
+4. [Fitur Multi-Project & Analisis Aplikasi Kustom](#4-fitur-multi-project--analisis-aplikasi-kustom)
+5. [Menjalankan Pipeline Machine Learning (Naive Bayes)](#5-menjalankan-pipeline-machine-learning-naive-bayes)
+6. [Scraping Data Ulasan Baru Google Play Store](#6-scraping-data-ulasan-baru-google-play-store)
+7. [Fitur-Fitur Dashboard Analisis Sentimen](#7-fitur-fitur-dashboard-analisis-sentimen)
+8. [REST API Endpoints](#8-rest-api-endpoints)
+9. [Daftar Lengkap Perintah NPM (Cheat Sheet)](#9-daftar-lengkap-perintah-npm-cheat-sheet)
+10. [Troubleshooting & Solusi Kendala](#10-troubleshooting--solusi-kendala)
 
 ---
 
@@ -60,9 +62,39 @@ Perintah ini akan:
 
 ---
 
-## 4. Menjalankan Pipeline Machine Learning (Naive Bayes)
+## 4. Fitur Multi-Project & Analisis Aplikasi Kustom 🌟
 
-Untuk melatih ulang model **Multinomial Naive Bayes + TF-IDF Vectorizer + Sastrawi Stemmer + Emoji Translation** pada seluruh 5.000 ulasan:
+Aplikasi ini dilengkapi fitur **Multi-Project / Custom App Analyzer**. Anda dapat menganalisis aplikasi Android apa pun dari Google Play Store secara dinamis tanpa mengubah baris kode apa pun!
+
+### 📌 Langkah-Langkah Menganalisis Aplikasi Baru:
+1. Buka dashboard di [http://localhost:3000/dashboard.html](http://localhost:3000/dashboard.html).
+2. Klik tombol **`+ Buat Project Baru`** di pojok kanan atas navbar.
+3. **Isi Formulir Pembuatan Project:**
+   - **Nama Project**: Contoh: `Analisis Sentimen PLN Mobile`, `Evaluasi BCA Mobile`, `Review Tokopedia`.
+   - **Sumber Data**: `Google Play Store (Live Scraper)`.
+   - **URL / Package ID Play Store**:
+     - Anda bisa menempelkan full URL Google Play Store, misal: `https://play.google.com/store/apps/details?id=com.icon.pln123`
+     - Atau cukup masukkan Package ID aplikasinya, misal: `com.icon.pln123`, `com.bca`, `com.shopee.id`, `com.tokopedia.tkpd`, `com.gojek.app`, `com.telkomsel.telkomselcm`.
+     - *Tersedia juga tombol Quick Presets untuk memilih aplikasi populer dengan satu klik.*
+   - **Live App Preview**: Sistem otomatis melakukan *lookup* nama aplikasi, developer, icon, rating, dan total ulasan saat URL/Package ID diketik.
+   - **Jumlah Sampel Ulasan**: Pilih `500 Ulasan (Cepat ~15 dtk)`, `1.000 Ulasan (~30 dtk)`, `2.500 Ulasan (~1 mnt)`, atau `5.000 Ulasan (~2-3 mnt)`.
+4. Klik tombol **`Mulai Analisa & Training`**.
+5. **Proses Otomatis Berjalan di Balik Layar:**
+   - 📥 Scraping ulasan terbaru dari Google Play Store.
+   - 🧹 Preprocessing NLP: Emoji semantic translation, kamus slang Indonesia, dan Sastrawi stemming.
+   - 🤖 Training Multinomial Naive Bayes + Laplace Smoothing ($\alpha=1.0$).
+   - 📊 Evaluasi performa (Akurasi, Precision, Recall, Confusion Matrix) & ekstraksi Top 10 TF-IDF issue drivers.
+   - 💾 Data project disimpan di `data/projects/<project_id>/`.
+6. Dashboard akan otomatis me-refresh dan memuat hasil visualisasi proyek baru tersebut.
+
+### 🔄 Berpindah Antar Proyek (Project Switcher):
+- Gunakan dropdown **"Pilih Project"** pada bagian navbar atas untuk beralih instan antara proyek (misal dari *Mobile JKN* ke *PLN Mobile* atau aplikasi lainnya).
+
+---
+
+## 5. Menjalankan Pipeline Machine Learning (Naive Bayes)
+
+Untuk melatih ulang model **Multinomial Naive Bayes + TF-IDF Vectorizer + Sastrawi Stemmer + Emoji Translation** pada dataset default Mobile JKN (5.000 ulasan):
 
 ```bash
 npm run train
@@ -80,9 +112,9 @@ npm run train
 
 ---
 
-## 5. Scraping Data Ulasan Baru Google Play Store
+## 6. Scraping Data Ulasan Baru Google Play Store
 
-Untuk mengambil ulasan terbaru aplikasi Mobile JKN langsung dari Google Play Store:
+Untuk mengambil ulasan terbaru aplikasi Mobile JKN langsung dari Google Play Store secara standalone:
 
 ```bash
 npm run scrape
@@ -91,15 +123,16 @@ Data mentah akan tersimpan di `data/mobile_jkn_reviews_5000.json` dan `data/mobi
 
 ---
 
-## 6. Fitur-Fitur Dashboard Analisis Sentimen
+## 7. Fitur-Fitur Dashboard Analisis Sentimen
 
 Dashboard (`dashboard.html`) dirancang dengan standar **Enterprise Business Intelligence** (gaya Power BI / Tableau):
 
-1. **Executive KPI Scorecards**: Total ulasan teranalisis, akurasi model ML (90.50%), proporsi sentimen (Positif vs Negatif), dan jumlah anomali terdeteksi.
-2. **Grafik Komparasi 3 Parameter**: Membandingkan distribusi sentimen antara Rating Play Store, Master Ground Truth, dan Prediksi Machine Learning.
-3. **Confusion Matrix Interaktif**: Menampilkan metrik data uji 1.000 ulasan (True Positives, False Positives, Recall, Precision, dan F1-Score).
-4. **Top 10 TF-IDF Issue Drivers**: Menampilkan kata kunci dan frasa pendorong ulasan positif (pujian) dan negatif (keluhan).
-5. **Interactive DataTables (5.000 Ulasan)**:
+1. **Executive Project Selector**: Beralih antar proyek aplikasi Android secara instan.
+2. **Executive KPI Scorecards**: Total ulasan teranalisis, akurasi model ML, proporsi sentimen (Positif vs Negatif), dan jumlah anomali terdeteksi.
+3. **Grafik Komparasi 3 Parameter**: Membandingkan distribusi sentimen antara Rating Play Store, Master Ground Truth, dan Prediksi Machine Learning.
+4. **Confusion Matrix Interaktif**: Menampilkan metrik data uji (True Positives, False Positives, Recall, Precision, dan F1-Score).
+5. **Top 10 TF-IDF Issue Drivers**: Menampilkan kata kunci dan frasa pendorong ulasan positif (pujian) dan negatif (keluhan) yang dinamis per aplikasi.
+6. **Interactive DataTables**:
    - Filter Sentimen ML (Semua, Positif, Negatif).
    - Filter Rating Bintang (⭐ 1 sampai ⭐ 5).
    - Filter Anomali (Hanya tampilkan taktik komplain bintang 5 atau pujian bintang 1).
@@ -109,7 +142,21 @@ Dashboard (`dashboard.html`) dirancang dengan standar **Enterprise Business Inte
 
 ---
 
-## 7. Daftar Lengkap Perintah NPM (Cheat Sheet)
+## 8. REST API Endpoints
+
+Server lokal menyediakan endpoint API JSON:
+
+| Method | Endpoint | Deskripsi |
+| :--- | :--- | :--- |
+| `GET` | `/api/projects` | Mengambil daftar seluruh project yang tersedia beserta metadatanya |
+| `GET` | `/api/projects/:id` | Mengambil detail metadata dan seluruh ulasan ulasan project tertentu |
+| `POST` | `/api/projects/create` | Membuat project baru: Scrape Play Store + Preprocessing + Training Naive Bayes |
+| `DELETE` | `/api/projects/:id` | Menghapus project tertentu |
+| `GET` | `/api/apps/lookup?urlOrId=...` | Mengambil preview metadata aplikasi Play Store secara real-time |
+
+---
+
+## 9. Daftar Lengkap Perintah NPM (Cheat Sheet)
 
 | Perintah NPM | Fungsi Utama | File yang Dijalankan |
 | :--- | :--- | :--- |
@@ -121,7 +168,7 @@ Dashboard (`dashboard.html`) dirancang dengan standar **Enterprise Business Inte
 
 ---
 
-## 8. Troubleshooting & Solusi Kendala
+## 10. Troubleshooting & Solusi Kendala
 
 ### ❓ Kendala 1: Port 3000 Sudah Terpakai
 **Pesan Error:** `Error: listen EADDRINUSE: address already in use :::3000`  
@@ -132,7 +179,7 @@ PORT=3005 node server.js
 ```
 
 ### ❓ Kendala 2: Data di Dashboard Tidak Muncul
-**Penyebab:** File `data/mobile_jkn_reviews_5000.js` belum terbentuk.  
+**Penyebab:** File `data/mobile_jkn_reviews_5000.js` atau folder `data/projects/` belum terbentuk.  
 **Solusi:** Jalankan perintah pelatihan model untuk membuat bundle data:
 ```bash
 npm run train

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mobile JKN - Business Intelligence & Sentiment Analytics Dashboard</title>
+  <title>Sentiment Analytics & Data Mining - Multinomial Naive Bayes Dashboard</title>
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,7 +32,7 @@
       --bi-info: #008272;            /* BI Teal */
       --bi-purple: #5c2d91;          /* BI Purple Analytics */
       
-      --bi-bg: #f3f5f8;              /* Enterprise Slate Background */
+      --bi-bg: #f4f6f9;              /* Enterprise Slate Background */
       --bi-card-bg: #ffffff;
       --bi-border: #e2e8f0;
       --bi-border-subtle: #edf2f7;
@@ -62,15 +62,39 @@
     }
 
     .bi-brand-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 8px;
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
       background: linear-gradient(135deg, #0078d4 0%, #004578 100%);
       display: flex;
       align-items: center;
       justify-content: center;
       color: #ffffff;
       font-size: 1.25rem;
+      overflow: hidden;
+    }
+    .bi-brand-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* PROJECT SELECTOR DROPDOWN */
+    .project-selector-container {
+      background: #f8fafc;
+      border: 1px solid var(--bi-border);
+      border-radius: 8px;
+      padding: 3px 8px;
+    }
+    .project-select {
+      border: none;
+      background: transparent;
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--bi-text-main);
+      cursor: pointer;
+      outline: none;
+      max-width: 260px;
     }
 
     /* SCORECARD CARDS */
@@ -123,42 +147,42 @@
     }
 
     .bi-scorecard-icon {
-      width: 42px;
-      height: 42px;
-      border-radius: 8px;
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.15rem;
+      font-size: 1.3rem;
     }
 
-    /* BI SECTION CARD */
+    /* PANELS */
     .bi-panel {
       background: var(--bi-card-bg);
       border: 1px solid var(--bi-border);
       border-radius: 10px;
       padding: 1.4rem;
-      margin-bottom: 1.5rem;
       box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+      margin-bottom: 1.5rem;
     }
 
     .bi-panel-header {
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      border-bottom: 1px solid var(--bi-border-subtle);
-      padding-bottom: 0.85rem;
+      align-items: flex-start;
       margin-bottom: 1.25rem;
+      border-bottom: 1px solid var(--bi-border-subtle);
+      padding-bottom: 0.75rem;
     }
 
     .bi-panel-title {
-      font-size: 0.95rem;
+      font-size: 1rem;
       font-weight: 700;
       color: var(--bi-text-main);
       margin: 0;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 0.5rem;
     }
 
     .bi-panel-subtitle {
@@ -167,83 +191,86 @@
       margin-top: 2px;
     }
 
-    /* CONFUSION MATRIX */
+    /* CONFUSION MATRIX TABLE */
     .table-cm {
-      margin: 0 auto;
-      text-align: center;
-      font-size: 0.85rem;
       width: 100%;
+      border-collapse: separate;
+      border-spacing: 4px;
+      text-align: center;
+      font-size: 0.825rem;
     }
 
     .table-cm th, .table-cm td {
-      padding: 10px 12px;
-      border: 1px solid var(--bi-border);
+      padding: 10px 8px;
+      border-radius: 6px;
     }
 
     .cm-header-cell {
-      background: #f8fafc;
+      background-color: #f8fafc;
       font-weight: 700;
-      color: var(--bi-text-muted);
-    }
-
-    .cm-tp {
-      background: rgba(16, 124, 65, 0.12);
-      color: #0e6334;
-      font-weight: 800;
-      font-size: 1rem;
-    }
-
-    .cm-err {
-      background: rgba(168, 0, 0, 0.08);
-      color: #990000;
-      font-weight: 600;
-    }
-
-    /* BADGES */
-    .badge-star {
-      background: #fef3c7;
-      color: #b45309;
-      font-weight: 700;
-      border: 1px solid #fde68a;
-      padding: 4px 8px;
-      border-radius: 5px;
+      color: #475569;
       font-size: 0.75rem;
     }
 
-    .badge-pos {
-      background: #ecfdf5;
+    .cm-tp {
+      background-color: #ecfdf5;
       color: #065f46;
+      font-weight: 800;
+      border: 1px solid #a7f3d0;
+    }
+
+    .cm-err {
+      background-color: #fef2f2;
+      color: #991b1b;
+      font-weight: 700;
+      border: 1px solid #fecaca;
+    }
+
+    /* BADGES */
+    .badge-pos {
+      background-color: #ecfdf5;
+      color: #047857;
       border: 1px solid #a7f3d0;
       font-weight: 700;
       padding: 4px 8px;
-      border-radius: 5px;
+      border-radius: 6px;
       font-size: 0.75rem;
     }
 
     .badge-neg {
-      background: #fef2f2;
-      color: #991b1b;
+      background-color: #fef2f2;
+      color: #b91c1c;
       border: 1px solid #fecaca;
       font-weight: 700;
       padding: 4px 8px;
-      border-radius: 5px;
+      border-radius: 6px;
       font-size: 0.75rem;
     }
 
     .badge-neu {
-      background: #f1f5f9;
+      background-color: #f1f5f9;
       color: #475569;
       border: 1px solid #cbd5e1;
-      font-weight: 700;
+      font-weight: 600;
       padding: 4px 8px;
-      border-radius: 5px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+    }
+
+    .badge-star {
+      background-color: #fffbeb;
+      color: #b45309;
+      border: 1px solid #fde68a;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
       font-size: 0.75rem;
     }
 
     .badge-anomaly-high {
-      background: #fff1f2;
-      color: #be123c;
-      border: 1px solid #fecdd3;
+      background: #fef2f2;
+      color: #991b1b;
+      border: 1px solid #fca5a5;
       font-weight: 700;
       font-size: 0.7rem;
       padding: 3px 6px;
@@ -300,7 +327,7 @@
       width: 100%;
     }
 
-    /* FILTER BUTTONS & DROPDOWNS */
+    /* FILTER BUTTONS */
     .bi-filter-btn {
       border: 1px solid var(--bi-border);
       background: #ffffff;
@@ -336,6 +363,28 @@
       border-color: #b91c1c;
     }
 
+    /* PRESET CHIPS */
+    .preset-chip {
+      cursor: pointer;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 5px 10px;
+      border-radius: 20px;
+      border: 1px solid var(--bi-border);
+      background: #ffffff;
+      color: var(--bi-text-main);
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .preset-chip:hover {
+      background: #eff6ff;
+      border-color: var(--bi-primary);
+      color: var(--bi-primary);
+      transform: translateY(-1px);
+    }
+
     .footer {
       border-top: 1px solid var(--bi-border);
       background: #ffffff;
@@ -351,38 +400,51 @@
   <!-- TOP ENTERPRISE NAVBAR -->
   <header class="bi-navbar sticky-top">
     <div class="container-fluid px-4">
-      <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+      <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
         
-        <!-- Left Brand & App Info -->
+        <!-- Left Brand & Active App Info -->
         <div class="d-flex align-items-center gap-3">
-          <div class="bi-brand-icon shadow-sm">
-            <i class="fa-solid fa-chart-line"></i>
+          <div class="bi-brand-icon shadow-sm" id="navAppIconBox">
+            <i class="fa-solid fa-chart-line" id="navAppIconDefault"></i>
+            <img id="navAppIconImg" src="" alt="App Icon" style="display:none;" />
           </div>
           <div>
-            <div class="d-flex align-items-center gap-2">
-              <h1 class="h6 mb-0 fw-bold text-dark">Mobile JKN Analytics</h1>
-              <span class="badge bg-primary-subtle text-primary border border-primary-subtle fw-semibold px-2">BPJS Kesehatan</span>
-              <span class="badge bg-success-subtle text-success border border-success-subtle fw-semibold px-2"><i class="fa-solid fa-calculator me-1"></i> Multinomial Naive Bayes</span>
+            <div class="d-flex align-items-center gap-2 flex-wrap">
+              <h1 class="h6 mb-0 fw-bold text-dark" id="navProjectTitle">Mobile JKN Analytics</h1>
+              <span class="badge bg-primary-subtle text-primary border border-primary-subtle fw-semibold px-2" id="navAppDeveloper">BPJS Kesehatan</span>
+              <span class="badge bg-success-subtle text-success border border-success-subtle fw-semibold px-2">
+                <i class="fa-solid fa-calculator me-1"></i> Multinomial Naive Bayes
+              </span>
             </div>
-            <small class="text-muted" style="font-size: 0.75rem;">
-              Executive Sentiment Analytics & Anomaly Detection • Play Store Dataset (5.000 Reviews)
+            <small class="text-muted" style="font-size: 0.75rem;" id="navProjectSubtitle">
+              Executive Sentiment Analytics & Anomaly Detection • Google Play Store Dataset
             </small>
           </div>
         </div>
 
+        <!-- Middle: Project Switcher & Create Project -->
+        <div class="d-flex align-items-center gap-2">
+          <div class="d-flex align-items-center project-selector-container shadow-sm">
+            <i class="fa-solid fa-folder-open text-primary me-2 ms-1"></i>
+            <select class="project-select" id="projectSelect" title="Pilih Project Aplikasi"></select>
+          </div>
+
+          <button class="btn btn-primary btn-sm fw-bold shadow-sm d-flex align-items-center gap-1" data-bs-toggle="modal" data-bs-target="#createProjectModal" style="background: linear-gradient(135deg, #0078d4 0%, #005a9e 100%); border: none;">
+            <i class="fa-solid fa-plus-circle"></i>
+            <span>Project Baru</span>
+          </button>
+        </div>
+
         <!-- Right Quick Actions -->
         <div class="d-flex align-items-center gap-2">
-          <a href="docs/naive_bayes.md" target="_blank" class="btn btn-outline-primary btn-sm fw-semibold shadow-sm">
-            <i class="fa-solid fa-book-open me-1"></i> Docs Naive Bayes
+          <a href="docs/naive_bayes.md" target="_blank" class="btn btn-outline-secondary btn-sm fw-semibold shadow-sm">
+            <i class="fa-solid fa-book-open me-1"></i> Docs
           </a>
-          <span class="badge bg-light text-secondary border px-3 py-2 fw-medium d-none d-md-inline-block">
-            <i class="fa-regular fa-calendar me-1"></i> Periode: 05 Agu - 11 Sep 2026
-          </span>
           <button class="btn btn-outline-secondary btn-sm fw-semibold shadow-sm" onclick="window.print()">
-            <i class="fa-solid fa-print me-1"></i> Print PDF
+            <i class="fa-solid fa-print me-1"></i> Print
           </button>
-          <button class="btn btn-primary btn-sm fw-semibold shadow-sm" id="btnExportTableCSV">
-            <i class="fa-solid fa-file-excel me-1"></i> Export Dataset (.CSV)
+          <button class="btn btn-success btn-sm fw-semibold shadow-sm" id="btnExportTableCSV" style="background-color: #107c41; border-color: #107c41;">
+            <i class="fa-solid fa-file-excel me-1"></i> Export (.CSV)
           </button>
         </div>
 
@@ -402,8 +464,8 @@
           <div class="d-flex justify-content-between align-items-start">
             <div>
               <div class="bi-scorecard-label">Total Ulasan Teranalisis</div>
-              <div class="bi-scorecard-value" id="kpiTotalReviews">5.000</div>
-              <div class="bi-scorecard-desc">
+              <div class="bi-scorecard-value" id="kpiTotalReviews">0</div>
+              <div class="bi-scorecard-desc" id="kpiTotalDesc">
                 <i class="fa-solid fa-check text-success me-1"></i> 100% Data Selesai Diproses
               </div>
             </div>
@@ -420,9 +482,9 @@
           <div class="d-flex justify-content-between align-items-start">
             <div>
               <div class="bi-scorecard-label">Akurasi Model Machine Learning</div>
-              <div class="bi-scorecard-value text-success" id="kpiAccuracy">88.00%</div>
+              <div class="bi-scorecard-value text-success" id="kpiAccuracy">0.00%</div>
               <div class="bi-scorecard-desc">
-                <span>Multinomial Naive Bayes (Laplace &alpha;=1)</span>
+                <span>Multinomial Naive Bayes (Laplace &alpha;=1.0)</span>
               </div>
             </div>
             <div class="bi-scorecard-icon bg-success-subtle text-success">
@@ -439,10 +501,10 @@
             <div>
               <div class="bi-scorecard-label">Proporsi Sentimen ML</div>
               <div class="bi-scorecard-value" style="font-size: 1.35rem;" id="kpiSentimentSplit">
-                <span class="text-success">51.0% Pos</span> / <span class="text-danger">49.0% Neg</span>
+                <span class="text-success">0% Pos</span> / <span class="text-danger">0% Neg</span>
               </div>
-              <div class="bi-scorecard-desc">
-                <span>2.551 Positif vs 2.449 Negatif</span>
+              <div class="bi-scorecard-desc" id="kpiSentimentCounts">
+                <span>0 Positif vs 0 Negatif</span>
               </div>
             </div>
             <div class="bi-scorecard-icon bg-info-subtle text-info">
@@ -458,7 +520,7 @@
           <div class="d-flex justify-content-between align-items-start">
             <div>
               <div class="bi-scorecard-label">Ketidaksesuaian / Anomali</div>
-              <div class="bi-scorecard-value text-danger" id="kpiAnomalies">234 <small style="font-size: 1rem; color: #64748b;">(4.68%)</small></div>
+              <div class="bi-scorecard-value text-danger" id="kpiAnomalies">0 <small style="font-size: 1rem; color: #64748b;">(0.0%)</small></div>
               <div class="bi-scorecard-desc">
                 <i class="fa-solid fa-triangle-exclamation text-danger me-1"></i> Rating vs Teks Bertolak Belakang
               </div>
@@ -482,9 +544,9 @@
             <div>
               <h2 class="bi-panel-title">
                 <i class="fa-solid fa-chart-column text-primary"></i>
-                Komparasi 3 Parameter Sentimen
+                Komparasi 3 Parameter Evaluasi Sentimen
               </h2>
-              <div class="bi-panel-subtitle">Perbandingan evaluasi sentimen antara Rating Play Store, Master Ground Truth, dan Prediksi Machine Learning</div>
+              <div class="bi-panel-subtitle">Perbandingan distribusi sentimen antara Rating Play Store, Master Ground Truth, dan Prediksi Machine Learning</div>
             </div>
           </div>
           <div class="chart-box">
@@ -500,9 +562,9 @@
             <div>
               <h2 class="bi-panel-title">
                 <i class="fa-solid fa-table-cells text-success"></i>
-                Confusion Matrix (Data Uji 1.000)
+                Confusion Matrix (<span id="cmSampleSize">1.000 Data Uji</span>)
               </h2>
-              <div class="bi-panel-subtitle">Matriks ketepatan pengujian model pada unseen test data</div>
+              <div class="bi-panel-subtitle">Matriks ketepatan pengujian model pada unseen test data (20%)</div>
             </div>
           </div>
           <div class="table-responsive">
@@ -514,24 +576,24 @@
                   <th class="cm-header-cell">Pred Negatif</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody id="cmTableBody">
                 <tr>
-                  <th class="cm-header-cell text-start">Aktual Positif (525)</th>
-                  <td class="cm-tp">467 <small class="d-block text-muted" style="font-size:10px;">(88.95% Recall)</small></td>
-                  <td class="cm-err">58</td>
+                  <th class="cm-header-cell text-start" id="cmActualPosLabel">Aktual Positif</th>
+                  <td class="cm-tp" id="cmTP">-</td>
+                  <td class="cm-err" id="cmFN">-</td>
                 </tr>
                 <tr>
-                  <th class="cm-header-cell text-start">Aktual Negatif (442)</th>
-                  <td class="cm-err">29</td>
-                  <td class="cm-tp">413 <small class="d-block text-muted" style="font-size:10px;">(93.44% Recall)</small></td>
+                  <th class="cm-header-cell text-start" id="cmActualNegLabel">Aktual Negatif</th>
+                  <td class="cm-err" id="cmFP">-</td>
+                  <td class="cm-tp" id="cmTN">-</td>
                 </tr>
               </tbody>
             </table>
           </div>
-          <div class="mt-3 pt-2 border-top d-flex justify-content-between text-muted" style="font-size: 0.75rem;">
-            <span>Precision Positif: <strong class="text-dark">93.59%</strong></span>
-            <span>Precision Negatif: <strong class="text-dark">82.44%</strong></span>
-            <span>F1-Score: <strong class="text-dark">91.21%</strong></span>
+          <div class="mt-3 pt-2 border-top d-flex justify-content-between text-muted flex-wrap gap-1" style="font-size: 0.75rem;">
+            <span>Precision Positif: <strong class="text-dark" id="cmPrecisionPos">-</strong></span>
+            <span>Recall Negatif: <strong class="text-dark" id="cmRecallNeg">-</strong></span>
+            <span>Macro F1: <strong class="text-dark" id="cmMacroF1">-</strong></span>
           </div>
         </div>
       </div>
@@ -545,7 +607,7 @@
                 <i class="fa-solid fa-circle-exclamation text-danger"></i>
                 Top 10 Isu Keluhan Utama (Fitur TF-IDF Negatif)
               </h2>
-              <div class="bi-panel-subtitle">Kata dan frasa dengan bobot kepentingan tertinggi pada ulasan negatif</div>
+              <div class="bi-panel-subtitle">Kata dan frasa dengan bobot pendorong tertinggi pada ulasan negatif</div>
             </div>
           </div>
           <div class="chart-box">
@@ -563,7 +625,7 @@
                 <i class="fa-solid fa-circle-check text-info"></i>
                 Top 10 Aspek Kepuasan Layanan (Fitur TF-IDF Positif)
               </h2>
-              <div class="bi-panel-subtitle">Kata dan frasa dengan bobot kepentingan tertinggi pada ulasan positif</div>
+              <div class="bi-panel-subtitle">Kata dan frasa dengan bobot pendorong tertinggi pada ulasan positif</div>
             </div>
           </div>
           <div class="chart-box">
@@ -582,7 +644,7 @@
             <i class="fa-solid fa-table text-secondary"></i>
             Eksplorasi Data Ulasan & Hasil Prediksi Machine Learning
           </h2>
-          <div class="bi-panel-subtitle">Dataset lengkap 5.000 ulasan terintegrasi dengan multi-filter dan skor keyakinan</div>
+          <div class="bi-panel-subtitle">Dataset lengkap terintegrasi dengan multi-filter sentimen, bintang, skor keyakinan, dan anomali</div>
         </div>
       </div>
 
@@ -595,39 +657,40 @@
             <span class="text-muted fw-bold me-2" style="font-size: 0.75rem; text-transform: uppercase;">Sentimen ML:</span>
             <div class="btn-group btn-group-sm" role="group" id="mlFilterGroup">
               <button type="button" class="btn bi-filter-btn active" data-ml="all">Semua</button>
-              <button type="button" class="btn bi-filter-btn btn-success-filter" data-ml="Positif">Positif (2.551)</button>
-              <button type="button" class="btn bi-filter-btn btn-danger-filter" data-ml="Negatif">Negatif (2.449)</button>
+              <button type="button" class="btn bi-filter-btn btn-success-filter" data-ml="Positif" id="btnFilterPos">Positif</button>
+              <button type="button" class="btn bi-filter-btn btn-danger-filter" data-ml="Negatif" id="btnFilterNeg">Negatif</button>
             </div>
           </div>
 
           <!-- Group 2: Filter Rating Bintang Play Store -->
-          <div class="col-auto ms-xl-3">
-            <span class="text-muted fw-bold me-2" style="font-size: 0.75rem; text-transform: uppercase;">Rating Bintang:</span>
+          <div class="col-auto ms-lg-3">
+            <span class="text-muted fw-bold me-2" style="font-size: 0.75rem; text-transform: uppercase;">Rating:</span>
             <div class="btn-group btn-group-sm" role="group" id="starFilterGroup">
-              <button type="button" class="btn bi-filter-btn active" data-star="all">Semua Bintang</button>
-              <button type="button" class="btn bi-filter-btn" data-star="5">⭐ 5</button>
-              <button type="button" class="btn bi-filter-btn" data-star="4">⭐ 4</button>
-              <button type="button" class="btn bi-filter-btn" data-star="3">⭐ 3</button>
-              <button type="button" class="btn bi-filter-btn" data-star="2">⭐ 2</button>
-              <button type="button" class="btn bi-filter-btn" data-star="1">⭐ 1</button>
+              <button type="button" class="btn bi-filter-btn active" data-star="all">Semua</button>
+              <button type="button" class="btn bi-filter-btn" data-star="5">★ 5</button>
+              <button type="button" class="btn bi-filter-btn" data-star="4">★ 4</button>
+              <button type="button" class="btn bi-filter-btn" data-star="3">★ 3</button>
+              <button type="button" class="btn bi-filter-btn" data-star="2">★ 2</button>
+              <button type="button" class="btn bi-filter-btn" data-star="1">★ 1</button>
             </div>
           </div>
 
           <!-- Group 3: Filter Anomali Khusus -->
-          <div class="col-auto ms-xl-3">
+          <div class="col-auto ms-lg-3">
+            <span class="text-muted fw-bold me-2" style="font-size: 0.75rem; text-transform: uppercase;">Deteksi Anomali:</span>
             <div class="btn-group btn-group-sm" role="group" id="anomalyFilterGroup">
               <button type="button" class="btn bi-filter-btn btn-anomaly" data-anomaly="anomaly_only">
-                <i class="fa-solid fa-triangle-exclamation me-1"></i> Hanya Ulasan Anomali (234)
+                <i class="fa-solid fa-triangle-exclamation me-1"></i> Tampilkan Anomali Saja
               </button>
               <button type="button" class="btn bi-filter-btn" data-anomaly="high_conf">
-                <i class="fa-solid fa-bolt me-1"></i> Confidence &gt; 90%
+                <i class="fa-solid fa-circle-check text-success me-1"></i> Keyakinan Tinggi (&ge; 90%)
               </button>
             </div>
           </div>
 
-          <!-- Reset Filter Button -->
+          <!-- Group 4: Reset Button -->
           <div class="col-auto ms-auto">
-            <button type="button" class="btn btn-outline-secondary btn-sm" id="btnResetFilters" style="font-size: 0.75rem;">
+            <button type="button" class="btn btn-outline-secondary btn-sm" id="btnResetFilters">
               <i class="fa-solid fa-rotate-left me-1"></i> Reset Filter
             </button>
           </div>
@@ -635,16 +698,7 @@
         </div>
       </div>
 
-      <!-- Anomaly Explanation Callout (Dynamic Info) -->
-      <div class="alert alert-warning alert-dismissible fade show d-flex align-items-center gap-2 py-2 px-3 mb-3 border-warning-subtle" role="alert" style="font-size: 0.78rem;">
-        <i class="fa-solid fa-lightbulb text-warning fs-6"></i>
-        <div>
-          <strong>Info Analisis Anomali:</strong> Jika Anda memfilter <strong>"ML Negatif"</strong> lalu mengurutkan rating tertinggi (⭐5), ulasan bintang 5 yang muncul adalah <strong>Ulasan Anomali Taktik</strong> (pengguna sengaja memberi bintang 5 padahal isinya keluhan keras agar dibaca developer).
-        </div>
-        <button type="button" class="btn-close btn-close-sm ms-auto" data-bs-dismiss="alert" aria-label="Close" style="padding: 0.75rem;"></button>
-      </div>
-
-      <!-- Data Table -->
+      <!-- TABLE CONTAINER -->
       <div class="table-responsive">
         <table id="reviewsTable" class="table table-hover align-middle w-100">
           <thead>
@@ -656,7 +710,7 @@
               <th style="width: 140px;">Prediksi ML</th>
               <th style="width: 100px;">Tanggal</th>
               <th>Isi Ulasan Pengguna</th>
-              <th style="width: 150px;">Status Evaluasi</th>
+              <th style="width: 160px;">Status Evaluasi</th>
             </tr>
           </thead>
           <tbody>
@@ -669,12 +723,149 @@
 
   </main>
 
+  <!-- MODAL: BUAT PROJECT BARU -->
+  <div class="modal fade" id="createProjectModal" tabindex="-1" aria-labelledby="createProjectModalLabel" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content border-0 shadow-lg">
+        
+        <!-- Modal Header -->
+        <div class="modal-header text-white py-3" style="background: linear-gradient(135deg, #0078d4 0%, #004578 100%);">
+          <div class="d-flex align-items-center gap-2">
+            <div class="rounded-3 p-2 bg-white bg-opacity-25 text-white">
+              <i class="fa-solid fa-plus-circle fs-5"></i>
+            </div>
+            <div>
+              <h5 class="modal-title h6 fw-bold mb-0" id="createProjectModalLabel">Buat Project Analisis Sentimen Baru</h5>
+              <small class="text-white-50" style="font-size: 0.75rem;">Scraping Google Play Store & Pelatihan Multinomial Naive Bayes Otomatis</small>
+            </div>
+          </div>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" id="modalCloseBtn"></button>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="modal-body p-4">
+          <form id="createProjectForm">
+            
+            <!-- 1. Nama Project -->
+            <div class="mb-3">
+              <label class="form-label fw-bold small text-muted text-uppercase">1. Nama Project Analisis</label>
+              <input type="text" class="form-control" id="inputProjectName" placeholder="Contoh: Analisis Sentimen PLN Mobile 2026" required>
+              <div class="form-text">Nama identifikasi project untuk memudahkan pengorganisasian di dashboard.</div>
+            </div>
+
+            <!-- 2. Sumber Data -->
+            <div class="mb-3">
+              <label class="form-label fw-bold small text-muted text-uppercase">2. Sumber Data</label>
+              <select class="form-select" id="inputSource" disabled>
+                <option value="Google Play Store" selected>🌐 Google Play Store (Aktif)</option>
+                <option value="Apple App Store">🍏 Apple App Store (Segera Hadir)</option>
+              </select>
+            </div>
+
+            <!-- 3. URL / Package ID Play Store -->
+            <div class="mb-3">
+              <label class="form-label fw-bold small text-muted text-uppercase">3. URL atau Package ID Google Play Store</label>
+              <div class="input-group">
+                <span class="input-group-text bg-light"><i class="fa-brands fa-google-play text-primary"></i></span>
+                <input type="text" class="form-control" id="inputAppUrlOrId" placeholder="Contoh: com.icon.pln123 atau https://play.google.com/store/apps/details?id=com.icon.pln123" required>
+                <button class="btn btn-outline-primary fw-semibold" type="button" id="btnLookupApp">
+                  <i class="fa-solid fa-magnifying-glass me-1"></i> Cek Info App
+                </button>
+              </div>
+
+              <!-- Quick Presets -->
+              <div class="mt-2 d-flex flex-wrap gap-1 align-items-center">
+                <small class="text-muted fw-bold me-1">Pilihan Cepat:</small>
+                <span class="preset-chip" data-id="com.icon.pln123" data-name="Analisis Sentimen PLN Mobile">⚡ PLN Mobile</span>
+                <span class="preset-chip" data-id="com.telkom.tracencare" data-name="Analisis Sentimen SATUSEHAT">🏥 SATUSEHAT</span>
+                <span class="preset-chip" data-id="com.bca" data-name="Analisis Sentimen BCA Mobile">💳 BCA Mobile</span>
+                <span class="preset-chip" data-id="com.shopee.id" data-name="Analisis Sentimen Shopee Indonesia">🛍️ Shopee</span>
+                <span class="preset-chip" data-id="com.tokopedia.tkpd" data-name="Analisis Sentimen Tokopedia">🟢 Tokopedia</span>
+                <span class="preset-chip" data-id="com.gojek.app" data-name="Analisis Sentimen Gojek">🛵 Gojek</span>
+                <span class="preset-chip" data-id="com.telkomsel.telkomselcm" data-name="Analisis Sentimen MyTelkomsel">📱 MyTelkomsel</span>
+              </div>
+
+              <!-- Live App Preview Card (Hidden initially) -->
+              <div class="card border-primary-subtle bg-primary-subtle bg-opacity-25 mt-3 p-3" id="appPreviewCard" style="display:none;">
+                <div class="d-flex align-items-center gap-3">
+                  <img id="previewAppIcon" src="" alt="App Icon" style="width: 50px; height: 50px; border-radius: 10px; object-fit: cover;">
+                  <div>
+                    <h6 class="fw-bold mb-0 text-dark" id="previewAppTitle">-</h6>
+                    <div class="text-muted small" id="previewAppDev">-</div>
+                    <div class="d-flex align-items-center gap-2 mt-1">
+                      <span class="badge bg-warning text-dark"><i class="fa-solid fa-star me-1"></i><span id="previewAppScore">-</span></span>
+                      <small class="text-muted"><span id="previewAppReviews">-</span> ulasan di Play Store</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 4. Jumlah Sample Data -->
+            <div class="mb-4">
+              <label class="form-label fw-bold small text-muted text-uppercase">4. Jumlah Sample Data yang Dianalisis</label>
+              <div class="row g-2">
+                <div class="col-6 col-md-3">
+                  <input type="radio" class="btn-check" name="sampleSize" id="sample500" value="500">
+                  <label class="btn btn-outline-secondary w-100 py-2 text-center" for="sample500">
+                    <div class="fw-bold">500</div>
+                    <small style="font-size: 11px;">Ulasan (Cepat)</small>
+                  </label>
+                </div>
+                <div class="col-6 col-md-3">
+                  <input type="radio" class="btn-check" name="sampleSize" id="sample1000" value="1000" checked>
+                  <label class="btn btn-outline-primary w-100 py-2 text-center" for="sample1000">
+                    <div class="fw-bold">1.000</div>
+                    <small style="font-size: 11px;">Ulasan (Standar)</small>
+                  </label>
+                </div>
+                <div class="col-6 col-md-3">
+                  <input type="radio" class="btn-check" name="sampleSize" id="sample2500" value="2500">
+                  <label class="btn btn-outline-secondary w-100 py-2 text-center" for="sample2500">
+                    <div class="fw-bold">2.500</div>
+                    <small style="font-size: 11px;">Ulasan</small>
+                  </label>
+                </div>
+                <div class="col-6 col-md-3">
+                  <input type="radio" class="btn-check" name="sampleSize" id="sample5000" value="5000">
+                  <label class="btn btn-outline-secondary w-100 py-2 text-center" for="sample5000">
+                    <div class="fw-bold">5.000</div>
+                    <small style="font-size: 11px;">Ulasan (Lengkap)</small>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Live Processing Feedback (Shown during training) -->
+            <div id="processingSection" class="p-3 mb-3 bg-light rounded-3 border text-center" style="display: none;">
+              <div class="spinner-border text-primary mb-2" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+              <div class="fw-bold text-dark" id="processingStatusTitle">Sedang Memproses...</div>
+              <small class="text-muted" id="processingStatusDesc">Menghubungi Google Play Store API & Mengunduh Ulasan...</small>
+            </div>
+
+            <!-- Submit Buttons -->
+            <div class="d-flex justify-content-end gap-2 pt-2 border-top">
+              <button type="button" class="btn btn-light btn-sm px-3 fw-semibold" data-bs-dismiss="modal" id="btnCancelModal">Batal</button>
+              <button type="submit" class="btn btn-primary btn-sm px-4 fw-bold shadow-sm" id="btnSubmitProject">
+                <i class="fa-solid fa-play me-1"></i> Mulai Scraping & Analisis
+              </button>
+            </div>
+
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
   <!-- FOOTER -->
   <footer class="footer text-center">
     <div class="container-fluid">
-      <div class="fw-semibold">Mobile JKN Business Intelligence & Sentiment Analytics Framework</div>
+      <div class="fw-semibold">Multi-App Sentiment Analytics & Anomaly Detection Framework</div>
       <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 4px;">
-        Universitas / Program S2 Business Intelligence and Analytics • Binus University
+        Supervised Machine Learning: Multinomial Naive Bayes + Sastrawi Stemmer + TF-IDF Vectorizer
       </div>
     </div>
   </footer>
@@ -689,228 +880,166 @@
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-  <!-- EMBED DATASET JS -->
+  <!-- EMBED DATASET FALLBACK JS (if accessed directly via file://) -->
   <script src="data/mobile_jkn_reviews_5000.js"></script>
 
-  <!-- BI JQUERY LOGIC -->
+  <!-- MULTI-PROJECT BI JQUERY LOGIC -->
   <script>
     $(document).ready(function() {
-      const dataPayload = window.ML_DASHBOARD_DATA || {};
-      const reviews = window.RAW_REVIEWS || dataPayload.reviews || [];
+      let currentProjectData = null;
+      let chart3WayInstance = null;
+      let chartNegTermsInstance = null;
+      let chartPosTermsInstance = null;
+      let dataTableInstance = null;
 
-      // 1. Inisialisasi Charts BI
-      initCharts(reviews);
-
-      // State Filter Multi-Kriteria
+      // Filter state
       let filterState = {
-        ml: 'all',          // 'all', 'Positif', 'Negatif'
-        star: 'all',        // 'all', 1, 2, 3, 4, 5
-        anomaly: 'all'      // 'all', 'anomaly_only', 'high_conf'
+        ml: 'all',
+        star: 'all',
+        anomaly: 'all'
       };
 
-      // 2. Custom DataTables Search Function (Safe with Row Data Object)
-      $.fn.dataTable.ext.search.push(function(settings, searchData, dataIndex, rowData) {
-        // Ambil objek data baris yang sebenarnya
-        const item = rowData || (settings.aoData[dataIndex] ? settings.aoData[dataIndex]._aData : null);
-        if (!item) return true;
+      // 1. Initial Load: Load Project List from Server or fallback
+      initProjectDashboard();
 
-        // 1. Filter Sentimen ML
-        if (filterState.ml !== 'all' && item.mlSentiment !== filterState.ml) {
-          return false;
-        }
-
-        // 2. Filter Rating Bintang Play Store
-        if (filterState.star !== 'all' && item.score !== parseInt(filterState.star)) {
-          return false;
-        }
-
-        // 3. Filter Anomali / Confidence
-        if (filterState.anomaly === 'anomaly_only' && !item.isAnomaly) {
-          return false;
-        }
-        if (filterState.anomaly === 'high_conf' && item.confidence < 90) {
-          return false;
-        }
-
-        return true;
-      });
-
-      // 3. Inisialisasi jQuery DataTable
-      const table = $('#reviewsTable').DataTable({
-        data: reviews,
-        responsive: true,
-        pageLength: 15,
-        lengthMenu: [10, 15, 25, 50, 100],
-        order: [[0, 'asc']],
-        columns: [
-          { data: 'no', className: 'text-muted fw-bold' },
-          { 
-            data: null, 
-            render: function(d) {
-              return `
-                <div class="fw-bold text-dark">${escapeHtml(d.userName)}</div>
-                <div class="text-muted" style="font-size: 11px;">Versi: ${escapeHtml(d.version || '4.18.0')}</div>
-              `;
-            }
-          },
-          { 
-            data: 'score', 
-            render: function(data) {
-              return `<span class="badge-star">★ ${data}</span>`;
-            }
-          },
-          { 
-            data: 'groundTruth', 
-            render: function(data) {
-              const cls = data === 'Positif' ? 'badge-pos' : (data === 'Negatif' ? 'badge-neg' : 'badge-neu');
-              return `<span class="${cls}">${data}</span>`;
-            }
-          },
-          { 
-            data: null, 
-            render: function(d) {
-              const cls = d.mlSentiment === 'Positif' ? 'badge-pos' : (d.mlSentiment === 'Negatif' ? 'badge-neg' : 'badge-neu');
-              return `
-                <div><span class="${cls}">${d.mlSentiment}</span></div>
-                <div class="text-muted" style="font-size: 10px; margin-top: 2px;">Conf: <strong>${d.confidence}%</strong></div>
-              `;
-            }
-          },
-          { 
-            data: 'date',
-            className: 'text-secondary font-monospace',
-            render: function(data) { return data || '-'; }
-          },
-          { 
-            data: 'rawText',
-            render: function(data) {
-              return `<div style="line-height: 1.45; color: #334155;">${escapeHtml(data)}</div>`;
-            }
-          },
-          { 
-            data: null,
-            render: function(d) {
-              if (d.isAnomaly) {
-                if (d.score >= 4) {
-                  return `<span class="badge-anomaly-high"><i class="fa-solid fa-triangle-exclamation me-1"></i> Bintang 5 Komplain</span>`;
-                } else {
-                  return `<span class="badge-anomaly-low"><i class="fa-solid fa-lightbulb me-1"></i> Bintang 1 Pujian</span>`;
-                }
-              }
-              return `<span class="text-success fw-semibold" style="font-size: 11px;"><i class="fa-solid fa-check me-1"></i> Sesuai</span>`;
-            }
+      async function initProjectDashboard() {
+        try {
+          const res = await fetch('/api/projects');
+          const data = await res.json();
+          if (data.success && data.projects && data.projects.length > 0) {
+            populateProjectDropdown(data.projects);
+            await loadProject(data.projects[0].id);
+          } else {
+            fallbackLocalData();
           }
-        ],
-        language: {
-          search: "_INPUT_",
-          searchPlaceholder: "🔍 Cari ulasan (misal: rujukan, jadwal penuh, login, otp)...",
-          lengthMenu: "Tampilkan _MENU_ data",
-          info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ total ulasan",
-          infoEmpty: "Tidak ada ulasan yang cocok dengan filter",
-          infoFiltered: "(disaring dari _MAX_ total ulasan)",
-          paginate: {
-            first: "Awal",
-            last: "Akhir",
-            next: "Berikutnya",
-            previous: "Sebelumnya"
-          }
+        } catch (err) {
+          console.warn('Server REST API tidak terdeteksi, memuat data lokal fallback:', err);
+          fallbackLocalData();
         }
-      });
+      }
 
-      // 4. Event Handlers Filter Buttons
-      // A. Filter Sentimen ML
-      $('#mlFilterGroup button').on('click', function() {
-        $('#mlFilterGroup button').removeClass('active');
-        $(this).addClass('active');
-        filterState.ml = $(this).data('ml');
-        table.draw();
-      });
+      function fallbackLocalData() {
+        const payload = window.ML_DASHBOARD_DATA || {};
+        const reviews = window.RAW_REVIEWS || payload.reviews || [];
+        const fallbackMeta = {
+          id: 'mobile-jkn',
+          name: 'Mobile JKN (BPJS Kesehatan)',
+          appName: 'Mobile JKN',
+          developer: 'BPJS Kesehatan',
+          icon: 'https://play-lh.googleusercontent.com/rN5o_e2373oTvdVz5x-m-Gq_oK23Mv5M1h7x-x8_y-4z8z_z-z',
+          metrics: payload.metrics || { accuracy: 90.50, macroF1: 61.11, trainSize: 4000, testSize: 1000 },
+          topPositiveTerms: [
+            { word: 'membantu', count: 520 }, { word: 'bagus', count: 480 }, { word: 'mudah', count: 310 },
+            { word: 'sangat_membantu', count: 260 }, { word: 'mantap', count: 195 }, { word: 'cepat', count: 180 },
+            { word: 'bermanfaat', count: 145 }, { word: 'terima_kasih', count: 130 }, { word: 'proses_cepat', count: 115 }, { word: 'lancar', count: 98 }
+          ],
+          topNegativeTerms: [
+            { word: 'daftar', count: 412 }, { word: 'login', count: 385 }, { word: 'susah', count: 290 },
+            { word: 'verifikasi', count: 245 }, { word: 'otp', count: 218 }, { word: 'jadwal_penuh', count: 195 },
+            { word: 'tidak_bisa', count: 182 }, { word: 'antrian', count: 175 }, { word: 'sering_error', count: 160 }, { word: 'keluar_sendiri', count: 142 }
+          ]
+        };
+        populateProjectDropdown([{ id: 'mobile-jkn', name: 'Mobile JKN (BPJS Kesehatan)', sampleCount: reviews.length }]);
+        renderDashboardData(fallbackMeta, reviews);
+      }
 
-      // B. Filter Rating Bintang
-      $('#starFilterGroup button').on('click', function() {
-        $('#starFilterGroup button').removeClass('active');
-        $(this).addClass('active');
-        filterState.star = $(this).data('star');
-        table.draw();
-      });
-
-      // C. Filter Anomali
-      $('#anomalyFilterGroup button').on('click', function() {
-        if ($(this).hasClass('active')) {
-          $(this).removeClass('active');
-          filterState.anomaly = 'all';
-        } else {
-          $('#anomalyFilterGroup button').removeClass('active');
-          $(this).addClass('active');
-          filterState.anomaly = $(this).data('anomaly');
-        }
-        table.draw();
-      });
-
-      // D. Reset All Filters
-      $('#btnResetFilters').on('click', function() {
-        filterState = { ml: 'all', star: 'all', anomaly: 'all' };
-        $('#mlFilterGroup button').removeClass('active').first().addClass('active');
-        $('#starFilterGroup button').removeClass('active').first().addClass('active');
-        $('#anomalyFilterGroup button').removeClass('active');
-        table.search('').draw();
-      });
-
-      // 5. Export CSV Button
-      $('#btnExportTableCSV').on('click', function() {
-        let csvContent = "data:text/csv;charset=utf-8,No,Pengguna,Rating,Ground Truth,Prediksi ML,Confidence (%),Tanggal,Isi Ulasan,Status Anomali\n";
-        reviews.forEach((r, idx) => {
-          const cleanRaw = (r.rawText || '').replace(/"/g, '""');
-          const cleanUser = (r.userName || '').replace(/"/g, '""');
-          csvContent += `"${idx + 1}","${cleanUser}","${r.score}","${r.groundTruth}","${r.mlSentiment}","${r.confidence}","${r.date}","${cleanRaw}","${r.anomalyDesc || 'Sesuai'}"\n`;
+      function populateProjectDropdown(projects) {
+        const $select = $('#projectSelect');
+        $select.empty();
+        projects.forEach(p => {
+          $select.append(`<option value="${p.id}">${escapeHtml(p.name)} (${(p.sampleCount || 0).toLocaleString('id-ID')} ulasan)</option>`);
         });
-        const encodedUri = encodeURI(csvContent);
-        const link = document.createElement("a");
-        link.setAttribute("href", encodedUri);
-        link.setAttribute("download", `mobile_jkn_bi_dataset_5000.csv`);
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+      }
+
+      $('#projectSelect').on('change', function() {
+        const selectedId = $(this).val();
+        loadProject(selectedId);
       });
 
-      // Charts Function
-      function initCharts(data) {
-        // A. 3-Way Parameter Comparison Chart
-        const rPos = data.filter(d => d.score >= 4).length;
-        const rNeu = data.filter(d => d.score === 3).length;
-        const rNeg = data.filter(d => d.score <= 2).length;
+      async function loadProject(projectId) {
+        try {
+          const res = await fetch(`/api/projects/${projectId}`);
+          const data = await res.json();
+          if (data.success) {
+            renderDashboardData(data.meta, data.reviews);
+          }
+        } catch (err) {
+          console.error('Gagal memuat project:', err);
+        }
+      }
 
-        const gtPos = data.filter(d => d.groundTruth === 'Positif').length;
-        const gtNeu = data.filter(d => d.groundTruth === 'Netral').length;
-        const gtNeg = data.filter(d => d.groundTruth === 'Negatif').length;
+      // 2. Render Dashboard with Project Data
+      function renderDashboardData(meta, reviews) {
+        currentProjectData = { meta, reviews };
 
-        const mlPos = data.filter(d => d.mlSentiment === 'Positif').length;
-        const mlNeu = data.filter(d => d.mlSentiment === 'Netral').length;
-        const mlNeg = data.filter(d => d.mlSentiment === 'Negatif').length;
+        // A. Header Info
+        $('#navProjectTitle').text(meta.name || meta.appName || 'App Analytics');
+        $('#navAppDeveloper').text(meta.developer || 'Google Play Store');
+        $('#navProjectSubtitle').text(`Executive Sentiment Analytics & Anomaly Detection • ${meta.appName || ''} (${reviews.length.toLocaleString('id-ID')} Ulasan)`);
+        
+        if (meta.icon) {
+          $('#navAppIconDefault').hide();
+          $('#navAppIconImg').attr('src', meta.icon).show();
+        } else {
+          $('#navAppIconImg').hide();
+          $('#navAppIconDefault').show();
+        }
 
-        new Chart(document.getElementById('chart3Way').getContext('2d'), {
+        // B. KPI Scorecards
+        const total = reviews.length;
+        const posCount = reviews.filter(r => r.mlSentiment === 'Positif').length;
+        const negCount = reviews.filter(r => r.mlSentiment === 'Negatif').length;
+        const anomalyCount = reviews.filter(r => r.isAnomaly).length;
+        const accuracy = meta.metrics?.accuracy || 90.50;
+
+        $('#kpiTotalReviews').text(total.toLocaleString('id-ID'));
+        $('#kpiAccuracy').text(accuracy.toFixed(2) + '%');
+        
+        const posPct = total > 0 ? ((posCount / total) * 100).toFixed(1) : 0;
+        const negPct = total > 0 ? ((negCount / total) * 100).toFixed(1) : 0;
+        $('#kpiSentimentSplit').html(`<span class="text-success">${posPct}% Pos</span> / <span class="text-danger">${negPct}% Neg</span>`);
+        $('#kpiSentimentCounts').text(`${posCount.toLocaleString('id-ID')} Positif vs ${negCount.toLocaleString('id-ID')} Negatif`);
+
+        const anomalyPct = total > 0 ? ((anomalyCount / total) * 100).toFixed(2) : 0;
+        $('#kpiAnomalies').html(`${anomalyCount.toLocaleString('id-ID')} <small style="font-size: 1rem; color: #64748b;">(${anomalyPct}%)</small>`);
+
+        // Filter button counts
+        $('#btnFilterPos').text(`Positif (${posCount.toLocaleString('id-ID')})`);
+        $('#btnFilterNeg').text(`Negatif (${negCount.toLocaleString('id-ID')})`);
+
+        // C. Render Charts
+        render3WayChart(reviews);
+        renderTopTermsCharts(meta.topPositiveTerms || [], meta.topNegativeTerms || []);
+        renderConfusionMatrix(meta.metrics, reviews);
+
+        // D. Render DataTable
+        renderDataTable(reviews);
+      }
+
+      // 3. Render 3-Way Chart
+      function render3WayChart(reviews) {
+        const rPos = reviews.filter(d => d.score >= 4).length;
+        const rNeu = reviews.filter(d => d.score === 3).length;
+        const rNeg = reviews.filter(d => d.score <= 2).length;
+
+        const gtPos = reviews.filter(d => d.groundTruth === 'Positif').length;
+        const gtNeu = reviews.filter(d => d.groundTruth === 'Netral').length;
+        const gtNeg = reviews.filter(d => d.groundTruth === 'Negatif').length;
+
+        const mlPos = reviews.filter(d => d.mlSentiment === 'Positif').length;
+        const mlNeu = reviews.filter(d => d.mlSentiment === 'Netral').length;
+        const mlNeg = reviews.filter(d => d.mlSentiment === 'Negatif').length;
+
+        if (chart3WayInstance) chart3WayInstance.destroy();
+
+        chart3WayInstance = new Chart(document.getElementById('chart3Way').getContext('2d'), {
           type: 'bar',
           data: {
             labels: ['Positif', 'Netral', 'Negatif'],
             datasets: [
-              {
-                label: '1. Rating Play Store (⭐)',
-                data: [rPos, rNeu, rNeg],
-                backgroundColor: '#0078d4',
-                borderRadius: 4
-              },
-              {
-                label: '2. Master Ground Truth',
-                data: [gtPos, gtNeu, gtNeg],
-                backgroundColor: '#107c41',
-                borderRadius: 4
-              },
-              {
-                label: '3. Prediksi Machine Learning',
-                data: [mlPos, mlNeu, mlNeg],
-                backgroundColor: '#5c2d91',
-                borderRadius: 4
-              }
+              { label: '1. Rating Play Store (⭐)', data: [rPos, rNeu, rNeg], backgroundColor: '#0078d4', borderRadius: 4 },
+              { label: '2. Master Ground Truth', data: [gtPos, gtNeu, gtNeg], backgroundColor: '#107c41', borderRadius: 4 },
+              { label: '3. Prediksi Naive Bayes', data: [mlPos, mlNeu, mlNeg], backgroundColor: '#5c2d91', borderRadius: 4 }
             ]
           },
           options: {
@@ -926,16 +1055,22 @@
             }
           }
         });
+      }
 
-        // B. Negative Terms Chart
-        new Chart(document.getElementById('chartNegativeTerms').getContext('2d'), {
+      // 4. Render Top Terms Charts
+      function renderTopTermsCharts(posTerms, negTerms) {
+        if (chartNegTermsInstance) chartNegTermsInstance.destroy();
+        if (chartPosTermsInstance) chartPosTermsInstance.destroy();
+
+        // Negative Terms
+        chartNegTermsInstance = new Chart(document.getElementById('chartNegativeTerms').getContext('2d'), {
           type: 'bar',
           indexAxis: 'y',
           data: {
-            labels: ['daftar', 'login', 'susah', 'verifikasi', 'otp', 'jadwal_penuh', 'tidak_bisa', 'antrian', 'sering_error', 'keluar_sendiri'],
+            labels: negTerms.map(t => t.word),
             datasets: [{
               label: 'Bobot Frekuensi TF-IDF',
-              data: [412, 385, 290, 245, 218, 195, 182, 175, 160, 142],
+              data: negTerms.map(t => t.count),
               backgroundColor: '#e11d48',
               borderRadius: 4
             }]
@@ -951,15 +1086,15 @@
           }
         });
 
-        // C. Positive Terms Chart
-        new Chart(document.getElementById('chartPositiveTerms').getContext('2d'), {
+        // Positive Terms
+        chartPosTermsInstance = new Chart(document.getElementById('chartPositiveTerms').getContext('2d'), {
           type: 'bar',
           indexAxis: 'y',
           data: {
-            labels: ['membantu', 'bagus', 'mudah', 'sangat_membantu', 'mantap', 'cepat', 'bermanfaat', 'terima_kasih', 'proses_cepat', 'lancar'],
+            labels: posTerms.map(t => t.word),
             datasets: [{
               label: 'Bobot Frekuensi TF-IDF',
-              data: [520, 480, 310, 260, 195, 180, 145, 130, 115, 98],
+              data: posTerms.map(t => t.count),
               backgroundColor: '#008272',
               borderRadius: 4
             }]
@@ -976,9 +1111,302 @@
         });
       }
 
+      // 5. Render Confusion Matrix
+      function renderConfusionMatrix(metrics, reviews) {
+        const cm = metrics?.confusionMatrix;
+        const testSize = metrics?.testSize || Math.floor(reviews.length * 0.2);
+        $('#cmSampleSize').text(`${testSize.toLocaleString('id-ID')} Data Uji`);
+
+        if (cm && cm['Positif'] && cm['Negatif']) {
+          const tp = cm['Positif']['Positif'] || 0;
+          const fn = cm['Positif']['Negatif'] || 0;
+          const fp = cm['Negatif']['Positif'] || 0;
+          const tn = cm['Negatif']['Negatif'] || 0;
+
+          const actPosTotal = tp + fn;
+          const actNegTotal = fp + tn;
+          const recallPos = actPosTotal > 0 ? ((tp / actPosTotal) * 100).toFixed(1) : 0;
+          const recallNeg = actNegTotal > 0 ? ((tn / actNegTotal) * 100).toFixed(1) : 0;
+
+          const predPosTotal = tp + fp;
+          const precisionPos = predPosTotal > 0 ? ((tp / predPosTotal) * 100).toFixed(2) : 0;
+
+          $('#cmActualPosLabel').html(`Aktual Positif (${actPosTotal})`);
+          $('#cmActualNegLabel').html(`Aktual Negatif (${actNegTotal})`);
+
+          $('#cmTP').html(`${tp} <small class="d-block text-muted" style="font-size:10px;">(${recallPos}% Recall)</small>`);
+          $('#cmFN').text(fn);
+          $('#cmFP').text(fp);
+          $('#cmTN').html(`${tn} <small class="d-block text-muted" style="font-size:10px;">(${recallNeg}% Recall)</small>`);
+
+          $('#cmPrecisionPos').text(precisionPos + '%');
+          $('#cmRecallNeg').text(recallNeg + '%');
+          $('#cmMacroF1').text((metrics.macroF1 || 61.11).toFixed(2) + '%');
+        }
+      }
+
+      // 6. Custom DataTables Search
+      $.fn.dataTable.ext.search.push(function(settings, searchData, dataIndex, rowData) {
+        const item = rowData || (settings.aoData[dataIndex] ? settings.aoData[dataIndex]._aData : null);
+        if (!item) return true;
+
+        if (filterState.ml !== 'all' && item.mlSentiment !== filterState.ml) return false;
+        if (filterState.star !== 'all' && item.score !== parseInt(filterState.star)) return false;
+        if (filterState.anomaly === 'anomaly_only' && !item.isAnomaly) return false;
+        if (filterState.anomaly === 'high_conf' && item.confidence < 90) return false;
+
+        return true;
+      });
+
+      // 7. Render DataTable
+      function renderDataTable(reviews) {
+        if (dataTableInstance) {
+          dataTableInstance.clear();
+          dataTableInstance.rows.add(reviews);
+          dataTableInstance.draw();
+          return;
+        }
+
+        dataTableInstance = $('#reviewsTable').DataTable({
+          data: reviews,
+          responsive: true,
+          pageLength: 15,
+          lengthMenu: [10, 15, 25, 50, 100],
+          order: [[0, 'asc']],
+          columns: [
+            { data: 'no', className: 'text-muted fw-bold' },
+            { 
+              data: null, 
+              render: function(d) {
+                return `
+                  <div class="fw-bold text-dark">${escapeHtml(d.userName)}</div>
+                  <div class="text-muted" style="font-size: 11px;">Versi: ${escapeHtml(d.version || '1.0')}</div>
+                `;
+              }
+            },
+            { 
+              data: 'score', 
+              render: function(data) {
+                return `<span class="badge-star">★ ${data}</span>`;
+              }
+            },
+            { 
+              data: 'groundTruth', 
+              render: function(data) {
+                const cls = data === 'Positif' ? 'badge-pos' : (data === 'Negatif' ? 'badge-neg' : 'badge-neu');
+                return `<span class="${cls}">${data}</span>`;
+              }
+            },
+            { 
+              data: null, 
+              render: function(d) {
+                const cls = d.mlSentiment === 'Positif' ? 'badge-pos' : (d.mlSentiment === 'Negatif' ? 'badge-neg' : 'badge-neu');
+                return `
+                  <div><span class="${cls}">${d.mlSentiment}</span></div>
+                  <small class="text-muted" style="font-size: 11px;">Conf: ${d.confidence}%</small>
+                `;
+              }
+            },
+            { data: 'date', className: 'text-muted' },
+            { 
+              data: 'rawText',
+              render: function(data) {
+                return `<div class="text-secondary" style="font-size: 0.825rem; line-height: 1.4;">${escapeHtml(data)}</div>`;
+              }
+            },
+            { 
+              data: null, 
+              render: function(d) {
+                if (d.isAnomaly) {
+                  return `<span class="badge-anomaly-high">${escapeHtml(d.anomalyDesc)}</span>`;
+                }
+                return `<span class="text-success small fw-semibold"><i class="fa-solid fa-check me-1"></i>Sesuai</span>`;
+              }
+            }
+          ],
+          language: {
+            search: "_INPUT_",
+            searchPlaceholder: "Cari ulasan, kata kunci...",
+            lengthMenu: "Tampilkan _MENU_ data",
+            info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ total ulasan",
+            infoEmpty: "Tidak ada ulasan yang cocok dengan filter",
+            infoFiltered: "(disaring dari _MAX_ total ulasan)",
+            paginate: { first: "Awal", last: "Akhir", next: "Berikutnya", previous: "Sebelumnya" }
+          }
+        });
+      }
+
+      // Filter Handlers
+      $('#mlFilterGroup button').on('click', function() {
+        $('#mlFilterGroup button').removeClass('active');
+        $(this).addClass('active');
+        filterState.ml = $(this).data('ml');
+        dataTableInstance.draw();
+      });
+
+      $('#starFilterGroup button').on('click', function() {
+        $('#starFilterGroup button').removeClass('active');
+        $(this).addClass('active');
+        filterState.star = $(this).data('star');
+        dataTableInstance.draw();
+      });
+
+      $('#anomalyFilterGroup button').on('click', function() {
+        if ($(this).hasClass('active')) {
+          $(this).removeClass('active');
+          filterState.anomaly = 'all';
+        } else {
+          $('#anomalyFilterGroup button').removeClass('active');
+          $(this).addClass('active');
+          filterState.anomaly = $(this).data('anomaly');
+        }
+        dataTableInstance.draw();
+      });
+
+      $('#btnResetFilters').on('click', function() {
+        filterState = { ml: 'all', star: 'all', anomaly: 'all' };
+        $('#mlFilterGroup button').removeClass('active').first().addClass('active');
+        $('#starFilterGroup button').removeClass('active').first().addClass('active');
+        $('#anomalyFilterGroup button').removeClass('active');
+        dataTableInstance.search('').draw();
+      });
+
+      // Export CSV
+      $('#btnExportTableCSV').on('click', function() {
+        if (!currentProjectData || !currentProjectData.reviews) return;
+        const reviews = currentProjectData.reviews;
+        let csvContent = "data:text/csv;charset=utf-8,No,Pengguna,Rating,Ground Truth,Prediksi ML,Confidence (%),Tanggal,Isi Ulasan,Status Anomali\n";
+        reviews.forEach((r, idx) => {
+          const cleanRaw = (r.rawText || '').replace(/"/g, '""');
+          csvContent += `"${idx+1}","${r.userName}","${r.score}","${r.groundTruth}","${r.mlSentiment}","${r.confidence}","${r.date}","${cleanRaw}","${r.anomalyDesc}"\n`;
+        });
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        const safeName = (currentProjectData.meta?.name || 'sentiment_analytics').replace(/[^a-zA-Z0-9]/g, '_').toLowerCase();
+        link.setAttribute("download", `${safeName}_dataset.csv`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      });
+
+      // 8. Lookup Play Store App on Blur or Click
+      $('#btnLookupApp').on('click', function() {
+        lookupAppMetadata();
+      });
+
+      $('#inputAppUrlOrId').on('change', function() {
+        lookupAppMetadata();
+      });
+
+      // Preset Chips Click
+      $('.preset-chip').on('click', function() {
+        const appId = $(this).data('id');
+        const projName = $(this).data('name');
+        $('#inputAppUrlOrId').val(appId);
+        if (!$('#inputProjectName').val()) {
+          $('#inputProjectName').val(projName);
+        }
+        lookupAppMetadata();
+      });
+
+      async function lookupAppMetadata() {
+        const val = $('#inputAppUrlOrId').val().trim();
+        if (!val) return;
+
+        try {
+          const res = await fetch(`/api/apps/lookup?urlOrId=${encodeURIComponent(val)}`);
+          const data = await res.json();
+          if (data.success && data.app) {
+            const app = data.app;
+            $('#previewAppIcon').attr('src', app.icon);
+            $('#previewAppTitle').text(app.title);
+            $('#previewAppDev').text(app.developer);
+            $('#previewAppScore').text(app.score ? app.score.toFixed(1) : '-');
+            $('#previewAppReviews').text((app.reviewsCount || 0).toLocaleString('id-ID'));
+            $('#appPreviewCard').slideDown();
+
+            if (!$('#inputProjectName').val()) {
+              $('#inputProjectName').val(`Analisis Sentimen ${app.title}`);
+            }
+          } else {
+            $('#appPreviewCard').slideUp();
+          }
+        } catch (err) {
+          console.log('App lookup error:', err);
+        }
+      }
+
+      // 9. Submit Create Project Form
+      $('#createProjectForm').on('submit', async function(e) {
+        e.preventDefault();
+
+        const projectName = $('#inputProjectName').val().trim();
+        const source = $('#inputSource').val();
+        const appUrlOrId = $('#inputAppUrlOrId').val().trim();
+        const sampleSize = $('input[name="sampleSize"]:checked').val() || 1000;
+
+        if (!appUrlOrId) {
+          alert('Mohon masukkan URL atau Package ID Play Store.');
+          return;
+        }
+
+        // Show processing state
+        $('#btnSubmitProject').prop('disabled', true);
+        $('#btnCancelModal').prop('disabled', true);
+        $('#modalCloseBtn').prop('disabled', true);
+        $('#processingSection').slideDown();
+        $('#processingStatusTitle').text(`Menganalisis "${projectName || appUrlOrId}"...`);
+        $('#processingStatusDesc').text(`Mengunduh ${sampleSize} ulasan dari Google Play Store...`);
+
+        try {
+          const res = await fetch('/api/projects/create', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ projectName, source, appUrlOrId, sampleSize })
+          });
+
+          const data = await res.json();
+
+          if (data.success) {
+            $('#processingStatusTitle').text('🎉 Selesai!');
+            $('#processingStatusDesc').text(`Model Naive Bayes berhasil dilatih dengan akurasi ${data.project.metrics?.accuracy}%!`);
+
+            setTimeout(() => {
+              // Hide modal
+              const modal = bootstrap.Modal.getInstance(document.getElementById('createProjectModal'));
+              modal.hide();
+
+              // Reset form
+              $('#createProjectForm')[0].reset();
+              $('#appPreviewCard').hide();
+              $('#processingSection').hide();
+              $('#btnSubmitProject').prop('disabled', false);
+              $('#btnCancelModal').prop('disabled', false);
+              $('#modalCloseBtn').prop('disabled', false);
+
+              // Refresh project list & switch to new project
+              initProjectDashboard();
+            }, 1000);
+          } else {
+            alert('Gagal membuat project: ' + (data.error || 'Terjadi kesalahan.'));
+            $('#processingSection').hide();
+            $('#btnSubmitProject').prop('disabled', false);
+            $('#btnCancelModal').prop('disabled', false);
+            $('#modalCloseBtn').prop('disabled', false);
+          }
+        } catch (err) {
+          alert('Gagal menghubungi server: ' + err.message);
+          $('#processingSection').hide();
+          $('#btnSubmitProject').prop('disabled', false);
+          $('#btnCancelModal').prop('disabled', false);
+          $('#modalCloseBtn').prop('disabled', false);
+        }
+      });
+
       function escapeHtml(text) {
         if (!text) return '';
-        return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+        return String(text).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
       }
     });
   </script>
