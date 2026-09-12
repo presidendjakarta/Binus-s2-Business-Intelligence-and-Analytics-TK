@@ -1,86 +1,43 @@
-# Google Play Store Scraper & Mining Toolkit 🚀
+# Analisis Sentimen Ulasan Mobile JKN Menggunakan Supervised Machine Learning 🚀
 
-Proyek ini menggunakan library [`google-play-scraper`](https://github.com/facundoolano/google-play-scraper) untuk mengambil data aplikasi dan ulasan (*reviews*) dari Google Play Store. Sangat cocok untuk keperluan tugas kuliah, riset, analisis sentimen (*sentiment analysis*), dan *data mining*.
+Proyek penelitian **Data Mining & Natural Language Processing (NLP)** untuk menganalisis sentimen 5.000 ulasan pengguna aplikasi **Mobile JKN (BPJS Kesehatan)** di Google Play Store menggunakan pendekatan **Supervised Machine Learning (TF-IDF Vectorizer + Multinomial Naive Bayes)**.
+
+---
+
+## 🎯 Ringkasan Hasil Model Machine Learning
+
+- **Dataset**: 5.000 Ulasan Google Play Store (`app.bpjs.mobile`)
+- **Pembagian Data**: 80% Data Latih (4.000 ulasan) & 20% Data Uji (1.000 ulasan)
+- **Akurasi Model (Accuracy)**: **88.00%**
+- **Precision (Kelas Positif)**: **93.59%** (Recall: 88.95% | F1-Score: **91.21%**)
+- **Recall (Kelas Negatif)**: **93.44%** (Precision: 82.44% | F1-Score: **87.59%**)
+- **Vocabulary TF-IDF**: **5.587 fitur kata & bigram unik**
 
 ---
 
 ## 📦 Persiapan & Instalasi
 
-Project ini sudah terinstal dependensi `google-play-scraper` dan `csv-writer`. Jika ingin menginstal ulang dependensi di masa mendatang:
+Pastikan telah menginstal [Node.js](https://nodejs.org/) (versi 18+).
 
 ```bash
+# Instal dependensi proyek
 npm install
 ```
 
 ---
 
-## 🛠️ Contoh Skrip yang Tersedia
+## 🚀 Perintah Utama (Main Workflow)
 
-Kami telah menyiapkan 4 skrip siap pakai:
+Tersedia 3 perintah utama untuk menjalankan seluruh pipeline:
 
-### 1. 📱 Mengambil Detail / Metadata Aplikasi
-Mengambil info lengkap seperti judul, deskripsi, developer, kategori, jumlah unduhan, dan rating.
 ```bash
-npm run detail
-# atau: node 1_detail_app.js
-```
-> **Tips:** Edit `appId` pada file [1_detail_app.js](file:///x:/laragon/kuliah/playstore-mining/1_detail_app.js) untuk mengganti aplikasi target.
+# 1. Scraping 5.000 Ulasan Terbaru Mobile JKN dari Google Play Store
+npm run scrape
 
----
-
-### 2. 💬 Scraping Ulasan / Reviews (Export ke CSV & JSON)
-Mengambil ratusan ulasan pengguna, menampilkan ringkasan rating, serta otomatis menyimpan ke file CSV dan JSON di folder `data/`.
-```bash
-npm run reviews
-# atau: node 2_scrape_reviews.js
-```
-Hasil file ulasan tersimpan di:
-- CSV: `data/<package_id>_reviews.csv` (Dapat langsung dibuka di Excel, SPSS, Python Pandas, RapidMiner)
-- JSON: `data/<package_id>_reviews.json`
-
----
-
-### 3. 🔍 Pencarian Aplikasi Berdasarkan Kata Kunci
-Mencari aplikasi di Play Store untuk menemukan `Package ID` (contoh: mencari "e-wallet" atau "marketplace").
-```bash
-npm run search
-# atau: node 3_search_apps.js
-```
-
----
-
-### 4. 🎮 Skrip Interaktif CLI (Sangat Mudah Digunakan)
-Skrip interaktif yang meminta Anda memasukkan kata kunci / Package ID dan jumlah ulasan langsung di terminal:
-```bash
-npm run interactive
-# atau: node 4_interactive_scraper.js
-```
-
----
-
-## 📚 Panduan Singkat Method `google-play-scraper`
-
-Berikut fungsi-fungsi utama yang disediakan oleh library ini:
-
-| Fungsi | Kegunaan | Contoh Parameter |
-| :--- | :--- | :--- |
-| `gplay.app({ appId })` | Mengambil detail metadata 1 aplikasi | `lang: 'id'`, `country: 'id'` |
-| `gplay.reviews({ appId, num, sort })` | Mengambil ulasan pengguna | `sort: gplay.sort.NEWEST`, `paginate: true` |
-| `gplay.search({ term, num })` | Mencari aplikasi berdasarkan kata kunci | `term: 'mobile banking'`, `num: 10` |
-| `gplay.developer({ devId })` | Mengambil daftar aplikasi dari developer | `devId: 'Google LLC'` |
-| `gplay.similar({ appId })` | Mengambil daftar aplikasi serupa | `appId: 'com.whatsapp'` |
-| `gplay.permissions({ appId })` | Melihat hak akses / permission aplikasi | `lang: 'id'` |
-| `gplay.datasafety({ appId })` | Melihat laporan keamanan data aplikasi | `lang: 'id'` |
-
-### 5. 🤖 Machine Learning & Scraping Mobile JKN
-```bash
-# Scraping 5.000 ulasan Mobile JKN
-npm run jkn
-
-# Melatih Model Machine Learning (TF-IDF + Naive Bayes) & Evaluasi Confusion Matrix
+# 2. Melatih Model ML (TF-IDF + Naive Bayes), Evaluasi Confusion Matrix & Prediksi
 npm run train
 
-# Membuka Dashboard Visualisasi di Browser
+# 3. Membuka Dashboard Visualisasi Grafik Interaktif di Browser
 npm run dashboard
 ```
 
@@ -88,30 +45,45 @@ npm run dashboard
 
 ## 📚 Dokumentasi Akademik & Riset (Folder `docs/`)
 
-Dokumentasi lengkap untuk keperluan skripsi/tugas kuliah tersedia di folder [docs/](file:///x:/laragon/kuliah/playstore-mining/docs):
-- 📐 **[docs/algoritma.md](file:///x:/laragon/kuliah/playstore-mining/docs/algoritma.md)**: Teori matematis, rumus TF-IDF, Naive Bayes, Laplace Smoothing, dan Confusion Matrix.
-- 🔄 **[docs/flowchart.md](file:///x:/laragon/kuliah/playstore-mining/docs/flowchart.md)**: Diagram alir sistem (*Mermaid*) dari scraping, preprocessing, training, hingga dashboard.
-- 🔬 **[docs/metodologi_penelitian.md](file:///x:/laragon/kuliah/playstore-mining/docs/metodologi_penelitian.md)**: Metodologi ilmiah CRISP-DM, sampling, dan anotasi ground truth.
-- 📊 **[docs/analisis_dan_temuan.md](file:///x:/laragon/kuliah/playstore-mining/docs/analisis_dan_temuan.md)**: Pembahasan temuan riset, analisis komparasi, anomali, dan rekomendasi strategis.
-- 📖 **[docs/kamus.md](file:///x:/laragon/kuliah/playstore-mining/docs/kamus.md)**: Kamus istilah lengkap + Cheat Sheet 7 pertanyaan favorit dosen penguji & cara menjawabnya.
+Dokumentasi lengkap terstruktur untuk keperluan skripsi, tesis, dan laporan tugas kuliah tersedia di folder [docs/](file:///x:/laragon/kuliah/playstore-mining/docs):
+
+1. 📖 **[docs/kamus.md](file:///x:/laragon/kuliah/playstore-mining/docs/kamus.md)**:
+   - Kamus istilah teknis Data Mining, NLP, TF-IDF, dan Machine Learning dalam bahasa mudah dipahami.
+   - **Cheat Sheet**: 7 pertanyaan favorit dosen penguji beserta template cara menjawabnya dengan percaya diri.
+2. 📐 **[docs/algoritma.md](file:///x:/laragon/kuliah/playstore-mining/docs/algoritma.md)**:
+   - Landasan teori matematis dan rumus lengkap: Preprocessing, TF-IDF, Laplace Smoothing ($\alpha=1$), Multinomial Naive Bayes, dan Confusion Matrix.
+3. 🔄 **[docs/flowchart.md](file:///x:/laragon/kuliah/playstore-mining/docs/flowchart.md)**:
+   - Diagram alir (*Flowchart Mermaid*) untuk seluruh alur sistem: scraping, preprocessing, training model ML, dan dashboard.
+4. 🔬 **[docs/metodologi_penelitian.md](file:///x:/laragon/kuliah/playstore-mining/docs/metodologi_penelitian.md)**:
+   - Kerangka kerja penelitian standar **CRISP-DM** (Bahan Bab 3 Skripsi).
+5. 📊 **[docs/analisis_dan_temuan.md](file:///x:/laragon/kuliah/playstore-mining/docs/analisis_dan_temuan.md)**:
+   - Hasil pembahasan riset, analisis bias rating bintang vs ML, temuan anomali, dan rekomendasi perbaikan untuk BPJS Kesehatan (Bahan Bab 4 Skripsi).
 
 ---
 
-## 📂 Struktur Folder Proyek
+## 📂 Struktur Repositori
 
 ```text
 playstore-mining/
-├── docs/                       # Dokumentasi akademik lengkap (algoritma, flowchart, metodologi)
+├── docs/                                     # Dokumentasi akademik lengkap (Bab 3, Bab 4, Kamus, Flowchart)
 │   ├── README.md
+│   ├── kamus.md
 │   ├── algoritma.md
 │   ├── flowchart.md
 │   ├── metodologi_penelitian.md
 │   └── analisis_dan_temuan.md
-├── data/                       # Dataset ulasan CSV, JSON, Ground Truth, dan ML Predictions
-├── scrape_jkn.js               # Skrip scraping 5.000 ulasan Mobile JKN
-├── train_ml_model.js           # Pipeline Supervised ML (TF-IDF + Naive Bayes)
-├── ml_sentiment_pipeline.py    # Pipeline Python Scikit-Learn ekuivalen
-├── dashboard.html              # Dashboard visualisasi interaktif
+├── data/                                     # Dataset penelitian
+│   ├── master_ground_truth_5000.json         # Master Ground Truth teranotasi
+│   ├── mobile_jkn_ml_predicted_5000.csv      # Hasil prediksi ML 5.000 data (CSV)
+│   ├── mobile_jkn_ml_predicted_5000.json     # Hasil prediksi ML 5.000 data (JSON)
+│   ├── mobile_jkn_reviews_5000.csv           # Dataset mentah 5.000 ulasan (CSV)
+│   ├── mobile_jkn_reviews_5000.json          # Dataset mentah 5.000 ulasan (JSON)
+│   └── mobile_jkn_reviews_5000.js            # Bundle data untuk visualisasi dashboard
+├── scrape_jkn.js                             # Skrip data mining ulasan Google Play Store
+├── train_ml_model.js                         # Pipeline Supervised ML (TF-IDF + Naive Bayes)
+├── ml_sentiment_pipeline.py                  # Skrip Python ekuivalen (Scikit-Learn)
+├── open_dashboard.js                         # Helper peluncur dashboard
+├── dashboard.html                            # Dashboard visualisasi interaktif Chart.js
 ├── package.json
 └── README.md
 ```

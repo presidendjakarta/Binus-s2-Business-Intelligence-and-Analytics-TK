@@ -5,12 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "detail": "node 1_detail_app.js",
-    "reviews": "node 2_scrape_reviews.js",
-    "search": "node 3_search_apps.js",
-    "interactive": "node 4_interactive_scraper.js",
-    "jkn": "node scrape_jkn.js",
-    "sentiment": "node analyze_sentiment.js",
+    "scrape": "node scrape_jkn.js",
     "train": "node train_ml_model.js",
     "dashboard": "node open_dashboard.js"
   },
