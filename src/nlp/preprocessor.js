@@ -1,16 +1,18 @@
 import { SLANG_DICTIONARY } from './slangDictionary.js';
 import { INDONESIAN_STOPWORDS } from './stopwords.js';
+import { translateEmojis } from './emojiDictionary.js';
 import { stem } from './stemmer.js';
 
 /**
  * Pipeline Preprocessing Teks Lengkap:
- * 1. Case Folding (huruf kecil)
- * 2. URL & Special Characters Cleaning
- * 3. Repetition Removal (e.g. baguuus -> bagus)
- * 4. Slang Normalization (bahasa gaul -> baku)
- * 5. Sastrawi Morphological Stemming
- * 6. Stopwords Removal
- * 7. Unigram & Bigram Feature Extraction
+ * 1. Emoji Sentiment Translation (👍 -> emoji_jempol_bagus, 😡 -> emoji_marah_kesal)
+ * 2. Case Folding (huruf kecil)
+ * 3. URL & Special Characters Cleaning
+ * 4. Repetition Removal (e.g. baguuus -> bagus)
+ * 5. Slang Normalization (bahasa gaul -> baku)
+ * 6. Sastrawi Morphological Stemming
+ * 7. Stopwords Removal
+ * 8. Unigram & Bigram Feature Extraction
  *
  * @param {string} text - Teks mentah ulasan
  * @returns {Array<string>} - Array token fitur unigram + bigram
@@ -18,7 +20,10 @@ import { stem } from './stemmer.js';
 export function preprocess(text) {
   if (!text || typeof text !== 'string') return [];
 
-  const cleaned = text.toLowerCase()
+  // 1. Terjemahkan Emoji ke Token Sentimen
+  const withEmojis = translateEmojis(text);
+
+  const cleaned = withEmojis.toLowerCase()
     .replace(/https?:\/\/\S+/g, ' ')
     .replace(/[^\w\s-]/g, ' ')
     .replace(/(.)\1{2,}/g, '$1');

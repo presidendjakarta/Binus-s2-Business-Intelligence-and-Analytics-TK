@@ -1,7 +1,7 @@
 # 📐 Panduan Komprehensif Algoritma Multinomial Naive Bayes
 ## Klasifikasi Sentimen Teks Bahasa Indonesia pada Ulasan Mobile JKN
 
-Dokumen ini merupakan panduan akademis dan teknis mendalam mengenai algoritma **Multinomial Naive Bayes (MNB)** yang diintegrasikan dengan pembobotan **TF-IDF (Term Frequency - Inverse Document Frequency)** dan **Sastrawi Morphological Stemmer**. Dokumen ini dirancang sebagai rujukan lengkap untuk penyusunan **Bab 2 (Landasan Teori)**, **Bab 3 (Metodologi)**, dan persiapan menghadapi **Sidang Ujian Tesis/Skripsi**.
+Dokumen ini merupakan panduan akademis dan teknis mendalam mengenai algoritma **Multinomial Naive Bayes (MNB)** yang diintegrasikan dengan pembobotan **TF-IDF (Term Frequency - Inverse Document Frequency)**, **Emoji-to-Token Semantic Mapping**, dan **Sastrawi Morphological Stemmer**. Dokumen ini dirancang sebagai rujukan lengkap untuk penyusunan **Bab 2 (Landasan Teori)**, **Bab 3 (Metodologi)**, dan persiapan menghadapi **Sidang Ujian Tesis/Skripsi**.
 
 ---
 
@@ -11,11 +11,12 @@ Dokumen ini merupakan panduan akademis dan teknis mendalam mengenai algoritma **
 3. [Pembobotan Fitur Teks: TF-IDF & Normalisasi L2](#3-pembobotan-fitur-teks-tf-idf--normalisasi-l2)
 4. [Penanganan Probabilitas Nol: Laplace Smoothing ($\alpha = 1.0$)](#4-penanganan-probabilitas-nol-laplace-smoothing-alpha--10)
 5. [Mencegah Underflow Numerik: Log-Likelihood & Softmax](#5-mencegah-underflow-numerik-log-likelihood--softmax)
-6. [Pipeline Preprocessing Bahasa Indonesia Terintegrasi](#6-pipeline-preprocessing-bahasa-indonesia-terintegrasi)
-7. [Simulasi Perhitungan Manual Langkah-demi-Langkah (*Numerical Example*)](#7-simulasi-perhitungan-manual-langkah-demi-langkah-numerical-example)
-8. [Hasil Evaluasi & Metrik Kinerja pada 5.000 Data](#8-hasil-evaluasi--metrik-kinerja-pada-5000-data)
-9. [Komparasi: Naive Bayes vs Large Language Model (Gemma 3)](#9-komparasi-naive-bayes-vs-large-language-model-gemma-3)
-10. [Cheat Sheet Sidang: 6 Pertanyaan Dosen Penguji tentang Naive Bayes](#10-cheat-sheet-sidang-6-pertanyaan-dosen-penguji-tentang-naive-bayes)
+6. [Pipeline Preprocessing Bahasa Indonesia & Penanganan Emoji / Simbol](#6-pipeline-preprocessing-bahasa-indonesia--penanganan-emoji--simbol)
+7. [Penanganan Khusus: Ulasan Berbasis Emoji vs Simbol Non-Teks](#7-penanganan-khusus-ulasan-berbasis-emoji-vs-simbol-non-teks)
+8. [Simulasi Perhitungan Manual Langkah-demi-Langkah (*Numerical Example*)](#8-simulasi-perhitungan-manual-langkah-demi-langkah-numerical-example)
+9. [Hasil Evaluasi & Metrik Kinerja pada 5.000 Data](#9-hasil-evaluasi--metrik-kinerja-pada-5000-data)
+10. [Komparasi: Naive Bayes vs Large Language Model (Gemma 3)](#10-komparasi-naive-bayes-vs-large-language-model-gemma-3)
+11. [Cheat Sheet Sidang: 7 Pertanyaan Dosen Penguji tentang Naive Bayes](#11-cheat-sheet-sidang-7-pertanyaan-dosen-penguji-tentang-naive-bayes)
 
 ---
 
@@ -63,13 +64,14 @@ Sebelum teks masuk ke model Naive Bayes, kumpulan token kata diubah menjadi matr
 
 ```mermaid
 flowchart LR
-    A["Teks Ulasan"] --> B["Tokenisasi & Slang"]
-    B --> C["Sastrawi Stemmer"]
-    C --> D["TF (Term Frequency)"]
-    C --> E["IDF (Inverse Document Frequency)"]
-    D & E --> F["TF-IDF Weight"]
-    F --> G["L2 Normalization"]
-    G --> H["Fitur Vektor Naive Bayes"]
+    A["Teks Ulasan Mentah"] --> B["Emoji to Token Mapping"]
+    B --> C["Tokenisasi & Slang Normalization"]
+    C --> D["Sastrawi Stemmer"]
+    D --> E["TF (Term Frequency)"]
+    D --> F["IDF (Inverse Document Frequency)"]
+    E & F --> G["TF-IDF Weight"]
+    G --> H["L2 Normalization"]
+    H --> I["Fitur Vektor Naive Bayes"]
 ```
 
 ### A. Term Frequency (TF)
@@ -98,25 +100,21 @@ Karena Naive Bayes mengalikan seluruh probabilitas kata:
 $$P(Positif \mid X) = P(Positif) \cdot \prod_{i=1}^n P(w_i \mid Positif) = P(Positif) \cdot 0 = 0$$
 Satu kata baru saja dapat menghapus seluruh bukti positif dari kata-kata lainnya!
 
-### Solusi: Laplace Smoothing (Lidstone Smoothing $\alpha=1$)
-Untuk mengatasi masalah ini, kita menambahkan parameter $\alpha = 1$ pada pembilang dan $\alpha \cdot |V|$ pada penyebut:
+### Solusi: Laplace Add-One Smoothing
+Setiap kata diberi *pseudocount* $+1$ ($\alpha = 1.0$), dan penyebut ditambah dengan total ukuran vocabulary ($|V|$):
 
-$$\LARGE P(w \mid C) = \frac{\sum_{d \in C} TFIDF(w, d) + \alpha}{\sum_{w' \in V} \sum_{d \in C} TFIDF(w', d) + \alpha \cdot |V|}$$
-
-* $|V|$ = Ukuran total kosakata unik (*Vocabulary Size* = 5.495 fitur).
-* $\alpha = 1.0$ menjamin setiap kata memiliki probabilitas $> 0$ meskipun belum pernah terlihat sebelumnya di kelas tersebut.
+$$P(w_i \mid C) = \frac{\sum TF(w_i, C) + \alpha}{\sum_{w \in V} TF(w, C) + \alpha \cdot |V|}$$
 
 ---
 
 ## 5. Mencegah Underflow Numerik: Log-Likelihood & Softmax
 
-### Masalah *Floating-Point Underflow*:
-Mengalikan puluhan nilai probabilitas kecil (misal: $0.0003 \times 0.00015 \times 0.0008 \dots$) akan menghasilkan angka desimal yang sangat mendekati nol sehingga melebihi batas presisi memori komputer (*underflow* bernilai `0.000000`).
+Jika ulasan memiliki 20 kata, mengalikan 20 angka probabilitas kecil (misal: $0.0001 \times 0.0003 \times \dots$) akan menghasilkan angka desimal yang sangat mendekati nol sehingga menyebabkan **Floating-Point Arithmetic Underflow** pada CPU.
 
-### Solusi: Transformasi Ruang Logaritma (*Log-Space*)
-Karena $\log(a \cdot b) = \log(a) + \log(b)$, kita mengubah operasi **perkalian** menjadi operasi **penjumlahan logaritma**:
+### Solusi: Transformasi Logaritma Alami ($\ln$)
+Perkalian probabilitas diubah menjadi penjumlahan logaritma:
 
-$$\LARGE \ln P(C \mid X) = \ln P(C) + \sum_{i=1}^{|V|} x_i \cdot \ln P(w_i \mid C)$$
+$$\ln P(C \mid X) = \ln P(C) + \sum_{i=1}^{n} \ln P(w_i \mid C)$$
 
 ### Kalibrasi Probabilitas dengan Softmax:
 Untuk mengubah skor *log-posterior* kembali menjadi persentase probabilitas keyakinan (*confidence score* 0–100%):
@@ -125,37 +123,59 @@ $$P(C_k \mid X) = \frac{\exp\left(\ln P(C_k \mid X) - \max_j \ln P(C_j \mid X)\r
 
 ---
 
-## 6. Pipeline Preprocessing Bahasa Indonesia Terintegrasi
+## 6. Pipeline Preprocessing Bahasa Indonesia & Penanganan Emoji / Simbol
 
 Model Naive Bayes kita dioptimalkan khusus untuk karakteristik ulasan bahasa Indonesia tidak baku:
 
 ```
 Ulasan Mentah:
-"Aplikasi nya bgus bgt!! Sangat mempermudah antrean bpjs, gak lemot..."
+"Aplikasi nya bgus bgt!! 👍 Sangat mempermudah antrean bpjs, gak lemot..."
    │
-   ▼ 1. Case Folding & Cleaning (Hapus URL, tanda baca, huruf berulang)
-"aplikasi nya bgus bgt sangat mempermudah antrean bpjs gak lemot"
+   ▼ 1. Emoji-to-Semantic Token Translation (👍 -> emoji_jempol_bagus)
+"Aplikasi nya bgus bgt!! emoji_jempol_bagus Sangat mempermudah antrean bpjs, gak lemot..."
    │
-   ▼ 2. Kamus Slang / Normalisasi Kata Gaul (bgus -> bagus, bgt -> banget, gak -> tidak)
-"aplikasi nya bagus banget sangat mempermudah antrean bpjs tidak lemot"
+   ▼ 2. Case Folding & Cleaning (Hapus URL, tanda baca, huruf berulang)
+"aplikasi nya bgus bgt emoji_jempol_bagus sangat mempermudah antrean bpjs gak lemot"
    │
-   ▼ 3. Sastrawi Morphological Stemming (mempermudah -> mudah, antrean -> antri)
-"aplikasi nya bagus banget sangat mudah antri bpjs tidak lambat"
+   ▼ 3. Kamus Slang / Normalisasi Kata Gaul (bgus -> bagus, bgt -> banget, gak -> tidak)
+"aplikasi nya bagus banget emoji_jempol_bagus sangat mempermudah antrean bpjs tidak lemot"
    │
-   ▼ 4. Stopwords Removal (Hapus: nya, banget, bpjs, aplikasi)
-"bagus sangat mudah antri tidak lambat"
+   ▼ 4. Sastrawi Morphological Stemming (mempermudah -> mudah, antrean -> antri)
+"aplikasi nya bagus banget emoji_jempol_bagus sangat mudah antri bpjs tidak lambat"
    │
-   ▼ 5. N-Gram Feature Engineering (Unigram + Bigram)
-Tokens: ['bagus', 'bagus_sangat', 'sangat', 'sangat_mudah', 'mudah', 'mudah_antri', 'antri', 'tidak_lambat']
+   ▼ 5. Stopwords Removal (Hapus: nya, banget, bpjs, aplikasi)
+"bagus emoji_jempol_bagus sangat mudah antri tidak lambat"
+   │
+   ▼ 6. N-Gram Feature Engineering (Unigram + Bigram)
+Tokens: ['bagus', 'emoji_jempol_bagus', 'sangat', 'mudah', 'tidak_lambat', ...]
 ```
 
 ---
 
-## 7. Simulasi Perhitungan Manual Langkah-demi-Langkah (*Numerical Example*)
+## 7. Penanganan Khusus: Ulasan Berbasis Emoji vs Simbol Non-Teks
+
+Dalam data riil Google Play Store, terdapat variasi ulasan tanpa kalimat terstruktur. Sistem Naive Bayes kami menerapkan penanganan sistematis berikut:
+
+### A. Ulasan Berbasis Emoji Sentimen (`👍`, `🙏`, `❤️`, `💯`, `😡`, `👎`, `🔪`)
+* **Mekanisme**: Emoji dipetakan ke token khusus (`emoji_jempol_bagus`, `emoji_terima_kasih`, `emoji_bahaya_ancaman`, `emoji_marah_kesal`).
+* **Hasil Naive Bayes**: Token ini masuk ke dalam Vocabulary TF-IDF, sehingga ulasan seperti `👍👍👍` memiliki bobot fitur positif sangat tinggi (>98%), dan ulasan `🔪` atau `😡` memiliki bobot fitur negatif kuat (>90%).
+
+### B. Ulasan Berisi Simbol Netral / Non-Teks (`📐`, `...`, `---`, Whitespace Kosong)
+* **Tantangan Awal**: Pembersihan tanda baca menghasilkan array token kosong (`tokens: []`), sehingga vektor TF-IDF bernilai nol dan model hanya bergantung pada *Class Prior Probability* $P(Positif) = 53.3\%$. Hal ini sebelumnya dapat memicu deteksi anomali palsu (*False Anomaly*) pada ulasan rating 1.
+* **Solusi Baku (Score-Aware Fallback)**:
+  - Jika ulasan menghasilkan `tokens.length === 0`, model secara deterministik menetapkan label berdasarkan **Rating Bintang Pengguna**:
+    - **Rating ⭐ 4-5** $\rightarrow$ Sentimen `Positif` ($95\%$ keyakinan, `Status: Sesuai`).
+    - **Rating ⭐ 1-2** $\rightarrow$ Sentimen `Negatif` ($95\%$ keyakinan, `Status: Sesuai`).
+    - **Rating ⭐ 3** $\rightarrow$ Sentimen `Netral` ($90\%$ keyakinan, `Status: Sesuai`).
+  - Hal ini menjamin tidak terjadi *False Anomaly* pada ulasan simbolik murni.
+
+---
+
+## 8. Simulasi Perhitungan Manual Langkah-demi-Langkah (*Numerical Example*)
 
 Mari kita simulasikan cara kerja model pada sebuah contoh ulasan:
-> **Teks Uji ($X$):** *"Pelayanan sangat mudah dan cepat"*
-> **Token Bersih:** `['layan', 'mudah', 'cepat', 'layan_mudah', 'mudah_cepat']`
+> **Teks Uji ($X$):** *"Pelayanan sangat mudah dan cepat 👍"*
+> **Token Bersih:** `['layan', 'mudah', 'cepat', 'emoji_jempol_bagus', 'mudah_cepat']`
 
 ### Langkah 1: Menghitung Prior Probability $P(C)$
 Dari data latih (4.000 ulasan):
@@ -170,21 +190,22 @@ Berdasarkan frekuensi bobot TF-IDF pada data latih:
 | `layan` | **-4.12** | -5.89 | Cenderung Positif |
 | `mudah` | **-3.45** | -8.12 | Sangat Kuat Positif |
 | `cepat` | **-3.88** | -7.95 | Sangat Kuat Positif |
+| `emoji_jempol_bagus` | **-3.10** | -8.90 | Sangat Kuat Positif |
 | `mudah_cepat` | **-5.01** | -9.40 | Bigram Positif |
 
 ### Langkah 3: Menjumlahkan Skor Log-Posterior
 
-$$\ln P(Pos \mid X) = -0.629 + (-4.12) + (-3.45) + (-3.88) + (-5.01) = \mathbf{-17.089}$$
-$$\ln P(Neg \mid X) = -0.761 + (-5.89) + (-8.12) + (-7.95) + (-9.40) = \mathbf{-32.121}$$
+$$\ln P(Pos \mid X) = -0.629 + (-4.12) + (-3.45) + (-3.88) + (-3.10) + (-5.01) = \mathbf{-20.189}$$
+$$\ln P(Neg \mid X) = -0.761 + (-5.89) + (-8.12) + (-7.95) + (-8.90) + (-9.40) = \mathbf{-41.021}$$
 
 ### Langkah 4: Kesimpulan Klasifikasi
-Karena $\ln P(Pos \mid X) > \ln P(Neg \mid X)$ (nilai $-17.089$ jauh lebih besar daripada $-32.121$):
+Karena $\ln P(Pos \mid X) > \ln P(Neg \mid X)$ (nilai $-20.189$ jauh lebih besar daripada $-41.021$):
 $$\mathbf{\hat{C} = \text{Positif}}$$
 Dengan skor keyakinan (*confidence*) melalui Softmax = **99.99% Positif**.
 
 ---
 
-## 8. Hasil Evaluasi & Metrik Kinerja pada 5.000 Data
+## 9. Hasil Evaluasi & Metrik Kinerja pada 5.000 Data
 
 Evaluasi dilakukan menggunakan skema pengujian ketat **80% Training Set (4.000 data)** dan **20% Testing Set (1.000 data)**:
 
@@ -192,47 +213,47 @@ Evaluasi dilakukan menggunakan skema pengujian ketat **80% Training Set (4.000 d
 ================================================================
 🎯 EVALUATION REPORT (SASTRAWI STEMMER + NAIVE BAYES)
 ================================================================
-Akurasi Model (Accuracy) : 90.40%
-Macro F1-Score           : 61.04%
+Akurasi Model (Accuracy) : 90.50%
+Macro F1-Score           : 61.11%
 
 Confusion Matrix (Actual \ Predicted):
                   [Pred Positif] [Pred Netral] [Pred Negatif]
-Actual [Positif] :          493             0             40
-Actual [Netral ] :            3             0             25
-Actual [Negatif] :           28             0            411
+Actual [Positif] :          491             0             39
+Actual [Netral ] :            2             0             26
+Actual [Negatif] :           28             0            414
 
 Classification Report:
-- Kelas [Positif]: Precision: 94.08% | Recall: 92.50% | F1: 93.28% | Support: 533
-- Kelas [Negatif]: Precision: 86.34% | Recall: 93.62% | F1: 89.84% | Support: 439
+- Kelas [Positif]: Precision: 94.24% | Recall: 92.64% | F1: 93.43% | Support: 530
+- Kelas [Negatif]: Precision: 86.43% | Recall: 93.67% | F1: 89.90% | Support: 442
 ================================================================
 ```
 
 ### Analisis Metrik:
-* **Precision Kelas Positif (94.08%):** Dari seluruh ulasan yang ditebak Positif oleh model, 94.08% di antaranya terbukti benar-benar positif.
-* **Recall Kelas Negatif (93.62%):** Model sangat sensitif dan berhasil menjaring 93.62% dari total komplain nyata pengguna.
-* **Akurasi 90.40%:** Menunjukkan model sangat andal dan memenuhi standar publikasi ilmiah internasional.
+* **Precision Kelas Positif (94.24%):** Dari seluruh ulasan yang ditebak Positif oleh model, 94.24% di antaranya terbukti benar-benar positif.
+* **Recall Kelas Negatif (93.67%):** Model sangat sensitif dan berhasil menjaring 93.67% dari total komplain nyata pengguna.
+* **Akurasi 90.50%:** Menunjukkan model sangat andal dan memenuhi standar publikasi ilmiah internasional.
 
 ---
 
-## 9. Komparasi: Naive Bayes vs Large Language Model (Gemma 3)
+## 10. Komparasi: Naive Bayes vs Large Language Model (Gemma 3)
 
 | Dimensi Evaluasi | Multinomial Naive Bayes (ML) | Gemma 3 LLM (Generative AI) |
 | :--- | :--- | :--- |
-| **Kecepatan Inferensi** | ⚡ **Super Cepat (~0.1 ms per ulasan)** | 🐢 Sedang (~1.2 detik per ulasan) |
+| **Kecepatan Inferensi** | ⚡ **Super Cepat (~0.05 ms per ulasan)** | 🐢 Sedang (~1.2 detik per ulasan) |
 | **Kebutuhan Komputasi** | 💻 Ringan (Cukup CPU, RAM < 50MB) | 🎮 Berat (Memerlukan GPU/VRAM 4GB+) |
-| **Akurasi Sentimen** | 🎯 **90.40%** | 🧠 **91.22%** |
-| **Penanganan Sarkasme** | ⚠️ Terbatas pada pola N-Gram | 🌟 **Sangat Unggul (Memahami konteks tersirat)** |
+| **Akurasi Sentimen** | 🎯 **90.50%** | 🧠 **92.60%** |
+| **Penanganan Sarkasme** | ⚠️ Terbatas pada pola N-Gram & Rule | 🌟 **Sangat Unggul (Memahami konteks tersirat)** |
 | **Ekstraksi Kategori Isu** | ❌ Perlu model klasifikasi terpisah | ✅ **Otomatis multi-tasking (5 Kategori Isu)** |
 | **Alasan Penalaran (Reasoning)** | ❌ Output berupa angka probabilitas | ✅ **Menghasilkan penjelasan teks manusiawi** |
 | **Peran Terbaik di Industri** | **High-throughput Batch Screening** | **Deep Semantic Diagnostic & Root-Cause Analysis** |
 
 ---
 
-## 10. Cheat Sheet Sidang: 6 Pertanyaan Dosen Penguji tentang Naive Bayes
+## 11. Cheat Sheet Sidang: 7 Pertanyaan Dosen Penguji tentang Naive Bayes
 
 ### 💬 Q1: *"Kenapa Anda menggunakan Naive Bayes, bukan SVM atau Random Forest?"*
 > **Template Jawaban Anda:**
-> *"Naive Bayes dipilih karena memiliki efisiensi komputasi linier $O(N \cdot |V|)$, sangat tangguh terhadap fenomena 'Curse of Dimensionality' pada ruang fitur teks yang memiliki ribuan vocabulary (5.495 fitur), serta menghasilkan skor probabilitas yang terkalibrasi secara matematis untuk deteksi anomali."*
+> *"Naive Bayes dipilih karena memiliki efisiensi komputasi linier $O(N \cdot |V|)$, sangat tangguh terhadap fenomena 'Curse of Dimensionality' pada ruang fitur teks yang memiliki ribuan vocabulary (5.537 fitur), serta menghasilkan skor probabilitas yang terkalibrasi secara matematis untuk deteksi anomali."*
 
 ---
 
@@ -260,6 +281,12 @@ Classification Report:
 
 ---
 
-### 💬 Q6: *"Apa keunggulan arsitektur Hybrid AI (Naive Bayes + LLM) di penelitian Anda?"*
+### 💬 Q6: *"Bagaimana sistem menangani ulasan yang hanya berisi emoji atau simbol seperti 👍, 🔪, atau 📐?"*
+> **Template Jawaban Anda:**
+> *"Kami menerapkan dua mekanisme: (1) Emoji Translation Layer yang memetakan emoji bermakna sentimen menjadi token fitur seperti `emoji_jempol_bagus` atau `emoji_bahaya_ancaman` sehingga memperoleh bobot TF-IDF otomatis. (2) Score-Aware Fallback untuk simbol non-semantis (seperti 📐 atau whitespace) di mana jika token bernilai kosong, model merujuk pada rating bintang pengguna dengan keyakinan 95% tanpa memicu false anomaly."*
+
+---
+
+### 💬 Q7: *"Apa keunggulan arsitektur Hybrid AI (Naive Bayes + LLM) di penelitian Anda?"*
 > **Template Jawaban Anda:**
 > *"Kami menggabungkan kecepatan dan efisiensi Naive Bayes untuk menyaring 5.000 data ulasan secara instan, dengan kemampuan penalaran mendalam LLM Gemma 3 untuk mendiagnosis ulasan ambigu, mengekstrak 5 kategori isu, dan memberikan rekomendasi strategis bagi manajemen BPJS Kesehatan."*

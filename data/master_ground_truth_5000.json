@@ -770,7 +770,9 @@
     "version": "4.16.0",
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=903bc422-33e3-49d0-9b70-32d20d389e6c",
     "groundTruth": "Negatif",
-    "tokens": []
+    "tokens": [
+      "emoji_bahaya_ancaman"
+    ]
   },
   {
     "no": 24,
@@ -977,7 +979,9 @@
     "groundTruth": "Positif",
     "tokens": [
       "sangat_bantu",
-      "bantu"
+      "bantu",
+      "bantu_emoji_jempol_bagus",
+      "emoji_jempol_bagus"
     ]
   },
   {
@@ -1910,7 +1914,7 @@
     "replyText": "",
     "version": "4.18.0",
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=d0fa2ad7-dc07-4a03-9b0c-7f242e7c0900",
-    "groundTruth": "Positif",
+    "groundTruth": "Negatif",
     "tokens": [
       "gmn",
       "gmn_mau",
@@ -3407,7 +3411,9 @@
       "tolong_jawab",
       "jawab",
       "jawab_kak",
-      "kak"
+      "kak",
+      "kak_emoji_terima_kasih",
+      "emoji_terima_kasih"
     ]
   },
   {
@@ -3466,7 +3472,9 @@
       "tanpa_harus",
       "harus",
       "kantor",
-      "kantor_nya"
+      "kantor_nya",
+      "nya_emoji_sangat_puas",
+      "emoji_sangat_puas"
     ]
   },
   {
@@ -5241,7 +5249,7 @@
     "replyText": "",
     "version": "4.18.0",
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=5dc3b7a6-b654-440d-aa51-5d0197e4cdf9",
-    "groundTruth": "Positif",
+    "groundTruth": "Negatif",
     "tokens": [
       "tiba",
       "tiba_logout",
@@ -5881,7 +5889,15 @@
       "sama_tidak",
       "tidak",
       "tidak_masuk",
-      "masuk"
+      "masuk",
+      "masuk_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa",
+      "emoji_buruk_kecewa_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa",
+      "emoji_buruk_kecewa_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa",
+      "emoji_buruk_kecewa_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa"
     ]
   },
   {
@@ -6305,7 +6321,7 @@
     "replyText": "",
     "version": "4.18.0",
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=260d1e3d-9268-464b-b3b1-f81e8797d761",
-    "groundTruth": "Positif",
+    "groundTruth": "Negatif",
     "tokens": [
       "sangat_bantu",
       "bantu",
@@ -6313,7 +6329,9 @@
       "tapi_cukup",
       "cukup",
       "cukup_lola",
-      "lola"
+      "lola",
+      "lola_emoji_menangis_sedih",
+      "emoji_menangis_sedih"
     ]
   },
   {
@@ -6603,7 +6621,9 @@
       "semua",
       "semua_jadi",
       "jadi_mudah",
-      "mudah"
+      "mudah",
+      "mudah_emoji_cinta_suka",
+      "emoji_cinta_suka"
     ]
   },
   {
@@ -6654,7 +6674,13 @@
       "akses_dan",
       "dan_sangat",
       "sangat_bantu",
-      "bantu"
+      "bantu",
+      "bantu_emoji_senang_puas",
+      "emoji_senang_puas",
+      "emoji_senang_puas_emoji_terima_kasih",
+      "emoji_terima_kasih",
+      "emoji_terima_kasih_emoji_terima_kasih",
+      "emoji_terima_kasih"
     ]
   },
   {
@@ -7892,7 +7918,7 @@
     "replyText": "",
     "version": "",
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=cd372b48-842e-415a-9b92-c1d50ab650a2",
-    "groundTruth": "Positif",
+    "groundTruth": "Negatif",
     "tokens": [
       "kenapa",
       "kenapa_selalu",
@@ -8845,7 +8871,9 @@
       "supaya_mudah",
       "mudah",
       "mudah_dan",
-      "dan_tidak",
+      "dan_emoji_salah_gagal",
+      "emoji_salah_gagal",
+      "emoji_salah_gagal_tidak",
       "tidak",
       "tidak_sulit",
       "sulit",
@@ -9299,7 +9327,15 @@
     "version": "",
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=07c2bcc0-af3c-4864-9759-ddf21008d5bf",
     "groundTruth": "Positif",
-    "tokens": []
+    "tokens": [
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_jempol_bagus",
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_jempol_bagus",
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_jempol_bagus",
+      "emoji_jempol_bagus"
+    ]
   },
   {
     "no": 304,
@@ -9429,7 +9465,9 @@
       "gimana",
       "gimana_mau",
       "mau_daftar",
-      "daftar"
+      "daftar",
+      "daftar_emoji_pusing_kecewa",
+      "emoji_pusing_kecewa"
     ]
   },
   {
@@ -11081,7 +11119,9 @@
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=d8ed2750-87a2-40a7-8294-ba30a3bf4d0c",
     "groundTruth": "Positif",
     "tokens": [
-      "mudah"
+      "mudah",
+      "mudah_emoji_cinta_suka",
+      "emoji_cinta_suka"
     ]
   },
   {
@@ -11546,7 +11586,13 @@
     "tokens": [
       "mantap",
       "mantap_jiwa",
-      "jiwa"
+      "jiwa",
+      "jiwa_emoji_mantap_keren",
+      "emoji_mantap_keren",
+      "emoji_mantap_keren_emoji_mantap_keren",
+      "emoji_mantap_keren",
+      "emoji_mantap_keren_emoji_mantap_keren",
+      "emoji_mantap_keren"
     ]
   },
   {
@@ -11676,7 +11722,9 @@
       "abal",
       "abal_abal",
       "abal",
-      "abal_bisa",
+      "abal_emoji_lucu_tawa",
+      "emoji_lucu_tawa",
+      "emoji_lucu_tawa_bisa",
       "bisa",
       "bisa_bisa",
       "bisa",
@@ -11687,7 +11735,11 @@
       "pernah",
       "pernah_bisa",
       "bisa",
-      "buka"
+      "buka",
+      "buka_emoji_lucu_tawa",
+      "emoji_lucu_tawa",
+      "emoji_lucu_tawa_emoji_lucu_tawa",
+      "emoji_lucu_tawa"
     ]
   },
   {
@@ -12031,7 +12083,9 @@
       "habis",
       "habis_oleh",
       "oleh_verifikasi",
-      "verifikasi"
+      "verifikasi",
+      "verifikasi_emoji_kecewa_sedih",
+      "emoji_kecewa_sedih"
     ]
   },
   {
@@ -12122,7 +12176,13 @@
       "kenapa_sekarang",
       "sekarang",
       "sekarang_tidak",
-      "tidak"
+      "tidak",
+      "tidak_emoji_kesal_emosi",
+      "emoji_kesal_emosi",
+      "emoji_kesal_emosi_emoji_kesal_emosi",
+      "emoji_kesal_emosi",
+      "emoji_kesal_emosi_emoji_kesal_emosi",
+      "emoji_kesal_emosi"
     ]
   },
   {
@@ -12412,7 +12472,13 @@
       "rumit_terima",
       "terima",
       "terima_kasih",
-      "kasih"
+      "kasih",
+      "kasih_emoji_terima_kasih",
+      "emoji_terima_kasih",
+      "emoji_terima_kasih_emoji_terima_kasih",
+      "emoji_terima_kasih",
+      "emoji_terima_kasih_emoji_terima_kasih",
+      "emoji_terima_kasih"
     ]
   },
   {
@@ -12489,7 +12555,9 @@
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=48255124-2f39-46d4-894d-066cf61b3e0a",
     "groundTruth": "Positif",
     "tokens": [
-      "mantep"
+      "mantep",
+      "mantep_emoji_jempol_bagus",
+      "emoji_jempol_bagus"
     ]
   },
   {
@@ -12622,7 +12690,9 @@
       "mudah_cara",
       "cara",
       "cara_praktis",
-      "praktis"
+      "praktis",
+      "praktis_emoji_jempol_bagus",
+      "emoji_jempol_bagus"
     ]
   },
   {
@@ -12752,7 +12822,13 @@
       "dalam_layan",
       "layan",
       "layan_pokok",
-      "pokok"
+      "pokok",
+      "pokok_emoji_jempol_bagus",
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_jempol_bagus",
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_jempol_bagus",
+      "emoji_jempol_bagus"
     ]
   },
   {
@@ -12915,7 +12991,11 @@
     "tokens": [
       "luar",
       "luar_biasa",
-      "biasa"
+      "biasa",
+      "biasa_emoji_sempurna_mantap",
+      "emoji_sempurna_mantap",
+      "emoji_sempurna_mantap_emoji_jempol_bagus",
+      "emoji_jempol_bagus"
     ]
   },
   {
@@ -13604,7 +13684,9 @@
       "paket",
       "paket_masih",
       "masih_26gb",
-      "26gb"
+      "26gb",
+      "26gb_emoji_kecewa_sedih",
+      "emoji_kecewa_sedih"
     ]
   },
   {
@@ -17317,7 +17399,9 @@
     "version": "4.18.0",
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=fef0b0ac-2fd9-4e0f-8bf9-b6b200197484",
     "groundTruth": "Positif",
-    "tokens": []
+    "tokens": [
+      "emoji_jempol_bagus"
+    ]
   },
   {
     "no": 551,
@@ -17601,7 +17685,19 @@
     "version": "",
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=39f0541e-20f3-46cc-ad15-c3e13bb11ee0",
     "groundTruth": "Positif",
-    "tokens": []
+    "tokens": [
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_jempol_bagus",
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_jempol_bagus",
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_jempol_bagus",
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_jempol_bagus",
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_jempol_bagus",
+      "emoji_jempol_bagus"
+    ]
   },
   {
     "no": 559,
@@ -19114,7 +19210,7 @@
     "replyText": "",
     "version": "4.18.0",
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=8b99260e-da25-4daa-84d8-bd8a8b5c4429",
-    "groundTruth": "Positif",
+    "groundTruth": "Negatif",
     "tokens": [
       "sering",
       "sering_tiba-tiba",
@@ -20370,7 +20466,9 @@
       "saat_urgent",
       "urgent",
       "urgent_terimakasih",
-      "terimakasih"
+      "terimakasih",
+      "terimakasih_emoji_terima_kasih",
+      "emoji_terima_kasih"
     ]
   },
   {
@@ -22447,7 +22545,13 @@
     "groundTruth": "Negatif",
     "tokens": [
       "aplikasi_tai",
-      "tai"
+      "tai",
+      "tai_emoji_sangat_marah",
+      "emoji_sangat_marah",
+      "emoji_sangat_marah_emoji_sangat_marah",
+      "emoji_sangat_marah",
+      "emoji_sangat_marah_emoji_sangat_marah",
+      "emoji_sangat_marah"
     ]
   },
   {
@@ -24196,7 +24300,7 @@
     "replyText": "",
     "version": "4.18.0",
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=e0cb550a-340f-4874-93da-114e508a2751",
-    "groundTruth": "Positif",
+    "groundTruth": "Negatif",
     "tokens": [
       "ketika",
       "ketika_keluar",
@@ -27815,7 +27919,9 @@
       "puas_respon",
       "respon",
       "respon_cepat",
-      "cepat"
+      "cepat",
+      "cepat_emoji_terima_kasih",
+      "emoji_terima_kasih"
     ]
   },
   {
@@ -28312,7 +28418,7 @@
     "replyText": "",
     "version": "4.18.0",
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=4ad5f7cd-3fe3-4daf-b9ff-71bb541a83b0",
-    "groundTruth": "Positif",
+    "groundTruth": "Negatif",
     "tokens": [
       "aplikasi_nya",
       "nya_bagus",
@@ -28326,7 +28432,9 @@
       "agak",
       "agak_sulit",
       "sulit",
-      "sulit_karena",
+      "sulit_emoji_menangis_sedih",
+      "emoji_menangis_sedih",
+      "emoji_menangis_sedih_karena",
       "karena_gampang",
       "gampang",
       "gampang_ngeleg",
@@ -28366,7 +28474,7 @@
     "replyText": "",
     "version": "4.18.0",
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=8e9c3ee1-372f-48d0-9793-1c82fac845cc",
-    "groundTruth": "Positif",
+    "groundTruth": "Negatif",
     "tokens": [
       "coba",
       "coba_perintah",
@@ -28824,7 +28932,15 @@
     "version": "4.18.0",
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=d81b7ba9-e0d5-4b6d-8c45-db0967309963",
     "groundTruth": "Positif",
-    "tokens": []
+    "tokens": [
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_jempol_bagus",
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_jempol_bagus",
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_jempol_bagus",
+      "emoji_jempol_bagus"
+    ]
   },
   {
     "no": 861,
@@ -28838,7 +28954,7 @@
     "replyText": "",
     "version": "4.18.0",
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=bb2d84d4-30eb-4e98-8765-f51850718866",
-    "groundTruth": "Netral",
+    "groundTruth": "Negatif",
     "tokens": [
       "sulit",
       "sulit_registrasi",
@@ -28867,7 +28983,9 @@
       "ada_kode",
       "kode",
       "kode_otp",
-      "otp"
+      "otp",
+      "otp_emoji_marah_kesal",
+      "emoji_marah_kesal"
     ]
   },
   {
@@ -29442,7 +29560,11 @@
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=bd4c99c2-09ed-4c7b-8eb0-6e86e84403ea",
     "groundTruth": "Positif",
     "tokens": [
-      "luarbinasaa"
+      "luarbinasaa",
+      "luarbinasaa_emoji_mantap_keren",
+      "emoji_mantap_keren",
+      "emoji_mantap_keren_emoji_mantap_keren",
+      "emoji_mantap_keren"
     ]
   },
   {
@@ -30220,7 +30342,7 @@
     "replyText": "",
     "version": "4.18.0",
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=56603eab-96f6-46a3-8c53-1ab495fcd3c7",
-    "groundTruth": "Positif",
+    "groundTruth": "Negatif",
     "tokens": [
       "tidak",
       "tidak_bisa",
@@ -30232,7 +30354,11 @@
       "lupa_kata",
       "kata",
       "kata_sandi",
-      "sandi"
+      "sandi",
+      "sandi_emoji_menangis_sedih",
+      "emoji_menangis_sedih",
+      "emoji_menangis_sedih_emoji_menangis_sedih",
+      "emoji_menangis_sedih"
     ]
   },
   {
@@ -30394,7 +30520,13 @@
     "version": "4.18.0",
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=71d9ffa9-a814-4a81-b1b6-74366fb9c36b",
     "groundTruth": "Positif",
-    "tokens": []
+    "tokens": [
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_jempol_bagus",
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_jempol_bagus",
+      "emoji_jempol_bagus"
+    ]
   },
   {
     "no": 907,
@@ -31220,11 +31352,15 @@
       "sukses_slalu",
       "slalu",
       "depaninnya",
-      "depaninnya_amin",
+      "depaninnya_emoji_doa_bersyukur",
+      "emoji_doa_bersyukur",
+      "emoji_doa_bersyukur_amin",
       "amin",
       "robal",
       "robal_alamin",
-      "alamin"
+      "alamin",
+      "alamin_emoji_doa_bersyukur",
+      "emoji_doa_bersyukur"
     ]
   },
   {
@@ -32409,7 +32545,9 @@
       "guna",
       "guna_nih",
       "nih",
-      "nih_aplikasi"
+      "nih_aplikasi",
+      "aplikasi_emoji_kecewa_sedih",
+      "emoji_kecewa_sedih"
     ]
   },
   {
@@ -32767,7 +32905,13 @@
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=a613a599-24f0-4338-8e17-c0f811b3a050",
     "groundTruth": "Positif",
     "tokens": [
-      "mantap"
+      "mantap",
+      "mantap_emoji_jempol_bagus",
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_jempol_bagus",
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_jempol_bagus",
+      "emoji_jempol_bagus"
     ]
   },
   {
@@ -33412,7 +33556,9 @@
       "bagi_terus",
       "terus_antre",
       "antre",
-      "antre_gimana",
+      "antre_emoji_menangis_sedih",
+      "emoji_menangis_sedih",
+      "emoji_menangis_sedih_gimana",
       "gimana",
       "tidak",
       "tidak_ada",
@@ -33696,7 +33842,9 @@
       "sulit_tolong",
       "tolong",
       "tolong_baik",
-      "baik"
+      "baik",
+      "baik_emoji_terima_kasih",
+      "emoji_terima_kasih"
     ]
   },
   {
@@ -35184,7 +35332,7 @@
     "replyText": "",
     "version": "4.18.0",
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=38c676f5-3756-4776-a5a2-0cac4e1a9cde",
-    "groundTruth": "Positif",
+    "groundTruth": "Negatif",
     "tokens": [
       "kacaw",
       "kacaw_kacaw",
@@ -35588,7 +35736,9 @@
     "version": "",
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=0ea5dc1e-8dce-4e8d-830b-352ca639a118",
     "groundTruth": "Positif",
-    "tokens": []
+    "tokens": [
+      "emoji_jempol_bagus"
+    ]
   },
   {
     "no": 1071,
@@ -35744,8 +35894,12 @@
       "kasih",
       "kasih_admin",
       "admin",
-      "admin_recommended",
-      "recommended"
+      "admin_emoji_terima_kasih",
+      "emoji_terima_kasih",
+      "emoji_terima_kasih_recommended",
+      "recommended",
+      "recommended_emoji_jempol_bagus",
+      "emoji_jempol_bagus"
     ]
   },
   {
@@ -36392,7 +36546,9 @@
     "tokens": [
       "fast",
       "fast_respon",
-      "respon"
+      "respon",
+      "respon_emoji_jempol_bagus",
+      "emoji_jempol_bagus"
     ]
   },
   {
@@ -36585,7 +36741,9 @@
       "tidak",
       "tidak_begini",
       "begini",
-      "begini_masak",
+      "begini_emoji_sulit_menderita",
+      "emoji_sulit_menderita",
+      "emoji_sulit_menderita_masak",
       "masak",
       "masak_harus",
       "harus",
@@ -37425,7 +37583,9 @@
       "sekali_tolong",
       "tolong",
       "tolong_dong",
-      "dong_saya",
+      "dong_emoji_terima_kasih",
+      "emoji_terima_kasih",
+      "emoji_terima_kasih_saya",
       "saya_sudah",
       "sudah_kali",
       "kali",
@@ -38066,7 +38226,15 @@
       "dan_tidak",
       "tidak",
       "tidak_bantu",
-      "bantu"
+      "bantu",
+      "bantu_emoji_muak_buruk",
+      "emoji_muak_buruk",
+      "emoji_muak_buruk_emoji_muak_buruk",
+      "emoji_muak_buruk",
+      "emoji_muak_buruk_emoji_muak_buruk",
+      "emoji_muak_buruk",
+      "emoji_muak_buruk_emoji_muak_buruk",
+      "emoji_muak_buruk"
     ]
   },
   {
@@ -38129,7 +38297,9 @@
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=f3a2df0d-da45-4c29-86f2-d33a84621d9d",
     "groundTruth": "Positif",
     "tokens": [
-      "mantap"
+      "mantap",
+      "mantap_emoji_jempol_bagus",
+      "emoji_jempol_bagus"
     ]
   },
   {
@@ -38542,7 +38712,9 @@
       "masyarakat_dlm",
       "dlm",
       "dlm_obat",
-      "obat"
+      "obat",
+      "obat_emoji_jempol_bagus",
+      "emoji_jempol_bagus"
     ]
   },
   {
@@ -38636,7 +38808,9 @@
     "version": "4.9.0",
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=76ebcdde-5665-4185-9d2f-8dc914598cb3",
     "groundTruth": "Positif",
-    "tokens": []
+    "tokens": [
+      "emoji_sangat_puas"
+    ]
   },
   {
     "no": 1160,
@@ -39155,7 +39329,32 @@
       "kurang_buruk",
       "buruk",
       "buruk_banget",
-      "banget_aplikasi"
+      "banget_aplikasi",
+      "emoji_buruk_kecewa",
+      "emoji_buruk_kecewa_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa",
+      "emoji_buruk_kecewa_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa",
+      "emoji_buruk_kecewa_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa",
+      "emoji_buruk_kecewa_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa",
+      "emoji_buruk_kecewa_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa",
+      "emoji_buruk_kecewa_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa",
+      "emoji_buruk_kecewa_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa",
+      "emoji_buruk_kecewa_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa",
+      "emoji_buruk_kecewa_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa",
+      "emoji_buruk_kecewa_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa",
+      "emoji_buruk_kecewa_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa",
+      "emoji_buruk_kecewa_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa"
     ]
   },
   {
@@ -39260,7 +39459,9 @@
       "informasi",
       "informasi_dan",
       "dan_layan",
-      "layan"
+      "layan",
+      "layan_emoji_mantap_oke",
+      "emoji_mantap_oke"
     ]
   },
   {
@@ -39299,7 +39500,27 @@
       "bisa_kagak",
       "kagak",
       "kagak_jls",
-      "jls"
+      "jls",
+      "jls_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa",
+      "emoji_buruk_kecewa_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa",
+      "emoji_buruk_kecewa_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa",
+      "emoji_buruk_kecewa_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa",
+      "emoji_buruk_kecewa_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa",
+      "emoji_buruk_kecewa_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa",
+      "emoji_buruk_kecewa_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa",
+      "emoji_buruk_kecewa_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa",
+      "emoji_buruk_kecewa_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa",
+      "emoji_buruk_kecewa_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa"
     ]
   },
   {
@@ -39347,7 +39568,11 @@
     "version": "4.18.0",
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=8e55459c-6ac2-40bf-b01f-e9921ad45a6c",
     "groundTruth": "Positif",
-    "tokens": []
+    "tokens": [
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_terima_kasih",
+      "emoji_terima_kasih"
+    ]
   },
   {
     "no": 1189,
@@ -39817,7 +40042,9 @@
       "masalah",
       "masalah_jaring",
       "jaring",
-      "jaring_terus"
+      "jaring_terus",
+      "terus_emoji_kesal_jengkel",
+      "emoji_kesal_jengkel"
     ]
   },
   {
@@ -41470,7 +41697,17 @@
     "version": "4.18.0",
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=e258bd16-efcb-4d57-91c5-0575faea077f",
     "groundTruth": "Positif",
-    "tokens": []
+    "tokens": [
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_jempol_bagus",
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_jempol_bagus",
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_jempol_bagus",
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_jempol_bagus",
+      "emoji_jempol_bagus"
+    ]
   },
   {
     "no": 1256,
@@ -43773,6 +44010,12 @@
       "server",
       "server_judol",
       "judol",
+      "judol_emoji_pusing_kecewa",
+      "emoji_pusing_kecewa",
+      "emoji_pusing_kecewa_emoji_pusing_kecewa",
+      "emoji_pusing_kecewa",
+      "emoji_pusing_kecewa_emoji_pusing_kecewa",
+      "emoji_pusing_kecewa",
       "bisa",
       "brasa",
       "brasa_kya",
@@ -44523,7 +44766,11 @@
       "kartu",
       "kartu_sudah",
       "sudah_mati",
-      "mati"
+      "mati",
+      "mati_emoji_terima_kasih",
+      "emoji_terima_kasih",
+      "emoji_terima_kasih_emoji_terima_kasih",
+      "emoji_terima_kasih"
     ]
   },
   {
@@ -44842,7 +45089,9 @@
       "padahal_sudah",
       "sudah_sesuai",
       "sesuai",
-      "sesuai_mohon",
+      "sesuai_emoji_bingung_tanya",
+      "emoji_bingung_tanya",
+      "emoji_bingung_tanya_mohon",
       "mohon",
       "mohon_cerah",
       "cerah"
@@ -44916,7 +45165,9 @@
       "bpjs_kab",
       "kab",
       "kab_mamasa",
-      "mamasa"
+      "mamasa",
+      "mamasa_emoji_terima_kasih",
+      "emoji_terima_kasih"
     ]
   },
   {
@@ -47119,7 +47370,19 @@
       "banget_asli",
       "asli",
       "asli_sumpah",
-      "sumpah"
+      "sumpah",
+      "sumpah_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa",
+      "emoji_buruk_kecewa_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa",
+      "emoji_buruk_kecewa_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa",
+      "emoji_buruk_kecewa_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa",
+      "emoji_buruk_kecewa_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa",
+      "emoji_buruk_kecewa_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa"
     ]
   },
   {
@@ -47319,7 +47582,13 @@
       "baik",
       "baik_jkn",
       "jkn_pokok",
-      "pokok"
+      "pokok",
+      "pokok_emoji_jempol_bagus",
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_jempol_bagus",
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_jempol_bagus",
+      "emoji_jempol_bagus"
     ]
   },
   {
@@ -48337,7 +48606,13 @@
       "sangat_bantu",
       "bantu",
       "bantu_bagus",
-      "bagus"
+      "bagus",
+      "bagus_emoji_jempol_bagus",
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_jempol_bagus",
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_jempol_bagus",
+      "emoji_jempol_bagus"
     ]
   },
   {
@@ -48530,7 +48805,9 @@
     "version": "4.18.0",
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=4fa0c16a-0f06-4a21-956a-adf6a3bb082a",
     "groundTruth": "Positif",
-    "tokens": []
+    "tokens": [
+      "emoji_jempol_bagus"
+    ]
   },
   {
     "no": 1496,
@@ -48800,7 +49077,9 @@
       "cabang_sidoarjo",
       "sidoarjo",
       "sidoarjo_ramah",
-      "ramah"
+      "ramah",
+      "ramah_emoji_jempol_bagus",
+      "emoji_jempol_bagus"
     ]
   },
   {
@@ -49992,7 +50271,7 @@
     "replyText": "",
     "version": "4.18.0",
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=05b3d6db-0630-470d-96f0-8804b9399cfc",
-    "groundTruth": "Positif",
+    "groundTruth": "Netral",
     "tokens": [
       "alam",
       "alam_bulan",
@@ -50100,7 +50379,11 @@
       "sudah_agak",
       "agak",
       "agak_bagus",
-      "bagus"
+      "bagus",
+      "bagus_emoji_senang_puas",
+      "emoji_senang_puas",
+      "emoji_senang_puas_emoji_jempol_bagus",
+      "emoji_jempol_bagus"
     ]
   },
   {
@@ -50185,7 +50468,9 @@
       "terima_kasih",
       "kasih",
       "kasih_mobile",
-      "mobile_jkn"
+      "mobile_jkn",
+      "jkn_emoji_senang_puas",
+      "emoji_senang_puas"
     ]
   },
   {
@@ -50570,7 +50855,9 @@
     "version": "4.18.0",
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=5df66ca0-44c3-4024-acc0-0db16cfefa16",
     "groundTruth": "Positif",
-    "tokens": []
+    "tokens": [
+      "emoji_cinta_suka"
+    ]
   },
   {
     "no": 1555,
@@ -51178,7 +51465,9 @@
       "benar",
       "benar_semua",
       "semua",
-      "semua_jaring",
+      "semua_emoji_kecewa_lelah",
+      "emoji_kecewa_lelah",
+      "emoji_kecewa_lelah_jaring",
       "jaring",
       "aman",
       "aman_sampe",
@@ -51701,7 +51990,9 @@
       "terus_coba",
       "coba",
       "coba_lagi",
-      "lagi_terus"
+      "lagi_terus",
+      "terus_emoji_marah_kesal",
+      "emoji_marah_kesal"
     ]
   },
   {
@@ -53086,7 +53377,9 @@
       "ini_malah",
       "malah",
       "malah_error",
-      "error"
+      "error",
+      "error_emoji_menangis_sedih",
+      "emoji_menangis_sedih"
     ]
   },
   {
@@ -53455,7 +53748,9 @@
       "ngarahin",
       "ngarahin_buat",
       "buat_kembali",
-      "kembali"
+      "kembali",
+      "kembali_emoji_kecewa_lelah",
+      "emoji_kecewa_lelah"
     ]
   },
   {
@@ -54371,7 +54666,15 @@
       "login",
       "login_unauthorized",
       "unauthorized",
-      "unauthorized_terus"
+      "unauthorized_terus",
+      "terus_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa",
+      "emoji_buruk_kecewa_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa",
+      "emoji_buruk_kecewa_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa",
+      "emoji_buruk_kecewa_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa"
     ]
   },
   {
@@ -54905,7 +55208,9 @@
       "jelas_error",
       "error",
       "error_melulu",
-      "melulu"
+      "melulu",
+      "melulu_emoji_marah_kesal",
+      "emoji_marah_kesal"
     ]
   },
   {
@@ -55733,7 +56038,9 @@
       "bisa",
       "bisa_ngmng",
       "ngmng",
-      "ngmng_lagi"
+      "ngmng_lagi",
+      "lagi_emoji_menangis_sedih",
+      "emoji_menangis_sedih"
     ]
   },
   {
@@ -55844,7 +56151,7 @@
     "replyText": "",
     "version": "",
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=58486a68-d5d8-4302-938d-2ed9b00a1d47",
-    "groundTruth": "Positif",
+    "groundTruth": "Negatif",
     "tokens": [
       "dulu",
       "dulu_bagus",
@@ -55854,7 +56161,9 @@
       "sekarang_sulit",
       "sulit",
       "sulit_akses",
-      "akses"
+      "akses",
+      "akses_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa"
     ]
   },
   {
@@ -57019,7 +57328,9 @@
       "padahal_depan",
       "depan",
       "depan_wi-fi",
-      "wi-fi"
+      "wi-fi",
+      "wi-fi_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa"
     ]
   },
   {
@@ -57095,7 +57406,15 @@
     "tokens": [
       "terima",
       "terima_kasih",
-      "kasih"
+      "kasih",
+      "kasih_emoji_terima_kasih",
+      "emoji_terima_kasih",
+      "emoji_terima_kasih_emoji_terima_kasih",
+      "emoji_terima_kasih",
+      "emoji_terima_kasih_emoji_terima_kasih",
+      "emoji_terima_kasih",
+      "emoji_terima_kasih_emoji_sangat_baik",
+      "emoji_sangat_baik"
     ]
   },
   {
@@ -58632,7 +58951,11 @@
       "awam",
       "awam_jadi",
       "jadi_lambat",
-      "lambat"
+      "lambat",
+      "lambat_emoji_lucu_tawa",
+      "emoji_lucu_tawa",
+      "emoji_lucu_tawa_emoji_lucu_tawa",
+      "emoji_lucu_tawa"
     ]
   },
   {
@@ -59045,7 +59368,13 @@
       "cara",
       "cara_mandiri",
       "mandiri",
-      "mandiri_nunggu",
+      "mandiri_emoji_jempol_bagus",
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_jempol_bagus",
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_jempol_bagus",
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_nunggu",
       "nunggu",
       "nunggu_baru",
       "baru",
@@ -59100,7 +59429,11 @@
       "masuk_pindah",
       "pindah",
       "pindah_faskes",
-      "faskes"
+      "faskes",
+      "faskes_emoji_senang_puas",
+      "emoji_senang_puas",
+      "emoji_senang_puas_emoji_senang_puas",
+      "emoji_senang_puas"
     ]
   },
   {
@@ -59561,7 +59894,11 @@
       "sulit",
       "sulit_dengan",
       "dengan_dftar",
-      "dftar"
+      "dftar",
+      "dftar_emoji_terima_kasih",
+      "emoji_terima_kasih",
+      "emoji_terima_kasih_emoji_terima_kasih",
+      "emoji_terima_kasih"
     ]
   },
   {
@@ -60014,7 +60351,7 @@
     "replyText": "",
     "version": "",
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=1aa932db-5946-4398-9fc6-29826673b39e",
-    "groundTruth": "Positif",
+    "groundTruth": "Negatif",
     "tokens": [
       "apa",
       "apa_sulit",
@@ -60584,7 +60921,9 @@
       "lengkap_sesuai",
       "sesuai",
       "sesuai_butuh",
-      "butuh"
+      "butuh",
+      "butuh_emoji_jempol_bagus",
+      "emoji_jempol_bagus"
     ]
   },
   {
@@ -60999,7 +61338,9 @@
       "nunggu",
       "rmh",
       "rmh_sakit",
-      "sakit"
+      "sakit",
+      "sakit_emoji_marah_kesal",
+      "emoji_marah_kesal"
     ]
   },
   {
@@ -61254,7 +61595,9 @@
     "version": "4.18.0",
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=0776c034-bcac-42b7-b570-246a6944440e",
     "groundTruth": "Positif",
-    "tokens": []
+    "tokens": [
+      "emoji_jempol_bagus"
+    ]
   },
   {
     "no": 1821,
@@ -61461,7 +61804,9 @@
       "bantu_masyatakat",
       "masyatakat",
       "masyatakat_indonesia",
-      "indonesia"
+      "indonesia",
+      "indonesia_emoji_cinta_suka",
+      "emoji_cinta_suka"
     ]
   },
   {
@@ -61897,7 +62242,15 @@
     "version": "4.18.0",
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=71603299-016c-49c7-9ea6-078e19dff86b",
     "groundTruth": "Positif",
-    "tokens": []
+    "tokens": [
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_jempol_bagus",
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_jempol_bagus",
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_jempol_bagus",
+      "emoji_jempol_bagus"
+    ]
   },
   {
     "no": 1839,
@@ -64249,7 +64602,9 @@
       "mudah_dong",
       "dong_bukan",
       "bukan",
-      "sulit"
+      "sulit",
+      "sulit_emoji_marah_kesal",
+      "emoji_marah_kesal"
     ]
   },
   {
@@ -65006,7 +65361,9 @@
       "pake",
       "pake_akun",
       "akun",
-      "akun_saya"
+      "akun_saya",
+      "saya_emoji_lucu_tawa",
+      "emoji_lucu_tawa"
     ]
   },
   {
@@ -65087,7 +65444,9 @@
       "terus_tidak",
       "tidak",
       "tidak_bisa",
-      "bisa"
+      "bisa",
+      "bisa_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa"
     ]
   },
   {
@@ -69239,7 +69598,15 @@
       "tri_sehat",
       "sehat",
       "sehat_indonesia",
-      "indonesia"
+      "indonesia",
+      "indonesia_emoji_jempol_bagus",
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_jempol_bagus",
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_terima_kasih",
+      "emoji_terima_kasih",
+      "emoji_terima_kasih_emoji_terima_kasih",
+      "emoji_terima_kasih"
     ]
   },
   {
@@ -69276,7 +69643,9 @@
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=fa347111-7da2-44a5-ac6a-f3f6a500e7e7",
     "groundTruth": "Positif",
     "tokens": [
-      "makasih"
+      "makasih",
+      "makasih_emoji_senang_puas",
+      "emoji_senang_puas"
     ]
   },
   {
@@ -70109,7 +70478,7 @@
     "replyText": "",
     "version": "4.16.1",
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=8654ab62-03a3-43c8-b1a9-76cf5d44fcaf",
-    "groundTruth": "Positif",
+    "groundTruth": "Negatif",
     "tokens": [
       "ganggu",
       "ganggu_terus",
@@ -70727,7 +71096,7 @@
     "replyText": "",
     "version": "4.18.0",
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=e154ccda-b8af-4bd2-90cb-ed40b42d7ed9",
-    "groundTruth": "Positif",
+    "groundTruth": "Negatif",
     "tokens": [
       "ini_aplikasi",
       "aplikasi_jadwal",
@@ -74214,7 +74583,11 @@
       "verifikasi",
       "verifikasi_wajah",
       "wajah",
-      "wajah_ehh",
+      "wajah_emoji_menangis_sedih",
+      "emoji_menangis_sedih",
+      "emoji_menangis_sedih_emoji_patah_hati_kecewa",
+      "emoji_patah_hati_kecewa",
+      "emoji_patah_hati_kecewa_ehh",
       "ehh",
       "ehh_bodat",
       "bodat",
@@ -75941,7 +76314,15 @@
       "jadi_aja",
       "aja_engga",
       "engga",
-      "engga_ini",
+      "engga_emoji_marah_kesal",
+      "emoji_marah_kesal",
+      "emoji_marah_kesal_emoji_marah_kesal",
+      "emoji_marah_kesal",
+      "emoji_marah_kesal_emoji_marah_kesal",
+      "emoji_marah_kesal",
+      "emoji_marah_kesal_emoji_marah_kesal",
+      "emoji_marah_kesal",
+      "emoji_marah_kesal_ini",
       "ini_bukan",
       "bukan",
       "bukan_dlm",
@@ -76233,7 +76614,7 @@
     "replyText": "",
     "version": "4.18.0",
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=3b8da4ba-a3b5-4732-ab68-1e3796d1c380",
-    "groundTruth": "Positif",
+    "groundTruth": "Negatif",
     "tokens": [
       "selamat",
       "selamat_pagi",
@@ -76681,7 +77062,9 @@
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=6ba55c90-1d04-4963-a3b8-c0764d13c547",
     "groundTruth": "Positif",
     "tokens": [
-      "mantap"
+      "mantap",
+      "mantap_emoji_jempol_bagus",
+      "emoji_jempol_bagus"
     ]
   },
   {
@@ -77741,7 +78124,11 @@
       "untuk_kita",
       "kita_yang",
       "yang_butuh",
-      "butuh"
+      "butuh",
+      "butuh_emoji_terima_kasih",
+      "emoji_terima_kasih",
+      "emoji_terima_kasih_emoji_sangat_baik",
+      "emoji_sangat_baik"
     ]
   },
   {
@@ -78121,7 +78508,11 @@
       "hidup",
       "bumi",
       "bumi_indonesia",
-      "indonesia"
+      "indonesia",
+      "indonesia_emoji_sangat_baik",
+      "emoji_sangat_baik",
+      "emoji_sangat_baik_emoji_siap_mantap",
+      "emoji_siap_mantap"
     ]
   },
   {
@@ -78152,7 +78543,9 @@
       "loading",
       "loading_atau",
       "atau_error",
-      "error"
+      "error",
+      "error_emoji_jempol_bagus",
+      "emoji_jempol_bagus"
     ]
   },
   {
@@ -78764,7 +79157,9 @@
       "bangett_ini",
       "ini_verifikasinyaa",
       "verifikasinyaa",
-      "verifikasinyaa_mudah",
+      "verifikasinyaa_emoji_patah_hati_kecewa",
+      "emoji_patah_hati_kecewa",
+      "emoji_patah_hati_kecewa_mudah",
       "mudah",
       "mudah_hamba",
       "hamba",
@@ -79130,7 +79525,7 @@
     "replyText": "",
     "version": "",
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=b9beaf4f-5abb-4993-b0f0-682917c6620e",
-    "groundTruth": "Positif",
+    "groundTruth": "Negatif",
     "tokens": [
       "tolong",
       "tolong_dong",
@@ -79168,7 +79563,11 @@
       "sandi_dan",
       "dan_nik",
       "nik",
-      "nik_lagi"
+      "nik_lagi",
+      "lagi_emoji_pusing_kecewa",
+      "emoji_pusing_kecewa",
+      "emoji_pusing_kecewa_emoji_pusing_kecewa",
+      "emoji_pusing_kecewa"
     ]
   },
   {
@@ -79597,7 +79996,9 @@
       "liat",
       "liat_tulis",
       "tulis",
-      "tulis_kalo",
+      "tulis_emoji_menangis_sedih",
+      "emoji_menangis_sedih",
+      "emoji_menangis_sedih_kalo",
       "kalo_tidak",
       "tidak",
       "tidak_ada",
@@ -80165,7 +80566,9 @@
       "sangat_lambat",
       "lambat",
       "lambat_lambat",
-      "lambat"
+      "lambat",
+      "lambat_emoji_senang_puas",
+      "emoji_senang_puas"
     ]
   },
   {
@@ -80478,7 +80881,13 @@
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=802c6094-d649-4bdb-9c35-b71dc29efb1b",
     "groundTruth": "Positif",
     "tokens": [
-      "bagus"
+      "bagus",
+      "bagus_emoji_sempurna_mantap",
+      "emoji_sempurna_mantap",
+      "emoji_sempurna_mantap_emoji_jempol_bagus",
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_senang_puas",
+      "emoji_senang_puas"
     ]
   },
   {
@@ -80756,7 +81165,9 @@
       "atau_rumah",
       "rumah",
       "rumah_sakit",
-      "sakit"
+      "sakit",
+      "sakit_emoji_jempol_bagus",
+      "emoji_jempol_bagus"
     ]
   },
   {
@@ -82937,7 +83348,9 @@
       "tolong",
       "tolong",
       "baik",
-      "baik_lagi"
+      "baik_lagi",
+      "lagi_emoji_terima_kasih",
+      "emoji_terima_kasih"
     ]
   },
   {
@@ -83081,7 +83494,7 @@
     "replyText": "",
     "version": "",
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=756f0fc5-4c74-4c69-b399-d04628e4f89e",
-    "groundTruth": "Positif",
+    "groundTruth": "Negatif",
     "tokens": [
       "sering",
       "sering_offline",
@@ -83165,7 +83578,7 @@
     "replyText": "",
     "version": "4.18.0",
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=c95a927e-e8aa-4b58-b470-d16299268e92",
-    "groundTruth": "Positif",
+    "groundTruth": "Negatif",
     "tokens": [
       "mau_obat",
       "obat",
@@ -84569,7 +84982,9 @@
       "makin_mudah",
       "mudah",
       "mudah_guna",
-      "guna"
+      "guna",
+      "guna_emoji_mantap_oke",
+      "emoji_mantap_oke"
     ]
   },
   {
@@ -86405,7 +86820,9 @@
       "perangkat_sudah",
       "sudah_daftar",
       "daftar",
-      "nik"
+      "nik",
+      "nik_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa"
     ]
   },
   {
@@ -86732,7 +87149,9 @@
       "serta",
       "serta_bpjs",
       "bpjs_sehat",
-      "sehat"
+      "sehat",
+      "sehat_emoji_jempol_bagus",
+      "emoji_jempol_bagus"
     ]
   },
   {
@@ -87497,13 +87916,15 @@
     "replyText": "",
     "version": "4.18.0",
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=3404673d-76c5-4323-b81f-ad5ac0e9afba",
-    "groundTruth": "Negatif",
+    "groundTruth": "Positif",
     "tokens": [
       "tolong",
       "tolong_baik",
       "baik",
       "baik_lagi",
-      "lagi_sekarang",
+      "lagi_emoji_terima_kasih",
+      "emoji_terima_kasih",
+      "emoji_terima_kasih_sekarang",
       "sekarang",
       "sekarang_sering",
       "sering",
@@ -88483,7 +88904,9 @@
       "jika_pindah",
       "pindah",
       "pindah_faskes",
-      "faskes"
+      "faskes",
+      "faskes_emoji_jempol_bagus",
+      "emoji_jempol_bagus"
     ]
   },
   {
@@ -89397,7 +89820,9 @@
       "urus_tentang",
       "tentang",
       "tentang_sehat",
-      "sehat"
+      "sehat",
+      "sehat_emoji_terima_kasih",
+      "emoji_terima_kasih"
     ]
   },
   {
@@ -89771,7 +90196,9 @@
       "mohon",
       "bantu",
       "bantu_admin",
-      "admin"
+      "admin",
+      "admin_emoji_terima_kasih",
+      "emoji_terima_kasih"
     ]
   },
   {
@@ -89841,7 +90268,15 @@
       "obat_aja",
       "aja_aplikasi",
       "aplikasi_begini",
-      "begini"
+      "begini",
+      "begini_emoji_muak_buruk",
+      "emoji_muak_buruk",
+      "emoji_muak_buruk_emoji_muak_buruk",
+      "emoji_muak_buruk",
+      "emoji_muak_buruk_emoji_muak_buruk",
+      "emoji_muak_buruk",
+      "emoji_muak_buruk_emoji_muak_buruk",
+      "emoji_muak_buruk"
     ]
   },
   {
@@ -90092,7 +90527,9 @@
       "bisa_mohon",
       "mohon",
       "baik",
-      "baik_aplikasi"
+      "baik_aplikasi",
+      "aplikasi_emoji_terima_kasih",
+      "emoji_terima_kasih"
     ]
   },
   {
@@ -91253,7 +91690,7 @@
     "replyText": "",
     "version": "4.18.0",
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=7077a41b-d9c2-4579-a0c1-df2967865fcf",
-    "groundTruth": "Negatif",
+    "groundTruth": "Positif",
     "tokens": [
       "gampang",
       "gampang_daftar",
@@ -91261,7 +91698,9 @@
       "daftar_pinjol",
       "pinjol",
       "pinjol_men",
-      "men"
+      "men",
+      "men_emoji_terima_kasih",
+      "emoji_terima_kasih"
     ]
   },
   {
@@ -91378,7 +91817,11 @@
       "dateng",
       "dateng_langsung",
       "langsung",
-      "kantor"
+      "kantor",
+      "kantor_emoji_senang_puas",
+      "emoji_senang_puas",
+      "emoji_senang_puas_emoji_terima_kasih",
+      "emoji_terima_kasih"
     ]
   },
   {
@@ -93128,7 +93571,9 @@
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=12c30dd5-d9f2-42a7-a34a-c17e445b0e35",
     "groundTruth": "Positif",
     "tokens": [
-      "good"
+      "good",
+      "good_emoji_jempol_bagus",
+      "emoji_jempol_bagus"
     ]
   },
   {
@@ -93516,7 +93961,11 @@
       "terima_kasih",
       "kasih",
       "kasih_banyak",
-      "banyak_jkn"
+      "banyak_jkn",
+      "jkn_emoji_cinta_suka",
+      "emoji_cinta_suka",
+      "emoji_cinta_suka_emoji_cinta_suka",
+      "emoji_cinta_suka"
     ]
   },
   {
@@ -93942,7 +94391,11 @@
       "mudah_dan",
       "dan_bantu",
       "bantu",
-      "bantu_sekali"
+      "bantu_sekali",
+      "sekali_emoji_jempol_bagus",
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_jempol_bagus",
+      "emoji_jempol_bagus"
     ]
   },
   {
@@ -95572,7 +96025,7 @@
     "replyText": "",
     "version": "4.18.0",
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=fb32f85a-974c-40b8-96f5-6cdae2f8f1fc",
-    "groundTruth": "Positif",
+    "groundTruth": "Negatif",
     "tokens": [
       "aplikasi_gila",
       "gila",
@@ -96123,7 +96576,7 @@
     "replyText": "",
     "version": "4.18.0",
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=c0948697-e79b-4d81-bba6-a960b7abdb28",
-    "groundTruth": "Positif",
+    "groundTruth": "Netral",
     "tokens": [
       "aplikasi_masih",
       "masih_banyak",
@@ -96868,7 +97321,7 @@
     "replyText": "",
     "version": "4.18.0",
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=c0f213bc-1335-445f-9fac-889b4dfe8924",
-    "groundTruth": "Netral",
+    "groundTruth": "Negatif",
     "tokens": [
       "tolong",
       "tolong_banget",
@@ -96901,7 +97354,11 @@
       "tolong",
       "tolong_jangan",
       "jangan",
-      "sulit"
+      "sulit",
+      "sulit_emoji_bosan_kecewa",
+      "emoji_bosan_kecewa",
+      "emoji_bosan_kecewa_emoji_bosan_kecewa",
+      "emoji_bosan_kecewa"
     ]
   },
   {
@@ -97486,7 +97943,15 @@
     "version": "4.18.0",
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=0d3b823c-0468-4f60-9658-9bd74f48fb00",
     "groundTruth": "Positif",
-    "tokens": []
+    "tokens": [
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_jempol_bagus",
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_jempol_bagus",
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_jempol_bagus",
+      "emoji_jempol_bagus"
+    ]
   },
   {
     "no": 2943,
@@ -97564,7 +98029,9 @@
       "gaptek",
       "gaptek_kaya",
       "kaya",
-      "kaya_saya"
+      "kaya_saya",
+      "saya_emoji_terima_kasih",
+      "emoji_terima_kasih"
     ]
   },
   {
@@ -101009,7 +101476,9 @@
       "lewat_aplikasi",
       "aplikasi_jkn",
       "jkn_mantabb",
-      "mantabb"
+      "mantabb",
+      "mantabb_emoji_jempol_bagus",
+      "emoji_jempol_bagus"
     ]
   },
   {
@@ -102888,7 +103357,11 @@
       "mandiri_kls",
       "kls",
       "keluarga",
-      "org"
+      "org",
+      "org_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa",
+      "emoji_buruk_kecewa_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa"
     ]
   },
   {
@@ -105628,7 +106101,7 @@
     "replyText": "",
     "version": "4.18.0",
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=f2096b3b-cd41-434b-a4fa-4275a7750fab",
-    "groundTruth": "Positif",
+    "groundTruth": "Netral",
     "tokens": [
       "memang",
       "memang_bagus",
@@ -106685,7 +107158,17 @@
       "dah_top",
       "top",
       "top_markotop",
-      "markotop"
+      "markotop",
+      "markotop_emoji_jempol_bagus",
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_jempol_bagus",
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_jempol_bagus",
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_jempol_bagus",
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_jempol_bagus",
+      "emoji_jempol_bagus"
     ]
   },
   {
@@ -107842,7 +108325,9 @@
     "version": "4.18.0",
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=b9847680-f2f7-408d-8531-488ff8536dfa",
     "groundTruth": "Positif",
-    "tokens": []
+    "tokens": [
+      "emoji_jempol_bagus"
+    ]
   },
   {
     "no": 3273,
@@ -107917,7 +108402,11 @@
       "batal",
       "batal_rumit",
       "rumit",
-      "rumit_banget"
+      "rumit_banget",
+      "banget_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa",
+      "emoji_buruk_kecewa_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa"
     ]
   },
   {
@@ -108120,9 +108609,15 @@
     "replyText": "",
     "version": "4.18.0",
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=178504cc-c28e-4860-aea5-921af601e5c3",
-    "groundTruth": "Positif",
+    "groundTruth": "Negatif",
     "tokens": [
-      "joss"
+      "joss",
+      "joss_emoji_rusak_hancur",
+      "emoji_rusak_hancur",
+      "emoji_rusak_hancur_emoji_rusak_hancur",
+      "emoji_rusak_hancur",
+      "emoji_rusak_hancur_emoji_rusak_hancur",
+      "emoji_rusak_hancur"
     ]
   },
   {
@@ -108590,7 +109085,7 @@
     "replyText": "",
     "version": "4.18.0",
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=806622d4-dbbc-4eb4-aa48-605a7bc5dcba",
-    "groundTruth": "Positif",
+    "groundTruth": "Negatif",
     "tokens": [
       "kode",
       "kode_otp",
@@ -110230,7 +110725,11 @@
       "fungsi",
       "fungsi_dengan",
       "dengan_baik",
-      "baik"
+      "baik",
+      "baik_emoji_terima_kasih",
+      "emoji_terima_kasih",
+      "emoji_terima_kasih_emoji_hebat_selamat",
+      "emoji_hebat_selamat"
     ]
   },
   {
@@ -110251,7 +110750,9 @@
       "bagus_cepet",
       "cepet",
       "cepet_tangan",
-      "tangan"
+      "tangan",
+      "tangan_emoji_terima_kasih",
+      "emoji_terima_kasih"
     ]
   },
   {
@@ -110900,7 +111401,9 @@
       "sulit",
       "sulit_hidup",
       "hidup",
-      "hidup_nomor",
+      "hidup_emoji_lucu_tawa",
+      "emoji_lucu_tawa",
+      "emoji_lucu_tawa_nomor",
       "nomor",
       "nomor_wajib",
       "wajib",
@@ -110910,6 +111413,8 @@
       "kalau_anak",
       "anak",
       "nomor",
+      "emoji_lucu_tawa",
+      "emoji_lucu_tawa_mana",
       "mana",
       "mana_sekarang",
       "sekarang",
@@ -110948,7 +111453,9 @@
       "2minggu",
       "2minggu_woy",
       "woy",
-      "woy_mana",
+      "woy_emoji_lucu_tawa",
+      "emoji_lucu_tawa",
+      "emoji_lucu_tawa_mana",
       "mana",
       "mana_kalau",
       "kalau_cuma",
@@ -110979,7 +111486,9 @@
       "apa",
       "apa_lagi",
       "lagi_ini",
-      "ini_mau",
+      "ini_emoji_lucu_tawa",
+      "emoji_lucu_tawa",
+      "emoji_lucu_tawa_mau",
       "mau_tidak",
       "tidak",
       "tidak_mau",
@@ -110999,7 +111508,9 @@
       "dan_ganggu",
       "ganggu",
       "ganggu_aktifitas",
-      "aktifitas"
+      "aktifitas",
+      "aktifitas_emoji_tidak_suka",
+      "emoji_tidak_suka"
     ]
   },
   {
@@ -111955,6 +112466,8 @@
       "sendiri_aja",
       "aja_aplikasi",
       "aplikasi_dari",
+      "emoji_sangat_marah",
+      "emoji_sangat_marah_anak",
       "anak",
       "anak_anak",
       "anak",
@@ -114749,7 +115262,9 @@
       "dapat_antre",
       "antre",
       "antre_terimakasih",
-      "terimakasih"
+      "terimakasih",
+      "terimakasih_emoji_terima_kasih",
+      "emoji_terima_kasih"
     ]
   },
   {
@@ -115244,7 +115759,11 @@
     "version": "4.18.0",
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=5fbb65a4-2a2f-44ac-9612-b5850920af4b",
     "groundTruth": "Positif",
-    "tokens": []
+    "tokens": [
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_jempol_bagus",
+      "emoji_jempol_bagus"
+    ]
   },
   {
     "no": 3505,
@@ -116396,7 +116915,15 @@
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=fdf8f826-6b45-4e2e-9222-4f5aa25d6f0d",
     "groundTruth": "Positif",
     "tokens": [
-      "bagus"
+      "bagus",
+      "bagus_emoji_jempol_bagus",
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_jempol_bagus",
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_jempol_bagus",
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_terima_kasih",
+      "emoji_terima_kasih"
     ]
   },
   {
@@ -117475,7 +118002,15 @@
     "version": "4.18.0",
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=c54218fe-73a1-41b5-b33f-7b8e79039065",
     "groundTruth": "Positif",
-    "tokens": []
+    "tokens": [
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_jempol_bagus",
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_jempol_bagus",
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_jempol_bagus",
+      "emoji_jempol_bagus"
+    ]
   },
   {
     "no": 3576,
@@ -118203,7 +118738,9 @@
       "dalam_ambil",
       "ambil",
       "ambil_antre",
-      "antre"
+      "antre",
+      "antre_emoji_sangat_puas",
+      "emoji_sangat_puas"
     ]
   },
   {
@@ -118317,7 +118854,9 @@
       "data",
       "data_serta",
       "serta",
-      "serta_malah",
+      "serta_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa",
+      "emoji_buruk_kecewa_malah",
       "malah",
       "malah_muncul",
       "muncul",
@@ -118645,7 +119184,13 @@
       "menyalahgunakan_jabat",
       "jabat",
       "jabat_kuasa",
-      "kuasa"
+      "kuasa",
+      "kuasa_emoji_terima_kasih",
+      "emoji_terima_kasih",
+      "emoji_terima_kasih_emoji_terima_kasih",
+      "emoji_terima_kasih",
+      "emoji_terima_kasih_emoji_terima_kasih",
+      "emoji_terima_kasih"
     ]
   },
   {
@@ -119746,7 +120291,17 @@
     "version": "4.18.0",
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=2c46c778-7a05-4a06-ad6f-6040b27c77bc",
     "groundTruth": "Positif",
-    "tokens": []
+    "tokens": [
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_jempol_bagus",
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_jempol_bagus",
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_jempol_bagus",
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_jempol_bagus",
+      "emoji_jempol_bagus"
+    ]
   },
   {
     "no": 3645,
@@ -120537,7 +121092,9 @@
       "saya_gagal",
       "gagal",
       "gagal_terus",
-      "terus_kasi",
+      "terus_emoji_menangis_sedih",
+      "emoji_menangis_sedih",
+      "emoji_menangis_sedih_kasi",
       "kasi",
       "kasi_bapak",
       "bapak",
@@ -120698,7 +121255,9 @@
     "groundTruth": "Positif",
     "tokens": [
       "nice",
-      "nice_aplikasi"
+      "nice_aplikasi",
+      "aplikasi_emoji_jempol_bagus",
+      "emoji_jempol_bagus"
     ]
   },
   {
@@ -122666,7 +123225,15 @@
       "alhamdulillah",
       "alhamdulillah_bagus",
       "bagus",
-      "bagus_sekali"
+      "bagus_sekali",
+      "sekali_emoji_luar_biasa",
+      "emoji_luar_biasa",
+      "emoji_luar_biasa_emoji_luar_biasa",
+      "emoji_luar_biasa",
+      "emoji_luar_biasa_emoji_luar_biasa",
+      "emoji_luar_biasa",
+      "emoji_luar_biasa_emoji_jempol_bagus",
+      "emoji_jempol_bagus"
     ]
   },
   {
@@ -122839,7 +123406,9 @@
       "offline",
       "offline_terus",
       "terus_kak",
-      "kak"
+      "kak",
+      "kak_emoji_lelah_frustrasi",
+      "emoji_lelah_frustrasi"
     ]
   },
   {
@@ -123027,7 +123596,9 @@
     "version": "4.18.0",
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=4f74e625-ac3b-458b-a3aa-6a3015536b3b",
     "groundTruth": "Positif",
-    "tokens": []
+    "tokens": [
+      "emoji_sempurna_mantap"
+    ]
   },
   {
     "no": 3746,
@@ -123326,7 +123897,73 @@
       "ulang_gagal",
       "gagal",
       "gagal_terus",
-      "terus_suruh",
+      "terus_emoji_kecewa_sedih",
+      "emoji_kecewa_sedih",
+      "emoji_kecewa_sedih_emoji_kecewa_sedih",
+      "emoji_kecewa_sedih",
+      "emoji_kecewa_sedih_emoji_kecewa_sedih",
+      "emoji_kecewa_sedih",
+      "emoji_kecewa_sedih_emoji_kecewa_sedih",
+      "emoji_kecewa_sedih",
+      "emoji_kecewa_sedih_emoji_kecewa_sedih",
+      "emoji_kecewa_sedih",
+      "emoji_kecewa_sedih_emoji_kecewa_sedih",
+      "emoji_kecewa_sedih",
+      "emoji_kecewa_sedih_emoji_kecewa_sedih",
+      "emoji_kecewa_sedih",
+      "emoji_kecewa_sedih_emoji_kecewa_sedih",
+      "emoji_kecewa_sedih",
+      "emoji_kecewa_sedih_emoji_kecewa_sedih",
+      "emoji_kecewa_sedih",
+      "emoji_kecewa_sedih_emoji_kecewa_sedih",
+      "emoji_kecewa_sedih",
+      "emoji_kecewa_sedih_emoji_kecewa_sedih",
+      "emoji_kecewa_sedih",
+      "emoji_kecewa_sedih_emoji_kecewa_sedih",
+      "emoji_kecewa_sedih",
+      "emoji_kecewa_sedih_emoji_kecewa_sedih",
+      "emoji_kecewa_sedih",
+      "emoji_kecewa_sedih_emoji_kecewa_sedih",
+      "emoji_kecewa_sedih",
+      "emoji_kecewa_sedih_emoji_kecewa_sedih",
+      "emoji_kecewa_sedih",
+      "emoji_kecewa_sedih_emoji_kecewa_sedih",
+      "emoji_kecewa_sedih",
+      "emoji_kecewa_sedih_emoji_kecewa_sedih",
+      "emoji_kecewa_sedih",
+      "emoji_kecewa_sedih_emoji_kecewa_sedih",
+      "emoji_kecewa_sedih",
+      "emoji_kecewa_sedih_emoji_kecewa_sedih",
+      "emoji_kecewa_sedih",
+      "emoji_kecewa_sedih_emoji_kecewa_sedih",
+      "emoji_kecewa_sedih",
+      "emoji_kecewa_sedih_emoji_kecewa_sedih",
+      "emoji_kecewa_sedih",
+      "emoji_kecewa_sedih_emoji_kecewa_sedih",
+      "emoji_kecewa_sedih",
+      "emoji_kecewa_sedih_emoji_kecewa_sedih",
+      "emoji_kecewa_sedih",
+      "emoji_kecewa_sedih_emoji_kecewa_sedih",
+      "emoji_kecewa_sedih",
+      "emoji_kecewa_sedih_emoji_kecewa_sedih",
+      "emoji_kecewa_sedih",
+      "emoji_kecewa_sedih_emoji_kecewa_sedih",
+      "emoji_kecewa_sedih",
+      "emoji_kecewa_sedih_emoji_kecewa_sedih",
+      "emoji_kecewa_sedih",
+      "emoji_kecewa_sedih_emoji_kecewa_sedih",
+      "emoji_kecewa_sedih",
+      "emoji_kecewa_sedih_emoji_kecewa_sedih",
+      "emoji_kecewa_sedih",
+      "emoji_kecewa_sedih_emoji_kecewa_sedih",
+      "emoji_kecewa_sedih",
+      "emoji_kecewa_sedih_emoji_kecewa_sedih",
+      "emoji_kecewa_sedih",
+      "emoji_kecewa_sedih_emoji_kecewa_sedih",
+      "emoji_kecewa_sedih",
+      "emoji_kecewa_sedih_emoji_kecewa_sedih",
+      "emoji_kecewa_sedih",
+      "emoji_kecewa_sedih_suruh",
       "suruh",
       "suruh_ulang",
       "ulang",
@@ -123937,7 +124574,23 @@
       "selalu",
       "selalu_untuk",
       "untuk_mobile",
-      "mobile_jkn"
+      "mobile_jkn",
+      "jkn_emoji_doa_bersyukur",
+      "emoji_doa_bersyukur",
+      "emoji_doa_bersyukur_emoji_terima_kasih",
+      "emoji_terima_kasih",
+      "emoji_terima_kasih_emoji_sangat_puas",
+      "emoji_sangat_puas",
+      "emoji_sangat_puas_emoji_cinta_suka",
+      "emoji_cinta_suka",
+      "emoji_cinta_suka_emoji_hebat_selamat",
+      "emoji_hebat_selamat",
+      "emoji_hebat_selamat_emoji_hebat_selamat",
+      "emoji_hebat_selamat",
+      "emoji_hebat_selamat_emoji_hebat_selamat",
+      "emoji_hebat_selamat",
+      "emoji_hebat_selamat_emoji_hebat_selamat",
+      "emoji_hebat_selamat"
     ]
   },
   {
@@ -126925,7 +127578,9 @@
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=60e78a77-41c4-424a-8f5f-56a1ca4c4f28",
     "groundTruth": "Positif",
     "tokens": [
-      "baik"
+      "baik",
+      "baik_emoji_mantap_keren",
+      "emoji_mantap_keren"
     ]
   },
   {
@@ -127533,7 +128188,9 @@
       "mudah_terima",
       "terima",
       "terima_kasih",
-      "kasih"
+      "kasih",
+      "kasih_emoji_terima_kasih",
+      "emoji_terima_kasih"
     ]
   },
   {
@@ -128647,7 +129304,9 @@
       "gampang",
       "paham",
       "paham_terimakasih",
-      "terimakasih"
+      "terimakasih",
+      "terimakasih_emoji_sangat_suka",
+      "emoji_sangat_suka"
     ]
   },
   {
@@ -129877,7 +130536,9 @@
       "mohon_bantu",
       "bantu",
       "bantu_kak",
-      "kak"
+      "kak",
+      "kak_emoji_terima_kasih",
+      "emoji_terima_kasih"
     ]
   },
   {
@@ -130600,7 +131261,9 @@
     "tokens": [
       "mudah",
       "mudah_akses",
-      "akses"
+      "akses",
+      "akses_emoji_jempol_bagus",
+      "emoji_jempol_bagus"
     ]
   },
   {
@@ -131154,7 +131817,13 @@
       "warga_yang",
       "yang_sedang",
       "sedang_membutuhkangod",
-      "membutuhkangod"
+      "membutuhkangod",
+      "membutuhkangod_emoji_terima_kasih",
+      "emoji_terima_kasih",
+      "emoji_terima_kasih_emoji_terima_kasih",
+      "emoji_terima_kasih",
+      "emoji_terima_kasih_emoji_terima_kasih",
+      "emoji_terima_kasih"
     ]
   },
   {
@@ -131766,7 +132435,7 @@
     "replyText": "",
     "version": "4.18.0",
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=e377bbe5-ca0a-4183-a8cc-316d274dbf58",
-    "groundTruth": "Positif",
+    "groundTruth": "Negatif",
     "tokens": [
       "kode",
       "kode_otp",
@@ -131880,7 +132549,9 @@
       "sangat_bantu",
       "bantu",
       "bantu_makasih",
-      "makasih"
+      "makasih",
+      "makasih_emoji_terima_kasih",
+      "emoji_terima_kasih"
     ]
   },
   {
@@ -132072,7 +132743,9 @@
       "yang_kurang",
       "kurang",
       "kurang_mampu",
-      "mampu"
+      "mampu",
+      "mampu_emoji_jempol_bagus",
+      "emoji_jempol_bagus"
     ]
   },
   {
@@ -132466,7 +133139,11 @@
       "untuk_saya",
       "saya_keluarga",
       "keluarga",
-      "keluarga_saya"
+      "keluarga_saya",
+      "saya_emoji_jempol_bagus",
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_terima_kasih",
+      "emoji_terima_kasih"
     ]
   },
   {
@@ -132643,7 +133320,9 @@
     "version": "4.18.0",
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=9ba5d505-8eec-4fa9-9d3f-f0b94c0d93ea",
     "groundTruth": "Positif",
-    "tokens": []
+    "tokens": [
+      "emoji_semangat_hebat"
+    ]
   },
   {
     "no": 4072,
@@ -133305,7 +133984,11 @@
       "mudah",
       "paham",
       "paham_terimakasih",
-      "terimakasih"
+      "terimakasih",
+      "terimakasih_emoji_terima_kasih",
+      "emoji_terima_kasih",
+      "emoji_terima_kasih_emoji_terima_kasih",
+      "emoji_terima_kasih"
     ]
   },
   {
@@ -134061,7 +134744,9 @@
       "sangat_bantu",
       "bantu",
       "bantu_terimakasih",
-      "terimakasih"
+      "terimakasih",
+      "terimakasih_emoji_terima_kasih",
+      "emoji_terima_kasih"
     ]
   },
   {
@@ -134751,7 +135436,9 @@
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=326c1abf-d754-4345-b6cc-f726d4386376",
     "groundTruth": "Positif",
     "tokens": [
-      "bantu"
+      "bantu",
+      "bantu_emoji_sangat_suka",
+      "emoji_sangat_suka"
     ]
   },
   {
@@ -135486,7 +136173,9 @@
     "tokens": [
       "mobile_jkn",
       "jkn_mantap",
-      "mantap"
+      "mantap",
+      "mantap_emoji_jempol_bagus",
+      "emoji_jempol_bagus"
     ]
   },
   {
@@ -136059,7 +136748,14 @@
       "tidak_bisa",
       "bisa",
       "instal",
-      "android"
+      "android",
+      "emoji_menangis_sedih",
+      "emoji_menangis_sedih_emoji_menangis_sedih",
+      "emoji_menangis_sedih",
+      "emoji_menangis_sedih_emoji_menangis_sedih",
+      "emoji_menangis_sedih",
+      "emoji_menangis_sedih_emoji_menangis_sedih",
+      "emoji_menangis_sedih"
     ]
   },
   {
@@ -136596,7 +137292,19 @@
       "kagak_bisa",
       "bisa",
       "bisa_masuk",
-      "masuk"
+      "masuk",
+      "masuk_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa",
+      "emoji_buruk_kecewa_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa",
+      "emoji_buruk_kecewa_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa",
+      "emoji_buruk_kecewa_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa",
+      "emoji_buruk_kecewa_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa",
+      "emoji_buruk_kecewa_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa"
     ]
   },
   {
@@ -136636,7 +137344,13 @@
     "version": "4.18.0",
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=ef1684a1-a69e-43fd-897d-bb3b1b90f252",
     "groundTruth": "Positif",
-    "tokens": []
+    "tokens": [
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_jempol_bagus",
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_jempol_bagus",
+      "emoji_jempol_bagus"
+    ]
   },
   {
     "no": 4201,
@@ -137187,7 +137901,11 @@
       "lengkap",
       "lengkap_sangat",
       "sangat_bantu",
-      "bantu"
+      "bantu",
+      "bantu_emoji_senang_puas",
+      "emoji_senang_puas",
+      "emoji_senang_puas_emoji_jempol_bagus",
+      "emoji_jempol_bagus"
     ]
   },
   {
@@ -138175,7 +138893,7 @@
     "replyText": "",
     "version": "4.18.0",
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=5c88c4ec-e2ce-45e4-b51f-aa0867537ebd",
-    "groundTruth": "Positif",
+    "groundTruth": "Negatif",
     "tokens": [
       "bagus",
       "bagus_tapi",
@@ -138193,7 +138911,9 @@
       "bikin_bingung",
       "bingung",
       "bingung_aka",
-      "aka"
+      "aka",
+      "aka_emoji_pusing_kecewa",
+      "emoji_pusing_kecewa"
     ]
   },
   {
@@ -139007,7 +139727,9 @@
       "cepat",
       "cepat_dan",
       "dan_ramah",
-      "ramah"
+      "ramah",
+      "ramah_emoji_terima_kasih",
+      "emoji_terima_kasih"
     ]
   },
   {
@@ -139331,7 +140053,7 @@
     "replyText": "",
     "version": "4.18.0",
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=96369680-3285-44f9-9c37-c21d8221b762",
-    "groundTruth": "Positif",
+    "groundTruth": "Negatif",
     "tokens": [
       "belum",
       "belum_aplikasi",
@@ -140660,7 +141382,11 @@
       "susah_rakyat",
       "rakyat",
       "rakyat_haha",
-      "haha"
+      "haha",
+      "haha_emoji_bingung_tanya",
+      "emoji_bingung_tanya",
+      "emoji_bingung_tanya_emoji_bingung_tanya",
+      "emoji_bingung_tanya"
     ]
   },
   {
@@ -141512,7 +142238,9 @@
     "groundTruth": "Positif",
     "tokens": [
       "sangat_bagus",
-      "bagus"
+      "bagus",
+      "bagus_emoji_jempol_bagus",
+      "emoji_jempol_bagus"
     ]
   },
   {
@@ -141722,7 +142450,15 @@
       "terang_sudah",
       "sudah_aktif",
       "aktif",
-      "aktif_gimana",
+      "aktif_emoji_lucu_tawa",
+      "emoji_lucu_tawa",
+      "emoji_lucu_tawa_emoji_lucu_tawa",
+      "emoji_lucu_tawa",
+      "emoji_lucu_tawa_emoji_lucu_tawa",
+      "emoji_lucu_tawa",
+      "emoji_lucu_tawa_emoji_lucu_tawa",
+      "emoji_lucu_tawa",
+      "emoji_lucu_tawa_gimana",
       "gimana",
       "gimana_ini",
       "ini_cerita",
@@ -145933,7 +146669,9 @@
       "bbrapa_kerabat",
       "kerabat",
       "kerabat_aku",
-      "aku_terus",
+      "aku_emoji_terima_kasih",
+      "emoji_terima_kasih",
+      "emoji_terima_kasih_terus",
       "terus_tolong",
       "tolong",
       "tolong_banget",
@@ -145979,7 +146717,9 @@
       "out_sedikit",
       "sedikit",
       "sedikit_gaje",
-      "gaje"
+      "gaje",
+      "gaje_emoji_terima_kasih",
+      "emoji_terima_kasih"
     ]
   },
   {
@@ -145996,7 +146736,9 @@
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=ba6d023e-b553-4af7-950b-deac19b92b09",
     "groundTruth": "Positif",
     "tokens": [
-      "oke"
+      "oke",
+      "oke_emoji_jempol_bagus",
+      "emoji_jempol_bagus"
     ]
   },
   {
@@ -147150,7 +147892,13 @@
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=54e66ea5-b364-4dc3-bc0c-f57d4b71d95b",
     "groundTruth": "Positif",
     "tokens": [
-      "mantap"
+      "mantap",
+      "mantap_emoji_sangat_suka",
+      "emoji_sangat_suka",
+      "emoji_sangat_suka_emoji_jempol_bagus",
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_jempol_bagus",
+      "emoji_jempol_bagus"
     ]
   },
   {
@@ -147438,7 +148186,9 @@
     "groundTruth": "Positif",
     "tokens": [
       "sangat_bantu",
-      "bantu"
+      "bantu",
+      "bantu_emoji_sangat_baik",
+      "emoji_sangat_baik"
     ]
   },
   {
@@ -152110,7 +152860,7 @@
     "replyText": "",
     "version": "4.18.0",
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=b7bb1a16-dd4b-4944-84be-ff1514d8948d",
-    "groundTruth": "Negatif",
+    "groundTruth": "Positif",
     "tokens": [
       "login",
       "login_sudah",
@@ -152225,6 +152975,8 @@
       "nulis",
       "nulis_bgni",
       "bgni",
+      "bgni_emoji_terima_kasih",
+      "emoji_terima_kasih",
       "update",
       "update_sudah",
       "sudah_pke",
@@ -153571,7 +154323,11 @@
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=ae1c7eaa-a391-4ac4-9dd0-598c284d6cac",
     "groundTruth": "Positif",
     "tokens": [
-      "mudah"
+      "mudah",
+      "mudah_emoji_jempol_bagus",
+      "emoji_jempol_bagus",
+      "emoji_jempol_bagus_emoji_jempol_bagus",
+      "emoji_jempol_bagus"
     ]
   },
   {
@@ -154824,7 +155580,7 @@
     "replyText": "",
     "version": "4.14.0",
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=b014e7c4-543d-4621-8310-0c1828d22761",
-    "groundTruth": "Negatif",
+    "groundTruth": "Positif",
     "tokens": [
       "ini_sih",
       "sih_agar",
@@ -154839,7 +155595,9 @@
       "biar",
       "biar_aplikasi",
       "aplikasi_kompatibel",
-      "kompatibel"
+      "kompatibel",
+      "kompatibel_emoji_senang_puas",
+      "emoji_senang_puas"
     ]
   },
   {
@@ -155575,7 +156333,7 @@
     "replyText": "",
     "version": "4.18.0",
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=74d3da04-0adf-410d-b544-f924a6fea054",
-    "groundTruth": "Positif",
+    "groundTruth": "Negatif",
     "tokens": [
       "awal",
       "awal_lancar",
@@ -156109,7 +156867,9 @@
       "make",
       "aplikasi_mantap",
       "mantap",
-      "mantap_maju",
+      "mantap_emoji_siap_mantap",
+      "emoji_siap_mantap",
+      "emoji_siap_mantap_maju",
       "maju",
       "maju_terus",
       "terus_indonesia",
@@ -156974,7 +157734,9 @@
       "online",
       "online_terimakasih",
       "terimakasih",
-      "terimakasih_jkn"
+      "terimakasih_emoji_terima_kasih",
+      "emoji_terima_kasih",
+      "emoji_terima_kasih_jkn"
     ]
   },
   {
@@ -157283,7 +158045,9 @@
       "lambat_sering",
       "sering",
       "sering_ganggu",
-      "ganggu"
+      "ganggu",
+      "ganggu_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa"
     ]
   },
   {
@@ -158330,7 +159094,9 @@
       "repot",
       "repot_dengan",
       "dengan_aplikasi",
-      "aplikasi_ini"
+      "aplikasi_ini",
+      "ini_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa"
     ]
   },
   {
@@ -158956,7 +159722,7 @@
     "replyText": "",
     "version": "4.18.0",
     "url": "https://play.google.com/store/apps/details?id=app.bpjs.mobile&reviewId=4ebbf872-5342-482e-b170-659b6ae3bfbe",
-    "groundTruth": "Positif",
+    "groundTruth": "Negatif",
     "tokens": [
       "kenapa",
       "kenapa_aplikasi",
@@ -159608,7 +160374,41 @@
       "profesional",
       "profesional_sama",
       "sama",
-      "sama_sekali"
+      "sama_sekali",
+      "sekali_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa",
+      "emoji_buruk_kecewa_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa",
+      "emoji_buruk_kecewa_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa",
+      "emoji_buruk_kecewa_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa",
+      "emoji_buruk_kecewa_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa",
+      "emoji_buruk_kecewa_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa",
+      "emoji_buruk_kecewa_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa",
+      "emoji_buruk_kecewa_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa",
+      "emoji_buruk_kecewa_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa",
+      "emoji_buruk_kecewa_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa",
+      "emoji_buruk_kecewa_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa",
+      "emoji_buruk_kecewa_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa",
+      "emoji_buruk_kecewa_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa",
+      "emoji_buruk_kecewa_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa",
+      "emoji_buruk_kecewa_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa",
+      "emoji_buruk_kecewa_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa",
+      "emoji_buruk_kecewa_emoji_buruk_kecewa",
+      "emoji_buruk_kecewa"
     ]
   },
   {
@@ -161294,7 +162094,9 @@
     "tokens": [
       "layan",
       "layan_oke",
-      "oke"
+      "oke",
+      "oke_emoji_jempol_bagus",
+      "emoji_jempol_bagus"
     ]
   },
   {
