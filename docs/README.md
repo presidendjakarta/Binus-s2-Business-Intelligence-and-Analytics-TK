@@ -9,11 +9,12 @@ Folder ini berisi dokumentasi akademik dan teknis komprehensif untuk penelitian 
 | No | Dokumen | Keterangan & Cakupan Materi |
 | :---: | :--- | :--- |
 | 1 | 📖 **[cara_pakai.md](file:///x:/laragon/kuliah/playstore-mining/docs/cara_pakai.md)** | **Panduan Penggunaan Lengkap**: Step-by-step cara menjalankan dashboard, melatih model, inferensi LLM, Live AI Playground, cheat sheet NPM, dan troubleshooting. |
-| 2 | 🔬 **[metodologi_penelitian.md](file:///x:/laragon/kuliah/playstore-mining/docs/metodologi_penelitian.md)** | **Bahan Bab 3**: Kerangka kerja ilmiah CRISP-DM, teknik sampling 5.000 ulasan, Ground Truth, Train-Test Split (80:20), dan arsitektur Hybrid AI. |
-| 3 | 📊 **[analisis_dan_temuan.md](file:///x:/laragon/kuliah/playstore-mining/docs/analisis_dan_temuan.md)** | **Bahan Bab 4**: Pembahasan hasil riset 5.000 data, studi komparatif Naive Bayes vs Gemma 3, analisis anomali ulasan, Top 5 keluhan, dan rekomendasi strategis BPJS. |
-| 4 | 📐 **[algoritma.md](file:///x:/laragon/kuliah/playstore-mining/docs/algoritma.md)** | **Landasan Teori Matematis**: Rumus TF-IDF, Sastrawi Stemmer, Multinomial Naive Bayes, Laplace Smoothing ($\alpha=1$), Confusion Matrix, dan LLM Structured JSON. |
-| 5 | 🔄 **[flowchart.md](file:///x:/laragon/kuliah/playstore-mining/docs/flowchart.md)** | **Diagram Alir Visual**: 6 Diagram Flowchart Mermaid untuk seluruh alur: Scraping, NLP Preprocessing, ML Training, Deteksi Anomali, dan Pipeline LLM. |
-| 6 | 📖 **[kamus.md](file:///x:/laragon/kuliah/playstore-mining/docs/kamus.md)** | **Kamus Istilah & Cheat Sheet Sidang Dosen**: Glosarium bahasa manusiawi istilah teknis + 8 template cara menjawab pertanyaan dosen penguji tanpa gugup. |
+| 2 | 📐 **[naive_bayes.md](file:///x:/laragon/kuliah/playstore-mining/docs/naive_bayes.md)** | **Dokumen Khusus Multinomial Naive Bayes**: Teorema Bayes, TF-IDF + L2, Laplace Smoothing ($\alpha=1$), Log-Likelihood, integrasi Sastrawi, simulasi manual, dan 6 cheat sheet sidang dosen. |
+| 3 | 🔬 **[metodologi_penelitian.md](file:///x:/laragon/kuliah/playstore-mining/docs/metodologi_penelitian.md)** | **Bahan Bab 3**: Kerangka kerja ilmiah CRISP-DM, teknik sampling 5.000 ulasan, Ground Truth, Train-Test Split (80:20), dan arsitektur Hybrid AI. |
+| 4 | 📊 **[analisis_dan_temuan.md](file:///x:/laragon/kuliah/playstore-mining/docs/analisis_dan_temuan.md)** | **Bahan Bab 4**: Pembahasan hasil riset 5.000 data, studi komparatif Naive Bayes vs Gemma 3, analisis anomali ulasan, Top 5 keluhan, dan rekomendasi strategis BPJS. |
+| 5 | 📐 **[algoritma.md](file:///x:/laragon/kuliah/playstore-mining/docs/algoritma.md)** | **Landasan Teori Matematis**: Rumus TF-IDF, Sastrawi Stemmer, Multinomial Naive Bayes, Laplace Smoothing ($\alpha=1$), Confusion Matrix, dan LLM Structured JSON. |
+| 6 | 🔄 **[flowchart.md](file:///x:/laragon/kuliah/playstore-mining/docs/flowchart.md)** | **Diagram Alir Visual**: 6 Diagram Flowchart Mermaid untuk seluruh alur: Scraping, NLP Preprocessing, ML Training, Deteksi Anomali, dan Pipeline LLM. |
+| 7 | 📖 **[kamus.md](file:///x:/laragon/kuliah/playstore-mining/docs/kamus.md)** | **Kamus Istilah & Cheat Sheet Sidang Dosen**: Glosarium bahasa manusiawi istilah teknis + 8 template cara menjawab pertanyaan dosen penguji tanpa gugup. |
 
 ---
 
