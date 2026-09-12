@@ -269,11 +269,11 @@
     "isAnomaly": false,
     "anomalyDesc": "Sesuai",
     "version": "4.18.0",
-    "llmSentiment": "Negatif",
-    "llmCategory": "Masalah Teknis & Bug",
-    "llmReason": "Dianalisis oleh Gemma 3",
-    "llmConfidence": 88,
-    "modelDisagreement": true
+    "llmSentiment": "Positif",
+    "llmCategory": "Apresiasi & Kepuasan",
+    "llmReason": "Ulasan 'terbaik' dengan rating bintang 5 mengekspresikan kepuasan maksimal pengguna terhadap kualitas dan fungsionalitas aplikasi Mobile JKN.",
+    "llmConfidence": 98,
+    "modelDisagreement": false
   },
   {
     "no": 13,

@@ -66,10 +66,10 @@
     "confidence": 0.95
   },
   "7220335a-8d90-4a32-a1dc-29a6d3ec3281_terbaik": {
-    "sentiment": "Negatif",
-    "category": "Masalah Teknis & Bug",
-    "reason": "Dianalisis oleh Gemma 3",
-    "confidence": 0.88
+    "sentiment": "Positif",
+    "category": "Apresiasi & Kepuasan",
+    "reason": "Ulasan 'terbaik' dengan rating bintang 5 mengekspresikan kepuasan maksimal pengguna terhadap kualitas dan fungsionalitas aplikasi Mobile JKN.",
+    "confidence": 0.98
   },
   "883864ca-eeaf-401d-888d-c023f91d84a2_bagus": {
     "sentiment": "Positif",

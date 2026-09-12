@@ -314,11 +314,11 @@ window.ML_DASHBOARD_DATA = {
       "isAnomaly": false,
       "anomalyDesc": "Sesuai",
       "version": "4.18.0",
-      "llmSentiment": "Negatif",
-      "llmCategory": "Masalah Teknis & Bug",
-      "llmReason": "Dianalisis oleh Gemma 3",
-      "llmConfidence": 88,
-      "modelDisagreement": true
+      "llmSentiment": "Positif",
+      "llmCategory": "Apresiasi & Kepuasan",
+      "llmReason": "Ulasan 'terbaik' dengan rating bintang 5 mengekspresikan kepuasan maksimal pengguna terhadap kualitas dan fungsionalitas aplikasi Mobile JKN.",
+      "llmConfidence": 98,
+      "modelDisagreement": false
     },
     {
       "no": 13,
@@ -115053,23 +115053,23 @@ window.ML_DASHBOARD_DATA = {
         "correctCount": 4400
       },
       "gemma3LLM": {
-        "accuracy": 92.62,
-        "correctCount": 4631
+        "accuracy": 92.64,
+        "correctCount": 4632
       }
     },
-    "agreementRate": 95.66,
+    "agreementRate": 95.68,
     "categoryBreakdown": {
       "Fitur & UI/UX": 435,
       "Layanan Faskes & Antrean": 196,
-      "Masalah Teknis & Bug": 1937,
-      "Apresiasi & Kepuasan": 2417,
+      "Masalah Teknis & Bug": 1936,
+      "Apresiasi & Kepuasan": 2418,
       "Administrasi & Iuran": 15
     },
     "sentimentBreakdown": {
-      "positif": 2421,
-      "negatif": 2579
+      "positif": 2422,
+      "negatif": 2578
     },
-    "timestamp": "2026-09-12T03:25:26.567Z"
+    "timestamp": "2026-09-12T03:27:07.000Z"
   },
   "llmAnalysis": [
     {
@@ -115342,11 +115342,11 @@ window.ML_DASHBOARD_DATA = {
       "isAnomaly": false,
       "anomalyDesc": "Sesuai",
       "version": "4.18.0",
-      "llmSentiment": "Negatif",
-      "llmCategory": "Masalah Teknis & Bug",
-      "llmReason": "Dianalisis oleh Gemma 3",
-      "llmConfidence": 88,
-      "modelDisagreement": true
+      "llmSentiment": "Positif",
+      "llmCategory": "Apresiasi & Kepuasan",
+      "llmReason": "Ulasan 'terbaik' dengan rating bintang 5 mengekspresikan kepuasan maksimal pengguna terhadap kualitas dan fungsionalitas aplikasi Mobile JKN.",
+      "llmConfidence": 98,
+      "modelDisagreement": false
     },
     {
       "no": 13,

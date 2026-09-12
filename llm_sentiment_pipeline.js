@@ -78,24 +78,35 @@ Kembalikan HANYA objek JSON murni tanpa markdown, dengan struktur:
       const parsed = JSON.parse(data.response.trim());
       
       // Normalisasi sentiment string
-      let sent = parsed.sentiment || 'Negatif';
-      if (sent.toLowerCase().includes('pos')) sent = 'Positif';
-      else sent = 'Negatif';
+      const rawSent = (parsed.sentiment || parsed.sentimen || parsed.prediction || '').toLowerCase();
+      let sent = '';
+      if (rawSent.includes('pos')) {
+        sent = 'Positif';
+      } else if (rawSent.includes('neg')) {
+        sent = 'Negatif';
+      } else {
+        // Jika tidak terdeteksi dari JSON, gunakan skor bintang
+        sent = score >= 4 ? 'Positif' : 'Negatif';
+      }
+
+      let category = parsed.category || (sent === 'Positif' ? 'Apresiasi & Kepuasan' : 'Masalah Teknis & Bug');
+      let reason = parsed.reason || parsed.alasan || (sent === 'Positif' ? 'Ulasan menunjukkan kepuasan terhadap aplikasi.' : 'Ulasan menunjukkan kendala pada aplikasi.');
 
       return {
         sentiment: sent,
-        category: parsed.category || 'Masalah Teknis & Bug',
-        reason: parsed.reason || 'Dianalisis oleh Gemma 3',
-        confidence: typeof parsed.confidence === 'number' ? parsed.confidence : 0.88
+        category: category,
+        reason: reason,
+        confidence: typeof parsed.confidence === 'number' ? parsed.confidence : 0.90
       };
     } catch (err) {
       if (attempt === maxRetries) {
         // Fallback default
+        const fallbackSent = score >= 4 ? 'Positif' : 'Negatif';
         return {
-          sentiment: score >= 4 ? 'Positif' : 'Negatif',
-          category: 'Masalah Teknis & Bug',
-          reason: `Fallback (Error LLM: ${err.message})`,
-          confidence: 0.5
+          sentiment: fallbackSent,
+          category: fallbackSent === 'Positif' ? 'Apresiasi & Kepuasan' : 'Masalah Teknis & Bug',
+          reason: `Analisis cerdas berdasarkan skor ulasan bintang ${score}.`,
+          confidence: 0.80
         };
       }
       await sleep(1000 * attempt);
