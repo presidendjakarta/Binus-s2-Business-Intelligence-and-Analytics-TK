@@ -6,21 +6,21 @@
       "correctCount": 4400
     },
     "gemma3LLM": {
-      "accuracy": 92.6,
-      "correctCount": 4630
+      "accuracy": 92.62,
+      "correctCount": 4631
     }
   },
-  "agreementRate": 95.64,
+  "agreementRate": 95.66,
   "categoryBreakdown": {
-    "Fitur & UI/UX": 436,
+    "Fitur & UI/UX": 435,
     "Layanan Faskes & Antrean": 196,
     "Masalah Teknis & Bug": 1937,
-    "Apresiasi & Kepuasan": 2416,
+    "Apresiasi & Kepuasan": 2417,
     "Administrasi & Iuran": 15
   },
   "sentimentBreakdown": {
-    "positif": 2420,
-    "negatif": 2580
+    "positif": 2421,
+    "negatif": 2579
   },
-  "timestamp": "2026-09-12T03:17:48.139Z"
+  "timestamp": "2026-09-12T03:25:26.567Z"
 }

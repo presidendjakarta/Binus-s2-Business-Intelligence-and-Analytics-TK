@@ -102,10 +102,10 @@
     "confidence": 0.95
   },
   "8f5ee5a8-9ffc-4690-9645-4806ed5a2739_lebih praktis, dan sangat memb": {
-    "sentiment": "Negatif",
-    "category": "Fitur & UI/UX",
-    "reason": "Pengguna menyatakan 'membatu' yang mengindikasikan ketidakpuasan terhadap pengalaman penggunaan aplikasi, termasuk kemungkinan masalah dengan fitur atau antarmuka pengguna. Meskipun memberikan rating 5 bintang, penggunaan kata 'membatu' menunjukkan adanya masalah yang dirasakan.",
-    "confidence": 0.85
+    "sentiment": "Positif",
+    "category": "Apresiasi & Kepuasan",
+    "reason": "Pengguna merasa aplikasi lebih praktis dan sangat membantu (kata 'membatu' merupakan kesalahan ketik/typo dari 'membantu'). Kombinasi rating bintang 5 dan kata 'praktis' menunjukkan kepuasan pengguna.",
+    "confidence": 0.95
   },
   "96451198-0459-49ef-8f5e-df59c2ace3af_kenapa harus pake ini kalo app": {
     "sentiment": "Negatif",

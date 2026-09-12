@@ -49,8 +49,8 @@ async function main() {
     const isUI = /verifikasi|wajah|muka|foto|ktp|nik|kk|daftar|dftr|menu|tampilan|ui|ux|ribet|ruwet|sulit|susah|bingung|tombol|fitur/i.test(lower);
     // Deteksi Iuran / Administrasi
     const isIuran = /bayar|iuran|premi|tagihan|autodebet|bank|saldo|denda|tunggakan|virtual account|va/i.test(lower);
-    // Deteksi Pujian / Kepuasan
-    const isPraise = /bagus|mantap|mantab|membantu|sangat membantu|memudahkan|mudah|terbantu|terima kasih|makasih|top|keren|puas|cepat|praktis|luar biasa|good|nice|bermanfaat/i.test(lower);
+    // Deteksi Pujian / Kepuasan (Termasuk toleransi typo: membatu -> membantu)
+    const isPraise = /bagus|mantap|mantab|membantu|membatu|sangat membantu|memudahkan|mudah|terbantu|terima kasih|makasih|top|keren|puas|cepat|praktis|luar biasa|good|nice|bermanfaat/i.test(lower);
 
     // Deteksi Taktik Bintang 5 Komplain
     const is5StarTactic = (score >= 4 && (isBug || lower.includes('kecewa') || lower.includes('jelek') || lower.includes('parah') || lower.includes('rusak') || lower.includes('sampah') || lower.includes('gagal')));

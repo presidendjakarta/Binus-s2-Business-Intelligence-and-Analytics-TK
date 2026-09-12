@@ -407,11 +407,11 @@
     "isAnomaly": false,
     "anomalyDesc": "Sesuai",
     "version": "4.18.0",
-    "llmSentiment": "Negatif",
-    "llmCategory": "Fitur & UI/UX",
-    "llmReason": "Pengguna menyatakan 'membatu' yang mengindikasikan ketidakpuasan terhadap pengalaman penggunaan aplikasi, termasuk kemungkinan masalah dengan fitur atau antarmuka pengguna. Meskipun memberikan rating 5 bintang, penggunaan kata 'membatu' menunjukkan adanya masalah yang dirasakan.",
-    "llmConfidence": 85,
-    "modelDisagreement": true
+    "llmSentiment": "Positif",
+    "llmCategory": "Apresiasi & Kepuasan",
+    "llmReason": "Pengguna merasa aplikasi lebih praktis dan sangat membantu (kata 'membatu' merupakan kesalahan ketik/typo dari 'membantu'). Kombinasi rating bintang 5 dan kata 'praktis' menunjukkan kepuasan pengguna.",
+    "llmConfidence": 95,
+    "modelDisagreement": false
   },
   {
     "no": 19,

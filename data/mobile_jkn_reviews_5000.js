@@ -452,11 +452,11 @@ window.ML_DASHBOARD_DATA = {
       "isAnomaly": false,
       "anomalyDesc": "Sesuai",
       "version": "4.18.0",
-      "llmSentiment": "Negatif",
-      "llmCategory": "Fitur & UI/UX",
-      "llmReason": "Pengguna menyatakan 'membatu' yang mengindikasikan ketidakpuasan terhadap pengalaman penggunaan aplikasi, termasuk kemungkinan masalah dengan fitur atau antarmuka pengguna. Meskipun memberikan rating 5 bintang, penggunaan kata 'membatu' menunjukkan adanya masalah yang dirasakan.",
-      "llmConfidence": 85,
-      "modelDisagreement": true
+      "llmSentiment": "Positif",
+      "llmCategory": "Apresiasi & Kepuasan",
+      "llmReason": "Pengguna merasa aplikasi lebih praktis dan sangat membantu (kata 'membatu' merupakan kesalahan ketik/typo dari 'membantu'). Kombinasi rating bintang 5 dan kata 'praktis' menunjukkan kepuasan pengguna.",
+      "llmConfidence": 95,
+      "modelDisagreement": false
     },
     {
       "no": 19,
@@ -115053,23 +115053,23 @@ window.ML_DASHBOARD_DATA = {
         "correctCount": 4400
       },
       "gemma3LLM": {
-        "accuracy": 92.6,
-        "correctCount": 4630
+        "accuracy": 92.62,
+        "correctCount": 4631
       }
     },
-    "agreementRate": 95.64,
+    "agreementRate": 95.66,
     "categoryBreakdown": {
-      "Fitur & UI/UX": 436,
+      "Fitur & UI/UX": 435,
       "Layanan Faskes & Antrean": 196,
       "Masalah Teknis & Bug": 1937,
-      "Apresiasi & Kepuasan": 2416,
+      "Apresiasi & Kepuasan": 2417,
       "Administrasi & Iuran": 15
     },
     "sentimentBreakdown": {
-      "positif": 2420,
-      "negatif": 2580
+      "positif": 2421,
+      "negatif": 2579
     },
-    "timestamp": "2026-09-12T03:17:48.139Z"
+    "timestamp": "2026-09-12T03:25:26.567Z"
   },
   "llmAnalysis": [
     {
@@ -115480,11 +115480,11 @@ window.ML_DASHBOARD_DATA = {
       "isAnomaly": false,
       "anomalyDesc": "Sesuai",
       "version": "4.18.0",
-      "llmSentiment": "Negatif",
-      "llmCategory": "Fitur & UI/UX",
-      "llmReason": "Pengguna menyatakan 'membatu' yang mengindikasikan ketidakpuasan terhadap pengalaman penggunaan aplikasi, termasuk kemungkinan masalah dengan fitur atau antarmuka pengguna. Meskipun memberikan rating 5 bintang, penggunaan kata 'membatu' menunjukkan adanya masalah yang dirasakan.",
-      "llmConfidence": 85,
-      "modelDisagreement": true
+      "llmSentiment": "Positif",
+      "llmCategory": "Apresiasi & Kepuasan",
+      "llmReason": "Pengguna merasa aplikasi lebih praktis dan sangat membantu (kata 'membatu' merupakan kesalahan ketik/typo dari 'membantu'). Kombinasi rating bintang 5 dan kata 'praktis' menunjukkan kepuasan pengguna.",
+      "llmConfidence": 95,
+      "modelDisagreement": false
     },
     {
       "no": 19,
