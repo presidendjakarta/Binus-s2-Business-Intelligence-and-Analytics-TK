@@ -757,11 +757,12 @@
               <table class="table table-bordered table-sm align-middle mb-0" style="font-size: 0.8rem;">
                 <thead class="table-light">
                   <tr>
-                    <th style="width: 60px;">Rating</th>
+                    <th style="width: 50px;">Rating</th>
+                    <th style="width: 130px;">Nama Pengguna</th>
                     <th>Isi Ulasan Pengguna</th>
-                    <th style="width: 110px;">Target Ground Truth</th>
-                    <th style="width: 120px;">Naive Bayes (ML)</th>
-                    <th style="width: 130px;">LLM Gemma 3</th>
+                    <th style="width: 100px;">Target Ground Truth</th>
+                    <th style="width: 110px;">Naive Bayes (ML)</th>
+                    <th style="width: 120px;">LLM Gemma 3</th>
                     <th>Penjelasan Alasan AI (Gemma 3 Reasoning)</th>
                   </tr>
                 </thead>
@@ -1121,6 +1122,7 @@
           tableRowsHtml += `
             <tr>
               <td class="text-center"><span class="badge badge-star">⭐ ${item.score}</span></td>
+              <td><div class="fw-semibold text-dark text-truncate" style="max-width: 125px;" title="${escapeHtml(item.userName || 'Pengguna')}">${escapeHtml(item.userName || 'Pengguna')}</div></td>
               <td>${escapeHtml(item.rawText)}</td>
               <td class="text-center">${gtBadge}</td>
               <td class="text-center">${nbBadge}</td>
