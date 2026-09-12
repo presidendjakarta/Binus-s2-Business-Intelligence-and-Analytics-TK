@@ -8,21 +8,23 @@ import {
   getProjectData,
   deleteProject,
   createProject,
-  lookupPlayStoreApp
+  lookupPlayStoreApp,
+  predictCustomText,
+  getProjectsComparison
 } from './src/project/projectManager.js';
 
 // =========================================================================
 // ENTERPRISE REST API & STATIC SERVER - MULTI-APP NAIVE BAYES ANALYTICS
 // =========================================================================
 
-const PORT = process.env.PORT || 3000;
+let PORT = parseInt(process.env.PORT) || 3000;
 const BASE_DIR = process.cwd();
 
 const MIME_TYPES = {
-  '.html': 'text/html',
-  '.js': 'text/javascript',
-  '.css': 'text/css',
-  '.json': 'application/json',
+  '.html': 'text/html; charset=utf-8',
+  '.js': 'text/javascript; charset=utf-8',
+  '.css': 'text/css; charset=utf-8',
+  '.json': 'application/json; charset=utf-8',
   '.csv': 'text/csv; charset=utf-8',
   '.png': 'image/png',
   '.jpg': 'image/jpeg',
@@ -78,7 +80,20 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  // 2. GET /api/apps/lookup?urlOrId=... - Lookup metadata Play Store app
+  // 2. GET /api/projects/compare - Ambil metrik komparasi seluruh project
+  if (pathname === '/api/projects/compare' && req.method === 'GET') {
+    try {
+      const comparison = await getProjectsComparison();
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: true, comparison }));
+    } catch (err) {
+      res.writeHead(500, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, error: err.message }));
+    }
+    return;
+  }
+
+  // 3. GET /api/apps/lookup?urlOrId=... - Lookup metadata Play Store app
   if (pathname === '/api/apps/lookup' && req.method === 'GET') {
     const urlOrId = reqUrl.searchParams.get('urlOrId');
     if (!urlOrId) {
@@ -98,7 +113,28 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  // 3. GET /api/projects/:id - Ambil data lengkap 1 project (meta + reviews)
+  // 4. POST /api/predict - Live custom text prediction & pipeline simulator
+  if (pathname === '/api/predict' && req.method === 'POST') {
+    try {
+      const payload = await parseBody(req);
+      const { text, projectId } = payload;
+      if (!text) {
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: false, error: 'Parameter text wajib diisi.' }));
+        return;
+      }
+
+      const result = await predictCustomText({ text, projectId: projectId || 'mobile-jkn' });
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify(result));
+    } catch (err) {
+      res.writeHead(500, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, error: err.message }));
+    }
+    return;
+  }
+
+  // 5. GET /api/projects/:id - Ambil data lengkap 1 project (meta + reviews)
   if (pathname.startsWith('/api/projects/') && req.method === 'GET') {
     const projectId = pathname.replace('/api/projects/', '').trim();
     if (!projectId) {
@@ -118,7 +154,7 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  // 4. POST /api/projects/create - Buat project baru (scrape -> train Naive Bayes -> evaluate -> save)
+  // 6. POST /api/projects/create - Buat project baru (scrape -> train Naive Bayes -> evaluate -> save)
   if (pathname === '/api/projects/create' && req.method === 'POST') {
     try {
       const payload = await parseBody(req);
@@ -154,7 +190,7 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  // 5. DELETE /api/projects/:id - Hapus project
+  // 7. DELETE /api/projects/:id - Hapus project
   if (pathname.startsWith('/api/projects/') && req.method === 'DELETE') {
     const projectId = pathname.replace('/api/projects/', '').trim();
     if (!projectId) {
@@ -175,10 +211,12 @@ const server = http.createServer(async (req, res) => {
   }
 
   // -----------------------------------------------------------------------
-  // STATIC FILE SERVER
+  // STATIC FILE SERVER & SPA ROUTING
   // -----------------------------------------------------------------------
   let reqPath = pathname;
-  if (reqPath === '/' || reqPath === '') reqPath = '/dashboard.html';
+  if (reqPath === '/' || reqPath === '' || reqPath === '/projects' || reqPath === '/dashboard' || reqPath === '/ml-studio' || reqPath === '/explorer' || reqPath === '/compare' || reqPath === '/anomalies') {
+    reqPath = '/dashboard.html';
+  }
 
   const filePath = path.join(BASE_DIR, reqPath);
 
@@ -192,8 +230,21 @@ const server = http.createServer(async (req, res) => {
   fs.readFile(filePath, (err, content) => {
     if (err) {
       if (err.code === 'ENOENT') {
-        res.writeHead(404, { 'Content-Type': 'text/html' });
-        res.end(`<h3>404 Not Found: ${reqPath}</h3>`);
+        // Fallback SPA ke dashboard.html jika bukan API
+        if (!pathname.startsWith('/api/')) {
+          fs.readFile(path.join(BASE_DIR, 'dashboard.html'), (e2, fallbackContent) => {
+            if (e2) {
+              res.writeHead(404, { 'Content-Type': 'text/html' });
+              res.end(`<h3>404 Not Found</h3>`);
+            } else {
+              res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+              res.end(fallbackContent);
+            }
+          });
+          return;
+        }
+        res.writeHead(404, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'Endpoint Not Found' }));
       } else {
         res.writeHead(500, { 'Content-Type': 'text/plain' });
         res.end(`500 Server Error: ${err.message}`);
@@ -207,14 +258,34 @@ const server = http.createServer(async (req, res) => {
   });
 });
 
-server.listen(PORT, () => {
-  const url = `http://localhost:${PORT}/dashboard.html`;
-  console.log('================================================================');
-  console.log(`🚀 SERVER MULTI-APP NAIVE BAYES BERJALAN DI: http://localhost:${PORT}`);
-  console.log(`📊 Dashboard Analytics : http://localhost:${PORT}/dashboard.html`);
-  console.log(`📡 API Endpoints       : http://localhost:${PORT}/api/projects`);
-  console.log('================================================================\n');
+function startServer(portToTry) {
+  server.listen(portToTry, () => {
+    PORT = portToTry;
+    const url = `http://localhost:${PORT}/dashboard.html`;
+    console.log('================================================================');
+    console.log(`🚀 SERVER MULTI-APP NAIVE BAYES BERJALAN DI: http://localhost:${PORT}`);
+    console.log(`📊 Dashboard Analytics : http://localhost:${PORT}/dashboard.html`);
+    console.log(`📡 API Projects        : http://localhost:${PORT}/api/projects`);
+    console.log(`⚡ API Live Predict    : http://localhost:${PORT}/api/predict`);
+    console.log('================================================================\n');
 
-  // Buka browser otomatis
-  exec(`start "" "${url}"`, () => {});
-});
+    // Buka browser otomatis jika port awal
+    if (portToTry === 3000 || !process.env.PORT) {
+      exec(`start "" "${url}"`, () => {});
+    }
+  });
+
+  server.on('error', (err) => {
+    if (err.code === 'EADDRINUSE') {
+      console.warn(`⚠️ Port ${portToTry} sedang digunakan. Mencoba port ${portToTry + 1}...`);
+      setTimeout(() => {
+        startServer(portToTry + 1);
+      }, 500);
+    } else {
+      console.error('❌ Server error:', err);
+    }
+  });
+}
+
+startServer(PORT);
+

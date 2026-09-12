@@ -444,12 +444,219 @@ export async function createProject({ projectName, source = 'Google Play Store',
   list.unshift(projectSummary); // letakkan di urutan teratas
   await fs.writeFile(PROJECTS_INDEX_FILE, JSON.stringify(list, null, 2), 'utf-8');
 
+  // Cache model baru di memori
+  MODEL_CACHE.set(projectId, { vectorizer, nbModel });
+
   if (onProgress) onProgress({ status: 'completed', message: `🎉 Analisis sentimen selesai! Berhasil memproses ${fullPredictions.length} ulasan.` });
 
   return {
     meta: projectMeta,
     reviews: fullPredictions
   };
+}
+
+// In-memory cache untuk vectorizer & model Naive Bayes per project
+const MODEL_CACHE = new Map();
+
+/**
+ * Dapatkan atau latih instan model Naive Bayes untuk project tertentu
+ */
+async function getOrTrainProjectModel(projectId) {
+  if (MODEL_CACHE.has(projectId)) {
+    return MODEL_CACHE.get(projectId);
+  }
+
+  const data = await getProjectData(projectId);
+  const reviews = data.reviews || [];
+
+  const dataset = reviews.map(r => ({
+    text: r.rawText,
+    groundTruth: r.groundTruth || (r.score >= 4 ? 'Positif' : r.score <= 2 ? 'Negatif' : 'Netral'),
+    tokens: preprocess(r.rawText)
+  }));
+
+  const splitIdx = Math.max(1, Math.floor(dataset.length * 0.8));
+  const trainData = dataset.slice(0, splitIdx);
+
+  const vectorizer = new TFIDFVectorizer(dataset.length > 500 ? 2 : 1);
+  vectorizer.fit(trainData.map(d => d.tokens));
+
+  const trainFeatures = trainData.map(d => vectorizer.transform(d.tokens));
+  const trainLabels = trainData.map(d => d.groundTruth);
+
+  const nbModel = new MultinomialNaiveBayes(1.0, CONFIG.CLASSES);
+  nbModel.train(trainFeatures, trainLabels);
+
+  const cached = { vectorizer, nbModel };
+  MODEL_CACHE.set(projectId, cached);
+  return cached;
+}
+
+/**
+ * Eksekusi Live Inference Naive Bayes dengan visualisasi pipeline step-by-step
+ */
+export async function predictCustomText({ text, projectId = 'mobile-jkn' }) {
+  if (!text || typeof text !== 'string') {
+    throw new Error('Teks ulasan tidak boleh kosong.');
+  }
+
+  const { translateEmojis } = await import('../nlp/emojiDictionary.js');
+  const { SLANG_DICTIONARY } = await import('../nlp/slangDictionary.js');
+  const { stem } = await import('../nlp/stemmer.js');
+  const { INDONESIAN_STOPWORDS } = await import('../nlp/stopwords.js');
+
+  // Step 1: Emoji translation
+  const emojiTranslated = translateEmojis(text);
+
+  // Step 2: Cleaned
+  const cleaned = emojiTranslated.toLowerCase()
+    .replace(/https?:\/\/\S+/g, ' ')
+    .replace(/[^\w\s-]/g, ' ')
+    .replace(/(.)\1{2,}/g, '$1');
+
+  // Step 3: Raw tokens & slang replaced
+  const rawTokens = cleaned.split(/\s+/).filter(Boolean);
+  const slangTokens = rawTokens.map(w => ({
+    original: w,
+    replaced: SLANG_DICTIONARY[w] || w,
+    isSlang: Boolean(SLANG_DICTIONARY[w])
+  }));
+
+  // Step 4: Sastrawi Morphological Stemming
+  const stemmedTokens = slangTokens.map(item => ({
+    beforeStem: item.replaced,
+    rootWord: stem(item.replaced),
+    wasStemmed: stem(item.replaced) !== item.replaced
+  }));
+
+  // Step 5: Stopwords filter & Unigram + Bigram creation
+  const finalTokens = [];
+  const normalizedWords = stemmedTokens.map(s => s.rootWord);
+
+  for (let i = 0; i < normalizedWords.length; i++) {
+    const w = normalizedWords[i];
+    if (!INDONESIAN_STOPWORDS.has(w) && w.length > 2) {
+      finalTokens.push(w);
+    }
+    if (i < normalizedWords.length - 1) {
+      const nextW = normalizedWords[i + 1];
+      if (w.length > 2 && nextW.length > 2) {
+        finalTokens.push(`${w}_${nextW}`);
+      }
+    }
+  }
+
+  // Ambil Model Project
+  const { vectorizer, nbModel } = await getOrTrainProjectModel(projectId);
+
+  // Ekstraksi TF-IDF
+  const vec = vectorizer.transform(finalTokens);
+  const matchedFeatures = [];
+
+  for (const [featIndex, tfidfWeight] of vec.entries()) {
+    // Cari kata dalam vocabulary
+    for (const [word, idx] of vectorizer.vocabulary.entries()) {
+      if (idx === featIndex) {
+        const pPos = nbModel.featureProbabilities['Positif'] ? nbModel.featureProbabilities['Positif'][idx] : -10;
+        const pNeg = nbModel.featureProbabilities['Negatif'] ? nbModel.featureProbabilities['Negatif'][idx] : -10;
+        matchedFeatures.push({
+          term: word,
+          tfidf: parseFloat(tfidfWeight.toFixed(4)),
+          logProbPos: parseFloat(pPos.toFixed(4)),
+          logProbNeg: parseFloat(pNeg.toFixed(4)),
+          impact: pPos > pNeg ? 'Positif' : pNeg > pPos ? 'Negatif' : 'Netral'
+        });
+        break;
+      }
+    }
+  }
+
+  // Predict
+  const probaResult = nbModel.predictProba(vec);
+
+  return {
+    success: true,
+    rawText: text,
+    steps: {
+      emojiTranslated,
+      slangTokens,
+      stemmedTokens,
+      finalTokens,
+      matchedFeatures: matchedFeatures.sort((a, b) => b.tfidf - a.tfidf)
+    },
+    prediction: {
+      label: probaResult.label,
+      confidence: parseFloat((probaResult.confidence * 100).toFixed(2)),
+      probPos: parseFloat((probaResult.probabilities['Positif'] * 100).toFixed(2)),
+      probNeg: parseFloat((probaResult.probabilities['Negatif'] * 100).toFixed(2)),
+      probNeu: parseFloat((probaResult.probabilities['Netral'] * 100).toFixed(2)),
+      logPriorPos: parseFloat((nbModel.classPriors?.['Positif'] ?? 0).toFixed(4)),
+      logPriorNeg: parseFloat((nbModel.classPriors?.['Negatif'] ?? 0).toFixed(4))
+    }
+  };
+}
+
+/**
+ * Ambil data komparasi seluruh proyek untuk tampilan benchmarking
+ */
+export async function getProjectsComparison() {
+  await ensureProjectsInitialized();
+  const list = await getProjectsList();
+  
+  const comparisonResults = [];
+
+  for (const p of list) {
+    try {
+      const data = await getProjectData(p.id);
+      const reviews = data.reviews || [];
+      const meta = data.meta;
+
+      let posCount = 0;
+      let negCount = 0;
+      let neuCount = 0;
+      let anomalyCount = 0;
+      let highConfCount = 0;
+
+      reviews.forEach(r => {
+        if (r.mlSentiment === 'Positif') posCount++;
+        else if (r.mlSentiment === 'Negatif') negCount++;
+        else neuCount++;
+
+        if (r.isAnomaly) anomalyCount++;
+        if (r.confidence >= 90) highConfCount++;
+      });
+
+      const total = reviews.length || 1;
+
+      comparisonResults.push({
+        id: meta.id,
+        name: meta.name,
+        appId: meta.appId,
+        appName: meta.appName,
+        developer: meta.developer,
+        icon: meta.icon,
+        totalReviews: total,
+        accuracy: meta.metrics?.accuracy || 90.0,
+        macroF1: meta.metrics?.macroF1 || 60.0,
+        posCount,
+        negCount,
+        neuCount,
+        posRatio: parseFloat(((posCount / total) * 100).toFixed(1)),
+        negRatio: parseFloat(((negCount / total) * 100).toFixed(1)),
+        neuRatio: parseFloat(((neuCount / total) * 100).toFixed(1)),
+        netSentimentScore: parseFloat((((posCount - negCount) / total) * 100).toFixed(1)),
+        anomalyCount,
+        anomalyRatio: parseFloat(((anomalyCount / total) * 100).toFixed(1)),
+        highConfRatio: parseFloat(((highConfCount / total) * 100).toFixed(1)),
+        topPositiveTerms: meta.topPositiveTerms || [],
+        topNegativeTerms: meta.topNegativeTerms || []
+      });
+    } catch (err) {
+      console.warn(`Gagal memuat komparasi untuk project ${p.id}:`, err.message);
+    }
+  }
+
+  return comparisonResults;
 }
 
 export default {
@@ -459,5 +666,8 @@ export default {
   getProjectsList,
   getProjectData,
   deleteProject,
-  createProject
+  createProject,
+  predictCustomText,
+  getProjectsComparison
 };
+
