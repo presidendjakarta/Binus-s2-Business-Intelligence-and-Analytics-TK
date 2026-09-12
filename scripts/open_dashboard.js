@@ -1,9 +1,8 @@
 import { exec, spawn } from 'child_process';
 import http from 'http';
 
-const URL = 'http://localhost:3000/dashboard_llm.html';
+const URL = 'http://localhost:3000/dashboard.html';
 
-// Cek apakah server sudah running di port 3000
 function checkServer(callback) {
   const req = http.get('http://localhost:3000', (res) => {
     callback(true);
@@ -28,12 +27,12 @@ checkServer((isRunning) => {
   }
 
   setTimeout(() => {
-    console.log(`🧠 Membuka Dashboard LLM di: ${URL}`);
+    console.log(`📊 Membuka Dashboard Machine Learning di: ${URL}`);
     exec(`start "" "${URL}"`, (err) => {
       if (err) {
         console.error('Buka browser manual di:', URL);
       } else {
-        console.log('✅ Dashboard LLM berhasil dibuka!');
+        console.log('✅ Dashboard ML berhasil dibuka!');
       }
     });
   }, 800);

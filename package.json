@@ -10,9 +10,9 @@
     "scrape": "node scripts/scrape.js",
     "train": "node scripts/train.js",
     "llm": "node scripts/run_llm.js",
-    "test": "node test_ml_libraries.js",
-    "dashboard": "node open_dashboard.js",
-    "dashboard:llm": "node open_dashboard_llm.js"
+    "test": "node scripts/test_nlp.js",
+    "dashboard": "node scripts/open_dashboard.js",
+    "dashboard:llm": "node scripts/open_dashboard_llm.js"
   },
   "keywords": [],
   "author": "",
