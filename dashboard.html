@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Executive Business Intelligence • Sentiment Analytics & Naive Bayes</title>
+  <title>Executive Business Intelligence Dashboard • Multinomial Naive Bayes</title>
 
-  <!-- Google Fonts -->
+  <!-- Google Fonts: Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -20,7 +20,7 @@
   <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.min.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.2/css/responsive.bootstrap5.min.css">
 
-  <!-- Custom Enterprise Business Intelligence Style (Power BI / Tableau Inspired) -->
+  <!-- Custom Business Intelligence Clean Enterprise CSS -->
   <style>
     :root {
       --bi-primary: #0078d4;         /* PowerBI Classic Blue */
@@ -66,8 +66,8 @@
     }
 
     .bi-brand-icon {
-      width: 42px;
-      height: 42px;
+      width: 44px;
+      height: 44px;
       border-radius: 10px;
       background: linear-gradient(135deg, #0078d4 0%, #004578 100%);
       display: flex;
@@ -76,6 +76,7 @@
       color: #ffffff;
       font-size: 1.25rem;
       overflow: hidden;
+      border: 1px solid var(--bi-border);
     }
     .bi-brand-icon img {
       width: 100%;
@@ -88,66 +89,24 @@
       background: #f8fafc;
       border: 1px solid var(--bi-border);
       border-radius: 8px;
-      padding: 3px 8px;
+      padding: 4px 10px;
     }
     .project-select {
       border: none;
       background: transparent;
       font-weight: 700;
-      font-size: 0.85rem;
+      font-size: 0.88rem;
       color: var(--bi-text-main);
       cursor: pointer;
       outline: none;
-      max-width: 260px;
+      max-width: 280px;
     }
 
-    /* SUB-NAV TABS */
-    .bi-nav-tabs {
-      background: #ffffff;
-      border-bottom: 1px solid var(--bi-border);
-      padding: 0 1.5rem;
-      display: flex;
-      gap: 0.5rem;
-      overflow-x: auto;
-    }
-    .bi-tab-btn {
-      background: transparent;
-      border: none;
-      border-bottom: 3px solid transparent;
-      padding: 0.85rem 1.25rem;
-      font-weight: 600;
-      font-size: 0.88rem;
-      color: var(--bi-text-muted);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      transition: all 0.2s;
-      white-space: nowrap;
-    }
-    .bi-tab-btn:hover {
-      color: var(--bi-primary);
-      background: rgba(0, 120, 212, 0.04);
-    }
-    .bi-tab-btn.active {
-      color: var(--bi-primary);
-      border-bottom-color: var(--bi-primary);
-      background: rgba(0, 120, 212, 0.04);
-    }
-
-    /* PAGE VIEWS */
-    .tab-content-view {
-      display: none;
-      padding: 1.75rem 1.5rem 3.5rem;
-    }
-    .tab-content-view.active {
-      display: block;
-      animation: fadeIn 0.2s ease-in-out;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(4px); }
-      to { opacity: 1; transform: translateY(0); }
+    /* CONTAINER */
+    .dashboard-container {
+      padding: 1.5rem 1.5rem 4rem;
+      max-width: 1440px;
+      margin: 0 auto;
     }
 
     /* SCORECARD CARDS */
@@ -160,6 +119,7 @@
       position: relative;
       overflow: hidden;
       transition: transform 0.15s ease, box-shadow 0.15s ease;
+      height: 100%;
     }
     .bi-scorecard:hover {
       transform: translateY(-2px);
@@ -341,7 +301,7 @@
         </div>
         <div class="text-muted" style="font-size: 0.78rem;">
           Business Intelligence & Analytics &bull; 
-          <span class="text-success fw-semibold"><i class="fa-solid fa-check-circle"></i> Sastrawi Stemmer &bull; TF-IDF &bull; Laplace &alpha;=1.0</span>
+          <span class="text-success fw-semibold"><i class="fa-solid fa-check-circle"></i> Sastrawi Stemmer &bull; TF-IDF Vectorizer &bull; Laplace &alpha;=1.0</span>
         </div>
       </div>
     </div>
@@ -349,7 +309,7 @@
     <div class="d-flex align-items-center gap-2">
       <!-- PROJECT SELECTOR DROPDOWN -->
       <div class="project-selector-container d-flex align-items-center gap-2">
-        <label for="projectSelect" class="text-muted small fw-bold mb-0 ps-1"><i class="fa-solid fa-folder-open text-primary me-1"></i>Project:</label>
+        <label for="projectSelect" class="text-muted small fw-bold mb-0 ps-1"><i class="fa-solid fa-folder-open text-primary me-1"></i>Pilih Project:</label>
         <select id="projectSelect" class="project-select">
           <option value="mobile-jkn">Memuat daftar project...</option>
         </select>
@@ -363,31 +323,11 @@
   </header>
 
   <!-- ===================================================================== -->
-  <!-- SUB-NAV TABS (MULTI-PAGE VIEWS)                                       -->
+  <!-- UNIFIED 1-PAGE DASHBOARD CONTAINER                                    -->
   <!-- ===================================================================== -->
-  <nav class="bi-nav-tabs">
-    <button class="bi-tab-btn active" onclick="switchTab('dashboard')">
-      <i class="fa-solid fa-chart-pie"></i> Executive Overview
-    </button>
-    <button class="bi-tab-btn" onclick="switchTab('ml-studio')">
-      <i class="fa-solid fa-brain"></i> Naive Bayes Model & Simulator
-    </button>
-    <button class="bi-tab-btn" onclick="switchTab('explorer')">
-      <i class="fa-solid fa-table-list"></i> Review Data Explorer
-    </button>
-    <button class="bi-tab-btn" onclick="switchTab('compare')">
-      <i class="fa-solid fa-chart-simple"></i> Komparasi Multi-Aplikasi
-    </button>
-    <button class="bi-tab-btn" onclick="switchTab('anomalies')">
-      <i class="fa-solid fa-triangle-exclamation"></i> Pusat Deteksi Anomali
-    </button>
-  </nav>
+  <div class="dashboard-container">
 
-  <!-- ===================================================================== -->
-  <!-- TAB 1: EXECUTIVE OVERVIEW DASHBOARD                                   -->
-  <!-- ===================================================================== -->
-  <section class="tab-content-view active" id="tab-dashboard">
-    <!-- APP HERO INFO BANNER -->
+    <!-- 1. HERO INFO BANNER -->
     <div class="bi-card mb-4" style="background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);">
       <div class="bi-card-body d-flex flex-wrap align-items-center justify-content-between gap-3">
         <div class="d-flex align-items-center gap-3">
@@ -397,7 +337,8 @@
             <div class="text-muted" style="font-size: 0.85rem;">
               <span id="heroDeveloper">BPJS Kesehatan</span> &bull; 
               <span class="text-warning fw-bold"><i class="fa-solid fa-star"></i> <span id="heroScore">4.5</span></span> Play Store Rating &bull;
-              <span id="heroSampleCount">5.000</span> Ulasan Dianalisis
+              <span id="heroSampleCount">5.000</span> Ulasan Dianalisis &bull;
+              Sumber Data: <span class="badge bg-light text-dark border">Google Play Store</span>
             </div>
           </div>
         </div>
@@ -409,7 +350,7 @@
       </div>
     </div>
 
-    <!-- 4 EXECUTIVE SCORECARDS -->
+    <!-- 2. 4 EXECUTIVE KPI SCORECARDS -->
     <div class="row g-3 mb-4">
       <div class="col-md-3">
         <div class="bi-scorecard card-primary">
@@ -444,13 +385,13 @@
       </div>
     </div>
 
-    <!-- CHARTS ROW 1: 3-WAY COMPARISON & SENTIMENT DOUGHNUT -->
+    <!-- 3. CHARTS ROW 1: 3-WAY COMPARISON & SENTIMENT DOUGHNUT -->
     <div class="row g-4 mb-4">
       <div class="col-lg-8">
         <div class="bi-card h-100">
           <div class="bi-card-header">
             <span><i class="fa-solid fa-chart-column text-primary me-2"></i>Komparasi Sentimen 3-Parameter</span>
-            <span class="badge bg-light text-secondary border">Rating vs Ground Truth vs Naive Bayes</span>
+            <span class="badge bg-light text-secondary border">Rating Bintang vs Ground Truth vs Prediksi Naive Bayes</span>
           </div>
           <div class="bi-card-body" style="height: 320px; position: relative;">
             <canvas id="chartComparison"></canvas>
@@ -487,8 +428,8 @@
       </div>
     </div>
 
-    <!-- CHARTS ROW 2: TOP TF-IDF DRIVERS (POSITIF & NEGATIF) -->
-    <div class="row g-4">
+    <!-- 4. CHARTS ROW 2: TOP TF-IDF DRIVERS (POSITIF & NEGATIF) -->
+    <div class="row g-4 mb-4">
       <div class="col-lg-6">
         <div class="bi-card h-100">
           <div class="bi-card-header text-success">
@@ -513,217 +454,122 @@
         </div>
       </div>
     </div>
-  </section>
 
-  <!-- ===================================================================== -->
-  <!-- TAB 2: NAIVE BAYES MODEL & LIVE SIMULATOR                             -->
-  <!-- ===================================================================== -->
-  <section class="tab-content-view" id="tab-ml-studio">
-    <!-- ROW 1: LIVE SIMULATOR -->
+    <!-- 5. ROW 3: LIVE SIMULATOR & CONFUSION MATRIX -->
     <div class="row g-4 mb-4">
-      <div class="col-lg-7">
+      <!-- LIVE SIMULATOR -->
+      <div class="col-lg-6">
         <div class="bi-card h-100">
           <div class="bi-card-header">
-            <span><i class="fa-solid fa-bolt text-warning me-2"></i>Live Sentiment Simulator (Sandbox Uji Teks)</span>
-            <span class="badge bg-primary">Real-Time NLP Inference</span>
+            <span><i class="fa-solid fa-bolt text-warning me-2"></i>Live Sentiment Simulator (Uji Real-Time)</span>
+            <span class="badge bg-primary">NLP Pipeline Tester</span>
           </div>
           <div class="bi-card-body">
             <div class="mb-3">
-              <label class="form-label text-muted small fw-bold">Ketik atau tempel ulasan apa pun untuk diuji:</label>
-              <textarea class="form-control" id="simInputText" rows="3" placeholder="Contoh: Aplikasinya sangat membantu, pelayanan cepat dan mudah digunakan 👍👍"></textarea>
+              <label class="form-label text-muted small fw-bold">Ketik atau tempel teks ulasan bebas:</label>
+              <textarea class="form-control" id="simInputText" rows="2" placeholder="Contoh: Aplikasinya sangat membantu dan transaksinya cepat 👍👍"></textarea>
             </div>
 
             <!-- PRESET CHIPS -->
             <div class="mb-3">
-              <div class="text-muted small mb-2 fw-semibold">Preset Contoh Ulasan:</div>
+              <div class="text-muted small mb-2 fw-semibold">Preset Contoh:</div>
               <div class="d-flex flex-wrap gap-2">
                 <span class="preset-chip" onclick="setSimPreset('pujian')">👍 Pujian Pelayanan</span>
-                <span class="preset-chip" onclick="setSimPreset('sarkas')">🎭 Sarkasme Bintang 5</span>
-                <span class="preset-chip" onclick="setSimPreset('salah_klik')">💡 Pujian Bintang 1</span>
-                <span class="preset-chip" onclick="setSimPreset('emoji')">❤️ Emoji Sentimen</span>
-                <span class="preset-chip" onclick="setSimPreset('slang')">💬 Slang / Bahasa Gaul</span>
+                <span class="preset-chip" onclick="setSimPreset('sarkas')">🎭 Sarkasme 5★</span>
+                <span class="preset-chip" onclick="setSimPreset('salah_klik')">💡 Pujian 1★</span>
+                <span class="preset-chip" onclick="setSimPreset('emoji')">❤️ Emoji</span>
+                <span class="preset-chip" onclick="setSimPreset('slang')">💬 Slang</span>
               </div>
             </div>
 
-            <div class="d-flex justify-content-between align-items-center pt-2 border-top">
+            <div class="d-flex justify-content-between align-items-center pt-2 border-top mb-3">
               <div class="text-muted small">
-                Model Aktif: <strong class="text-dark" id="simActiveModelName">Mobile JKN</strong>
+                Model: <strong class="text-dark" id="simActiveModelName">Mobile JKN</strong>
               </div>
-              <button class="btn btn-primary fw-bold" id="btnSimPredict" onclick="runLivePrediction()">
-                <i class="fa-solid fa-paper-plane me-1"></i> Prediksi Sentimen Real-Time
+              <button class="btn btn-primary btn-sm fw-bold" id="btnSimPredict" onclick="runLivePrediction()">
+                <i class="fa-solid fa-paper-plane me-1"></i> Uji Sentimen
               </button>
             </div>
-          </div>
-        </div>
-      </div>
 
-      <!-- PREDICTION OUTCOME CARD -->
-      <div class="col-lg-5">
-        <div class="bi-card h-100">
-          <div class="bi-card-header">
-            <span><i class="fa-solid fa-gauge-high text-primary me-2"></i>Hasil Prediksi Model</span>
-            <span class="badge bg-secondary" id="simStatusBadge">Menunggu Input</span>
-          </div>
-          <div class="bi-card-body">
-            <div id="simEmptyState" class="text-center py-4 text-muted">
-              <i class="fa-solid fa-wand-magic-sparkles mb-2" style="font-size: 2rem; opacity: 0.4;"></i>
-              <p class="small mb-0">Ketik teks ulasan dan klik <strong>Prediksi Sentimen Real-Time</strong>.</p>
-            </div>
-
-            <div id="simActiveResult" style="display: none;">
-              <!-- DECISION BOX -->
-              <div class="p-3 rounded-3 text-center mb-3" id="simDecisionBanner" style="background: #e8f5e9; border: 1px solid #c8e6c9;">
-                <div class="text-muted small fw-bold text-uppercase">Hasil Klasifikasi Naive Bayes</div>
-                <div class="fs-2 fw-bold text-success my-1" id="simResultLabel">Positif</div>
-                <div class="text-muted small">Confidence Score: <strong id="simResultConfidence">99.45%</strong></div>
+            <!-- SIMULATOR OUTCOME RESULT -->
+            <div id="simActiveResult" style="display: none;" class="p-3 rounded bg-light border">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="text-muted small fw-bold">HASIL PREDIKSI:</span>
+                <span class="badge bg-success" id="simResultBadge">Positif (99.45%)</span>
               </div>
-
-              <!-- PROBABILITY BARS -->
-              <div class="mb-3">
-                <div class="d-flex justify-content-between small text-muted mb-1">
-                  <span>Probabilitas Positif:</span>
-                  <strong class="text-success" id="simProbPos">99.45%</strong>
-                </div>
-                <div class="progress mb-2" style="height: 6px;">
-                  <div class="progress-bar bg-success" id="simBarPos" style="width: 99.45%;"></div>
-                </div>
-
-                <div class="d-flex justify-content-between small text-muted mb-1">
-                  <span>Probabilitas Negatif:</span>
-                  <strong class="text-danger" id="simProbNeg">0.55%</strong>
-                </div>
-                <div class="progress" style="height: 6px;">
-                  <div class="progress-bar bg-danger" id="simBarNeg" style="width: 0.55%;"></div>
-                </div>
+              <div class="progress mb-2" style="height: 6px;">
+                <div class="progress-bar bg-success" id="simBarPos" style="width: 99.45%;"></div>
+                <div class="progress-bar bg-danger" id="simBarNeg" style="width: 0.55%;"></div>
               </div>
-
-              <!-- PIPELINE STEPS -->
-              <div class="p-2 rounded bg-light border mb-2 small">
-                <strong class="text-primary"><i class="fa-solid fa-1 me-1"></i> Emoji & Slang:</strong>
-                <div class="text-dark" id="simStepEmojiSlang">-</div>
-              </div>
-
-              <div class="p-2 rounded bg-light border mb-2 small">
-                <strong class="text-primary"><i class="fa-solid fa-2 me-1"></i> Sastrawi Stemming:</strong>
-                <div class="text-dark" id="simStepStemmed">-</div>
-              </div>
-
-              <div class="p-2 rounded bg-light border small">
-                <strong class="text-primary"><i class="fa-solid fa-3 me-1"></i> Fitur TF-IDF Terdeteksi:</strong>
-                <div class="d-flex flex-wrap gap-1 mt-1" id="simMatchedTermsContainer">
-                  <!-- Chips -->
-                </div>
-              </div>
+              <div class="small text-muted" id="simPipelineSummary">-</div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- ROW 2: CONFUSION MATRIX & EVALUATION REPORT -->
-    <div class="row g-4">
+      <!-- CONFUSION MATRIX & CLASSIFICATION REPORT -->
       <div class="col-lg-6">
         <div class="bi-card h-100">
           <div class="bi-card-header">
-            <span><i class="fa-solid fa-border-all text-primary me-2"></i>Confusion Matrix (Testing Set 20%)</span>
-            <span class="badge bg-light text-dark border">Test Data Evaluasi</span>
-          </div>
-          <div class="bi-card-body">
-            <table class="cm-table">
-              <thead>
-                <tr>
-                  <th class="text-muted text-center small">Actual \ Predicted</th>
-                  <th class="text-success text-center small fw-bold">Prediksi POSITIF</th>
-                  <th class="text-danger text-center small fw-bold">Prediksi NEGATIF</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td class="text-success small fw-bold text-center">Actual POSITIF</td>
-                  <td class="cm-cell cell-tp">
-                    <div class="text-success fw-bold fs-4" id="cmTP">441</div>
-                    <div class="text-muted" style="font-size: 0.72rem;">True Positive (TP)</div>
-                  </td>
-                  <td class="cm-cell cell-fn">
-                    <div class="text-warning fw-bold fs-4" id="cmFN">35</div>
-                    <div class="text-muted" style="font-size: 0.72rem;">False Negative (FN)</div>
-                  </td>
-                </tr>
-                <tr>
-                  <td class="text-danger small fw-bold text-center">Actual NEGATIF</td>
-                  <td class="cm-cell cell-fp">
-                    <div class="text-danger fw-bold fs-4" id="cmFP">60</div>
-                    <div class="text-muted" style="font-size: 0.72rem;">False Positive (FP)</div>
-                  </td>
-                  <td class="cm-cell cell-tn">
-                    <div class="text-primary fw-bold fs-4" id="cmTN">464</div>
-                    <div class="text-muted" style="font-size: 0.72rem;">True Negative (TN)</div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-6">
-        <div class="bi-card h-100">
-          <div class="bi-card-header">
-            <span><i class="fa-solid fa-square-poll-vertical text-success me-2"></i>Classification Report</span>
+            <span><i class="fa-solid fa-border-all text-primary me-2"></i>Confusion Matrix & Evaluasi Model (Data Uji 20%)</span>
             <span class="badge bg-success" id="evalAccBadge">Akurasi 90.50%</span>
           </div>
           <div class="bi-card-body">
-            <table class="table table-bordered align-middle mb-0">
-              <thead class="table-light text-muted small">
+            <table class="cm-table mb-3">
+              <thead>
                 <tr>
-                  <th>KELAS SENTIMEN</th>
-                  <th class="text-center">PRECISION</th>
-                  <th class="text-center">RECALL</th>
-                  <th class="text-center">F1-SCORE</th>
-                  <th class="text-center">SUPPORT</th>
+                  <th class="text-muted text-center small">Actual \ Pred</th>
+                  <th class="text-success text-center small fw-bold">Pred POSITIF</th>
+                  <th class="text-danger text-center small fw-bold">Pred NEGATIF</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td class="text-success fw-bold">Positif</td>
-                  <td class="text-center fw-semibold" id="metricPosPrec">94.24%</td>
-                  <td class="text-center fw-semibold" id="metricPosRec">92.64%</td>
-                  <td class="text-center fw-semibold" id="metricPosF1">93.43%</td>
-                  <td class="text-center text-muted" id="metricPosSupp">476</td>
+                  <td class="text-success small fw-bold text-center">Actual POS</td>
+                  <td class="cm-cell cell-tp">
+                    <div class="text-success fw-bold fs-5" id="cmTP">441</div>
+                    <div class="text-muted" style="font-size: 0.7rem;">True Pos (TP)</div>
+                  </td>
+                  <td class="cm-cell cell-fn">
+                    <div class="text-warning fw-bold fs-5" id="cmFN">35</div>
+                    <div class="text-muted" style="font-size: 0.7rem;">False Neg (FN)</div>
+                  </td>
                 </tr>
                 <tr>
-                  <td class="text-danger fw-bold">Negatif</td>
-                  <td class="text-center fw-semibold" id="metricNegPrec">86.43%</td>
-                  <td class="text-center fw-semibold" id="metricNegRec">93.67%</td>
-                  <td class="text-center fw-semibold" id="metricNegF1">89.90%</td>
-                  <td class="text-center text-muted" id="metricNegSupp">524</td>
-                </tr>
-                <tr class="table-light">
-                  <td class="text-primary fw-bold">Macro Average</td>
-                  <td class="text-center fw-bold text-primary" id="metricMacroPrec">90.33%</td>
-                  <td class="text-center fw-bold text-primary" id="metricMacroRec">93.15%</td>
-                  <td class="text-center fw-bold text-primary" id="metricMacroF1">61.11%</td>
-                  <td class="text-center text-muted">1.000</td>
+                  <td class="text-danger small fw-bold text-center">Actual NEG</td>
+                  <td class="cm-cell cell-fp">
+                    <div class="text-danger fw-bold fs-5" id="cmFP">60</div>
+                    <div class="text-muted" style="font-size: 0.7rem;">False Pos (FP)</div>
+                  </td>
+                  <td class="cm-cell cell-tn">
+                    <div class="text-primary fw-bold fs-5" id="cmTN">464</div>
+                    <div class="text-muted" style="font-size: 0.7rem;">True Neg (TN)</div>
+                  </td>
                 </tr>
               </tbody>
             </table>
 
-            <div class="mt-3 p-2 rounded bg-light border text-muted small">
-              <i class="fa-solid fa-calculator text-primary me-1"></i> Laplace Smoothing: <strong>&alpha; = 1.0</strong> | Vocabulary TF-IDF: <strong id="evalVocabSize">5.537 fitur</strong>
+            <div class="d-flex justify-content-between p-2 rounded bg-light border text-muted small">
+              <span>Precision Pos: <strong class="text-success" id="metricPosPrec">94.24%</strong></span>
+              <span>Recall Neg: <strong class="text-danger" id="metricNegRec">93.67%</strong></span>
+              <span>Macro F1: <strong class="text-primary" id="metricMacroF1">61.11%</strong></span>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
 
-  <!-- ===================================================================== -->
-  <!-- TAB 3: REVIEW DATA EXPLORER                                           -->
-  <!-- ===================================================================== -->
-  <section class="tab-content-view" id="tab-explorer">
-    <div class="bi-card mb-4">
+    <!-- 6. DATA EXPLORER & TABLE -->
+    <div class="bi-card">
+      <div class="bi-card-header">
+        <span><i class="fa-solid fa-table-list text-primary me-2"></i>Eksplorasi Dataset Ulasan & Prediksi Naive Bayes</span>
+        <button class="btn btn-success btn-sm fw-semibold" onclick="exportCurrentTable('csv')">
+          <i class="fa-solid fa-file-csv me-1"></i> Export Dataset CSV
+        </button>
+      </div>
       <div class="bi-card-body">
-        <div class="row g-3 align-items-end">
+        <!-- FILTER TOOLBAR -->
+        <div class="row g-3 align-items-end mb-3 p-3 rounded bg-light border">
           <div class="col-md-3">
             <label class="form-label text-muted small fw-bold">Filter Sentimen ML:</label>
             <select class="form-select form-select-sm" id="filterSentiment" onchange="applyTableFilters()">
@@ -755,22 +601,15 @@
             </select>
           </div>
 
-          <div class="col-md-3 d-flex gap-2">
+          <div class="col-md-3">
             <button class="btn btn-outline-secondary btn-sm w-100" onclick="resetTableFilters()">
-              <i class="fa-solid fa-rotate-left me-1"></i> Reset Filter
-            </button>
-            <button class="btn btn-success btn-sm w-100 fw-semibold" onclick="exportCurrentTable('csv')">
-              <i class="fa-solid fa-file-csv me-1"></i> Export CSV
+              <i class="fa-solid fa-rotate-left me-1"></i> Reset Semua Filter
             </button>
           </div>
         </div>
-      </div>
-    </div>
 
-    <!-- DATATABLE CARD -->
-    <div class="bi-card">
-      <div class="bi-card-body p-0">
-        <div class="table-responsive p-3">
+        <!-- TABLE -->
+        <div class="table-responsive">
           <table class="table table-hover align-middle mb-0" id="mainDataTable" style="width:100%;">
             <thead>
               <tr>
@@ -791,118 +630,8 @@
         </div>
       </div>
     </div>
-  </section>
 
-  <!-- ===================================================================== -->
-  <!-- TAB 4: MULTI-APP BENCHMARK & COMPARISON                               -->
-  <!-- ===================================================================== -->
-  <section class="tab-content-view" id="tab-compare">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-      <div>
-        <h5 class="fw-bold mb-1 text-dark">Komparasi Performa Multi-Aplikasi</h5>
-        <p class="text-muted small mb-0">Bandingkan kepuasan ulasan dan akurasi model antar aplikasi yang telah dibuat.</p>
-      </div>
-      <button class="btn btn-primary btn-sm fw-bold" onclick="loadComparisonData()">
-        <i class="fa-solid fa-rotate me-1"></i> Refresh Data Komparasi
-      </button>
-    </div>
-
-    <!-- COMPARISON CHARTS -->
-    <div class="row g-4 mb-4">
-      <div class="col-lg-6">
-        <div class="bi-card h-100">
-          <div class="bi-card-header">
-            <span><i class="fa-solid fa-chart-column text-primary me-2"></i>Perbandingan Akurasi Model (%)</span>
-          </div>
-          <div class="bi-card-body" style="height: 280px; position: relative;">
-            <canvas id="chartCompareAccuracy"></canvas>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-6">
-        <div class="bi-card h-100">
-          <div class="bi-card-header text-success">
-            <span><i class="fa-solid fa-face-smile me-2"></i>Net Sentiment Score (NSS = %Pos - %Neg)</span>
-          </div>
-          <div class="bi-card-body" style="height: 280px; position: relative;">
-            <canvas id="chartCompareNSS"></canvas>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- LEADERBOARD TABLE -->
-    <div class="bi-card">
-      <div class="bi-card-header">
-        <span><i class="fa-solid fa-trophy text-warning me-2"></i>Matriks Benchmark Aplikasi</span>
-      </div>
-      <div class="bi-card-body p-0">
-        <div class="table-responsive">
-          <table class="table table-hover align-middle mb-0">
-            <thead class="table-light text-muted small">
-              <tr>
-                <th>APLIKASI</th>
-                <th>DEVELOPER</th>
-                <th class="text-center">SAMPEL</th>
-                <th class="text-center">AKURASI ML</th>
-                <th class="text-center">POSITIF (%)</th>
-                <th class="text-center">NEGATIF (%)</th>
-                <th class="text-center">NET SENTIMENT</th>
-                <th class="text-center">ANOMALI</th>
-                <th class="text-center">AKSI</th>
-              </tr>
-            </thead>
-            <tbody id="compareTableBody">
-              <!-- Populated via JS -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================================================================== -->
-  <!-- TAB 5: ANOMALY INVESTIGATION CENTER                                   -->
-  <!-- ===================================================================== -->
-  <section class="tab-content-view" id="tab-anomalies">
-    <div class="row g-3 mb-4">
-      <div class="col-md-4">
-        <div class="bi-scorecard card-warning">
-          <div class="scorecard-label">Total Anomali <i class="fa-solid fa-bug text-warning"></i></div>
-          <div class="scorecard-value text-warning" id="anomalyCenterCount">0</div>
-          <div class="scorecard-subtext" id="anomalyCenterRatio">0% dari total ulasan</div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="bi-scorecard card-primary" style="--bi-primary: var(--bi-danger);">
-          <div class="scorecard-label">Taktik Komplain Bintang 5 <i class="fa-solid fa-masks-theater text-danger"></i></div>
-          <div class="scorecard-value text-danger" id="anomalyCenterTypeA">0</div>
-          <div class="scorecard-subtext">⭐ 4-5 tapi teks keluhan pedas</div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="bi-scorecard card-success">
-          <div class="scorecard-label">Pujian Bintang 1 (Salah Klik) <i class="fa-solid fa-arrow-pointer text-success"></i></div>
-          <div class="scorecard-value text-success" id="anomalyCenterTypeB">0</div>
-          <div class="scorecard-subtext">⭐ 1-2 tapi teks ulasan memuji</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ANOMALY FEED -->
-    <div class="bi-card">
-      <div class="bi-card-header text-warning">
-        <span><i class="fa-solid fa-list-check me-2"></i>Daftar Ulasan Anomali Teridentifikasi</span>
-        <span class="badge bg-warning text-dark fw-bold" id="anomalyFeedCountBadge">0 Ulasan</span>
-      </div>
-      <div class="bi-card-body">
-        <div class="row g-3" id="anomalyCardsFeed">
-          <!-- Populated via JS -->
-        </div>
-      </div>
-    </div>
-  </section>
+  </div>
 
   <!-- ===================================================================== -->
   <!-- MODAL: BUAT PROJECT BARU (CREATE PROJECT WIZARD)                      -->
@@ -1042,26 +771,6 @@
     let CHART_DOUGHNUT = null;
     let CHART_TOP_POS = null;
     let CHART_TOP_NEG = null;
-    let CHART_COMP_ACC = null;
-    let CHART_COMP_NSS = null;
-
-    // TAB SWITCHER
-    function switchTab(tabId) {
-      document.querySelectorAll('.bi-tab-btn').forEach(btn => btn.classList.remove('active'));
-      document.querySelectorAll('.tab-content-view').forEach(view => view.classList.remove('active'));
-
-      const targetBtn = Array.from(document.querySelectorAll('.bi-tab-btn')).find(b => b.getAttribute('onclick')?.includes(tabId));
-      if (targetBtn) targetBtn.classList.add('active');
-
-      const targetView = document.getElementById(`tab-${tabId}`);
-      if (targetView) targetView.classList.add('active');
-
-      if (tabId === 'compare') {
-        loadComparisonData();
-      } else if (tabId === 'explorer') {
-        if (DATA_TABLE_INSTANCE) DATA_TABLE_INSTANCE.columns.adjust().responsive.recalc();
-      }
-    }
 
     // INITIALIZATION
     document.addEventListener('DOMContentLoaded', async () => {
@@ -1118,11 +827,10 @@
           document.getElementById('headerAppName').textContent = CURRENT_PROJECT_META.appName || CURRENT_PROJECT_META.name;
           document.getElementById('simActiveModelName').textContent = CURRENT_PROJECT_META.appName || CURRENT_PROJECT_META.name;
 
-          // Render Views
+          // Render Dashboard
           renderDashboardView();
           renderMLStudioView();
           renderDataExplorerView();
-          renderAnomalyCenterView();
         }
       } catch (err) {
         console.error('Gagal memuat data project:', err);
@@ -1327,17 +1035,8 @@
       const cmClass = m.classMetrics || {};
       document.getElementById('evalAccBadge').textContent = `Akurasi ${(m.accuracy || 90.5).toFixed(2)}%`;
       document.getElementById('metricPosPrec').textContent = `${cmClass['Positif']?.precision || 94.24}%`;
-      document.getElementById('metricPosRec').textContent = `${cmClass['Positif']?.recall || 92.64}%`;
-      document.getElementById('metricPosF1').textContent = `${cmClass['Positif']?.f1 || 93.43}%`;
-      document.getElementById('metricPosSupp').textContent = `${cmClass['Positif']?.support || 476}`;
-
-      document.getElementById('metricNegPrec').textContent = `${cmClass['Negatif']?.precision || 86.43}%`;
       document.getElementById('metricNegRec').textContent = `${cmClass['Negatif']?.recall || 93.67}%`;
-      document.getElementById('metricNegF1').textContent = `${cmClass['Negatif']?.f1 || 89.90}%`;
-      document.getElementById('metricNegSupp').textContent = `${cmClass['Negatif']?.support || 524}`;
-
       document.getElementById('metricMacroF1').textContent = `${(m.macroF1 || 61.11).toFixed(2)}%`;
-      document.getElementById('evalVocabSize').textContent = `${(m.vocabSize || 5537).toLocaleString('id-ID')} fitur`;
     }
 
     function setSimPreset(type) {
@@ -1375,42 +1074,25 @@
 
         const data = await res.json();
         if (data.success) {
-          document.getElementById('simEmptyState').style.display = 'none';
           document.getElementById('simActiveResult').style.display = 'block';
 
           const isPos = data.prediction.label === 'Positif';
-          const badge = document.getElementById('simStatusBadge');
-          badge.textContent = 'Inferensi Selesai';
+          const badge = document.getElementById('simResultBadge');
+          badge.textContent = `${data.prediction.label} (${data.prediction.confidence}%)`;
           badge.className = isPos ? 'badge bg-success' : 'badge bg-danger';
 
-          const decisionBanner = document.getElementById('simDecisionBanner');
-          decisionBanner.style.background = isPos ? '#e8f5e9' : '#ffebee';
-          decisionBanner.style.borderColor = isPos ? '#c8e6c9' : '#ffcdd2';
-
-          const label = document.getElementById('simResultLabel');
-          label.textContent = data.prediction.label;
-          label.className = `fs-2 fw-bold my-1 ${isPos ? 'text-success' : 'text-danger'}`;
-
-          document.getElementById('simResultConfidence').textContent = `${data.prediction.confidence}%`;
-          document.getElementById('simProbPos').textContent = `${data.prediction.probPos}%`;
           document.getElementById('simBarPos').style.width = `${data.prediction.probPos}%`;
-          document.getElementById('simProbNeg').textContent = `${data.prediction.probNeg}%`;
           document.getElementById('simBarNeg').style.width = `${data.prediction.probNeg}%`;
 
-          document.getElementById('simStepEmojiSlang').textContent = data.steps.emojiTranslated || text;
-          document.getElementById('simStepStemmed').textContent = data.steps.stemmedTokens?.map(t => t.rootWord).join(' ') || '-';
-
-          const termsContainer = document.getElementById('simMatchedTermsContainer');
-          termsContainer.innerHTML = (data.steps.matchedFeatures || []).slice(0, 8).map(f => `
-            <span class="badge ${f.impact === 'Positif' ? 'bg-success' : 'bg-danger'} p-1" style="font-size: 0.75rem;">
-              ${f.term} (TF-IDF: ${f.tfidf})
-            </span>
-          `).join('') || '<span class="text-muted small">Tidak ada fitur TF-IDF khusus</span>';
+          document.getElementById('simPipelineSummary').innerHTML = `
+            <div><strong>Stemming Sastrawi:</strong> ${data.steps.stemmedTokens?.map(t => t.rootWord).join(' ') || '-'}</div>
+            <div><strong>Fitur TF-IDF:</strong> ${data.steps.matchedFeatures?.map(f => `<span class="badge ${f.impact === 'Positif' ? 'bg-success' : 'bg-danger'} bg-opacity-75">${f.term}</span>`).join(' ') || 'Tidak ada fitur khusus'}</div>
+          `;
         }
       } catch (err) {
         alert('Gagal menjalankan inferensi: ' + err.message);
       } finally {
-        if (btn) btn.innerHTML = `<i class="fa-solid fa-paper-plane me-1"></i> Prediksi Sentimen Real-Time`;
+        if (btn) btn.innerHTML = `<i class="fa-solid fa-paper-plane me-1"></i> Uji Sentimen`;
       }
     }
 
@@ -1430,7 +1112,7 @@
           <td>
             <span class="text-warning small">${'★'.repeat(r.score)}${'☆'.repeat(5 - r.score)}</span>
           </td>
-          <td class="small text-secondary" style="max-width: 320px;">
+          <td class="small text-secondary" style="max-width: 340px;">
             <div class="text-truncate">${escapeHtml(r.rawText)}</div>
           </td>
           <td>
@@ -1582,151 +1264,6 @@
       }
     }
 
-    // RENDER COMPARISON VIEW
-    async function loadComparisonData() {
-      try {
-        const res = await fetch('/api/projects/compare');
-        const data = await res.json();
-        if (data.success && data.comparison) {
-          renderComparisonView(data.comparison);
-        }
-      } catch (err) {
-        console.error('Gagal mengambil data komparasi:', err);
-      }
-    }
-
-    function renderComparisonView(comparisonList) {
-      const tbody = document.getElementById('compareTableBody');
-      if (tbody) {
-        tbody.innerHTML = comparisonList.map(c => `
-          <tr>
-            <td>
-              <div class="d-flex align-items-center gap-2">
-                <img src="${c.icon || 'https://play-lh.googleusercontent.com/rN5o_e2373oTvdVz5x-m-Gq_oK23Mv5M1h7x-x8_y-4z8z_z-z'}" 
-                     style="width: 28px; height: 28px; border-radius: 6px; object-fit: cover;">
-                <div>
-                  <div class="fw-bold text-dark small">${c.appName || c.name}</div>
-                  <div class="text-muted" style="font-size: 0.7rem;">${c.appId}</div>
-                </div>
-              </div>
-            </td>
-            <td class="small text-muted">${c.developer || 'Developer'}</td>
-            <td class="text-center small fw-semibold">${c.totalReviews.toLocaleString('id-ID')}</td>
-            <td class="text-center small fw-bold text-success">${c.accuracy.toFixed(1)}%</td>
-            <td class="text-center small fw-semibold text-success">${c.posRatio}%</td>
-            <td class="text-center small fw-semibold text-danger">${c.negRatio}%</td>
-            <td class="text-center small fw-bold ${c.netSentimentScore > 0 ? 'text-success' : 'text-danger'}">
-              ${c.netSentimentScore > 0 ? '+' : ''}${c.netSentimentScore}
-            </td>
-            <td class="text-center small text-warning fw-semibold">${c.anomalyCount} (${c.anomalyRatio}%)</td>
-            <td class="text-center">
-              <button class="btn btn-outline-primary btn-sm py-0 px-2" onclick="loadProjectData('${c.id}'); switchTab('dashboard');">
-                Buka
-              </button>
-            </td>
-          </tr>
-        `).join('');
-      }
-
-      const labels = comparisonList.map(c => c.appName || c.name);
-
-      const ctxAcc = document.getElementById('chartCompareAccuracy');
-      if (ctxAcc) {
-        if (CHART_COMP_ACC) CHART_COMP_ACC.destroy();
-        CHART_COMP_ACC = new Chart(ctxAcc, {
-          type: 'bar',
-          data: {
-            labels,
-            datasets: [{
-              label: 'Akurasi Naive Bayes (%)',
-              data: comparisonList.map(c => c.accuracy),
-              backgroundColor: '#0078d4',
-              borderRadius: 4
-            }]
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: { legend: { display: false } },
-            scales: {
-              x: { grid: { display: false } },
-              y: { min: 50, max: 100, grid: { color: '#f1f5f9' } }
-            }
-          }
-        });
-      }
-
-      const ctxNSS = document.getElementById('chartCompareNSS');
-      if (ctxNSS) {
-        if (CHART_COMP_NSS) CHART_COMP_NSS.destroy();
-        CHART_COMP_NSS = new Chart(ctxNSS, {
-          type: 'bar',
-          data: {
-            labels,
-            datasets: [{
-              label: 'Net Sentiment Score (NSS)',
-              data: comparisonList.map(c => c.netSentimentScore),
-              backgroundColor: comparisonList.map(c => c.netSentimentScore >= 0 ? '#107c41' : '#a80000'),
-              borderRadius: 4
-            }]
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: { legend: { display: false } },
-            scales: {
-              x: { grid: { display: false } },
-              y: { grid: { color: '#f1f5f9' } }
-            }
-          }
-        });
-      }
-    }
-
-    // RENDER ANOMALY CENTER
-    function renderAnomalyCenterView() {
-      if (!CURRENT_REVIEWS) return;
-
-      const anomalies = CURRENT_REVIEWS.filter(r => r.isAnomaly);
-      const typeA = anomalies.filter(r => r.score >= 4 && r.mlSentiment === 'Negatif').length;
-      const typeB = anomalies.filter(r => r.score <= 2 && r.mlSentiment === 'Positif').length;
-
-      document.getElementById('anomalyCenterCount').textContent = anomalies.length.toLocaleString('id-ID');
-      document.getElementById('anomalyCenterRatio').textContent = `${((anomalies.length / CURRENT_REVIEWS.length) * 100).toFixed(1)}% dari total ulasan`;
-      document.getElementById('anomalyCenterTypeA').textContent = typeA.toLocaleString('id-ID');
-      document.getElementById('anomalyCenterTypeB').textContent = typeB.toLocaleString('id-ID');
-      document.getElementById('anomalyFeedCountBadge').textContent = `${anomalies.length} Ulasan Terdeteksi`;
-
-      const feedContainer = document.getElementById('anomalyCardsFeed');
-      if (anomalies.length === 0) {
-        feedContainer.innerHTML = `
-          <div class="col-12 text-center py-4 text-muted">
-            <i class="fa-solid fa-circle-check text-success fs-2 mb-2"></i>
-            <p>Tidak ada ulasan anomali yang mencolok pada dataset ini.</p>
-          </div>
-        `;
-        return;
-      }
-
-      feedContainer.innerHTML = anomalies.slice(0, 30).map(r => `
-        <div class="col-md-6">
-          <div class="p-3 rounded-3 bg-light border h-100">
-            <div class="d-flex justify-content-between align-items-center mb-2">
-              <span class="text-warning small">${'★'.repeat(r.score)}${'☆'.repeat(5 - r.score)} (${r.score} Bintang)</span>
-              <span class="${r.mlSentiment === 'Positif' ? 'badge-sentiment-pos' : 'badge-sentiment-neg'}">
-                Prediksi ML: ${r.mlSentiment}
-              </span>
-            </div>
-            <p class="text-dark small mb-2" style="line-height: 1.4;">"${escapeHtml(r.rawText)}"</p>
-            <div class="d-flex justify-content-between align-items-center pt-2 border-top small">
-              <span class="text-warning fw-semibold">${r.anomalyDesc}</span>
-              <span class="text-muted">Keyakinan: ${r.confidence}%</span>
-            </div>
-          </div>
-        </div>
-      `).join('');
-    }
-
     // APP LOOKUP & WIZARD
     function applyAppPreset(appName, appId) {
       document.getElementById('inputProjectName').value = `Analisis Sentimen ${appName}`;
@@ -1811,7 +1348,6 @@
 
             await fetchProjectsList();
             await loadProjectData(data.project.id);
-            switchTab('dashboard');
           }, 1000);
         } else {
           alert('Gagal membuat project: ' + (data.error || 'Terjadi kesalahan.'));
