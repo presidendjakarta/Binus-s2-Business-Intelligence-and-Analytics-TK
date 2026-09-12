@@ -19,18 +19,19 @@ Folder ini berisi dokumentasi akademik dan teknis komprehensif untuk penelitian 
 ## 🚀 Panduan Eksekusi Skrip Proyek
 
 ```bash
-# 1. Scraping 5.000 ulasan Play Store Mobile JKN
+# 1. Menjalankan Server Web & Live AI Dashboard (Rekomendasi Utama)
+npm start
+# -> Membuka http://localhost:3000/dashboard_llm.html & mengaktifkan Proxy AI bebas CORS
+
+# 2. Scraping 5.000 ulasan Play Store Mobile JKN
 npm run scrape
 
-# 2. Melatih Model ML (TF-IDF + Naive Bayes) & Menghitung Confusion Matrix
+# 3. Melatih Model ML (TF-IDF + Naive Bayes) & Menghitung Confusion Matrix
 npm run train
 
-# 3. Menjalankan Pipeline Analisis LLM (Ollama Gemma 3) & Studi Komparatif
+# 4. Menjalankan Pipeline Analisis LLM (Ollama Gemma 3) & Studi Komparatif
 npm run llm
 
-# 4. Membuka Dashboard Analitik Machine Learning Klasik (5.000 Ulasan)
+# 5. Membuka Dashboard Analitik Machine Learning Klasik (5.000 Ulasan)
 npm run dashboard
-
-# 5. Membuka Dashboard Generative AI & LLM Gemma 3 Intelligence Hub (5.000 Ulasan)
-npm run dashboard:llm
 ```

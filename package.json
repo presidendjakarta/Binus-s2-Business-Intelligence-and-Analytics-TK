@@ -5,6 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "start": "node server.js",
+    "server": "node server.js",
     "scrape": "node scrape_jkn.js",
     "train": "node train_ml_model.js",
     "llm": "node llm_sentiment_pipeline.js",

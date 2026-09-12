@@ -28,23 +28,24 @@ npm install
 
 ## 🚀 Perintah Utama (Main Workflow)
 
-Tersedia 5 perintah utama untuk menjalankan seluruh pipeline:
+Tersedia perintah utama untuk menjalankan seluruh pipeline:
 
 ```bash
-# 1. Scraping 5.000 Ulasan Terbaru Mobile JKN dari Google Play Store
+# 1. Menjalankan Server Web & Live AI Dashboard (Rekomendasi Utama)
+npm start
+# -> Otomatis membuka http://localhost:3000/dashboard_llm.html dan mengaktifkan Proxy AI bebas CORS!
+
+# 2. Scraping 5.000 Ulasan Terbaru Mobile JKN dari Google Play Store
 npm run scrape
 
-# 2. Melatih Model ML (TF-IDF + Naive Bayes), Evaluasi Confusion Matrix & Prediksi
+# 3. Melatih Model ML (TF-IDF + Naive Bayes), Evaluasi Confusion Matrix & Prediksi
 npm run train
 
-# 3. Menjalankan Pipeline Analisis LLM (Ollama Gemma 3) & Studi Komparatif
+# 4. Menjalankan Pipeline Analisis LLM (Ollama Gemma 3) & Studi Komparatif
 npm run llm
 
-# 4. Membuka Dashboard Machine Learning (5.000 Data Ulasan)
+# 5. Membuka Dashboard Machine Learning (5.000 Data Ulasan)
 npm run dashboard
-
-# 5. Membuka Dashboard Generative AI & LLM Gemma 3 Intelligence Hub
-npm run dashboard:llm
 ```
 
 ---

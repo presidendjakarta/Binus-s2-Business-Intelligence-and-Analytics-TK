@@ -804,7 +804,11 @@ Rating: ${score}
 Ulasan: "${text}"
 Jawab HANYA JSON: {"sentiment": "Positif" atau "Negatif", "category": "Masalah Teknis & Bug" | "Layanan Faskes & Antrean" | "Fitur & UI/UX" | "Administrasi & Iuran" | "Apresiasi & Kepuasan", "reason": "alasan singkat", "confidence": 0.90}`;
 
-          const res = await fetch('http://localhost:11434/api/generate', {
+          // Tentukan Endpoint: Gunakan proxy server /api/generate jika tersedia, atau langsung ke 11434
+          const isHttp = window.location.protocol.startsWith('http');
+          const endpoint = isHttp ? '/api/generate' : 'http://localhost:11434/api/generate';
+
+          const res = await fetch(endpoint, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ model: 'gemma3:latest', prompt, stream: false, format: 'json' })
