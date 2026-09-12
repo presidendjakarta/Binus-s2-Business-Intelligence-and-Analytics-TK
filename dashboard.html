@@ -73,20 +73,6 @@
       font-size: 1.25rem;
     }
 
-    .bi-nav-pill {
-      font-weight: 600;
-      font-size: 0.825rem;
-      border-radius: 6px;
-      padding: 6px 14px;
-      color: var(--bi-text-muted);
-      transition: all 0.2s ease;
-    }
-
-    .bi-nav-pill.active, .bi-nav-pill:hover {
-      background-color: #e0f2fe;
-      color: var(--bi-primary-dark);
-    }
-
     /* SCORECARD CARDS */
     .bi-scorecard {
       background: var(--bi-card-bg);
@@ -186,6 +172,7 @@
       margin: 0 auto;
       text-align: center;
       font-size: 0.85rem;
+      width: 100%;
     }
 
     .table-cm th, .table-cm td {
@@ -253,7 +240,7 @@
       font-size: 0.75rem;
     }
 
-    .badge-anomaly {
+    .badge-anomaly-high {
       background: #fff1f2;
       color: #be123c;
       border: 1px solid #fecdd3;
@@ -261,6 +248,18 @@
       font-size: 0.7rem;
       padding: 3px 6px;
       border-radius: 4px;
+      display: inline-block;
+    }
+
+    .badge-anomaly-low {
+      background: #fffbeb;
+      color: #b45309;
+      border: 1px solid #fde68a;
+      font-weight: 700;
+      font-size: 0.7rem;
+      padding: 3px 6px;
+      border-radius: 4px;
+      display: inline-block;
     }
 
     /* DATATABLE OVERRIDES */
@@ -301,14 +300,14 @@
       width: 100%;
     }
 
-    /* FILTER BUTTONS */
+    /* FILTER BUTTONS & DROPDOWNS */
     .bi-filter-btn {
       border: 1px solid var(--bi-border);
       background: #ffffff;
       color: var(--bi-text-muted);
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 600;
-      padding: 6px 14px;
+      padding: 5px 12px;
       border-radius: 6px;
       transition: all 0.2s;
     }
@@ -323,6 +322,18 @@
       background: #e11d48;
       color: #ffffff;
       border-color: #e11d48;
+    }
+
+    .bi-filter-btn.btn-success-filter.active, .bi-filter-btn.btn-success-filter:hover {
+      background: #107c41;
+      color: #ffffff;
+      border-color: #107c41;
+    }
+
+    .bi-filter-btn.btn-danger-filter.active, .bi-filter-btn.btn-danger-filter:hover {
+      background: #b91c1c;
+      color: #ffffff;
+      border-color: #b91c1c;
     }
 
     .footer {
@@ -568,19 +579,66 @@
             <i class="fa-solid fa-table text-secondary"></i>
             Eksplorasi Data Ulasan & Hasil Prediksi Machine Learning
           </h2>
-          <div class="bi-panel-subtitle">Dataset lengkap 5.000 ulasan terintegrasi dengan filter pencarian dan skor keyakinan</div>
+          <div class="bi-panel-subtitle">Dataset lengkap 5.000 ulasan terintegrasi dengan multi-filter dan skor keyakinan</div>
         </div>
-        
-        <!-- Filter Pills Button Group -->
-        <div class="d-flex flex-wrap gap-1" id="filterPills">
-          <button class="bi-filter-btn active" data-filter="all">Semua (5.000)</button>
-          <button class="bi-filter-btn" data-filter="pos">ML Positif (2.551)</button>
-          <button class="bi-filter-btn" data-filter="neg">ML Negatif (2.449)</button>
-          <button class="bi-filter-btn btn-anomaly" data-filter="anomaly">
-            <i class="fa-solid fa-triangle-exclamation me-1"></i> Anomali (234)
-          </button>
-          <button class="bi-filter-btn" data-filter="high_conf">Confidence &gt; 90%</button>
+      </div>
+
+      <!-- ENTERPRISE FILTER TOOLBAR -->
+      <div class="p-3 mb-3 rounded-3 border bg-light">
+        <div class="row g-2 align-items-center">
+          
+          <!-- Group 1: Filter Sentimen ML -->
+          <div class="col-auto">
+            <span class="text-muted fw-bold me-2" style="font-size: 0.75rem; text-transform: uppercase;">Sentimen ML:</span>
+            <div class="btn-group btn-group-sm" role="group" id="mlFilterGroup">
+              <button type="button" class="btn bi-filter-btn active" data-ml="all">Semua</button>
+              <button type="button" class="btn bi-filter-btn btn-success-filter" data-ml="Positif">Positif (2.551)</button>
+              <button type="button" class="btn bi-filter-btn btn-danger-filter" data-ml="Negatif">Negatif (2.449)</button>
+            </div>
+          </div>
+
+          <!-- Group 2: Filter Rating Bintang Play Store -->
+          <div class="col-auto ms-xl-3">
+            <span class="text-muted fw-bold me-2" style="font-size: 0.75rem; text-transform: uppercase;">Rating Bintang:</span>
+            <div class="btn-group btn-group-sm" role="group" id="starFilterGroup">
+              <button type="button" class="btn bi-filter-btn active" data-star="all">Semua Bintang</button>
+              <button type="button" class="btn bi-filter-btn" data-star="5">⭐ 5</button>
+              <button type="button" class="btn bi-filter-btn" data-star="4">⭐ 4</button>
+              <button type="button" class="btn bi-filter-btn" data-star="3">⭐ 3</button>
+              <button type="button" class="btn bi-filter-btn" data-star="2">⭐ 2</button>
+              <button type="button" class="btn bi-filter-btn" data-star="1">⭐ 1</button>
+            </div>
+          </div>
+
+          <!-- Group 3: Filter Anomali Khusus -->
+          <div class="col-auto ms-xl-3">
+            <div class="btn-group btn-group-sm" role="group" id="anomalyFilterGroup">
+              <button type="button" class="btn bi-filter-btn btn-anomaly" data-anomaly="anomaly_only">
+                <i class="fa-solid fa-triangle-exclamation me-1"></i> Hanya Ulasan Anomali (234)
+              </button>
+              <button type="button" class="btn bi-filter-btn" data-anomaly="high_conf">
+                <i class="fa-solid fa-bolt me-1"></i> Confidence &gt; 90%
+              </button>
+            </div>
+          </div>
+
+          <!-- Reset Filter Button -->
+          <div class="col-auto ms-auto">
+            <button type="button" class="btn btn-outline-secondary btn-sm" id="btnResetFilters" style="font-size: 0.75rem;">
+              <i class="fa-solid fa-rotate-left me-1"></i> Reset Filter
+            </button>
+          </div>
+
         </div>
+      </div>
+
+      <!-- Anomaly Explanation Callout (Dynamic Info) -->
+      <div class="alert alert-warning alert-dismissible fade show d-flex align-items-center gap-2 py-2 px-3 mb-3 border-warning-subtle" role="alert" style="font-size: 0.78rem;">
+        <i class="fa-solid fa-lightbulb text-warning fs-6"></i>
+        <div>
+          <strong>Info Analisis Anomali:</strong> Jika Anda memfilter <strong>"ML Negatif"</strong> lalu mengurutkan rating tertinggi (⭐5), ulasan bintang 5 yang muncul adalah <strong>Ulasan Anomali Taktik</strong> (pengguna sengaja memberi bintang 5 padahal isinya keluhan keras agar dibaca developer).
+        </div>
+        <button type="button" class="btn-close btn-close-sm ms-auto" data-bs-dismiss="alert" aria-label="Close" style="padding: 0.75rem;"></button>
       </div>
 
       <!-- Data Table -->
@@ -590,12 +648,12 @@
             <tr>
               <th style="width: 50px;">No</th>
               <th style="width: 150px;">Pengguna</th>
-              <th style="width: 85px;">Rating (⭐)</th>
+              <th style="width: 90px;">Rating (⭐)</th>
               <th style="width: 120px;">Ground Truth</th>
               <th style="width: 140px;">Prediksi ML</th>
               <th style="width: 100px;">Tanggal</th>
               <th>Isi Ulasan Pengguna</th>
-              <th style="width: 130px;">Status Evaluasi</th>
+              <th style="width: 150px;">Status Evaluasi</th>
             </tr>
           </thead>
           <tbody>
@@ -640,7 +698,41 @@
       // 1. Inisialisasi Charts BI
       initCharts(reviews);
 
-      // 2. Inisialisasi jQuery DataTable
+      // State Filter Multi-Kriteria
+      let filterState = {
+        ml: 'all',          // 'all', 'Positif', 'Negatif'
+        star: 'all',        // 'all', 1, 2, 3, 4, 5
+        anomaly: 'all'      // 'all', 'anomaly_only', 'high_conf'
+      };
+
+      // 2. Custom DataTables Search Function (Safe with Row Data Object)
+      $.fn.dataTable.ext.search.push(function(settings, searchData, dataIndex, rowData) {
+        // Ambil objek data baris yang sebenarnya
+        const item = rowData || (settings.aoData[dataIndex] ? settings.aoData[dataIndex]._aData : null);
+        if (!item) return true;
+
+        // 1. Filter Sentimen ML
+        if (filterState.ml !== 'all' && item.mlSentiment !== filterState.ml) {
+          return false;
+        }
+
+        // 2. Filter Rating Bintang Play Store
+        if (filterState.star !== 'all' && item.score !== parseInt(filterState.star)) {
+          return false;
+        }
+
+        // 3. Filter Anomali / Confidence
+        if (filterState.anomaly === 'anomaly_only' && !item.isAnomaly) {
+          return false;
+        }
+        if (filterState.anomaly === 'high_conf' && item.confidence < 90) {
+          return false;
+        }
+
+        return true;
+      });
+
+      // 3. Inisialisasi jQuery DataTable
       const table = $('#reviewsTable').DataTable({
         data: reviews,
         responsive: true,
@@ -696,7 +788,11 @@
             data: null,
             render: function(d) {
               if (d.isAnomaly) {
-                return `<span class="badge-anomaly"><i class="fa-solid fa-triangle-exclamation me-1"></i> Anomali Bintang</span>`;
+                if (d.score >= 4) {
+                  return `<span class="badge-anomaly-high"><i class="fa-solid fa-triangle-exclamation me-1"></i> Bintang 5 Komplain</span>`;
+                } else {
+                  return `<span class="badge-anomaly-low"><i class="fa-solid fa-lightbulb me-1"></i> Bintang 1 Pujian</span>`;
+                }
               }
               return `<span class="text-success fw-semibold" style="font-size: 11px;"><i class="fa-solid fa-check me-1"></i> Sesuai</span>`;
             }
@@ -705,9 +801,9 @@
         language: {
           search: "_INPUT_",
           searchPlaceholder: "🔍 Cari ulasan (misal: rujukan, jadwal penuh, login, otp)...",
-          lengthMenu: "Tampilkan _MENU_ data per halaman",
+          lengthMenu: "Tampilkan _MENU_ data",
           info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ total ulasan",
-          infoEmpty: "Tidak ada ulasan yang cocok",
+          infoEmpty: "Tidak ada ulasan yang cocok dengan filter",
           infoFiltered: "(disaring dari _MAX_ total ulasan)",
           paginate: {
             first: "Awal",
@@ -718,29 +814,46 @@
         }
       });
 
-      // 3. Custom Filter Buttons Logic
-      $('#filterPills button').on('click', function() {
-        $('#filterPills button').removeClass('active');
+      // 4. Event Handlers Filter Buttons
+      // A. Filter Sentimen ML
+      $('#mlFilterGroup button').on('click', function() {
+        $('#mlFilterGroup button').removeClass('active');
         $(this).addClass('active');
-
-        const filterType = $(this).data('filter');
-        
-        $.fn.dataTable.ext.search.pop(); // Clear previous search
-
-        if (filterType === 'pos') {
-          $.fn.dataTable.ext.search.push((settings, data, dataIndex) => reviews[dataIndex].mlSentiment === 'Positif');
-        } else if (filterType === 'neg') {
-          $.fn.dataTable.ext.search.push((settings, data, dataIndex) => reviews[dataIndex].mlSentiment === 'Negatif');
-        } else if (filterType === 'anomaly') {
-          $.fn.dataTable.ext.search.push((settings, data, dataIndex) => reviews[dataIndex].isAnomaly === true);
-        } else if (filterType === 'high_conf') {
-          $.fn.dataTable.ext.search.push((settings, data, dataIndex) => reviews[dataIndex].confidence >= 90);
-        }
-
+        filterState.ml = $(this).data('ml');
         table.draw();
       });
 
-      // 4. Export CSV Button
+      // B. Filter Rating Bintang
+      $('#starFilterGroup button').on('click', function() {
+        $('#starFilterGroup button').removeClass('active');
+        $(this).addClass('active');
+        filterState.star = $(this).data('star');
+        table.draw();
+      });
+
+      // C. Filter Anomali
+      $('#anomalyFilterGroup button').on('click', function() {
+        if ($(this).hasClass('active')) {
+          $(this).removeClass('active');
+          filterState.anomaly = 'all';
+        } else {
+          $('#anomalyFilterGroup button').removeClass('active');
+          $(this).addClass('active');
+          filterState.anomaly = $(this).data('anomaly');
+        }
+        table.draw();
+      });
+
+      // D. Reset All Filters
+      $('#btnResetFilters').on('click', function() {
+        filterState = { ml: 'all', star: 'all', anomaly: 'all' };
+        $('#mlFilterGroup button').removeClass('active').first().addClass('active');
+        $('#starFilterGroup button').removeClass('active').first().addClass('active');
+        $('#anomalyFilterGroup button').removeClass('active');
+        table.search('').draw();
+      });
+
+      // 5. Export CSV Button
       $('#btnExportTableCSV').on('click', function() {
         let csvContent = "data:text/csv;charset=utf-8,No,Pengguna,Rating,Ground Truth,Prediksi ML,Confidence (%),Tanggal,Isi Ulasan,Status Anomali\n";
         reviews.forEach((r, idx) => {
