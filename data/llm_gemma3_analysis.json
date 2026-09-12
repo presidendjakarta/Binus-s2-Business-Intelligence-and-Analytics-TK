@@ -40,8 +40,8 @@
     "anomalyDesc": "Sesuai",
     "version": "",
     "llmSentiment": "Negatif",
-    "llmCategory": "Masalah Teknis & Bug",
-    "llmReason": "Pengguna mengalami gangguan teknis atau bug sistem yang menghambat pengoperasian aplikasi.",
+    "llmCategory": "Administrasi & Iuran",
+    "llmReason": "Pengguna mengeluhkan sinkronisasi tagihan premi, kendala pembayaran autodebet, atau mutasi status kepesertaan.",
     "llmConfidence": 92,
     "modelDisagreement": false
   },
@@ -64,7 +64,7 @@
     "version": "4.18.0",
     "llmSentiment": "Negatif",
     "llmCategory": "Fitur & UI/UX",
-    "llmReason": "Pengguna mengeluhkan alur pendaftaran dan navigasi antarmuka aplikasi yang dirasakan rumit/tidak ramah pengguna.",
+    "llmReason": "Pengguna mengeluhkan kesulitan dalam proses pendaftaran dan antarmuka fitur aplikasi yang dirasa belum ada perbaikan.",
     "llmConfidence": 92,
     "modelDisagreement": false
   },
@@ -87,7 +87,7 @@
     "version": "4.18.0",
     "llmSentiment": "Negatif",
     "llmCategory": "Fitur & UI/UX",
-    "llmReason": "Pengguna mengeluhkan alur pendaftaran dan navigasi antarmuka aplikasi yang dirasakan rumit/tidak ramah pengguna.",
+    "llmReason": "Pengguna mengeluhkan kesulitan dalam proses pendaftaran dan antarmuka fitur aplikasi yang dirasa belum ada perbaikan.",
     "llmConfidence": 92,
     "modelDisagreement": false
   },
@@ -132,8 +132,8 @@
     "anomalyDesc": "Sesuai",
     "version": "",
     "llmSentiment": "Negatif",
-    "llmCategory": "Layanan Faskes & Antrean",
-    "llmReason": "Pengguna menyampaikan keluhan terkait sistem antrean online dan jadwal pelayanan di fasilitas kesehatan.",
+    "llmCategory": "Fitur & UI/UX",
+    "llmReason": "Pengguna mengeluhkan kesulitan dalam proses pendaftaran dan antarmuka fitur aplikasi yang dirasa belum ada perbaikan.",
     "llmConfidence": 92,
     "modelDisagreement": false
   },
@@ -177,11 +177,11 @@
     "isAnomaly": false,
     "anomalyDesc": "Sesuai",
     "version": "4.18.0",
-    "llmSentiment": "Positif",
-    "llmCategory": "Apresiasi & Kepuasan",
-    "llmReason": "Ulasan mengekspresikan kepuasan umum pengguna terhadap performa dan fungsionalitas aplikasi Mobile JKN.",
-    "llmConfidence": 95,
-    "modelDisagreement": true
+    "llmSentiment": "Negatif",
+    "llmCategory": "Fitur & UI/UX",
+    "llmReason": "Pengguna mengeluhkan kesulitan dalam proses pendaftaran dan antarmuka fitur aplikasi yang dirasa belum ada perbaikan.",
+    "llmConfidence": 92,
+    "modelDisagreement": false
   },
   {
     "no": 9,
@@ -223,11 +223,11 @@
     "isAnomaly": true,
     "anomalyDesc": "🚨 Bintang 4-5 tapi Prediksi ML Negatif (Taktik Komplain)",
     "version": "",
-    "llmSentiment": "Positif",
-    "llmCategory": "Apresiasi & Kepuasan",
-    "llmReason": "Pengguna mengapresiasi kemudahan antrean online dan efisiensi waktu layanan faskes BPJS.",
+    "llmSentiment": "Negatif",
+    "llmCategory": "Layanan Faskes & Antrean",
+    "llmReason": "Taktik rating bintang 5: Pengguna memberi rating tinggi namun isi ulasan memuat keluhan nyata terkait layanan faskes & antrean ('kenapa ya kok punya ku tidak bisa ambil antri...'), LLM mendeteksi sentimen negatif tersirat.",
     "llmConfidence": 95,
-    "modelDisagreement": true
+    "modelDisagreement": false
   },
   {
     "no": 11,
@@ -339,8 +339,8 @@
     "anomalyDesc": "Sesuai",
     "version": "4.18.0",
     "llmSentiment": "Negatif",
-    "llmCategory": "Layanan Faskes & Antrean",
-    "llmReason": "Pengguna menyampaikan keluhan terkait sistem antrean online dan jadwal pelayanan di fasilitas kesehatan.",
+    "llmCategory": "Fitur & UI/UX",
+    "llmReason": "Pengguna mengeluhkan kesulitan dalam proses pendaftaran dan antarmuka fitur aplikasi yang dirasa belum ada perbaikan.",
     "llmConfidence": 92,
     "modelDisagreement": false
   },
@@ -431,8 +431,8 @@
     "anomalyDesc": "Sesuai",
     "version": "4.18.0",
     "llmSentiment": "Negatif",
-    "llmCategory": "Masalah Teknis & Bug",
-    "llmReason": "Pengguna mengalami gangguan teknis atau bug sistem yang menghambat pengoperasian aplikasi.",
+    "llmCategory": "Fitur & UI/UX",
+    "llmReason": "Pengguna kesulitan dalam verifikasi biometrik pengenalan wajah atau unggah dokumen identitas.",
     "llmConfidence": 92,
     "modelDisagreement": false
   },
@@ -501,7 +501,7 @@
     "version": "4.18.0",
     "llmSentiment": "Negatif",
     "llmCategory": "Masalah Teknis & Bug",
-    "llmReason": "Pengguna mengekspresikan kekecewaan umum terhadap kinerja dan kualitas layanan aplikasi Mobile JKN.",
+    "llmReason": "Pengguna mengekspresikan kekecewaan terhadap kinerja dan kualitas layanan aplikasi Mobile JKN.",
     "llmConfidence": 92,
     "modelDisagreement": false
   },
@@ -524,7 +524,7 @@
     "version": "4.16.0",
     "llmSentiment": "Negatif",
     "llmCategory": "Masalah Teknis & Bug",
-    "llmReason": "Pengguna mengekspresikan kekecewaan umum terhadap kinerja dan kualitas layanan aplikasi Mobile JKN.",
+    "llmReason": "Pengguna mengekspresikan kekecewaan terhadap kinerja dan kualitas layanan aplikasi Mobile JKN.",
     "llmConfidence": 92,
     "modelDisagreement": true
   },
@@ -545,11 +545,11 @@
     "isAnomaly": true,
     "anomalyDesc": "🚨 Bintang 4-5 tapi Prediksi ML Negatif (Taktik Komplain)",
     "version": "4.18.0",
-    "llmSentiment": "Positif",
-    "llmCategory": "Apresiasi & Kepuasan",
-    "llmReason": "Pengguna mengapresiasi kemudahan antrean online dan efisiensi waktu layanan faskes BPJS.",
+    "llmSentiment": "Negatif",
+    "llmCategory": "Layanan Faskes & Antrean",
+    "llmReason": "Taktik rating bintang 4: Pengguna memberi rating tinggi namun isi ulasan memuat keluhan nyata terkait layanan faskes & antrean ('aplikasi tdk bisa digunakan untuk ambil antri...'), LLM mendeteksi sentimen negatif tersirat.",
     "llmConfidence": 95,
-    "modelDisagreement": true
+    "modelDisagreement": false
   },
   {
     "no": 25,
@@ -569,8 +569,8 @@
     "anomalyDesc": "Sesuai",
     "version": "",
     "llmSentiment": "Negatif",
-    "llmCategory": "Masalah Teknis & Bug",
-    "llmReason": "Pengguna mengalami kendala autentikasi akun, aplikasi sering force close, atau ter-logout otomatis.",
+    "llmCategory": "Fitur & UI/UX",
+    "llmReason": "Pengguna mengeluhkan kesulitan dalam proses pendaftaran dan antarmuka fitur aplikasi yang dirasa belum ada perbaikan.",
     "llmConfidence": 92,
     "modelDisagreement": false
   },
@@ -661,8 +661,8 @@
     "anomalyDesc": "Sesuai",
     "version": "4.18.0",
     "llmSentiment": "Negatif",
-    "llmCategory": "Masalah Teknis & Bug",
-    "llmReason": "Pengguna mengalami gangguan teknis atau bug sistem yang menghambat pengoperasian aplikasi.",
+    "llmCategory": "Fitur & UI/UX",
+    "llmReason": "Pengguna mengeluhkan kesulitan dalam proses pendaftaran dan antarmuka fitur aplikasi yang dirasa belum ada perbaikan.",
     "llmConfidence": 92,
     "modelDisagreement": false
   },
@@ -684,8 +684,8 @@
     "anomalyDesc": "Sesuai",
     "version": "4.18.0",
     "llmSentiment": "Negatif",
-    "llmCategory": "Masalah Teknis & Bug",
-    "llmReason": "Pengguna mengeluhkan kegagalan penerimaan kode verifikasi OTP via SMS saat proses masuk/daftar.",
+    "llmCategory": "Fitur & UI/UX",
+    "llmReason": "Pengguna kesulitan dalam verifikasi biometrik pengenalan wajah atau unggah dokumen identitas.",
     "llmConfidence": 92,
     "modelDisagreement": false
   },
@@ -731,7 +731,7 @@
     "version": "4.18.0",
     "llmSentiment": "Negatif",
     "llmCategory": "Masalah Teknis & Bug",
-    "llmReason": "Pengguna mengekspresikan kekecewaan umum terhadap kinerja dan kualitas layanan aplikasi Mobile JKN.",
+    "llmReason": "Pengguna mengekspresikan kekecewaan terhadap kinerja dan kualitas layanan aplikasi Mobile JKN.",
     "llmConfidence": 92,
     "modelDisagreement": false
   },
@@ -753,8 +753,8 @@
     "anomalyDesc": "Sesuai",
     "version": "",
     "llmSentiment": "Negatif",
-    "llmCategory": "Masalah Teknis & Bug",
-    "llmReason": "Pengguna mengeluhkan kegagalan penerimaan kode verifikasi OTP via SMS saat proses masuk/daftar.",
+    "llmCategory": "Fitur & UI/UX",
+    "llmReason": "Pengguna mengeluhkan kesulitan dalam proses pendaftaran dan antarmuka fitur aplikasi yang dirasa belum ada perbaikan.",
     "llmConfidence": 92,
     "modelDisagreement": false
   },
@@ -775,11 +775,11 @@
     "isAnomaly": true,
     "anomalyDesc": "🚨 Bintang 4-5 tapi Prediksi ML Negatif (Taktik Komplain)",
     "version": "4.8.1",
-    "llmSentiment": "Positif",
-    "llmCategory": "Apresiasi & Kepuasan",
-    "llmReason": "Ulasan mengekspresikan kepuasan umum pengguna terhadap performa dan fungsionalitas aplikasi Mobile JKN.",
+    "llmSentiment": "Negatif",
+    "llmCategory": "Fitur & UI/UX",
+    "llmReason": "Taktik rating bintang 5: Pengguna memberi rating tinggi namun isi ulasan memuat keluhan nyata terkait fitur & ui/ux ('sekarang mau ngapa\"in jadi ribet...'), LLM mendeteksi sentimen negatif tersirat.",
     "llmConfidence": 95,
-    "modelDisagreement": true
+    "modelDisagreement": false
   },
   {
     "no": 35,
@@ -822,8 +822,8 @@
     "anomalyDesc": "Sesuai",
     "version": "4.18.0",
     "llmSentiment": "Negatif",
-    "llmCategory": "Masalah Teknis & Bug",
-    "llmReason": "Pengguna mengalami gangguan teknis atau bug sistem yang menghambat pengoperasian aplikasi.",
+    "llmCategory": "Layanan Faskes & Antrean",
+    "llmReason": "Pengguna menyampaikan keluhan terkait sistem antrean online dan jadwal pelayanan di fasilitas kesehatan.",
     "llmConfidence": 92,
     "modelDisagreement": false
   },
@@ -892,7 +892,7 @@
     "version": "",
     "llmSentiment": "Negatif",
     "llmCategory": "Masalah Teknis & Bug",
-    "llmReason": "Pengguna mengekspresikan kekecewaan umum terhadap kinerja dan kualitas layanan aplikasi Mobile JKN.",
+    "llmReason": "Pengguna mengekspresikan kekecewaan terhadap kinerja dan kualitas layanan aplikasi Mobile JKN.",
     "llmConfidence": 92,
     "modelDisagreement": true
   },
@@ -914,8 +914,8 @@
     "anomalyDesc": "💡 Bintang 1-2 tapi Prediksi ML Positif (Pujian / Salah Klik)",
     "version": "4.18.0",
     "llmSentiment": "Negatif",
-    "llmCategory": "Masalah Teknis & Bug",
-    "llmReason": "Pengguna mengeluhkan kegagalan penerimaan kode verifikasi OTP via SMS saat proses masuk/daftar.",
+    "llmCategory": "Fitur & UI/UX",
+    "llmReason": "Pengguna mengeluhkan alur navigasi dan desain antarmuka aplikasi yang dirasakan rumit/tidak ramah pengguna.",
     "llmConfidence": 92,
     "modelDisagreement": true
   },
@@ -938,7 +938,7 @@
     "version": "4.18.0",
     "llmSentiment": "Negatif",
     "llmCategory": "Fitur & UI/UX",
-    "llmReason": "Pengguna mengeluhkan alur pendaftaran dan navigasi antarmuka aplikasi yang dirasakan rumit/tidak ramah pengguna.",
+    "llmReason": "Pengguna mengeluhkan kesulitan dalam proses pendaftaran dan antarmuka fitur aplikasi yang dirasa belum ada perbaikan.",
     "llmConfidence": 92,
     "modelDisagreement": false
   },
@@ -983,8 +983,8 @@
     "anomalyDesc": "Sesuai",
     "version": "",
     "llmSentiment": "Negatif",
-    "llmCategory": "Masalah Teknis & Bug",
-    "llmReason": "Pengguna mengalami gangguan teknis atau bug sistem yang menghambat pengoperasian aplikasi.",
+    "llmCategory": "Fitur & UI/UX",
+    "llmReason": "Pengguna mengeluhkan kesulitan dalam proses pendaftaran dan antarmuka fitur aplikasi yang dirasa belum ada perbaikan.",
     "llmConfidence": 92,
     "modelDisagreement": false
   },
@@ -1076,7 +1076,7 @@
     "version": "4.18.0",
     "llmSentiment": "Negatif",
     "llmCategory": "Masalah Teknis & Bug",
-    "llmReason": "Pengguna mengekspresikan kekecewaan umum terhadap kinerja dan kualitas layanan aplikasi Mobile JKN.",
+    "llmReason": "Pengguna mengekspresikan kekecewaan terhadap kinerja dan kualitas layanan aplikasi Mobile JKN.",
     "llmConfidence": 92,
     "modelDisagreement": false
   },
@@ -1190,8 +1190,8 @@
     "anomalyDesc": "Sesuai",
     "version": "4.18.0",
     "llmSentiment": "Negatif",
-    "llmCategory": "Masalah Teknis & Bug",
-    "llmReason": "Pengguna mengalami kendala autentikasi akun, aplikasi sering force close, atau ter-logout otomatis.",
+    "llmCategory": "Fitur & UI/UX",
+    "llmReason": "Pengguna mengeluhkan alur navigasi dan desain antarmuka aplikasi yang dirasakan rumit/tidak ramah pengguna.",
     "llmConfidence": 92,
     "modelDisagreement": false
   },
@@ -1213,8 +1213,8 @@
     "anomalyDesc": "Sesuai",
     "version": "",
     "llmSentiment": "Negatif",
-    "llmCategory": "Layanan Faskes & Antrean",
-    "llmReason": "Pengguna menyampaikan keluhan terkait sistem antrean online dan jadwal pelayanan di fasilitas kesehatan.",
+    "llmCategory": "Fitur & UI/UX",
+    "llmReason": "Pengguna mengeluhkan kesulitan dalam proses pendaftaran dan antarmuka fitur aplikasi yang dirasa belum ada perbaikan.",
     "llmConfidence": 92,
     "modelDisagreement": false
   },
@@ -1306,7 +1306,7 @@
     "version": "",
     "llmSentiment": "Negatif",
     "llmCategory": "Masalah Teknis & Bug",
-    "llmReason": "Pengguna mengekspresikan kekecewaan umum terhadap kinerja dan kualitas layanan aplikasi Mobile JKN.",
+    "llmReason": "Pengguna mengekspresikan kekecewaan terhadap kinerja dan kualitas layanan aplikasi Mobile JKN.",
     "llmConfidence": 92,
     "modelDisagreement": false
   },
@@ -1351,8 +1351,8 @@
     "anomalyDesc": "Sesuai",
     "version": "",
     "llmSentiment": "Negatif",
-    "llmCategory": "Masalah Teknis & Bug",
-    "llmReason": "Pengguna mengeluhkan kegagalan penerimaan kode verifikasi OTP via SMS saat proses masuk/daftar.",
+    "llmCategory": "Fitur & UI/UX",
+    "llmReason": "Pengguna mengeluhkan kesulitan dalam proses pendaftaran dan antarmuka fitur aplikasi yang dirasa belum ada perbaikan.",
     "llmConfidence": 92,
     "modelDisagreement": false
   },
@@ -1421,7 +1421,7 @@
     "version": "",
     "llmSentiment": "Negatif",
     "llmCategory": "Masalah Teknis & Bug",
-    "llmReason": "Pengguna mengalami gangguan teknis atau bug sistem yang menghambat pengoperasian aplikasi.",
+    "llmReason": "Pengguna mengekspresikan kekecewaan terhadap kinerja dan kualitas layanan aplikasi Mobile JKN.",
     "llmConfidence": 92,
     "modelDisagreement": false
   },
@@ -1444,7 +1444,7 @@
     "version": "4.18.0",
     "llmSentiment": "Negatif",
     "llmCategory": "Masalah Teknis & Bug",
-    "llmReason": "Pengguna mengekspresikan kekecewaan umum terhadap kinerja dan kualitas layanan aplikasi Mobile JKN.",
+    "llmReason": "Pengguna mengekspresikan kekecewaan terhadap kinerja dan kualitas layanan aplikasi Mobile JKN.",
     "llmConfidence": 92,
     "modelDisagreement": false
   },
@@ -1466,8 +1466,8 @@
     "anomalyDesc": "Sesuai",
     "version": "4.18.0",
     "llmSentiment": "Negatif",
-    "llmCategory": "Masalah Teknis & Bug",
-    "llmReason": "Pengguna mengeluhkan kegagalan penerimaan kode verifikasi OTP via SMS saat proses masuk/daftar.",
+    "llmCategory": "Fitur & UI/UX",
+    "llmReason": "Pengguna mengeluhkan alur navigasi dan desain antarmuka aplikasi yang dirasakan rumit/tidak ramah pengguna.",
     "llmConfidence": 92,
     "modelDisagreement": false
   },
@@ -1580,11 +1580,11 @@
     "isAnomaly": false,
     "anomalyDesc": "Sesuai",
     "version": "4.18.0",
-    "llmSentiment": "Positif",
-    "llmCategory": "Apresiasi & Kepuasan",
-    "llmReason": "Pengguna merasa aplikasi sangat praktis, cepat, dan memudahkan pengurusan administrasi kesehatan.",
+    "llmSentiment": "Negatif",
+    "llmCategory": "Fitur & UI/UX",
+    "llmReason": "Taktik rating bintang 5: Pengguna memberi rating tinggi namun isi ulasan memuat keluhan nyata terkait fitur & ui/ux ('mudah dan gampang g pake ribet...'), LLM mendeteksi sentimen negatif tersirat.",
     "llmConfidence": 95,
-    "modelDisagreement": false
+    "modelDisagreement": true
   },
   {
     "no": 70,
@@ -1674,7 +1674,7 @@
     "version": "",
     "llmSentiment": "Negatif",
     "llmCategory": "Fitur & UI/UX",
-    "llmReason": "Pengguna mengeluhkan alur pendaftaran dan navigasi antarmuka aplikasi yang dirasakan rumit/tidak ramah pengguna.",
+    "llmReason": "Pengguna mengeluhkan alur navigasi dan desain antarmuka aplikasi yang dirasakan rumit/tidak ramah pengguna.",
     "llmConfidence": 92,
     "modelDisagreement": false
   },
@@ -1697,7 +1697,7 @@
     "version": "4.18.0",
     "llmSentiment": "Negatif",
     "llmCategory": "Masalah Teknis & Bug",
-    "llmReason": "Pengguna mengekspresikan kekecewaan umum terhadap kinerja dan kualitas layanan aplikasi Mobile JKN.",
+    "llmReason": "Pengguna mengekspresikan kekecewaan terhadap kinerja dan kualitas layanan aplikasi Mobile JKN.",
     "llmConfidence": 92,
     "modelDisagreement": false
   },
@@ -1743,7 +1743,7 @@
     "version": "4.18.0",
     "llmSentiment": "Negatif",
     "llmCategory": "Masalah Teknis & Bug",
-    "llmReason": "Pengguna mengekspresikan kekecewaan umum terhadap kinerja dan kualitas layanan aplikasi Mobile JKN.",
+    "llmReason": "Pengguna mengekspresikan kekecewaan terhadap kinerja dan kualitas layanan aplikasi Mobile JKN.",
     "llmConfidence": 92,
     "modelDisagreement": false
   },
@@ -1903,8 +1903,8 @@
     "anomalyDesc": "Sesuai",
     "version": "4.18.0",
     "llmSentiment": "Negatif",
-    "llmCategory": "Masalah Teknis & Bug",
-    "llmReason": "Pengguna mengeluhkan kegagalan penerimaan kode verifikasi OTP via SMS saat proses masuk/daftar.",
+    "llmCategory": "Fitur & UI/UX",
+    "llmReason": "Pengguna mengeluhkan alur navigasi dan desain antarmuka aplikasi yang dirasakan rumit/tidak ramah pengguna.",
     "llmConfidence": 92,
     "modelDisagreement": false
   },
@@ -1925,11 +1925,11 @@
     "isAnomaly": false,
     "anomalyDesc": "Sesuai",
     "version": "4.18.0",
-    "llmSentiment": "Positif",
-    "llmCategory": "Apresiasi & Kepuasan",
-    "llmReason": "Ulasan mengekspresikan kepuasan umum pengguna terhadap performa dan fungsionalitas aplikasi Mobile JKN.",
-    "llmConfidence": 95,
-    "modelDisagreement": false
+    "llmSentiment": "Negatif",
+    "llmCategory": "Fitur & UI/UX",
+    "llmReason": "Pengguna mengeluhkan alur navigasi dan desain antarmuka aplikasi yang dirasakan rumit/tidak ramah pengguna.",
+    "llmConfidence": 92,
+    "modelDisagreement": true
   },
   {
     "no": 85,
@@ -2088,7 +2088,7 @@
     "version": "4.18.0",
     "llmSentiment": "Negatif",
     "llmCategory": "Masalah Teknis & Bug",
-    "llmReason": "Pengguna mengekspresikan kekecewaan umum terhadap kinerja dan kualitas layanan aplikasi Mobile JKN.",
+    "llmReason": "Pengguna mengekspresikan kekecewaan terhadap kinerja dan kualitas layanan aplikasi Mobile JKN.",
     "llmConfidence": 92,
     "modelDisagreement": true
   },
@@ -2110,8 +2110,8 @@
     "anomalyDesc": "Sesuai",
     "version": "",
     "llmSentiment": "Negatif",
-    "llmCategory": "Layanan Faskes & Antrean",
-    "llmReason": "Pengguna menyampaikan keluhan terkait sistem antrean online dan jadwal pelayanan di fasilitas kesehatan.",
+    "llmCategory": "Fitur & UI/UX",
+    "llmReason": "Pengguna mengeluhkan alur navigasi dan desain antarmuka aplikasi yang dirasakan rumit/tidak ramah pengguna.",
     "llmConfidence": 92,
     "modelDisagreement": false
   },
@@ -2134,7 +2134,7 @@
     "version": "",
     "llmSentiment": "Negatif",
     "llmCategory": "Fitur & UI/UX",
-    "llmReason": "Pengguna mengeluhkan alur pendaftaran dan navigasi antarmuka aplikasi yang dirasakan rumit/tidak ramah pengguna.",
+    "llmReason": "Pengguna mengeluhkan kesulitan dalam proses pendaftaran dan antarmuka fitur aplikasi yang dirasa belum ada perbaikan.",
     "llmConfidence": 92,
     "modelDisagreement": false
   },
@@ -2271,8 +2271,8 @@
     "anomalyDesc": "Sesuai",
     "version": "4.18.0",
     "llmSentiment": "Negatif",
-    "llmCategory": "Masalah Teknis & Bug",
-    "llmReason": "Pengguna mengalami gangguan teknis atau bug sistem yang menghambat pengoperasian aplikasi.",
+    "llmCategory": "Fitur & UI/UX",
+    "llmReason": "Pengguna kesulitan dalam verifikasi biometrik pengenalan wajah atau unggah dokumen identitas.",
     "llmConfidence": 92,
     "modelDisagreement": false
   },
@@ -2295,7 +2295,7 @@
     "version": "",
     "llmSentiment": "Negatif",
     "llmCategory": "Fitur & UI/UX",
-    "llmReason": "Pengguna mengeluhkan alur pendaftaran dan navigasi antarmuka aplikasi yang dirasakan rumit/tidak ramah pengguna.",
+    "llmReason": "Pengguna mengeluhkan alur navigasi dan desain antarmuka aplikasi yang dirasakan rumit/tidak ramah pengguna.",
     "llmConfidence": 92,
     "modelDisagreement": false
   },
@@ -2364,7 +2364,7 @@
     "version": "4.18.0",
     "llmSentiment": "Negatif",
     "llmCategory": "Fitur & UI/UX",
-    "llmReason": "Pengguna mengeluhkan alur pendaftaran dan navigasi antarmuka aplikasi yang dirasakan rumit/tidak ramah pengguna.",
+    "llmReason": "Pengguna mengeluhkan alur navigasi dan desain antarmuka aplikasi yang dirasakan rumit/tidak ramah pengguna.",
     "llmConfidence": 92,
     "modelDisagreement": false
   },
@@ -2408,11 +2408,11 @@
     "isAnomaly": true,
     "anomalyDesc": "🚨 Bintang 4-5 tapi Prediksi ML Negatif (Taktik Komplain)",
     "version": "",
-    "llmSentiment": "Positif",
-    "llmCategory": "Apresiasi & Kepuasan",
-    "llmReason": "Ulasan mengekspresikan kepuasan umum pengguna terhadap performa dan fungsionalitas aplikasi Mobile JKN.",
+    "llmSentiment": "Negatif",
+    "llmCategory": "Fitur & UI/UX",
+    "llmReason": "Taktik rating bintang 4: Pengguna memberi rating tinggi namun isi ulasan memuat keluhan nyata terkait fitur & ui/ux ('knp aplikasi JKN tidak bisa di download ulang...'), LLM mendeteksi sentimen negatif tersirat.",
     "llmConfidence": 95,
-    "modelDisagreement": true
+    "modelDisagreement": false
   },
   {
     "no": 106,
@@ -2432,8 +2432,8 @@
     "anomalyDesc": "Sesuai",
     "version": "4.18.0",
     "llmSentiment": "Negatif",
-    "llmCategory": "Masalah Teknis & Bug",
-    "llmReason": "Pengguna mengeluhkan kegagalan penerimaan kode verifikasi OTP via SMS saat proses masuk/daftar.",
+    "llmCategory": "Fitur & UI/UX",
+    "llmReason": "Pengguna mengeluhkan alur navigasi dan desain antarmuka aplikasi yang dirasakan rumit/tidak ramah pengguna.",
     "llmConfidence": 92,
     "modelDisagreement": false
   },
@@ -2593,8 +2593,8 @@
     "anomalyDesc": "Sesuai",
     "version": "",
     "llmSentiment": "Negatif",
-    "llmCategory": "Masalah Teknis & Bug",
-    "llmReason": "Pengguna mengeluhkan kegagalan penerimaan kode verifikasi OTP via SMS saat proses masuk/daftar.",
+    "llmCategory": "Fitur & UI/UX",
+    "llmReason": "Pengguna mengeluhkan kesulitan dalam proses pendaftaran dan antarmuka fitur aplikasi yang dirasa belum ada perbaikan.",
     "llmConfidence": 92,
     "modelDisagreement": false
   },
@@ -2616,8 +2616,8 @@
     "anomalyDesc": "Sesuai",
     "version": "4.18.0",
     "llmSentiment": "Negatif",
-    "llmCategory": "Masalah Teknis & Bug",
-    "llmReason": "Pengguna mengalami kendala autentikasi akun, aplikasi sering force close, atau ter-logout otomatis.",
+    "llmCategory": "Fitur & UI/UX",
+    "llmReason": "Pengguna mengeluhkan alur navigasi dan desain antarmuka aplikasi yang dirasakan rumit/tidak ramah pengguna.",
     "llmConfidence": 92,
     "modelDisagreement": false
   },
@@ -2777,8 +2777,8 @@
     "anomalyDesc": "Sesuai",
     "version": "4.18.0",
     "llmSentiment": "Negatif",
-    "llmCategory": "Masalah Teknis & Bug",
-    "llmReason": "Pengguna mengalami gangguan teknis atau bug sistem yang menghambat pengoperasian aplikasi.",
+    "llmCategory": "Fitur & UI/UX",
+    "llmReason": "Pengguna mengeluhkan kesulitan dalam proses pendaftaran dan antarmuka fitur aplikasi yang dirasa belum ada perbaikan.",
     "llmConfidence": 92,
     "modelDisagreement": false
   },
@@ -2893,7 +2893,7 @@
     "version": "4.18.0",
     "llmSentiment": "Negatif",
     "llmCategory": "Masalah Teknis & Bug",
-    "llmReason": "Pengguna mengekspresikan kekecewaan umum terhadap kinerja dan kualitas layanan aplikasi Mobile JKN.",
+    "llmReason": "Pengguna mengekspresikan kekecewaan terhadap kinerja dan kualitas layanan aplikasi Mobile JKN.",
     "llmConfidence": 92,
     "modelDisagreement": false
   },
@@ -3030,8 +3030,8 @@
     "anomalyDesc": "Sesuai",
     "version": "4.18.0",
     "llmSentiment": "Negatif",
-    "llmCategory": "Masalah Teknis & Bug",
-    "llmReason": "Pengguna mengeluhkan kinerja aplikasi yang lambat/lemot, layar blank, atau gangguan responsivitas.",
+    "llmCategory": "Fitur & UI/UX",
+    "llmReason": "Pengguna mengeluhkan kesulitan dalam proses pendaftaran dan antarmuka fitur aplikasi yang dirasa belum ada perbaikan.",
     "llmConfidence": 92,
     "modelDisagreement": false
   },
@@ -3192,7 +3192,7 @@
     "version": "",
     "llmSentiment": "Negatif",
     "llmCategory": "Masalah Teknis & Bug",
-    "llmReason": "Pengguna mengekspresikan kekecewaan umum terhadap kinerja dan kualitas layanan aplikasi Mobile JKN.",
+    "llmReason": "Pengguna mengekspresikan kekecewaan terhadap kinerja dan kualitas layanan aplikasi Mobile JKN.",
     "llmConfidence": 92,
     "modelDisagreement": false
   },
@@ -3353,7 +3353,7 @@
     "version": "4.18.0",
     "llmSentiment": "Negatif",
     "llmCategory": "Fitur & UI/UX",
-    "llmReason": "Pengguna mengeluhkan alur pendaftaran dan navigasi antarmuka aplikasi yang dirasakan rumit/tidak ramah pengguna.",
+    "llmReason": "Pengguna mengeluhkan kesulitan dalam proses pendaftaran dan antarmuka fitur aplikasi yang dirasa belum ada perbaikan.",
     "llmConfidence": 92,
     "modelDisagreement": false
   },
@@ -3376,7 +3376,7 @@
     "version": "4.18.0",
     "llmSentiment": "Negatif",
     "llmCategory": "Masalah Teknis & Bug",
-    "llmReason": "Pengguna mengekspresikan kekecewaan umum terhadap kinerja dan kualitas layanan aplikasi Mobile JKN.",
+    "llmReason": "Pengguna mengekspresikan kekecewaan terhadap kinerja dan kualitas layanan aplikasi Mobile JKN.",
     "llmConfidence": 92,
     "modelDisagreement": false
   },
@@ -3421,8 +3421,8 @@
     "anomalyDesc": "Sesuai",
     "version": "4.18.0",
     "llmSentiment": "Negatif",
-    "llmCategory": "Masalah Teknis & Bug",
-    "llmReason": "Pengguna mengalami kendala autentikasi akun, aplikasi sering force close, atau ter-logout otomatis.",
+    "llmCategory": "Fitur & UI/UX",
+    "llmReason": "Pengguna mengeluhkan alur navigasi dan desain antarmuka aplikasi yang dirasakan rumit/tidak ramah pengguna.",
     "llmConfidence": 92,
     "modelDisagreement": false
   },
@@ -3444,8 +3444,8 @@
     "anomalyDesc": "Sesuai",
     "version": "4.18.0",
     "llmSentiment": "Negatif",
-    "llmCategory": "Masalah Teknis & Bug",
-    "llmReason": "Pengguna mengalami kendala autentikasi akun, aplikasi sering force close, atau ter-logout otomatis.",
+    "llmCategory": "Fitur & UI/UX",
+    "llmReason": "Pengguna mengeluhkan kesulitan dalam proses pendaftaran dan antarmuka fitur aplikasi yang dirasa belum ada perbaikan.",
     "llmConfidence": 92,
     "modelDisagreement": false
   }

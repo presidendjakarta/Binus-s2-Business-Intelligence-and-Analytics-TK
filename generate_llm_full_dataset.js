@@ -25,18 +25,20 @@ async function main() {
     // Deteksi Isu Faskes & Antrean
     const isFaskes = /faskes|rujukan|antri|antrian|antrean|dokter|poli|kuota|penuh|jadwal|puskesmas|rumah sakit|\brs\b|loket|obat|rawat|klinik|berobat/i.test(lower);
     // Deteksi Isu Teknis / Bug
-    const isBug = /eror|error|crash|force close|keluar sendiri|otp|sms|login|log in|masuk|jaringan|koneksi|loading|server|maintenance|pemeliharaan|update|versi|lemot|lelet|lambat|blank|putih|hitam|mentok|bug|macet|buka|gagal|kompatibel/i.test(lower);
+    const isBug = /eror|error|crash|force close|keluar sendiri|otp|sms|login|log in|masuk|jaringan|koneksi|loading|server|maintenance|pemeliharaan|update|versi|lemot|lelet|lambat|blank|putih|hitam|mentok|bug|macet|buka\s+gagal|kompatibel/i.test(lower);
     // Deteksi Isu Fitur & UI/UX
     const isUI = /verifikasi|wajah|muka|foto|ktp|nik|kk|daftar|dftr|registrasi|menu|tampilan|ui|ux|ribet|ruwet|sulit|susah|bingung|tombol|fitur|desain|navigasi|kartu/i.test(lower);
     // Deteksi Iuran / Administrasi
     const isIuran = /bayar|iuran|premi|tagihan|autodebet|bank|saldo|denda|tunggakan|virtual account|va|rekening|potong|pembayaran|tarif|kelas/i.test(lower);
-    // Deteksi Pujian / Kepuasan (Termasuk toleransi typo: membatu -> membantu, sip, top, oke, dll.)
-    const isPraise = /bagus|mantap|mantab|mantul|terbaik|baik|suka|sip|oke|ok\b|jos|joss|jempol|lancar|membantu|membatu|sangat membantu|memudahkan|mudah|terbantu|terima kasih|terimakasih|makasih|top|keren|puas|cepat|praktis|luar biasa|good|nice|great|the best|bermanfaat|sempurna|bintang 5|bintang lima|istimewa/i.test(lower);
-    // Deteksi Kata Negatif Keras
-    const isHardNegative = /kecewa|jelek|parah|rusak|sampah|bodoh|hancur|payah|buruk|nyesel|tolol|tai|anjing|bangsat/i.test(lower);
+    // Deteksi Pujian / Kepuasan Asli (Word Boundary agar tidak match 'perbaikan' sebagai 'baik')
+    const isPraise = /\b(bagus|mantap|mantab|mantul|terbaik|baik|suka|sip|oke|ok|jos|joss|jempol|lancar|membantu|membatu|memudahkan|mudah|terbantu|terima kasih|terimakasih|makasih|top|keren|puas|cepat|praktis|luar biasa|good|nice|great|the best|bermanfaat|sempurna|bintang 5|bintang lima|istimewa)\b/i.test(lower);
+    // Deteksi Negasi Pujian (contoh: "tidak ada perbaikan", "kurang baik", "tidak membantu", "belum bisa")
+    const isNegatedPraise = /(tidak|ga|gak|kurang|bukan|tdk|belum|tak)\s+(ada\s+)?(bagus|mantap|baik|perbaikan|membantu|puas|mudah|cepat|praktis|bisa|lancar)/i.test(lower);
+    // Deteksi Keluhan / Kata Negatif Nyata
+    const isComplaint = /susah|sulit|ribet|ruwet|gagal|kecewa|jelek|buruk|parah|payah|hancur|sampah|bodoh|lemot|lelet|lambat|eror|error|crash|force close|keluar sendiri|blank|tidak bisa|gabisa|ga bisa|ngga bisa|ndak bisa|tidak ada|belum bisa|nyesel|tolol|tai|anjing|bangsat/i.test(lower);
 
     // Deteksi Taktik Bintang 5 Komplain (Sarkasme / Ulasan Bintang Tinggi Berisi Keluhan)
-    const is5StarTactic = (score >= 4 && (isBug || isHardNegative || lower.includes('kecewa') || lower.includes('gagal') || lower.includes('susah')));
+    const is5StarTactic = (score >= 4 && (isComplaint || isBug || isNegatedPraise));
 
     let category = 'Masalah Teknis & Bug';
     let sentiment = 'Negatif';
@@ -52,7 +54,7 @@ async function main() {
       else category = 'Fitur & UI/UX';
 
       reason = `Taktik rating bintang ${score}: Pengguna memberi rating tinggi namun isi ulasan memuat keluhan nyata terkait ${category.toLowerCase()} ('${text.substring(0, 45)}...'), LLM mendeteksi sentimen negatif tersirat.`;
-    } else if (score >= 4 || (score === 3 && isPraise && !isBug && !isHardNegative)) {
+    } else if (score >= 4 && !isComplaint && !isNegatedPraise) {
       sentiment = 'Positif';
       confidence = 0.95;
       category = 'Apresiasi & Kepuasan';
@@ -68,11 +70,25 @@ async function main() {
       } else {
         reason = `Ulasan mengekspresikan kepuasan umum pengguna terhadap performa dan fungsionalitas aplikasi Mobile JKN.`;
       }
+    } else if (score === 3 && isPraise && !isComplaint && !isNegatedPraise && !isBug && !isUI && !isFaskes) {
+      sentiment = 'Positif';
+      confidence = 0.85;
+      category = 'Apresiasi & Kepuasan';
+      reason = `Pengguna memberikan penilaian positif secara moderat (rating bintang 3) terhadap fungsi aplikasi.`;
     } else {
       sentiment = 'Negatif';
       confidence = 0.92;
 
-      if (isBug) {
+      if (isUI) {
+        category = 'Fitur & UI/UX';
+        if (lower.includes('wajah') || lower.includes('muka') || lower.includes('foto')) {
+          reason = `Pengguna kesulitan dalam verifikasi biometrik pengenalan wajah atau unggah dokumen identitas.`;
+        } else if (lower.includes('daftar') || lower.includes('susah') || lower.includes('sulit')) {
+          reason = `Pengguna mengeluhkan kesulitan dalam proses pendaftaran dan antarmuka fitur aplikasi yang dirasa belum ada perbaikan.`;
+        } else {
+          reason = `Pengguna mengeluhkan alur navigasi dan desain antarmuka aplikasi yang dirasakan rumit/tidak ramah pengguna.`;
+        }
+      } else if (isBug) {
         category = 'Masalah Teknis & Bug';
         if (lower.includes('otp') || lower.includes('sms')) {
           reason = `Pengguna mengeluhkan kegagalan penerimaan kode verifikasi OTP via SMS saat proses masuk/daftar.`;
@@ -90,19 +106,12 @@ async function main() {
         } else {
           reason = `Pengguna menyampaikan keluhan terkait sistem antrean online dan jadwal pelayanan di fasilitas kesehatan.`;
         }
-      } else if (isUI) {
-        category = 'Fitur & UI/UX';
-        if (lower.includes('wajah') || lower.includes('muka') || lower.includes('foto')) {
-          reason = `Pengguna kesulitan dalam verifikasi biometrik pengenalan wajah atau unggah dokumen identitas.`;
-        } else {
-          reason = `Pengguna mengeluhkan alur pendaftaran dan navigasi antarmuka aplikasi yang dirasakan rumit/tidak ramah pengguna.`;
-        }
       } else if (isIuran) {
         category = 'Administrasi & Iuran';
         reason = `Pengguna mengeluhkan sinkronisasi tagihan premi, kendala pembayaran autodebet, atau mutasi status kepesertaan.`;
       } else {
         category = 'Masalah Teknis & Bug';
-        reason = `Pengguna mengekspresikan kekecewaan umum terhadap kinerja dan kualitas layanan aplikasi Mobile JKN.`;
+        reason = `Pengguna mengekspresikan kekecewaan terhadap kinerja dan kualitas layanan aplikasi Mobile JKN.`;
       }
     }
 
