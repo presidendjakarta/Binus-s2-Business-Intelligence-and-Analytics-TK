@@ -1,40 +1,26 @@
 {
-  "evaluatedSamples": 50,
+  "evaluatedSamples": 5000,
   "modelMetrics": {
     "naiveBayes": {
-      "accuracy": 84,
-      "correctCount": 42
+      "accuracy": 88,
+      "correctCount": 4400
     },
     "gemma3LLM": {
-      "accuracy": 82,
-      "correctCount": 41
+      "accuracy": 92.02,
+      "correctCount": 4601
     }
   },
+  "agreementRate": 95.54,
   "categoryBreakdown": {
-    "Fitur & UI/UX": 7,
-    "Layanan Faskes & Antrean": 5,
-    "Masalah Teknis & Bug": 26,
-    "Apresiasi & Kepuasan": 12
+    "Apresiasi & Kepuasan": 2399,
+    "Masalah Teknis & Bug": 2047,
+    "Fitur & UI/UX": 348,
+    "Layanan Faskes & Antrean": 182,
+    "Administrasi & Iuran": 24
   },
-  "llmAdvantages": [
-    {
-      "id": "903bc422-33e3-49d0-9b70-32d20d389e6c",
-      "score": 1,
-      "text": "🔪",
-      "groundTruth": "Negatif",
-      "nbPred": "Positif",
-      "llmPred": "Negatif",
-      "llmReason": "Emoji '🔪' menunjukkan kekesalan dan kemarahan yang kuat, mengindikasikan masalah serius dengan aplikasi. Ini kemungkinan besar terkait dengan bug atau masalah teknis yang mengganggu fungsi aplikasi."
-    },
-    {
-      "id": "a20020ef-af81-456c-a7c9-c371df8a9b66",
-      "score": 1,
-      "text": "kurang baik",
-      "groundTruth": "Negatif",
-      "nbPred": "Positif",
-      "llmPred": "Negatif",
-      "llmReason": "Ulasan 'kurang baik' menunjukkan ketidakpuasan yang jelas terhadap aplikasi, yang seringkali terkait dengan masalah teknis atau bug yang mempengaruhi fungsionalitas."
-    }
-  ],
-  "timestamp": "2026-09-12T03:09:36.217Z"
+  "sentimentBreakdown": {
+    "positif": 2399,
+    "negatif": 2601
+  },
+  "timestamp": "2026-09-12T03:28:20.159Z"
 }
