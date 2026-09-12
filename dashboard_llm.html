@@ -656,7 +656,8 @@
         if (filterState.category !== 'all' && item.llmCategory !== filterState.category) return false;
 
         // Disagreement Filter
-        if (filterState.disagreementOnly && item.nbSentiment === item.llmSentiment) return false;
+        const nbVal = item.nbSentiment || item.mlSentiment || 'Negatif';
+        if (filterState.disagreementOnly && nbVal === item.llmSentiment) return false;
 
         return true;
       });
@@ -699,8 +700,9 @@
           { 
             data: 'nbSentiment', 
             className: 'text-center',
-            render: function(d) {
-              return d === 'Positif' ? `<span class="badge badge-pos">Positif</span>` : `<span class="badge badge-neg">Negatif</span>`;
+            render: function(d, type, row) {
+              const val = d || row.mlSentiment || 'Negatif';
+              return val === 'Positif' ? `<span class="badge badge-pos">Positif</span>` : `<span class="badge badge-neg">Negatif</span>`;
             }
           },
           { 
@@ -708,7 +710,8 @@
             className: 'text-center',
             render: function(d, type, row) {
               const badge = d === 'Positif' ? `<span class="badge badge-pos">Positif</span>` : `<span class="badge badge-neg">Negatif</span>`;
-              const isDiff = row.nbSentiment !== d ? `<br><span class="badge badge-disagree mt-1">Beda dg ML</span>` : '';
+              const nbVal = row.nbSentiment || row.mlSentiment;
+              const isDiff = (nbVal && nbVal !== d) ? `<br><span class="badge badge-disagree mt-1">Beda dg ML</span>` : '';
               return badge + isDiff;
             }
           },

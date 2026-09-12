@@ -120,23 +120,26 @@ async function main() {
   const fullEnrichedReviews = mlData.map((item, idx) => {
     const llm = generateLlmInsight(item);
 
+    const nbPred = item.mlSentiment || item.nbSentiment || 'Negatif';
+
     if (llm.sentiment === 'Positif') totalPos++;
     else totalNeg++;
 
     categoryCounts[llm.category] = (categoryCounts[llm.category] || 0) + 1;
 
-    if (llm.sentiment === item.mlSentiment) nbMatchCount++;
+    if (llm.sentiment === nbPred) nbMatchCount++;
     if (llm.sentiment === item.groundTruth) gtMatchCount++;
 
     return {
       no: idx + 1,
       id: item.id,
-      userName: item.userName,
+      userName: item.userName || 'Pengguna',
       score: item.score,
       date: item.date,
       rawText: item.rawText,
       groundTruth: item.groundTruth,
-      mlSentiment: item.mlSentiment,
+      mlSentiment: nbPred,
+      nbSentiment: nbPred,
       confidence: item.confidence,
       probPos: item.probPos,
       probNeu: item.probNeu,
@@ -149,7 +152,7 @@ async function main() {
       llmCategory: llm.category,
       llmReason: llm.reason,
       llmConfidence: parseFloat(((llm.confidence || 0.9) * 100).toFixed(1)),
-      modelDisagreement: (item.mlSentiment !== llm.sentiment)
+      modelDisagreement: (nbPred !== llm.sentiment)
     };
   });
 
