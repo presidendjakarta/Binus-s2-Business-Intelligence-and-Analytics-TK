@@ -1,0 +1,24 @@
+{
+  "name": "playstore-mining",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "detail": "node 1_detail_app.js",
+    "reviews": "node 2_scrape_reviews.js",
+    "search": "node 3_search_apps.js",
+    "interactive": "node 4_interactive_scraper.js",
+    "jkn": "node scrape_jkn.js",
+    "sentiment": "node analyze_sentiment.js",
+    "train": "node train_ml_model.js",
+    "dashboard": "node open_dashboard.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "csv-writer": "^1.6.0",
+    "google-play-scraper": "^10.1.3"
+  }
+}
