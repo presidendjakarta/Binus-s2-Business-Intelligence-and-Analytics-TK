@@ -82,7 +82,51 @@ Ulasan dengan sentimen positif didorong oleh beberapa faktor kunci:
 
 ---
 
-## 6. Rekomendasi Strategis untuk BPJS Kesehatan
+---
+
+## 6. Studi Komparatif: Multinomial Naive Bayes (ML) vs LLM Gemma 3 (Generative AI)
+
+Sebagai bagian dari inovasi riset, dilakukan **Studi Komparatif Head-to-Head** antara algoritma *Classical Machine Learning* (Multinomial Naive Bayes dengan TF-IDF) dan *Large Language Model* lokal (**Google Gemma 3:latest** via Ollama API):
+
+### A. Tabel Matriks Perbandingan Kinerja
+
+| Dimensi Evaluasi | Classical ML (Naive Bayes + TF-IDF) | Generative AI (LLM Gemma 3) |
+| :--- | :--- | :--- |
+| **Akurasi Sentimen** | **84.00%** (Sample 50) / **88.00%** (5.000 data) | **82.00%** (Zero-Shot tanpa tuning khusus) |
+| **Ketergantungan Kamus Slang** | **Tinggi** (Perlu `slangDictionary` & `stopwords` manual) | **Nol (Zero)** (Memahami bahasa gaul, singkatan, dan typo secara alami) |
+| **Deteksi Sarkasme & Konteks** | Lemah pada kalimat pendek/sindiran halus | **Sangat Kuat** (Mampu mengartikan emoji seperti `🔪` sebagai sentimen negatif) |
+| **Kecepatan Inferensi (Latency)** | **< 0.05 ms / ulasan** (5.000 data selesai < 1 detik) | **~800 - 1.500 ms / ulasan** di GPU |
+| **Kebutuhan Resource Komputasi** | Sangat Rendah (CPU 1 Core, RAM < 50MB) | Sedang - Tinggi (GPU VRAM 3.3 GB / RAM 8GB) |
+| **Fitur Output Tambahan** | Probabilitas kelas numerik | **Reasoning (Penjelasan Narasi)** + **Kategori Isu Otomatis** |
+
+### B. Studi Kasus Keunggulan LLM atas Naive Bayes
+
+```
+Kasus 1: Emosi Berbasis Simbol / Emoji
+Isi Ulasan : "🔪" (Rating: ⭐ 1)
+- Ground Truth : Negatif
+- Naive Bayes  : Positif (Gagal karena tidak ada token teks yang dikenal dalam kamus TF-IDF)
+- Gemma 3 LLM  : Negatif (Tepat)
+- Alasan AI    : "Emoji '🔪' menunjukkan kekesalan dan kemarahan yang kuat, mengindikasikan masalah serius dengan fungsionalitas aplikasi."
+
+Kasus 2: Frasa Negasi Bertingkat
+Isi Ulasan : "kurang baik" (Rating: ⭐ 1)
+- Ground Truth : Negatif
+- Naive Bayes  : Positif (Gagal karena kata 'baik' berbobot positif tinggi dan 'kurang' dianggap netral/stopword)
+- Gemma 3 LLM  : Negatif (Tepat)
+- Alasan AI    : "Ulasan 'kurang baik' menunjukkan ketidakpuasan yang jelas terhadap aplikasi."
+```
+
+### C. Distribusi Isu Masalah yang Diekstraksi LLM Secara Otomatis
+LLM Gemma 3 mengklasifikasikan isu pengguna secara multi-aspek ke dalam 4 domain operasional:
+1. **Masalah Teknis & Bug (52.0%)**: Kegagalan sistemik seperti crash, force close, OTP tidak masuk, dan error jaringan.
+2. **Apresiasi & Kepuasan (24.0%)**: Kepuasan pengguna terhadap efisiensi antrean dan kemudahan cetak kartu digital.
+3. **Fitur & UI/UX (14.0%)**: Keluhan alur pendaftaran yang rumit, navigasi membingungkan pasca update versi baru.
+4. **Layanan Faskes & Antrean (10.0%)**: Ketidaksinkronan jadwal dokter rujukan dan kuota poli RS yang cepat habis.
+
+---
+
+## 7. Rekomendasi Strategis untuk BPJS Kesehatan
 
 1. **Perbaikan Sistem OTP**:
    - Sediakan alternatif verifikasi OTP melalui **WhatsApp Official BPJS** atau **Email** di samping SMS konvensional.
@@ -92,3 +136,7 @@ Ulasan dengan sentimen positif didorong oleh beberapa faktor kunci:
    - Gunakan algoritma deteksi wajah yang lebih toleran terhadap resolusi kamera smartphone kelas pemula (*entry-level*).
 4. **Pemberitahuan Kuota Dokter Real-time**:
    - Tambahkan fitur *push notification* jika kuota antrean dokter spesialis di faskes rujukan telah tersedia.
+5. **Adopsi Arsitektur Hybrid AI**:
+   - Gunakan **Naive Bayes** untuk klasifikasi sentimen massal *real-time throughput* tinggi di production server.
+   - Gunakan **LLM (Gemma 3)** untuk audit mendalam ulasan ambigu, analisis sarkasme, dan ekstraksi ringkasan keluhan eksekutif secara otomatis.
+

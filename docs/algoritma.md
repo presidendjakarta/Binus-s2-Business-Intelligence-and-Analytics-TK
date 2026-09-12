@@ -138,3 +138,30 @@ $$\text{Status}(S, \hat{c}) = \begin{cases}
 \text{Anomali Human Error/Sarkasme}, & \text{jika } S \le 2 \land \hat{c} = \text{"Positif"} \\
 \text{Konsisten (Match)}, & \text{lainnya}
 \end{cases}$$
+
+---
+
+## 6. Formulasi Generative AI: LLM Gemma 3 (Ollama)
+
+Selain Naive Bayes terawasi (*Supervised ML*), proyek ini mengintegrasikan **Google Gemma 3 (3.3 GB Parameter)** melalui Ollama API lokal dengan pendekatan **Zero-Shot Constrained Prompting**:
+
+### A. Mekanisme Generasi Terarah (Constrained JSON Decoding)
+Probabilitas generasi token berikutnya ($y_t$) dihitung dari autoregressive Transformer:
+
+$$P(y_t \mid y_{<t}, x) = \text{Softmax}\left(\frac{W_o \cdot h_t}{T}\right)$$
+
+*Di mana:*
+- $x$ adalah prompt terstruktur yang memuat ulasan pengguna.
+- $T = 0.1$ (Temperature rendah untuk hasil deterministik dan konsisten).
+- Decoding dibatasi secara gramatikal (*schema-constrained*) agar selalu menghasilkan JSON valid: `{"sentiment", "category", "reason", "confidence"}`.
+
+### B. Perbandingan Matematis Naive Bayes vs LLM
+
+```
+Multinomial Naive Bayes (Bag-of-Words Independent Assumption):
+P(c | d) ∝ P(c) ∏ P(w_i | c)   --> Mengabaikan urutan kata & dependensi jauh
+
+Large Language Model (Multi-Head Self-Attention):
+Attention(Q, K, V) = softmax((Q K^T) / √d_k) V  --> Menangkap dependensi konteks penuh antartoken
+```
+

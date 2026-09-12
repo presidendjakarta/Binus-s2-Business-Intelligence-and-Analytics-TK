@@ -127,3 +127,33 @@ flowchart TD
     RenderDashboard --> ChartKeywords["Render Top TF-IDF Features Negatif dan Positif"]
     RenderDashboard --> DataTable["Render Tabel Interaktif: Live Search, Filter Bintang, Filter Anomali"]
 ```
+
+---
+
+## 6. Alur Hybrid AI & Studi Komparatif LLM Gemma 3 vs Naive Bayes
+
+```mermaid
+flowchart TD
+    RawData[/"5.000 Ulasan Mentah Mobile JKN"/] --> SplitBranch{"Pemisahan Pipeline Analisis"}
+    
+    subgraph Classical_ML [Pipeline 1: Supervised ML]
+        SplitBranch -->|Kecepatan Tinggi| Preproc["Preprocessing Manual: Slang & Stopwords"]
+        Preproc --> TFIDF["TF-IDF Feature Extractor"]
+        TFIDF --> MNB["Multinomial Naive Bayes Model"]
+        MNB --> PredML["Prediksi Sentimen: Positif vs Negatif (Latency < 0.05ms)"]
+    end
+    
+    subgraph Generative_AI [Pipeline 2: Local LLM Gemma 3]
+        SplitBranch -->|Penalaran Dalam| LLM_Prompt["Zero-Shot Schema Constrained Prompt"]
+        LLM_Prompt --> Ollama["Local Ollama API (gemma3:latest)"]
+        Ollama --> JSON_Out["Structured Output: Sentiment, Category, Reasoning"]
+    end
+    
+    PredML --> Benchmark["Evaluator Head-to-Head Comparative Study"]
+    JSON_Out --> Benchmark
+    
+    Benchmark --> Metrics["Metrik: Akurasi MNB (84%) vs LLM (82%)"]
+    Benchmark --> Issues["Ekstraksi Kategori Isu: Bug 52%, Fitur 14%, Layanan 10%"]
+    Benchmark --> Dash["Visualisasi di AI Benchmark Modal Dashboard"]
+```
+

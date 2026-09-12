@@ -190,3 +190,13 @@ Dokumen ini adalah **"Senjata Rahasia"** Anda untuk memahami setiap istilah tekn
 ### ❓ Pertanyaan 7: *"Apa kontribusi praktis dari penelitian ini untuk pihak BPJS Kesehatan?"*
 > **💡 Cara Jawab:**
 > *"Hasil penambangan data berhasil memetakan **Top 5 Isu Kritis** yang paling dikeluhkan masyarakat secara real-time, yaitu: kegagalan kode OTP via SMS, kendala sinkronisasi NIK KTP, antrean online yang kuotanya cepat habis di faskes rujukan, dan kegagalan deteksi wajah. Rekomendasi strategis kami adalah menyediakan opsi OTP via WhatsApp/Email dan optimalisasi kapasitas server pada jam 07.00-09.00 WIB saat pendaftaran antrean dibuka."*
+
+---
+
+### ❓ Pertanyaan 8: *"Kenapa Anda juga mengintegrasikan LLM (Gemma 3) dan bagaimana perbandingannya dengan Naive Bayes?"*
+> **💡 Cara Jawab:**
+> *"Izin menjelaskan Bapak/Ibu. Kami melakukan **Studi Komparatif Multidimensi**:
+> 1. **Multinomial Naive Bayes (Supervised ML)** unggul dalam **efisiensi throughput tinggi (< 0.05 ms/ulasan)** sehingga ideal untuk sistem pipeline produksi massal 5.000+ ulasan real-time.
+> 2. **LLM Gemma 3 (Generative AI)** unggul dalam **pemahaman konteks dalam (Zero-Shot)**: mampu menormalisasi bahasa gaul tanpa butuh kamus manual, mengartikan emoji simbolis seperti 🔪 menjadi sentimen negatif, dan memberikan alasan narasi (*reasoning*) serta kategorisasi isu otomatis.
+> Kombinasi keduanya membentuk arsitektur **Hybrid AI** yang seimbang antara kecepatan komputasi dan kedalaman analisis kontekstual."*
+
