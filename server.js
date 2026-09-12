@@ -4,11 +4,10 @@ import path from 'path';
 import { exec } from 'child_process';
 
 // =========================================================================
-// MINI ENTERPRISE SERVER & OLLAMA CORS PROXY (ZERO DEPENDENCIES)
+// MINI ENTERPRISE SERVER - MOBILE JKN SENTIMENT ANALYTICS
 // =========================================================================
 
 const PORT = process.env.PORT || 3000;
-const OLLAMA_HOST = process.env.OLLAMA_HOST || 'http://127.0.0.1:11434';
 const BASE_DIR = process.cwd();
 
 const MIME_TYPES = {
@@ -20,13 +19,14 @@ const MIME_TYPES = {
   '.png': 'image/png',
   '.jpg': 'image/jpeg',
   '.svg': 'image/svg+xml',
-  '.ico': 'image/x-icon'
+  '.ico': 'image/x-icon',
+  '.md': 'text/markdown; charset=utf-8'
 };
 
-const server = http.createServer(async (req, res) => {
-  // Add Universal CORS headers
+const server = http.createServer((req, res) => {
+  // CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
   if (req.method === 'OPTIONS') {
@@ -35,36 +35,9 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  // 1. Proxy API Ollama (/api/generate)
-  if (req.url === '/api/generate' && req.method === 'POST') {
-    let body = '';
-    req.on('data', chunk => { body += chunk; });
-    req.on('end', async () => {
-      try {
-        const ollamaRes = await fetch(`${OLLAMA_HOST}/api/generate`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: body
-        });
-
-        const data = await ollamaRes.text();
-        res.writeHead(ollamaRes.status, { 'Content-Type': 'application/json' });
-        res.end(data);
-      } catch (err) {
-        res.writeHead(502, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ 
-          error: 'Gagal terhubung ke Ollama lokal di port 11434.',
-          details: err.message,
-          tip: 'Pastikan aplikasi Ollama sudah dijalankan di komputer Anda.'
-        }));
-      }
-    });
-    return;
-  }
-
-  // 2. Static File Server
+  // Static File Server
   let reqPath = req.url.split('?')[0];
-  if (reqPath === '/' || reqPath === '') reqPath = '/dashboard_llm.html';
+  if (reqPath === '/' || reqPath === '') reqPath = '/dashboard.html';
 
   const filePath = path.join(BASE_DIR, reqPath);
 
@@ -94,12 +67,10 @@ const server = http.createServer(async (req, res) => {
 });
 
 server.listen(PORT, () => {
-  const url = `http://localhost:${PORT}/dashboard_llm.html`;
+  const url = `http://localhost:${PORT}/dashboard.html`;
   console.log('================================================================');
-  console.log(`🚀 SERVER MOBILE JKN ANALYTICS BERJALAN DI: http://localhost:${PORT}`);
-  console.log(`🧠 Dashboard LLM : http://localhost:${PORT}/dashboard_llm.html`);
-  console.log(`📊 Dashboard ML  : http://localhost:${PORT}/dashboard.html`);
-  console.log(`📡 Proxy Ollama  : http://localhost:${PORT}/api/generate -> ${OLLAMA_HOST}`);
+  console.log(`🚀 SERVER NAIVE BAYES ANALYTICS BERJALAN DI: http://localhost:${PORT}`);
+  console.log(`📊 Dashboard Naive Bayes: http://localhost:${PORT}/dashboard.html`);
   console.log('================================================================\n');
 
   // Buka browser otomatis

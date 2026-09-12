@@ -1,6 +1,7 @@
-# Analisis Sentimen Ulasan Mobile JKN Menggunakan Hybrid AI & NLP 🚀
+# Analisis Sentimen Ulasan Mobile JKN Menggunakan Multinomial Naive Bayes 🚀
+## Natural Language Processing & Anomaly Detection (5.000 Dataset Google Play Store)
 
-Proyek penelitian **Data Mining & Natural Language Processing (NLP)** untuk menganalisis sentimen 5.000 ulasan pengguna aplikasi **Mobile JKN (BPJS Kesehatan)** di Google Play Store menggunakan pendekatan **Hybrid AI (Supervised Machine Learning + Large Language Model Gemma 3)**.
+Proyek penelitian **Data Mining & Natural Language Processing (NLP)** untuk menganalisis sentimen 5.000 ulasan pengguna aplikasi **Mobile JKN (BPJS Kesehatan)** di Google Play Store menggunakan algoritma **Multinomial Naive Bayes (MNB)** yang diintegrasikan dengan **TF-IDF (Term Frequency - Inverse Document Frequency)**, **Emoji-to-Token Semantic Translation**, dan **Sastrawi Morphological Stemmer**.
 
 ---
 
@@ -8,36 +9,36 @@ Proyek penelitian **Data Mining & Natural Language Processing (NLP)** untuk meng
 
 - **Dataset**: 5.000 Ulasan Google Play Store (`app.bpjs.mobile`)
 - **Pembagian Data**: 80% Data Latih (4.000 ulasan) & 20% Data Uji (1.000 ulasan)
-- **Akurasi Model (Accuracy)**: **90.40%** 🎯
-- **Precision (Kelas Positif)**: **94.08%** (Recall: 92.50% | F1-Score: **93.28%**)
-- **Recall (Kelas Negatif)**: **93.62%** (Precision: 86.34% | F1-Score: **89.84%**)
-- **TF-IDF Vocabulary**: **5.495 fitur kata & bigram unik (dengan Stemming Sastrawi)**
+- **Akurasi Model (Accuracy)**: **90.50%** 🎯
+- **Macro F1-Score**: **61.11%**
+- **Precision (Kelas Positif)**: **94.24%** (Recall: 92.64% | F1-Score: **93.43%**)
+- **Recall (Kelas Negatif)**: **93.67%** (Precision: 86.43% | F1-Score: **89.90%**)
+- **TF-IDF Vocabulary**: **5.537 fitur kata, bigram, dan emoji semantik**
+- **Deteksi Anomali**: Mendeteksi taktik bintang 5 semu (sarkasme/komplain) & bintang 1 pujian tanpa false positive pada simbol/emoji.
 
 ---
 
 ## 📖 Panduan Penggunaan Lengkap (Cara Pakai)
 
-👉 **[Buka Panduan Lengkap: docs/cara_pakai.md](file:///x:/laragon/kuliah/playstore-mining/docs/cara_pakai.md)**
+👉 **[Buka Panduan Lengkap: docs/cara_pakai.md](file:///x:/laragon/kuliah/playstore-mining/docs/cara_pakai.md)**  
+👉 **[Buka Panduan Teori & Sidang: docs/naive_bayes.md](file:///x:/laragon/kuliah/playstore-mining/docs/naive_bayes.md)**
 
 ---
 
 ## 🚀 Perintah Utama (Quick Start)
 
 ```bash
-# 1. Menjalankan Server Web & Live AI Dashboard (Rekomendasi Utama)
+# 1. Menjalankan Server Web & Membuka Dashboard Naive Bayes
 npm start
-# -> Membuka http://localhost:3000/dashboard_llm.html & mengaktifkan Proxy AI bebas CORS
+# -> Membuka http://localhost:3000/dashboard.html di browser Anda
 
-# 2. Melatih Ulang Model ML (Sastrawi + TF-IDF + Naive Bayes)
+# 2. Melatih Ulang Model Naive Bayes (Emoji + Sastrawi + TF-IDF + MNB)
 npm run train
 
-# 3. Menjalankan Pipeline Analisis LLM (Ollama Gemma 3) & Studi Komparatif
-npm run llm
-
-# 4. Mengambil Ulasan Terbaru dari Google Play Store (5.000 Ulasan)
+# 3. Mengambil Ulasan Terbaru dari Google Play Store (5.000 Ulasan)
 npm run scrape
 
-# 5. Menjalankan Uji Unit Modul NLP
+# 4. Menjalankan Uji Unit Modul NLP & Preprocessing
 npm test
 ```
 
@@ -47,13 +48,13 @@ npm test
 
 Dokumentasi lengkap terstruktur untuk keperluan skripsi, tesis, dan laporan tugas kuliah tersedia di folder [docs/](file:///x:/laragon/kuliah/playstore-mining/docs):
 
-1. 📖 **[docs/cara_pakai.md](file:///x:/laragon/kuliah/playstore-mining/docs/cara_pakai.md)**: Panduan langkah demi langkah cara instalasi, eksekusi CLI, mengoperasikan Live AI Playground, dan troubleshooting.
-2. 📐 **[docs/naive_bayes.md](file:///x:/laragon/kuliah/playstore-mining/docs/naive_bayes.md)**: Dokumen khusus dan mendalam algoritma Multinomial Naive Bayes, TF-IDF + L2, Laplace Smoothing ($\alpha=1$), simulasi manual, dan cheat sheet sidang dosen.
-3. 🔬 **[docs/metodologi_penelitian.md](file:///x:/laragon/kuliah/playstore-mining/docs/metodologi_penelitian.md)**: **Bahan Bab 3**: Kerangka kerja ilmiah CRISP-DM, teknik sampling 5.000 ulasan, Ground Truth, Train-Test Split (80:20), dan arsitektur Hybrid AI.
-4. 📊 **[docs/analisis_dan_temuan.md](file:///x:/laragon/kuliah/playstore-mining/docs/analisis_dan_temuan.md)**: **Bahan Bab 4**: Pembahasan hasil riset 5.000 data, studi komparatif Naive Bayes vs Gemma 3, analisis anomali ulasan, Top 5 keluhan, dan rekomendasi strategis BPJS.
-5. 📐 **[docs/algoritma.md](file:///x:/laragon/kuliah/playstore-mining/docs/algoritma.md)**: **Landasan Teori Matematis**: Rumus TF-IDF, Sastrawi Stemmer, Multinomial Naive Bayes, Laplace Smoothing ($\alpha=1$), Confusion Matrix, dan LLM Structured JSON.
-6. 🔄 **[docs/flowchart.md](file:///x:/laragon/kuliah/playstore-mining/docs/flowchart.md)**: **Diagram Alir Visual**: 6 Diagram Flowchart Mermaid untuk seluruh alur: Scraping, NLP Preprocessing, ML Training, Deteksi Anomali, dan Pipeline LLM.
-7. 📖 **[docs/kamus.md](file:///x:/laragon/kuliah/playstore-mining/docs/kamus.md)**: **Kamus Istilah & Cheat Sheet Sidang Dosen**: Glosarium bahasa manusiawi istilah teknis + 8 template cara menjawab pertanyaan dosen penguji tanpa gugup.
+1. 📐 **[docs/naive_bayes.md](file:///x:/laragon/kuliah/playstore-mining/docs/naive_bayes.md)**: **Rujukan Utama Naive Bayes**: Landasan matematis MNB, TF-IDF + L2, Laplace Smoothing ($\alpha=1$), simulasi perhitungan manual, penanganan emoji/simbol, dan 7 template jawaban sidang dosen penguji.
+2. 📖 **[docs/cara_pakai.md](file:///x:/laragon/kuliah/playstore-mining/docs/cara_pakai.md)**: Panduan instalasi, eksekusi CLI, mengoperasikan Dashboard interaktif, filter multi-kriteria, export CSV, dan troubleshooting.
+3. 🔬 **[docs/metodologi_penelitian.md](file:///x:/laragon/kuliah/playstore-mining/docs/metodologi_penelitian.md)**: **Bahan Bab 3**: Kerangka kerja ilmiah CRISP-DM, teknik sampling 5.000 ulasan, Ground Truth, Train-Test Split (80:20), dan arsitektur ML.
+4. 📊 **[docs/analisis_dan_temuan.md](file:///x:/laragon/kuliah/playstore-mining/docs/analisis_dan_temuan.md)**: **Bahan Bab 4**: Pembahasan hasil riset 5.000 data, analisis anomali rating vs teks, Top 5 keluhan utama, dan rekomendasi strategis manajemen BPJS.
+5. 📐 **[docs/algoritma.md](file:///x:/laragon/kuliah/playstore-mining/docs/algoritma.md)**: **Landasan Teori Matematis**: Rumus TF-IDF, Sastrawi Stemmer, Multinomial Naive Bayes, Laplace Smoothing ($\alpha=1$), dan Confusion Matrix.
+6. 🔄 **[docs/flowchart.md](file:///x:/laragon/kuliah/playstore-mining/docs/flowchart.md)**: **Diagram Alir Visual**: 5 Diagram Flowchart Mermaid: Scraping, NLP Preprocessing, ML Training, Deteksi Anomali, dan Dashboard Evaluasi.
+7. 📖 **[docs/kamus.md](file:///x:/laragon/kuliah/playstore-mining/docs/kamus.md)**: **Kamus Istilah & Cheat Sheet Sidang Dosen**: Glosarium bahasa manusiawi istilah teknis + template cara menjawab pertanyaan dosen penguji tanpa gugup.
 
 ---
 
@@ -63,22 +64,18 @@ Dokumentasi lengkap terstruktur untuk keperluan skripsi, tesis, dan laporan tuga
 playstore-mining/
 ├── src/                                      # Core Source Code Modular
 │   ├── config/constants.js                   # Konfigurasi & path terpusat
-│   ├── nlp/                                  # Slang dictionary, stopwords, Sastrawi stemmer, preprocessor
-│   ├── ml/                                   # TF-IDF vectorizer, Naive Bayes, evaluator, trainer
-│   ├── llm/                                  # Ollama client, prompt templates, LLM batch pipeline
-│   ├── scraper/                              # Play Store scraper engine
+│   ├── nlp/                                  # Emoji dictionary, Slang, Stopwords, Sastrawi stemmer, Preprocessor
+│   ├── ml/                                   # TF-IDF vectorizer, Multinomial Naive Bayes, Evaluator, Trainer
+│   ├── scraper/                              # Google Play Store scraper engine
 │   └── index.js                              # Unified export
 ├── scripts/                                  # CLI execution scripts
 │   ├── train.js                              # npm run train
-│   ├── run_llm.js                            # npm run llm
 │   ├── scrape.js                             # npm run scrape
 │   ├── test_nlp.js                           # npm test
-│   ├── open_dashboard.js                     # npm run dashboard
-│   └── open_dashboard_llm.js                 # npm run dashboard:llm
-├── docs/                                     # Dokumentasi akademik & panduan (Bab 3, Bab 4, Kamus, Panduan)
-├── data/                                     # Dataset 5.000 ulasan & hasil komparasi
-├── dashboard.html                            # Dashboard Supervised ML
-├── dashboard_llm.html                        # Dashboard Dedicated Generative AI LLM
-├── server.js                                 # Web Server & Proxy CORS
+│   └── open_dashboard.js                     # npm run dashboard
+├── docs/                                     # Dokumentasi akademik & panduan (Bab 2, Bab 3, Bab 4, Kamus, Panduan)
+├── data/                                     # Dataset 5.000 ulasan & hasil prediksi Naive Bayes
+├── dashboard.html                            # Executive BI Dashboard Multinomial Naive Bayes
+├── server.js                                 # Web Server (Zero Dependencies)
 └── package.json                              # Project manifest & dependencies
 ```

@@ -1,20 +1,26 @@
 {
-  "name": "playstore-mining",
+  "name": "playstore-mining-naive-bayes",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Mobile JKN Sentiment Analytics & Anomaly Detection using Sastrawi Stemmer, TF-IDF Vectorizer, and Multinomial Naive Bayes",
+  "main": "src/index.js",
   "type": "module",
   "scripts": {
     "start": "node server.js",
     "server": "node server.js",
     "scrape": "node scripts/scrape.js",
     "train": "node scripts/train.js",
-    "llm": "node scripts/run_llm.js",
     "test": "node scripts/test_nlp.js",
-    "dashboard": "node scripts/open_dashboard.js",
-    "dashboard:llm": "node scripts/open_dashboard_llm.js"
+    "dashboard": "node scripts/open_dashboard.js"
   },
-  "keywords": [],
+  "keywords": [
+    "naive-bayes",
+    "sentiment-analysis",
+    "text-mining",
+    "tf-idf",
+    "sastrawi",
+    "playstore-scraper",
+    "business-intelligence"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {

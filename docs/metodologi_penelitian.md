@@ -1,6 +1,7 @@
-# 🔬 Metodologi Penelitian Data Mining & Hybrid AI
+# 🔬 Metodologi Penelitian Data Mining & Machine Learning
+## Klasifikasi Sentimen & Deteksi Anomali Ulasan Mobile JKN Menggunakan Multinomial Naive Bayes
 
-Dokumen ini menyajikan kerangka kerja metodologi ilmiah standar (*CRISP-DM / KDD Framework*) yang dapat langsung diadopsi ke dalam penyusunan **Bab 3 (Metodologi Penelitian) Skripsi / Tugas Akhir**.
+Dokumen ini menyajikan kerangka kerja metodologi ilmiah standar (*CRISP-DM / KDD Framework*) yang dapat langsung diadopsi ke dalam penyusunan **Bab 3 (Metodologi Penelitian) Skripsi / Tugas Akhir / Tesis S2**.
 
 ---
 
@@ -9,54 +10,37 @@ Dokumen ini menyajikan kerangka kerja metodologi ilmiah standar (*CRISP-DM / KDD
 2. [Objek & Sumber Data Penelitian](#2-objek--sumber-data-penelitian)
 3. [Teknik Pengumpulan Data (Scraping)](#3-teknik-pengumpulan-data-scraping)
 4. [Teknik Anotasi & Pembuatan Ground Truth](#4-teknik-anotasi--pembuatan-ground-truth)
-5. [Tahapan Pengolahan Data & Pemodelan Hybrid](#5-tahapan-pengolahan-data--pemodelan-hybrid)
+5. [Tahapan Preprocessing & Pemodelan Machine Learning](#5-tahapan-preprocessing--pemodelan-machine-learning)
 6. [Instrumen & Lingkungan Pengembangan](#6-instrumen--lingkungan-pengembangan)
 
 ---
 
 ## 1. Kerangka Kerja Penelitian (CRISP-DM)
 
-Penelitian ini mengadopsi standar **CRISP-DM (*Cross-Industry Standard Process for Data Mining*)** yang diperluas dengan paradigma **Hybrid Intelligence (Classical ML + Generative LLM)**:
+Penelitian ini mengadopsi metodologi **CRISP-DM (*Cross-Industry Standard Process for Data Mining*)**:
 
-```
-┌─────────────────────────┐     ┌─────────────────────────┐
-│ 1. Business/Problem     │ ──> │ 2. Data Understanding   │
-│    Understanding        │     │    (Scraping Play Store)│
-└─────────────────────────┘     └────────────┬────────────┘
-                                             │
-                                             ▼
-┌─────────────────────────┐     ┌─────────────────────────┐
-│ 4. Dual-Engine Modeling │ <── │ 3. Data Preparation     │
-│  - Multinomial NB (ML)  │     │    (NLP Preprocessing   │
-│  - LLM Gemma 3 (GenAI)  │     │     & Ground Truth)     │
-└────────────┬────────────┘     └─────────────────────────┘
-             │
-             ▼
-┌─────────────────────────┐     ┌─────────────────────────┐
-│ 5. Comparative          │ ──> │ 6. Deployment           │
-│    Evaluation           │     │    (Dual Executive      │
-│    (Accuracy & Metrics) │     │     BI Dashboards)      │
-└─────────────────────────┘     └─────────────────────────┘
+```mermaid
+flowchart TD
+    A["1. Business Understanding<br/>(Identifikasi Anomali Rating vs Teks)"] --> B["2. Data Understanding<br/>(Scraping 5.000 Ulasan Play Store)"]
+    B --> C["3. Data Preparation<br/>(Emoji Mapping, Slang, Sastrawi, Stopwords)"]
+    C --> D["4. Modeling<br/>(TF-IDF + Multinomial Naive Bayes)"]
+    D --> E["5. Evaluation<br/>(Confusion Matrix, Precision, Recall, F1)"]
+    E --> F["6. Deployment<br/>(Executive BI Analytics Dashboard)"]
 ```
 
-1. **Business/Problem Understanding**:
-   - Menganalisis fenomena ketidaksesuaian (*inconsistency*) antara rating bintang dan isi teks ulasan pengguna aplikasi Mobile JKN (BPJS Kesehatan).
-   - Menjawab pertanyaan riset: *Bagaimana akurasi komparatif antara Supervised Machine Learning (Multinomial Naive Bayes) dan Generative Large Language Model (Gemma 3) dalam memetakan kepuasan masyarakat?*
+1. **Business Understanding**:
+   - Menganalisis ketidaksesuaian (*inconsistency*) antara rating bintang Play Store dan teks ulasan sebenarnya.
+   - Merancang model klasifikasi sentimen otomatis yang andal dan cepat untuk membantu pengambil keputusan BPJS Kesehatan.
 2. **Data Understanding**:
    - Pengumpulan dataset ulasan aktual dari Google Play Store sebanyak 5.000 ulasan.
 3. **Data Preparation**:
-   - Pembersihan teks (*Case folding, regex cleansing, character reduction, tokenization, slang normalization, selective stopword removal, negation preservation*).
-   - Pembentukan Master Ground Truth dataset teranotasi.
-4. **Dual-Engine Modeling**:
-   - **Engine 1**: Pembagian data 80:20 (*Train-Test Split*), ekstraksi fitur TF-IDF (5.574 vocabulary), dan pelatihan Multinomial Naive Bayes dengan Laplace Smoothing ($\alpha=1$).
-   - **Engine 2**: Zero-Shot Schema-Constrained Prompting menggunakan LLM lokal Google Gemma 3 (3.3 GB) via Ollama API.
-5. **Comparative Evaluation**:
-   - Pengujian Confusion Matrix pada data uji 1.000 ulasan (Naive Bayes).
-   - Evaluasi akurasi komparatif, tingkat kesepakatan (*model agreement*), serta analisis kualitatif kasus perbedaan pendapat (*disagreement cases*).
+   - Pemetaan emoji semantik, pembersihan teks, normalisasi kata slang gaul, stemming morfologi bahasa Indonesia Sastrawi, dan penghapusan stopword selektif.
+4. **Modeling**:
+   - Pembagian data 80:20 (*Train-Test Split*), pembobotan kata dengan TF-IDF Vectorizer (5.537 vocabulary unik), dan pelatihan Multinomial Naive Bayes dengan Laplace Smoothing ($\alpha=1.0$).
+5. **Evaluation**:
+   - Pengujian Confusion Matrix pada data uji 1.000 ulasan (Akurasi 90.50% | F1-Score 61.11%).
 6. **Deployment**:
-   - Pembuatan 2 Dashboard Interaktif:
-     - `dashboard.html` (Executive Machine Learning Dashboard)
-     - `dashboard_llm.html` (Generative AI & LLM Intelligence Hub dengan Live Ollama Tester)
+   - Implementasi Executive BI Analytics Dashboard (`dashboard.html`) berbasis web dengan fitur interaktif filter, pencarian, dan export.
 
 ---
 
@@ -84,8 +68,8 @@ Pengambilan data dilakukan menggunakan automated API scraper berbasis Node.js (`
 
 Untuk menghindari bias rating bintang (seperti taktik *"Bintang 5 biar dibaca"* atau salah klik), dibangun **Master Ground Truth Dataset**:
 1. **Kelas Sentimen**:
-   - `Positif`: Ulasan berisi apresiasi, kepuasan, kemudahan antrean faskes, atau fungsi aplikasi yang berjalan baik.
-   - `Negatif`: Ulasan berisi keluhan pendaftaran, kegagalan OTP, antrean penuh, bug server, atau kritik tajam.
+   - `Positif`: Ulasan berisi apresiasi, kepuasan, kemudahan antrean faskes, atau emoji pujian (`👍`, `🙏`, `❤️`).
+   - `Negatif`: Ulasan berisi keluhan pendaftaran, kegagalan OTP, antrean penuh, bug server, atau emoji kekecewaan (`👎`, `😡`, `🔪`).
    - `Netral`: Ulasan tanpa muatan emosional khusus atau pernyataan umum singkat.
 2. **Kaidah Khusus Anotasi**:
    - Frasa taktik (*"bintang 5 biar dibaca"*) wajib dianotasi sebagai `Negatif`.
@@ -94,29 +78,36 @@ Untuk menghindari bias rating bintang (seperti taktik *"Bintang 5 biar dibaca"* 
 
 ---
 
-## 5. Tahapan Pengolahan Data & Pemodelan Hybrid
+## 5. Tahapan Preprocessing & Pemodelan Machine Learning
 
-### A. Pembagian Data Machine Learning (Train-Test Split)
-Dataset 5.000 ulasan dibagi secara acak terdistribusi (*stratified*):
-- **Data Latih (Training Set)**: 80% (4.000 ulasan) — Digunakan untuk pembobotan TF-IDF dan parameter probabilitas Naive Bayes.
-- **Data Uji (Testing Set)**: 20% (1.000 ulasan) — Digunakan untuk validasi Confusion Matrix (*unseen data*).
+### A. Pembagian Data (Train-Test Split)
+Dataset 5.000 ulasan dibagi dengan rasio:
+- **Data Latih (Training Set)**: 80% (4.000 ulasan) untuk membangun vocabulary TF-IDF dan menghitung probabilitas prior/likelihood Naive Bayes.
+- **Data Uji (Testing Set)**: 20% (1.000 ulasan) untuk menguji akurasi model pada data yang belum pernah dilihat (*unseen data*).
 
-### B. Konfigurasi Inferensi LLM Gemma 3 (Ollama)
-- **Model**: `gemma3:latest` (Parameter 3.3 GB)
-- **Host Endpoint**: `http://localhost:11434`
-- **Metode**: Zero-Shot Structured JSON Formatting
-- **Parameter Hyperparameter**: Temperature $T = 0.1$, Top-P = $0.9$.
-- **Format Output**: `{"sentiment", "category", "reason", "confidence"}`
+### B. Pipeline Preprocessing
+1. **Emoji Translation**: Menerjemahkan icon emoji ke token sentimen (`👍` $\rightarrow$ `emoji_jempol_bagus`).
+2. **Case Folding & Cleaning**: Mengubah ke huruf kecil dan menghapus karakter non-alfanumerik.
+3. **Slang Normalization**: Mengubah kata tidak baku menjadi baku (*"bgus"* $\rightarrow$ *"bagus"*, *"gak"* $\rightarrow$ *"tidak"*).
+4. **Sastrawi Morphological Stemming**: Reduksi kata berimbuhan ke kata dasar (*"mempermudah"* $\rightarrow$ *"mudah"*).
+5. **Stopwords Removal**: Menghapus kata umum non-sentimen (*"nya"*, *"banget"*, *"aplikasi"*).
+6. **N-Gram Feature Extraction**: Ekstraksi Unigram dan Bigram (*"tidak_bisa"*, *"sangat_mudah"*).
+
+### C. Pemodelan Multinomial Naive Bayes
+- Pembobotan fitur teks dengan **TF-IDF + Normalisasi L2**.
+- Penerapan **Laplace Add-One Smoothing ($\alpha = 1.0$)** untuk mencegah *Zero Probability Trap*.
+- Penggunaan **Log-Likelihood** untuk mencegah *Floating-Point Arithmetic Underflow*.
+- Kalibrasi skor posterior dengan fungsi **Softmax** untuk menghasilkan *Confidence Score* 0–100%.
 
 ---
 
 ## 6. Instrumen & Lingkungan Pengembangan
 
-- **Sistem Operasi**: Windows 11 (GPU Accelerated)
-- **Runtime & Bahasa**: Node.js (v22.22.0) & Python (v3.13.0)
-- **Inference Engine LLM**: Ollama v0.5+ (Running `gemma3:latest` di Local GPU)
-- **Library Utama**:
-  - `google-play-scraper` (Data Mining Play Store)
-  - `csv-writer` & `fs/promises` (Manipulasi File Dataset)
-  - `Bootstrap 5`, `jQuery 3.7`, `DataTables 2.0`, `Chart.js` (Visualisasi Dashboard)
-  - `Scikit-Learn`, `Pandas`, `NumPy` (Skrip Python Ekuivalen)
+| Perangkat / Modul | Spesifikasi | Fungsi |
+| :--- | :--- | :--- |
+| **Runtime Environment** | Node.js v18+ | Eksekusi pipeline data mining & backend server |
+| **NLP Engine** | Sastrawi Stemmer (`ts-sastrawi`) | Reduksi morfologi kata dasar bahasa Indonesia |
+| **Data Scraping** | `google-play-scraper` | Ekstraksi 5.000 ulasan dari Google Play Store |
+| **Format Dataset** | JSON & CSV (`csv-writer`) | Penyimpanan data latih, uji, dan master ground truth |
+| **Frontend Framework** | HTML5, Bootstrap 5, jQuery | Pembangunan Executive BI Dashboard |
+| **Data Visualization** | Chart.js & DataTables | Visualisasi grafik komparasi & tabel interaktif 5.000 data |
