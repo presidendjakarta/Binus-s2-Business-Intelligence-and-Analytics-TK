@@ -1,0 +1,26 @@
+{
+  "evaluatedSamples": 5000,
+  "modelMetrics": {
+    "naiveBayes": {
+      "accuracy": 88,
+      "correctCount": 4400
+    },
+    "gemma3LLM": {
+      "accuracy": 92.6,
+      "correctCount": 4630
+    }
+  },
+  "agreementRate": 95.64,
+  "categoryBreakdown": {
+    "Fitur & UI/UX": 436,
+    "Layanan Faskes & Antrean": 196,
+    "Masalah Teknis & Bug": 1937,
+    "Apresiasi & Kepuasan": 2416,
+    "Administrasi & Iuran": 15
+  },
+  "sentimentBreakdown": {
+    "positif": 2420,
+    "negatif": 2580
+  },
+  "timestamp": "2026-09-12T03:14:04.169Z"
+}
