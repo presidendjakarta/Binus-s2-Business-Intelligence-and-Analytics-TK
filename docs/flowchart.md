@@ -1,6 +1,6 @@
 # 🔄 Dokumentasi Diagram Alir (Flowchart) Sistem
 
-Dokumen ini memuat diagram alir (*flowchart*) seluruh tahapan dalam sistem **Play Store Mining & Supervised Machine Learning Sentiment Analysis Mobile JKN**.
+Dokumen ini memuat diagram alir (*flowchart*) seluruh tahapan dalam sistem **Play Store Mining & Hybrid AI Sentiment Analytics Mobile JKN**.
 
 ---
 
@@ -10,6 +10,7 @@ Dokumen ini memuat diagram alir (*flowchart*) seluruh tahapan dalam sistem **Pla
 3. [Flowchart 3: Alur Text Preprocessing & Ekstraksi Fitur TF-IDF](#3-alur-text-preprocessing--ekstraksi-fitur-tf-idf)
 4. [Flowchart 4: Alur Pelatihan & Evaluasi Model Machine Learning](#4-alur-pelatihan--evaluasi-model-machine-learning)
 5. [Flowchart 5: Alur Deteksi Anomali & Visualisasi Dashboard](#5-alur-deteksi-anomali--visualisasi-dashboard)
+6. [Flowchart 6: Alur Hybrid AI & Studi Komparatif LLM Gemma 3 vs Naive Bayes](#6-alur-hybrid-ai--studi-komparatif-llm-gemma-3-vs-naive-bayes)
 
 ---
 
@@ -17,18 +18,17 @@ Dokumen ini memuat diagram alir (*flowchart*) seluruh tahapan dalam sistem **Pla
 
 ```mermaid
 flowchart TD
-    Start(["Mulai Proyek"]) --> Step1["1. Data Acquisition / Web Scraping Play Store"]
-    Step1 --> Step2["2. Penyimpanan Dataset Mentah JSON dan CSV (5.000 Ulasan)"]
+    Start(["Mulai Proyek"]) --> Step1["1. Data Acquisition / Web Scraping Play Store (5.000 Ulasan)"]
+    Step1 --> Step2["2. Penyimpanan Dataset Mentah JSON dan CSV"]
     Step2 --> Step3["3. Pembentukan Master Ground Truth Dataset Teranotasi"]
-    Step3 --> Step4["4. Pipeline Text Preprocessing (Case Folding, Slang Normalization, N-Gram)"]
-    Step4 --> Step5["5. Pembagian Data: 80% Data Latih dan 20% Data Uji"]
-    Step5 --> Step6["6. Ekstraksi Fitur TF-IDF dan Pembentukan Vocabulary"]
-    Step6 --> Step7["7. Pelatihan Model Multinomial Naive Bayes"]
-    Step7 --> Step8["8. Pengujian Model dan Evaluasi Confusion Matrix"]
-    Step8 --> Step9["9. Prediksi Sentimen Seluruh 5.000 Data Ulasan"]
-    Step9 --> Step10["10. Algoritma Deteksi Anomali Rating vs Teks"]
-    Step10 --> Step11["11. Visualisasi Interaktif Dashboard Web Chart.js"]
-    Step11 --> End(["Selesai"])
+    Step3 --> Step4["4. Pipeline Text Preprocessing & Normalisasi Slang"]
+    Step4 --> Step5["5. Dual-Engine Modeling: Supervised ML & Generative LLM"]
+    Step5 --> Step6["6. Pembagian Data ML: 80% Train dan 20% Test"]
+    Step6 --> Step7["7. Ekstraksi Fitur TF-IDF & Pelatihan Multinomial Naive Bayes"]
+    Step7 --> Step8["8. Inferensi LLM Gemma 3 via Ollama (5.000 Data)"]
+    Step8 --> Step9["9. Evaluasi Komparatif & Deteksi Anomali Ulasan"]
+    Step9 --> Step10["10. Deployment Dual Dashboard: ML Dashboard & LLM Hub"]
+    Step10 --> End(["Selesai"])
 ```
 
 ---
@@ -89,7 +89,7 @@ flowchart TD
     Split --> TrainSet["Data Latih: 4.000 Ulasan"]
     Split --> TestSet["Data Uji: 1.000 Ulasan"]
     
-    TrainSet --> FitTFIDF["Fit TF-IDF Vectorizer: Ukuran Vocabulary 5.587 Fitur"]
+    TrainSet --> FitTFIDF["Fit TF-IDF Vectorizer: Ukuran Vocabulary 5.574 Fitur"]
     FitTFIDF --> TransformTrain["Transform Data Latih ke Matriks Vektor TF-IDF"]
     
     TransformTrain --> TrainMNB["Hitung Prior P(C) dan Likelihood P(W, C) dengan Laplace Smoothing (alpha=1)"]
@@ -100,7 +100,7 @@ flowchart TD
     ModelReady --> PredictTest
     
     PredictTest --> EvalConfusion["Hitung Confusion Matrix: TP, FP, TN, FN"]
-    EvalConfusion --> CalcMetrics["Hitung Akurasi: 88.00%, Precision: 93.59%, Recall: 93.44%, F1: 91.21%"]
+    EvalConfusion --> CalcMetrics["Hitung Akurasi: 88.00%, Precision: 93.59%, Recall: 88.95%, F1: 91.21%"]
     CalcMetrics --> EvalReport[/"Output: Evaluation and Classification Report"/]
 ```
 
@@ -149,11 +149,10 @@ flowchart TD
         Ollama --> JSON_Out["Structured Output: Sentiment, Category, Reasoning"]
     end
     
-    PredML --> Benchmark["Evaluator Head-to-Head Comparative Study"]
+    PredML --> Benchmark["Evaluator Head-to-Head Comparative Study (5.000 Data)"]
     JSON_Out --> Benchmark
     
-    Benchmark --> Metrics["Metrik: Akurasi MNB (84%) vs LLM (82%)"]
-    Benchmark --> Issues["Ekstraksi Kategori Isu: Bug 52%, Fitur 14%, Layanan 10%"]
-    Benchmark --> Dash["Visualisasi di AI Benchmark Modal Dashboard"]
+    Benchmark --> Metrics["Metrik: Akurasi MNB (88.0%) vs LLM (92.6%), Kesepakatan (95.6%)"]
+    Benchmark --> Issues["Ekstraksi Kategori Isu: Bug 38.7%, Apresiasi 48.3%, Fitur 8.7%, Layanan 3.9%"]
+    Benchmark --> Dash["Visualisasi di dashboard_llm.html & Live AI Playground"]
 ```
-

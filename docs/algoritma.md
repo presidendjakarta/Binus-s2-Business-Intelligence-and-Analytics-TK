@@ -1,6 +1,6 @@
 # 📐 Dokumentasi Algoritma & Landasan Teori
 
-Dokumen ini menjelaskan secara matematis dan konseptual seluruh algoritma yang digunakan dalam proyek **Data Mining & Analisis Sentimen Ulasan Mobile JKN di Google Play Store**.
+Dokumen ini menjelaskan secara matematis dan konseptual seluruh algoritma yang digunakan dalam proyek **Data Mining & Analisis Sentimen Hybrid AI Ulasan Mobile JKN di Google Play Store**.
 
 ---
 
@@ -10,6 +10,7 @@ Dokumen ini menjelaskan secara matematis dan konseptual seluruh algoritma yang d
 3. [Algoritma Klasifikasi: Multinomial Naive Bayes (MNB)](#3-algoritma-klasifikasi-multinomial-naive-bayes)
 4. [Metrik Evaluasi Model (Confusion Matrix, Precision, Recall, F1-Score)](#4-metrik-evaluasi-model)
 5. [Algoritma Deteksi Anomali Rating vs Teks](#5-algoritma-deteksi-anomali-rating-vs-teks)
+6. [Formulasi Generative AI: LLM Gemma 3 (Ollama)](#6-formulasi-generative-ai-llm-gemma-3-ollama)
 
 ---
 
@@ -48,11 +49,11 @@ $$TF(t, d) = \frac{f_{t, d}}{\sum_{t' \in d} f_{t', d}}$$
 *Di mana $f_{t, d}$ adalah frekuensi kemunculan term $t$ pada dokumen $d$.*
 
 ### B. Inverse Document Frequency ($IDF$)
-Menghitung kelangkaan kata $t$ di seluruh koleksi dokumen ulasan ($N$ ulasan). Kata yang muncul di hampir semua dokumen (seperti kata umum) diberi bobot kecil, sedangkan kata spesifik diberi bobot besar:
+Menghitung kelangkaan kata $t$ di seluruh koleksi dokumen ulasan ($N$ ulasan):
 
 $$IDF(t) = \ln\left(\frac{N + 1}{DF(t) + 1}\right) + 1$$
 
-*Di mana $N$ adalah total seluruh dokumen ulasan, dan $DF(t)$ adalah jumlah dokumen yang memuat term $t$.*
+*Di mana $N$ adalah total seluruh dokumen ulasan ($5.000$), dan $DF(t)$ adalah jumlah dokumen yang memuat term $t$.*
 
 ### C. Pembobotan Akhir ($TF\text{-}IDF$) & Normalisasi L2
 
@@ -66,30 +67,28 @@ $$\mathbf{v}_{\text{norm}} = \frac{\mathbf{v}}{\|\mathbf{v}\|_2} = \frac{\mathbf
 
 ## 3. Algoritma Klasifikasi: Multinomial Naive Bayes
 
-**Multinomial Naive Bayes (MNB)** adalah algoritma pembelajaran terawasi (*Supervised Learning*) berbasis probabilitas bersyarat Teorema Bayes yang sangat unggul untuk klasifikasi teks (*Text Categorization*).
+**Multinomial Naive Bayes (MNB)** adalah algoritma pembelajaran terawasi (*Supervised Learning*) berbasis probabilitas bersyarat Teorema Bayes yang sangat unggul untuk klasifikasi teks.
 
 ### A. Teorema Bayes Dasar
 Untuk mengklasifikasikan dokumen teks $d$ ke dalam salah satu kelas sentimen $c \in \{\text{Positif}, \text{Netral}, \text{Negatif}\}$:
 
 $$P(c \mid d) = \frac{P(c) \cdot P(d \mid c)}{P(d)}$$
 
-Karena $P(d)$ bernilai konstan untuk semua kelas, maka penentuan kelas terbaik ($\hat{c}$) dicari dengan nilai Maximum A Posteriori (MAP):
+Penentuan kelas terbaik ($\hat{c}$) dicari dengan nilai Maximum A Posteriori (MAP):
 
 $$\hat{c} = \arg\max_{c \in C} \left[ \ln P(c) + \sum_{i=1}^{n} \ln P(w_i \mid c) \right]$$
 
 ### B. Prior Probability ($P(c)$)
-Probabilitas awal kemunculan kelas $c$ dalam data latih (*training set*):
+Probabilitas awal kemunculan kelas $c$ dalam data latih (*training set* $4.000$ ulasan):
 
 $$P(c) = \frac{N_c}{N_{\text{total}}}$$
-
-*Di mana $N_c$ adalah jumlah dokumen berlabel kelas $c$.*
 
 ### C. Likelihood dengan Laplace Smoothing ($P(w_i \mid c)$)
 Probabilitas munculnya kata $w_i$ pada kelas sentimen $c$. Untuk menghindari probabilitas nol ($P=0$) pada kata yang belum pernah muncul pada data latih, diterapkan **Laplace Smoothing ($\alpha = 1$)**:
 
 $$P(w_i \mid c) = \frac{\sum_{d \in D_c} TF\text{-}IDF(w_i, d) + \alpha}{\sum_{w \in V} \sum_{d \in D_c} TF\text{-}IDF(w, d) + \alpha \cdot |V|}$$
 
-*Di mana $|V|$ adalah ukuran perbendaharaan kata (vocabulary) unik ($5.587$ fitur).*
+*Di mana $|V|$ adalah ukuran perbendaharaan kata (vocabulary) unik ($5.574$ fitur).*
 
 ### D. Probabilitas Softmax / Confidence Score
 Untuk menghasilkan skor keyakinan (*confidence probability* $\in [0\%, 100\%]$):
@@ -117,14 +116,14 @@ Model dievaluasi menggunakan **Confusion Matrix** pada data uji ($1.000$ ulasan 
 1. **Akurasi (Accuracy)**:
    $$\text{Accuracy} = \frac{\sum \text{Prediksi Benar}}{N_{\text{total}}} = \frac{467 + 0 + 413}{1000} = 88.00\%$$
 
-2. **Presisi (Precision)**: Kemampuan model tidak salah melabeli kelas lain.
+2. **Presisi (Precision)**:
    $$\text{Precision} = \frac{TP}{TP + FP} = \frac{467}{467 + 29} = 93.59\% \quad (\text{Kelas Positif})$$
 
-3. **Perolehan (Recall / Sensitivity)**: Kemampuan model menjaring seluruh data aktual.
+3. **Perolehan (Recall / Sensitivity)**:
    $$\text{Recall} = \frac{TP}{TP + FN} = \frac{467}{467 + 58} = 88.95\% \quad (\text{Kelas Positif})$$
-   $$\text{Recall} = \frac{TN}{TN + FN} = \frac{413}{413 + 29} = 93.44\% \quad (\text{Kelas Negatif})$$
+   $$\text{Recall} = \frac{TN}{TN + FP} = \frac{413}{413 + 58} = 87.69\% \quad (\text{Kelas Negatif})$$
 
-4. **F1-Score**: Rata-rata harmonik antara Precision dan Recall:
+4. **F1-Score**:
    $$\text{F1-Score} = 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}} = 91.21\% \quad (\text{Kelas Positif})$$
 
 ---
@@ -155,7 +154,7 @@ $$P(y_t \mid y_{<t}, x) = \text{Softmax}\left(\frac{W_o \cdot h_t}{T}\right)$$
 - $T = 0.1$ (Temperature rendah untuk hasil deterministik dan konsisten).
 - Decoding dibatasi secara gramatikal (*schema-constrained*) agar selalu menghasilkan JSON valid: `{"sentiment", "category", "reason", "confidence"}`.
 
-### B. Perbandingan Matematis Naive Bayes vs LLM
+### B. Perbandingan Konseptual Naive Bayes vs LLM
 
 ```
 Multinomial Naive Bayes (Bag-of-Words Independent Assumption):
@@ -164,4 +163,3 @@ P(c | d) ∝ P(c) ∏ P(w_i | c)   --> Mengabaikan urutan kata & dependensi jauh
 Large Language Model (Multi-Head Self-Attention):
 Attention(Q, K, V) = softmax((Q K^T) / √d_k) V  --> Menangkap dependensi konteks penuh antartoken
 ```
-

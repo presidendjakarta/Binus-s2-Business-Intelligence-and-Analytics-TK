@@ -1,116 +1,123 @@
-# 📖 Kamus Istilah Data Mining & Panduan Menghadapi Dosen Penguji
+# 📖 Kamus Istilah Data Mining & Cheat Sheet Sidang Dosen
 
-Dokumen ini adalah **"Senjata Rahasia"** Anda untuk memahami setiap istilah teknis, konsep matematis, dan cara menjawab pertanyaan dosen penguji saat seminar proposal, sidang skripsi, atau presentasi tugas kuliah tanpa ragu-ragu.
+Dokumen ini adalah **"senjata rahasia"** untuk persiapan menghadapi ujian / sidang presentasi dosen. Semua istilah teknis dijelaskan dengan **bahasa manusiawi yang sangat mudah dipahami**, dilengkapi analogi nyata dan template cara menjawab pertanyaan dosen.
 
 ---
 
 ## 📑 Daftar Isi
-1. [Istilah Dasar Data Mining & NLP](#1-istilah-dasar-data-mining--nlp)
-2. [Istilah Tahap Text Preprocessing](#2-istilah-tahap-text-preprocessing)
-3. [Istilah Pembobotan Kata (TF-IDF)](#3-istilah-pembobotan-kata-tf-idf)
-4. [Istilah Machine Learning & Pemodelan](#4-istilah-machine-learning--pemodelan)
-5. [Istilah Evaluasi Model & Confusion Matrix](#5-istilah-evaluasi-model--confusion-matrix)
-6. [Istilah Khusus Studi Kasus Mobile JKN](#6-istilah-khusus-studi-kasus-mobile-jkn)
-7. [🎯 Cheat Sheet: 7 Pertanyaan Favorit Dosen & Cara Menjawabnya](#7--cheat-sheet-7-pertanyaan-favorit-dosen--cara-menjawabnya)
+1. [Konsep Dasar Data Mining & NLP](#1-konsep-dasar-data-mining--nlp)
+2. [Tahapan Preprocessing Teks](#2-tahapan-preprocessing-teks)
+3. [Ekstraksi Fitur TF-IDF](#3-ekstraksi-fitur-tf-idf)
+4. [Klasifikasi Machine Learning (Naive Bayes)](#4-klasifikasi-machine-learning-naive-bayes)
+5. [Generative AI & Large Language Model (Gemma 3)](#5-generative-ai--large-language-model-gemma-3)
+6. [Metrik Evaluasi Model (Confusion Matrix)](#6-metrik-evaluasi-model-confusion-matrix)
+7. [Istilah Khusus Studi Kasus Mobile JKN](#7-istilah-khusus-studi-kasus-mobile-jkn)
+8. [🎯 Cheat Sheet: 8 Pertanyaan Favorit Dosen & Cara Menjawabnya](#8--cheat-sheet-8-pertanyaan-favorit-dosen--cara-menjawabnya)
 
 ---
 
-## 1. Istilah Dasar Data Mining & NLP
+## 1. Konsep Dasar Data Mining & NLP
 
-### 🔹 Data Mining
-- **Artinya**: Proses menambang atau mengekstrak informasi dan pola berharga dari sekumpulan data mentah yang sangat besar (dalam hal ini, 5.000 ulasan Play Store).
-- **Contoh**: Menemukan bahwa keluhan terbanyak masyarakat adalah masalah OTP dan antrean faskes.
+### 🔹 Data Mining (Penambangan Data)
+- **Artinya**: Proses otomatis mengekstrak pola, informasi berguna, dan wawasan tersembunyi dari sekumpulan data mentah yang sangat besar (5.000 ulasan Play Store).
+- **Analogi**: Menambang emas di sungai — memisahkan butiran pasir tak berguna (komentar spam/huruf acak) untuk mendapatkan emas murni (keluhan nyata masyarakat tentang BPJS).
 
 ### 🔹 NLP (Natural Language Processing)
-- **Artinya**: Cabang kecerdasan buatan (AI) yang membuat komputer bisa membaca, memahami arti, dan mengolah bahasa manusia sehari-hari.
+- **Artinya**: Cabang kecerdasan buatan (AI) yang membuat komputer mampu membaca, memahami tata bahasa gaul, singkatan, dan emosi di balik kalimat manusia.
 
-### 🔹 Korpus (Corpus)
-- **Artinya**: Seluruh kumpulan dokumen teks yang diteliti.
-- **Di proyek kita**: Kumpulan 5.000 ulasan teks Mobile JKN adalah korpusnya.
+### 🔹 Sentiment Analysis (Analisis Sentimen / Opinion Mining)
+- **Artinya**: Klasifikasi komputasional untuk menentukan apakah suatu ulasan bernada **Positif** (puas/senang), **Negatif** (kecewa/marah), atau **Netral**.
 
-### 🔹 Dokumen (Document)
-- **Artinya**: Satu baris ulasan individu dari satu pengguna.
+### 🔹 Supervised Learning (Pembelajaran Terawasi)
+- **Artinya**: Metode Machine Learning di mana model dilatih menggunakan contoh soal yang sudah ada kunci jawabannya (*Ground Truth*).
 
-### 🔹 N-Gram (Unigram & Bigram)
-- **Artinya**: Potongan rangkaian kata yang berurutan.
-  - **Unigram (1 kata)**: `["tidak"]`, `["bisa"]`, `["login"]`
-  - **Bigram (2 kata)**: `["tidak_bisa"]`, `["sering_error"]`, `["sangat_membantu"]`
-- **Kenapa kita pakai Bigram?**: Karena kata *"bisa"* (positif) berbeda artinya dengan *"tidak_bisa"* (negatif). Bigram menjaga konteks kalimat!
+### 🔹 Ground Truth (Kunci Jawaban Sebenarnya)
+- **Artinya**: Label sentimen yang sebenarnya dari suatu ulasan setelah dikoreksi secara objektif.
 
 ---
 
-## 2. Istilah Tahap Text Preprocessing
+## 2. Tahapan Preprocessing Teks
 
 ### 🔹 Case Folding
-- **Artinya**: Menyeragamkan semua huruf menjadi huruf kecil (*lowercase*).
-- **Contoh**: `"Aplikasi BAGUS Banget"` $\rightarrow$ `"aplikasi bagus banget"`. Komputer menganggap kata kapital dan kecil sama.
+- **Artinya**: Mengubah semua huruf menjadi huruf kecil (*lowercase*).
+- **Contoh**: `"APLIKASI JELEK BANGET"` ➔ `"aplikasi jelek banget"` (agar komputer mengenali kata yang sama).
 
-### 🔹 Data Cleansing (Pembersihan Data)
-- **Artinya**: Menghapus karakter sampah yang tidak ada artinya untuk sentimen, seperti link URL (`http://...`), angka, tanda baca aneh (`@#$%^&*`), dan emotikon rusak.
+### 🔹 Data Cleansing (Pembersihan Regex)
+- **Artinya**: Menghapus karakter yang tidak bermakna seperti URL website, angka, tanda baca aneh, dan simbol liar.
 
-### 🔹 Normalisasi Slang (Slang Word Normalization)
-- **Artinya**: Mengubah kata gaul, singkatan, atau typo menjadi bahasa baku.
-- **Contoh**: `"yg"` $\rightarrow$ `"yang"`, `"gabisa"` $\rightarrow$ `"tidak bisa"`, `"eror"` $\rightarrow$ `"error"`, `"dftr"` $\rightarrow$ `"daftar"`.
+### 🔹 Karakter Reduksi (Repetition Reduction)
+- **Artinya**: Menormalkan huruf yang diketik berulang-ulang karena emosi pengguna.
+- **Contoh**: `"baguuussss"` ➔ `"bagus"`, `"erorrr"` ➔ `"error"`.
 
-### 🔹 Stopword Removal (Penyaringan Kata Stop)
-- **Artinya**: Menghapus kata-kata penghubung umum yang sering muncul tapi tidak membawa emosi sentimen (seperti: *dan, yang, di, dari, untuk*).
-- **Catatan Penting**: Kata negasi seperti *tidak, belum, bukan* **TIDAK DIHAPUS**, karena kata negasi mengubah makna sentimen!
+### 🔹 Normalisasi Slang (Slang Normalization)
+- **Artinya**: Mengubah bahasa gaul, singkatan chatting, dan typo menjadi kata baku bahasa Indonesia.
+- **Contoh**: `"yg"` ➔ `"yang"`, `"gakbisa"` ➔ `"tidak bisa"`, `"molo"` ➔ `"terus"`, `"wuelek"` ➔ `"buruk"`.
 
----
+### 🔹 Tokenisasi (Tokenization)
+- **Artinya**: Memotong kalimat panjang menjadi potongan kata-kata tunggal (*token*).
 
-## 3. Istilah Pembobotan Kata (TF-IDF)
+### 🔹 N-Gram (Unigram & Bigram)
+- **Artinya**: Menggabungkan pasangan kata bersebelahan agar makna tidak hilang.
+- **Contoh Unigram**: `["tidak", "bisa"]`
+- **Contoh Bigram**: `["tidak_bisa"]` (sangat penting untuk menangkap negasi).
 
-### 🔹 TF (Term Frequency)
-- **Artinya**: Berapa kali suatu kata muncul dalam satu ulasan tertentu.
-- **Intinya**: Semakin sering kata itu disebut oleh seorang pengguna, semakin penting kata itu dalam ulasannya.
-
-### 🔹 IDF (Inverse Document Frequency)
-- **Artinya**: Tingkat kelangkaan/keunikan suatu kata di seluruh 5.000 ulasan.
-- **Intinya**: Kata yang muncul di semua ulasan (seperti kata *"aplikasi"*) diberi bobot kecil, sedangkan kata keluhan spesifik (seperti *"jadwal_penuh"* atau *"otp"*) diberi bobot tinggi.
-
-### 🔹 TF-IDF
-- **Artinya**: Hasil perkalian $TF \times IDF$. Nilai statistik numerik yang mewakili seberapa penting sebuah kata dalam ulasan tersebut.
-
-### 🔹 Normalisasi L2 ($L_2\text{-Norm}$)
-- **Artinya**: Menyamakan panjang vektor agar ulasan yang kalimatnya sangat panjang tidak mendominasi atau menenggelamkan ulasan yang singkat.
+### 🔹 Stopword Removal Terpilih
+- **Artinya**: Membuang kata-kata sambung umum yang tidak menentukan emosi (*"dan", "di", "ke", "pada"*), tetapi **tetap mempertahankan kata negasi** (*"tidak", "bukan", "belum"*).
 
 ---
 
-## 4. Istilah Machine Learning & Pemodelan
+## 3. Ekstraksi Fitur TF-IDF
 
-### 🔹 Supervised Learning (Pembelajaran Terarah / Terawasi)
-- **Artinya**: Melatih komputer dengan memberikan contoh soal beserta kunci jawabannya (*Ground Truth*). Setelah komputer pintar, ia disuruh menjawab soal-soal baru secara mandiri.
+### 🔹 Term Frequency (TF)
+- **Artinya**: Seberapa sering suatu kata muncul di dalam sebuah ulasan.
 
-### 🔹 Master Ground Truth (Kunci Jawaban Anotasi)
-- **Artinya**: Dataset master yang sudah diverifikasi dan dilabeli dengan benar (*Positif / Negatif / Netral*) sebagai acuan kebenaran mutlak untuk melatih dan menguji model.
+### 🔹 Inverse Document Frequency (IDF)
+- **Artinya**: Faktor kelangkaan kata di seluruh 5.000 ulasan. Kata umum diberi bobot kecil, kata unik/kritis diberi bobot besar.
 
-### 🔹 Train-Test Split (80% : 20%)
-- **Artinya**: Membagi dataset menjadi dua bagian:
-  - **Data Latih (Training Set - 80% / 4.000 data)**: Untuk bahan belajar komputer.
-  - **Data Uji (Testing Set - 20% / 1.000 data)**: Soal ujian rahasia yang belum pernah dilihat komputer saat latihan untuk mengukur kepintarannya.
+### 🔹 TF-IDF Weighting
+- **Artinya**: Penggabungan bobot $TF \times IDF$. Kata spesifik keluhan seperti `jadwal_penuh` atau `otp` akan mendapatkan nilai bobot statistik yang tinggi.
+
+### 🔹 Vocabulary (Perbendaharaan Kata Fitur)
+- **Artinya**: Daftar seluruh kata unik yang dipelajari model dari data latih (**5.574 fitur unik**).
+
+---
+
+## 4. Klasifikasi Machine Learning (Naive Bayes)
 
 ### 🔹 Multinomial Naive Bayes (MNB)
-- **Artinya**: Algoritma klasifikasi berbasis probabilitas Teorema Bayes yang sangat cepat dan akurat untuk data berbentuk frekuensi kata/teks.
+- **Artinya**: Algoritma klasifikasi berbasis Teorema Probabilitas Bayes yang menghitung peluang suatu ulasan masuk kelas Positif atau Negatif berdasarkan frekuensi kemunculan kata-kata di dalamnya.
+- **Keunggulan**: Sangat ringan, akurasi tinggi pada teks, dan kecepatan proses kilat (< 0.05 ms/ulasan).
 
 ### 🔹 Prior Probability ($P(C)$)
-- **Artinya**: Peluang awal suatu kelas sentimen muncul dalam data latih.
+- **Artinya**: Peluang dasar kemunculan kelas sentimen sebelum membaca isi ulasan.
 
 ### 🔹 Likelihood ($P(W \mid C)$)
-- **Artinya**: Peluang munculnya kata $W$ jika kelasnya adalah $C$. Contoh: *Berapa peluang kata "error" muncul jika sentimennya Negatif?* (Pasti sangat tinggi).
+- **Artinya**: Peluang munculnya kata tertentu jika kelas sentimennya Positif atau Negatif.
 
 ### 🔹 Laplace Smoothing ($\alpha = 1$)
-- **Artinya**: Teknik penambahan angka $1$ pada rumus peluang agar tidak terjadi error pembagian dengan nol ($P = 0$) jika ada kata baru di data uji yang belum pernah muncul di data latih.
-
-### 🔹 Confidence Score / Softmax
-- **Artinya**: Tingkat keyakinan model terhadap tebakannya dalam bentuk persen ($0\% - 100\%$). Contoh: Model menebak ulasan ini *Negatif* dengan keyakinan *98.5%*.
+- **Artinya**: Teknik penambahan angka 1 pada pembilang agar kata baru pada data uji tidak menghasilkan nilai probabilitas nol ($P=0$) yang dapat merusak perhitungan perkalian Bayes.
 
 ---
 
-## 5. Istilah Evaluasi Model & Confusion Matrix
+## 5. Generative AI & Large Language Model (Gemma 3)
 
-### 🔹 Confusion Matrix (Matriks Kebingungan)
-- **Artinya**: Tabel rekapitulasi yang membandingkan jawaban asli (*Ground Truth*) vs tebakan model (*Prediksi ML*).
+### 🔹 LLM (Large Language Model) — Google Gemma 3
+- **Artinya**: Model AI generatif berbasis Transformer yang dilatih pada miliaran token bahasa untuk memahami konteks, struktur semantik, ejaan informal, dan emosi manusia secara mendalam.
 
+### 🔹 Zero-Shot Inference
+- **Artinya**: LLM mampu menganalisis ulasan secara langsung tanpa perlu pelatihan ulang (*fine-tuning*) pada dataset lokal.
+
+### 🔹 Constrained JSON Decoding
+- **Artinya**: Mengunci struktur jawaban LLM agar selalu menghasilkan JSON valid berisi label sentimen, kategori masalah, dan alasan narasi (*reasoning*).
+
+### 🔹 Multi-Aspect Categorization
+- **Artinya**: Kemampuan LLM mengelompokkan ulasan ke dalam domain operasional: *Masalah Teknis & Bug*, *Apresiasi & Kepuasan*, *Fitur & UI/UX*, *Layanan Faskes & Antrean*, dan *Administrasi & Iuran*.
+
+---
+
+## 6. Metrik Evaluasi Model (Confusion Matrix)
+
+### 🔹 Confusion Matrix (Tabel Evaluasi)
 | Istilah | Kepanjangan | Maksudnya |
 | :--- | :--- | :--- |
 | **TP** | *True Positive* | Aslinya Positif, model menebak **Positif** (Tebakan Benar). |
@@ -118,85 +125,74 @@ Dokumen ini adalah **"Senjata Rahasia"** Anda untuk memahami setiap istilah tekn
 | **FP** | *False Positive* | Aslinya Negatif, tapi model salah menebak **Positif** (Salah Tuduh). |
 | **FN** | *False Negative* | Aslinya Positif, tapi model salah menebak **Negatif** (Kelewatan). |
 
-### 🔹 Akurasi (Accuracy) — **88.00%**
-- **Artinya**: Persentase total tebakan benar dari seluruh 1.000 data uji.
-- **Rumus**: $\frac{\text{Total Tebakan Benar}}{\text{Total Data Uji}} = \frac{880}{1000} = 88\%$
-
-### 🔹 Presisi (Precision) — **93.59% (Positif)**
-- **Artinya**: Dari semua ulasan yang ditebak *Positif* oleh model, berapa persen yang aslinya memang benar-benar *Positif*.
-- **Maknanya**: Model kita sangat teliti dan jarang salah melabeli komplain menjadi pujian.
-
-### 🔹 Perolehan (Recall) — **93.44% (Negatif)**
-- **Artinya**: Dari semua komplain negatif yang ada di masyarakat, berapa persen yang berhasil dijaring oleh model.
-- **Maknanya**: Model berhasil menangkap 93.4% keluhan masyarakat tanpa banyak yang lolos!
-
-### 🔹 F1-Score — **91.21% (Positif) & 87.59% (Negatif)**
-- **Artinya**: Rata-rata seimbang (*harmonic mean*) antara Precision dan Recall. Jika F1-Score di atas 80%, model dianggap **sangat prima dan layak publikasi**.
+- **Akurasi (Accuracy)**: **88.00% (ML)** / **92.60% (LLM)** — Persentase total tebakan benar dari seluruh data.
+- **Presisi (Precision)**: **93.59% (Positif)** — Dari seluruh ulasan yang ditebak Positif, berapa yang memang benar Positif.
+- **Perolehan (Recall)**: **88.95% (Positif) & 93.44% (Negatif)** — Kemampuan model menjaring seluruh keluhan negatif masyarakat tanpa ada yang lolos.
+- **F1-Score**: **91.21% (Positif)** — Rata-rata harmonik seimbang antara Precision dan Recall.
 
 ---
 
-## 6. Istilah Khusus Studi Kasus Mobile JKN
+## 7. Istilah Khusus Studi Kasus Mobile JKN
 
 ### 🔹 Rating-Text Inconsistency (Ketidaksesuaian Rating vs Teks)
-- **Artinya**: Fenomena di mana bintang yang diklik pengguna tidak sesuai dengan emosi kata-kata yang ditulisnya.
-- **Temuan Riset Kita**: Ada **211 ulasan (4.2%)** yang mengalami anomali ini.
+- **Artinya**: Fenomena di mana bintang yang diklik pengguna bertolak belakang dengan isi kata-kata ulasannya.
+- **Temuan Riset**: Terdapat **211 ulasan anomali (4.2%)** pada 5.000 data ulasan Mobile JKN.
 
-### 🔹 Taktik Bintang 5 Biar Dibaca (83 Kasus)
-- **Artinya**: Pengguna sengaja memberi ⭐5 padahal isinya keluhan kasar, agar ulasannya naik ke urutan teratas Play Store dan dibaca developer BPJS.
+### 🔹 Taktik "Bintang 5 Biar Dibaca Developer" (83 Kasus)
+- **Artinya**: Pengguna sengaja memberi ⭐5 padahal isinya keluhan keras, agar ulasannya naik ke urutan teratas Play Store.
 
 ### 🔹 Sarcastic Reviews / Sarkasme (128 Kasus)
-- **Artinya**: Pengguna menggunakan kata sopan/pujian bernada sindiran (*"Terima kasih sudah melatih kesabaran saya..."*).
+- **Artinya**: Pengguna menggunakan kata pujian untuk menyindir kegagalan sistem (*"Terima kasih sudah melatih kesabaran saya..."*).
 
 ---
 
-## 7. 🎯 Cheat Sheet: 7 Pertanyaan Favorit Dosen & Cara Menjawabnya
+## 8. 🎯 Cheat Sheet: 8 Pertanyaan Favorit Dosen & Cara Menjawabnya
 
-### ❓ Pertanyaan 1: *"Kenapa Anda memilih algoritma Multinomial Naive Bayes, bukan algoritma lain?"*
+### ❓ Pertanyaan 1: *"Kenapa Anda memilih algoritma Multinomial Naive Bayes?"*
 > **💡 Cara Jawab:**
-> *"Izin menjawab Bapak/Ibu Dosen. Algoritma Multinomial Naive Bayes dipilih karena merupakan baseline standar emas (gold standard) untuk klasifikasi teks diskrit berbasis frekuensi kata (TF-IDF). MNB terbukti computationally efficient (sangat cepat), tahan terhadap overfitting pada dataset berdimensi tinggi (5.587 vocabulary), dan pada penelitian ini berhasil menghasilkan akurasi yang sangat baik yaitu **88.00%** dengan F1-Score kelas positif mencapai **91.21%**."*
+> *"Izin menjawab Bapak/Ibu Dosen. Algoritma Multinomial Naive Bayes dipilih karena merupakan standar baku (gold standard) untuk klasifikasi teks berdimensi tinggi berbasis TF-IDF. MNB sangat efisien secara komputasi (< 0.05 ms per ulasan), tahan terhadap overfitting, dan pada penelitian ini berhasil menghasilkan akurasi **88.00%** dengan F1-Score kelas positif mencapai **91.21%**."*
 
 ---
 
-### ❓ Pertanyaan 2: *"Kenapa tidak langsung pakai rating bintang saja sebagai penentu sentimen? Kenapa harus susah-susah pakai Machine Learning?"*
+### ❓ Pertanyaan 2: *"Kenapa tidak langsung pakai rating bintang saja sebagai penentu sentimen?"*
 > **💡 Cara Jawab:**
-> *"Izin menjelaskan Bapak/Ibu. Berdasarkan eksplorasi data pada 5.000 ulasan Mobile JKN, kami menemukan fenomena **Rating-Text Inconsistency sebesar 4.2% (211 ulasan)**. Banyak masyarakat sengaja memberi bintang 5 padahal isinya komplain berat dengan taktik 'bintang 5 biar dibaca developer', atau memberi bintang 1 karena sarkasme dan salah klik. Jika hanya berpatokan pada rating bintang, manajemen BPJS akan mengalami bias positif semu. Machine Learning membedah langsung isi semantik teks sehingga hasil sentimennya murni dan objektif."*
+> *"Berdasarkan eksplorasi pada 5.000 ulasan Mobile JKN, kami menemukan fenomena **Rating-Text Inconsistency sebesar 4.2% (211 ulasan)**. Banyak masyarakat sengaja memberi bintang 5 padahal isinya komplain berat dengan taktik 'bintang 5 biar dibaca developer', atau memberi bintang 1 karena sarkasme dan salah klik. Jika hanya mengandalkan rating bintang, BPJS Kesehatan akan mengalami bias informasi positif semu."*
 
 ---
 
 ### ❓ Pertanyaan 3: *"Mengapa pembagian data latih dan data ujinya menggunakan rasio 80:20?"*
 > **💡 Cara Jawab:**
-> *"Rasio 80:20 (Pareto Principle) merupakan rasio standar yang paling umum dan teruji dalam literatur Machine Learning untuk dataset ribuan data (4.000 data latih dan 1.000 data uji). Jumlah 4.000 data latih sudah sangat cukup untuk membentuk distribusi probabilitas vocabulary 5.587 fitur, dan 1.000 data uji sudah memenuhi syarat representasi statistik yang valid untuk menghitung Confusion Matrix."*
+> *"Rasio 80:20 (Pareto Principle) merupakan rasio standar yang paling umum dalam literatur Machine Learning untuk dataset ribuan data (4.000 data latih dan 1.000 data uji). Jumlah 4.000 data latih sudah sangat cukup untuk membentuk distribusi probabilitas 5.574 vocabulary, dan 1.000 data uji sudah memenuhi syarat representasi statistik yang valid untuk menghitung Confusion Matrix."*
 
 ---
 
 ### ❓ Pertanyaan 4: *"Apa fungsi Laplace Smoothing ($\alpha=1$) pada model Anda?"*
 > **💡 Cara Jawab:**
-> *"Laplace Smoothing berfungsi untuk mencegah **Zero Probability Problem**. Jika pada data uji muncul kata baru yang belum pernah ditemui pada data latih, tanpa smoothing nilai probabilitasnya akan menjadi nol ($P=0$) yang akan menghanguskan seluruh perkalian probabilitas Teorema Bayes. Dengan menambahkan $\alpha=1$, model tetap dapat melakukan kalkulasi secara stabil."*
+> *"Laplace Smoothing berfungsi untuk mencegah **Zero Probability Problem**. Jika pada data uji muncul kata baru yang belum pernah ditemui pada data latih, tanpa smoothing nilai probabilitasnya akan menjadi nol ($P=0$) yang akan membatalkan seluruh perkalian probabilitas Teorema Bayes. Dengan menambahkan $\alpha=1$, model tetap stabil dalam melakukan kalkulasi."*
 
 ---
 
 ### ❓ Pertanyaan 5: *"Apa bedanya TF (Term Frequency) dengan TF-IDF?"*
 > **💡 Cara Jawab:**
-> *"Jika hanya memakai TF (frekuensi kata murni), kata-kata umum seperti 'aplikasi' atau 'mobile' akan memiliki skor tertinggi padahal tidak membedakan sentimen. TF-IDF mengatasi hal ini dengan menambahkan faktor IDF (Inverse Document Frequency) yang memberi penalti bobot pada kata yang terlalu sering muncul di semua ulasan, dan menaikkan bobot kata-kata spesifik yang menjadi kunci sentimen seperti 'jadwal_penuh', 'otp', atau 'sangat_membantu'."*
+> *"Jika hanya memakai TF murni, kata-kata umum seperti 'aplikasi' atau 'mobile' akan memiliki skor tertinggi padahal tidak membedakan sentimen. TF-IDF mengatasi hal ini dengan menambahkan faktor IDF (Inverse Document Frequency) yang memberi penalti bobot pada kata umum dan menaikkan bobot kata-kata spesifik yang menjadi kunci sentimen seperti 'jadwal_penuh', 'otp', atau 'sangat_membantu'."*
 
 ---
 
-### ❓ Pertanyaan 6: *"Bagaimana Anda menangani kalimat seperti 'aplikasinya tidak bagus' agar tidak dianggap positif karena ada kata 'bagus'?"*
+### ❓ Pertanyaan 6: *"Bagaimana Anda menangani kalimat 'aplikasinya tidak bagus' agar tidak dianggap positif?"*
 > **💡 Cara Jawab:**
-> *"Pada tahap Preprocessing, kami menerapkan **Negation Handling** dan pembentukan **Bigram (2 kata berdampingan)**. Kata negasi seperti 'tidak', 'bukan', dan 'belum' kami pertahankan dan digabungkan menjadi token `tidak_bagus`. Model Machine Learning mempelajari fitur `tidak_bagus` ini secara khusus sebagai probabilitas tinggi untuk kelas Negatif."*
+> *"Pada tahap Preprocessing, kami menerapkan **Negation Preservation** dan pembentukan **Bigram**. Kata negasi seperti 'tidak', 'bukan', dan 'belum' kami pertahankan dan digabungkan menjadi token `tidak_bagus`. Model Machine Learning mempelajari fitur `tidak_bagus` ini sebagai probabilitas tinggi untuk kelas Negatif."*
 
 ---
 
 ### ❓ Pertanyaan 7: *"Apa kontribusi praktis dari penelitian ini untuk pihak BPJS Kesehatan?"*
 > **💡 Cara Jawab:**
-> *"Hasil penambangan data berhasil memetakan **Top 5 Isu Kritis** yang paling dikeluhkan masyarakat secara real-time, yaitu: kegagalan kode OTP via SMS, kendala sinkronisasi NIK KTP, antrean online yang kuotanya cepat habis di faskes rujukan, dan kegagalan deteksi wajah. Rekomendasi strategis kami adalah menyediakan opsi OTP via WhatsApp/Email dan optimalisasi kapasitas server pada jam 07.00-09.00 WIB saat pendaftaran antrean dibuka."*
+> *"Hasil penambangan data berhasil memetakan **Top 5 Isu Kritis** yang paling dikeluhkan masyarakat secara real-time, yaitu: kegagalan kode OTP SMS, kendala sinkronisasi NIK KTP, antrean online yang kuotanya cepat habis di faskes rujukan, dan kegagalan deteksi wajah. Rekomendasi strategis kami adalah menyediakan opsi OTP via WhatsApp/Email dan optimalisasi kapasitas server pada jam 07.00-09.00 WIB saat pendaftaran antrean dibuka."*
 
 ---
 
 ### ❓ Pertanyaan 8: *"Kenapa Anda juga mengintegrasikan LLM (Gemma 3) dan bagaimana perbandingannya dengan Naive Bayes?"*
 > **💡 Cara Jawab:**
-> *"Izin menjelaskan Bapak/Ibu. Kami melakukan **Studi Komparatif Multidimensi**:
-> 1. **Multinomial Naive Bayes (Supervised ML)** unggul dalam **efisiensi throughput tinggi (< 0.05 ms/ulasan)** sehingga ideal untuk sistem pipeline produksi massal 5.000+ ulasan real-time.
-> 2. **LLM Gemma 3 (Generative AI)** unggul dalam **pemahaman konteks dalam (Zero-Shot)**: mampu menormalisasi bahasa gaul tanpa butuh kamus manual, mengartikan emoji simbolis seperti 🔪 menjadi sentimen negatif, dan memberikan alasan narasi (*reasoning*) serta kategorisasi isu otomatis.
-> Kombinasi keduanya membentuk arsitektur **Hybrid AI** yang seimbang antara kecepatan komputasi dan kedalaman analisis kontekstual."*
-
+> *"Kami melakukan **Studi Komparatif Multidimensi**:*
+> *1. **Multinomial Naive Bayes (Supervised ML)** unggul dalam **efisiensi throughput tinggi (< 0.05 ms/ulasan)** sehingga ideal untuk pipeline produksi massal 5.000+ ulasan real-time.*
+> *2. **LLM Gemma 3 (Generative AI)** unggul dalam **pemahaman konteks dalam (Zero-Shot)**: mampu menormalisasi bahasa gaul tanpa butuh kamus manual, mengartikan emoji simbolis seperti 🔪 menjadi sentimen negatif, dan memberikan alasan narasi (*reasoning*) serta kategorisasi isu otomatis.*
+> *Kombinasi keduanya membentuk arsitektur **Hybrid AI** yang seimbang antara kecepatan komputasi dan kedalaman analisis kontekstual."*
