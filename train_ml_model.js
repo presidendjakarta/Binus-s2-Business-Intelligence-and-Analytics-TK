@@ -1,9 +1,17 @@
 import fs from 'fs/promises';
 import path from 'path';
+import { createRequire } from 'module';
 import { createObjectCsvWriter } from 'csv-writer';
 
+const require = createRequire(import.meta.url);
+const natural = require('natural');
+const { Stemmer, defaultDictionary } = require('ts-sastrawi');
+
+// Inisialisasi Sastrawi Stemmer untuk Morfologi Bahasa Indonesia
+const sastrawiStemmer = new Stemmer(defaultDictionary());
+
 // =========================================================================
-// 1. KAMUS SLANG & STOPWORDS BAHASA INDONESIA UNTUK MACHINE LEARNING
+// 1. KAMUS SLANG, STOPWORDS & SASTRAWI STEMMER INDONESIA
 // =========================================================================
 const slangDictionary = {
   'yg': 'yang', 'dgn': 'dengan', 'utk': 'untuk', 'sdh': 'sudah', 'udh': 'sudah',
@@ -26,7 +34,7 @@ const slangDictionary = {
   'parah': 'buruk', 'gagal': 'gagal', 'susah': 'sulit', 'ssah': 'sulit',
   'mempermudah': 'mudah', 'memudahkan': 'mudah', 'dipermudah': 'mudah',
   'mempersulit': 'sulit', 'dipersulit': 'sulit', 'mengecewakan': 'kecewa',
-  'membantu': 'bantu', 'terbantu': 'bantu'
+  'membantu': 'bantu', 'terbantu': 'bantu', 'membatu': 'bantu'
 };
 
 const indonesianStopwords = new Set([
@@ -41,7 +49,7 @@ const indonesianStopwords = new Set([
   'tiap', 'setiap', 'bulan', 'bulannya', 'hari', 'harinya', 'tahun', 'minggu'
 ]);
 
-// Helper Preprocessing
+// Helper Preprocessing (Cleaning + Slang + Sastrawi Stemming + Stopwords Removal + N-Grams)
 function preprocess(text) {
   if (!text) return [];
   let t = text.toLowerCase()
@@ -49,18 +57,23 @@ function preprocess(text) {
     .replace(/[^\w\s-]/g, ' ')
     .replace(/(.)\1{2,}/g, '$1');
   
-  const tokens = t.split(/\s+/).filter(Boolean).map(w => slangDictionary[w] || w);
+  // Normalisasi Slang & Stemming Sastrawi
+  const rawTokens = t.split(/\s+/).filter(Boolean);
+  const normalizedTokens = rawTokens.map(w => {
+    const slangReplaced = slangDictionary[w] || w;
+    return sastrawiStemmer.stem(slangReplaced);
+  });
   
   // Create Unigrams + Bigrams for rich context
   const filtered = [];
-  for (let i = 0; i < tokens.length; i++) {
-    const w = tokens[i];
+  for (let i = 0; i < normalizedTokens.length; i++) {
+    const w = normalizedTokens[i];
     if (!indonesianStopwords.has(w) && w.length > 2) {
       filtered.push(w);
     }
-    // Bigram (e.g., tidak_bisa, sering_error, sangat_membantu)
-    if (i < tokens.length - 1) {
-      const nextW = tokens[i + 1];
+    // Bigram (e.g., tidak_bisa, sering_error, sangat_bantu)
+    if (i < normalizedTokens.length - 1) {
+      const nextW = normalizedTokens[i + 1];
       if (w.length > 2 && nextW.length > 2) {
         filtered.push(`${w}_${nextW}`);
       }
