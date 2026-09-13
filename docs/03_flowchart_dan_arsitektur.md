@@ -29,12 +29,12 @@ Diagram di bawah menggambarkan arsitektur sistem secara menyeluruh, mulai dari l
 
 ```mermaid
 flowchart TD
-    subgraph Layer_1_Ingestion [1. Lapisan Pengumpulan Data (Data Acquisition)]
+    subgraph Layer_1_Ingestion ["1. Lapisan Pengumpulan Data (Data Acquisition)"]
         A1["Google Play Store<br>(app.bpjs.mobile)"] -->|scrap-jkn.js| A2["google-play-scraper Engine<br>• Pagination Token<br>• Sort Rotation<br>• Request Jitter Delay"]
         A2 --> A3[("Raw Storage (data/)<br>• reviews.json<br>• reviews.csv<br>• meta.json")]
     end
 
-    subgraph Layer_2_Preparation [2. Lapisan NLP Preprocessing & Ekstraksi Fitur]
+    subgraph Layer_2_Preparation ["2. Lapisan NLP Preprocessing & Ekstraksi Fitur"]
         A3 --> B1["TextPreprocessor (src/nlp/preprocessor.js)"]
         B0[("Master Data Kamus<br>• emojis.csv<br>• slang.csv (860+)<br>• stopwords.csv<br>• kbbi_wordlist.txt")] --> B1
         B1 --> B2["Nazief-Adriani Stemmer<br>(ts-sastrawi + BPJS Domain)"]
@@ -42,14 +42,14 @@ flowchart TD
         B3 --> B4["TfidfVectorizer (src/ml/vectorizer.js)<br>• Sublinear TF: 1 + ln(TF)<br>• Smooth IDF: ln((1+N)/(1+DF)) + 1<br>• L2-Norm Normalization"]
     end
 
-    subgraph Layer_3_ML [3. Lapisan Machine Learning & Evaluasi]
+    subgraph Layer_3_ML ["3. Lapisan Machine Learning & Evaluasi"]
         B4 --> C1["Matriks Vektor Fitur X<br>& Array Label Ground Truth y"]
         C1 --> C2["Multinomial Naive Bayes<br>(src/ml/naiveBayes.js)<br>• Laplace Smoothing α=1.0<br>• Log-Likelihood (Anti-Underflow)<br>• Softmax Calibration"]
         C1 --> C3["5-Fold Cross Validator<br>(src/ml/evaluator.js)<br>• Stratified K-Fold (k=5)<br>• Confusion Matrix Calculation<br>• Accuracy, Precision, Recall, Macro F1"]
         C2 --> C4["Prediksi Sentimen & Aspek<br>• Label (Positif/Negatif)<br>• Confidence Score<br>• 4 Aspek Operasional JKN<br>• Flag Deteksi Anomali"]
     end
 
-    subgraph Layer_4_Presentation [4. Lapisan Penyajian & Business Intelligence]
+    subgraph Layer_4_Presentation ["4. Lapisan Penyajian & Business Intelligence"]
         C3 --> D1["Laporan Metrik Evaluasi<br>(metrics.json)"]
         C4 --> D2["Dataset Hasil Prediksi<br>(predictions.json / .csv)"]
         C4 --> D3["Executive BI Dashboard<br>(report/<timestamp>/dashboard.html)"]
@@ -83,9 +83,9 @@ flowchart TD
     
     Step5 --> Step6{"6. Analisis Klausa Bertingkat<br>Apakah terdapat konjungsi<br>Adversatif (tapi) / Konsesif (padahal)?"}
     
-    Step6 -- Konjungsi 'tapi/namun' --> Step6A["Beri bobot 1x pada klausa sebelum 'tapi'<br>Beri bobot 2x pada klausa setelah 'tapi' (Inti Keluhan)"]
-    Step6 -- Konjungsi 'padahal/walaupun' --> Step6B["Beri bobot 2x pada klausa sebelum 'padahal' (Inti Masalah)<br>Beri bobot 1x pada klausa setelah 'padahal'"]
-    Step6 -- Tanpa Konjungsi Khusus --> Step6C["Beri bobot standar 1x pada seluruh klausa"]
+    Step6 -->|"Konjungsi 'tapi/namun'"| Step6A["Beri bobot 1x pada klausa sebelum 'tapi'<br>Beri bobot 2x pada klausa setelah 'tapi' (Inti Keluhan)"]
+    Step6 -->|"Konjungsi 'padahal/walaupun'"| Step6B["Beri bobot 2x pada klausa sebelum 'padahal' (Inti Masalah)<br>Beri bobot 1x pada klausa setelah 'padahal'"]
+    Step6 -->|"Tanpa Konjungsi Khusus"| Step6C["Beri bobot standar 1x pada seluruh klausa"]
 
     Step6A --> Step7["7. Multi-Step Negation Binding<br>Cari kata negasi (tidak, bukan, belum, kurang, jangan).<br>Lewati kata pengisi (filler) maksimal 2 kata.<br>Ikat dengan kata inti: 'tidak_' + Stem(TargetWord)"]
     Step6B --> Step7
@@ -110,7 +110,7 @@ Sistem Machine Learning dibagi menjadi dua alur utama: **Fase Pelatihan (Trainin
 
 ```mermaid
 flowchart TD
-    subgraph Training_Phase [Fase Pelatihan Model (Training Phase)]
+    subgraph Training_Phase ["Fase Pelatihan Model (Training Phase)"]
         T1["Kumpulan Dokumen Token Latih (Train Docs)"] --> T2["Fit TF-IDF Vectorizer<br>• Hitung DF(t) per kata<br>• Hitung Smooth IDF: ln((1+N)/(1+DF)) + 1<br>• Bentuk Matriks Kosakata (Vocabulary)"]
         T2 --> T3["Transform Dokumen Latih<br>• Hitung Sublinear TF: 1 + ln(TF)<br>• Kalikan TF × IDF<br>• Normalisasi Euclidean L2-Norm"]
         T3 --> T4["Vektor Fitur Latih X_train & Label y_train"]
@@ -118,7 +118,7 @@ flowchart TD
         T5 --> T6[("Model MNB Terlatih<br>(Class Log-Priors & Feature Log-Probabilities)")]
     end
 
-    subgraph Inference_Phase [Fase Prediksi / Inferensi (Inference Phase)]
+    subgraph Inference_Phase ["Fase Prediksi / Inferensi (Inference Phase)"]
         I1["Ulasan Baru / Data Uji (Test Doc)"] --> I2["Preprocessing NLP (Clean Tokens)"]
         I2 --> I3["Transform TF-IDF Vektor Uji (X_test)<br>(Menggunakan Vocabulary & IDF dari Training)"]
         I3 --> I4["Kalkulasi Akumulasi Log-Likelihood<br>ln P(c|d) = ln P(c) + ∑ w_i × ln P(w_i|c)"]
@@ -196,10 +196,10 @@ flowchart TD
 
     RenderDT --> UserAction{"Pilihan Interaksi Pengguna"}
 
-    UserAction -- Pencarian Cepat --> Act1["Ketik Kata Kunci pada Search Bar<br>DataTables memfilter baris secara real-time"]
-    UserAction -- Filter Dropdown --> Act2["Pilih Filter Spesifik:<br>• Aspek: Autentikasi / Antrean / Server / Iuran<br>• Rating: Bintang 1 s.d. 5<br>• Sentimen: Positif / Negatif<br>• Anomali: Ya / Tidak"]
-    UserAction -- Klik Baris / Tombol Detail --> Act3["Buka Modal Popup Detail Ulasan<br>• Tampilkan Teks Asli & Teks Bersih<br>• Tampilkan Token NLP Hasil Preprocessing<br>• Tampilkan Probabilitas Posterior & Confidence Score"]
-    UserAction -- Ekspor Data --> Act4["Klik Tombol Ekspor:<br>• Copy to Clipboard<br>• Unduh Berkas CSV / Excel<br>• Cetak Laporan (Print / PDF)"]
+    UserAction -->|"Pencarian Cepat"| Act1["Ketik Kata Kunci pada Search Bar<br>DataTables memfilter baris secara real-time"]
+    UserAction -->|"Filter Dropdown"| Act2["Pilih Filter Spesifik:<br>• Aspek: Autentikasi / Antrean / Server / Iuran<br>• Rating: Bintang 1 s.d. 5<br>• Sentimen: Positif / Negatif<br>• Anomali: Ya / Tidak"]
+    UserAction -->|"Klik Baris / Tombol Detail"| Act3["Buka Modal Popup Detail Ulasan<br>• Tampilkan Teks Asli & Teks Bersih<br>• Tampilkan Token NLP Hasil Preprocessing<br>• Tampilkan Probabilitas Posterior & Confidence Score"]
+    UserAction -->|"Ekspor Data"| Act4["Klik Tombol Ekspor:<br>• Copy to Clipboard<br>• Unduh Berkas CSV / Excel<br>• Cetak Laporan (Print / PDF)"]
 
     Act1 --> UpdateTable["Perbarui Tampilan Baris Tabel DataTables"]
     Act2 --> UpdateTable

@@ -165,9 +165,7 @@ Untuk mencegah kesalahan pemotongan istilah medis/asuransi, kamus dasar diperlua
 $$\mathcal{K}_{\text{domain}} = \{\text{faskes, antrean, rujukan, autodebet, iuran, skrining, puskesmas, peserta, kepesertaan, klinik, bpjs, jkn, kis, nik, otp}\}$$
 
 ### 2.6. Penyaringan Stopwords Selektif
-Stopwords removal menghapus kata-kata fungsional non-sentimen ([`master_data/stopwords.csv`](file:///x:/laragon/kuliah/playstore-mining/master_data/stopwords.csv)). 
-
-$$\text{Token Bersih} = \{t \in T \mid t \notin \mathcal{S}_{\text{stop}} \lor t \in \mathcal{T}_{\text{sentiment}} \lor \text{startsWith}(t, \text{"tidak\_"})\ न्यायालय}$$
+$$\text{Token Bersih} = \{t \in T \mid t \notin \mathcal{S}_{\text{stop}} \lor t \in \mathcal{T}_{\text{sentiment}} \lor \text{startsWith}(t, \text{"tidak\_"})\}$$
 
 ---
 

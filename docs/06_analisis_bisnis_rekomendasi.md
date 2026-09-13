@@ -55,15 +55,13 @@ Skala Net Sentiment Score (NSS):
 
 Seluruh ulasan dipetakan secara otomatis ke dalam 4 pilar fungsional Mobile JKN menggunakan fungsi [`detectAspects`](file:///x:/laragon/kuliah/playstore-mining/run-analisa.js#L13-L34):
 
-```mermaid
-bar
-    title Rasio Sentimen per Aspek Operasional Mobile JKN
-    x-axis ["Autentikasi & Akun", "Antrean & Faskes", "Kinerja & Server", "Iuran & Layanan", "Lainnya"]
-    y-axis "Jumlah Ulasan" 0 --> 2000
-    bar [320, 610, 180, 520, 440]
-    bar [1100, 1240, 1110, 420, 210]
-```
-*(Catatan: Batang biru = Positif, Batang merah = Negatif)*
+| Aspek Operasional | Total Ulasan | Sentimen Positif | Sentimen Negatif | Rasio Positif (%) | Status Evaluasi |
+| :--- | :---: | :---: | :---: | :---: | :--- |
+| **Autentikasi & Akun** | 1.420 | 320 (22.5%) | 1.100 (77.5%) | 22.5% | 🔴 Kritis (OTP / Login) |
+| **Antrean & Faskes** | 1.850 | 610 (33.0%) | 1.240 (67.0%) | 33.0% | 🔴 Kritis (Kuota & SIMRS) |
+| **Kinerja & Server** | 1.290 | 180 (14.0%) | 1.110 (86.0%) | 14.0% | 🔴 Sangat Kritis (Crash / RTO) |
+| **Iuran & Layanan** | 940 | 520 (55.3%) | 420 (44.7%) | 55.3% | 🟢 Positif (KIS Digital) |
+| **Lainnya** | 650 | 440 (67.7%) | 210 (32.3%) | 67.7% | 🟢 Baik |
 
 ---
 
@@ -115,13 +113,14 @@ bar
 
 ## 4. Analisis Lini Masa (Timeline) & Tren Versi Rilis Aplikasi
 
-```mermaid
-xychart-beta
-    title Tren Kepuasan Sentimen Positif (%) per Bulan
-    x-axis ["2026-04", "2026-05", "2026-06", "2026-07", "2026-08", "2026-09"]
-    y-axis "Persentase Sentimen Positif (%)" 0 --> 100
-    line [48.2, 45.1, 36.4, 38.0, 42.5, 41.4]
-```
+| Bulan Lini Masa | Total Ulasan | Sentimen Positif (%) | Sentimen Negatif (%) | Rata-rata Rating | Status Rilis Aplikasi |
+| :---: | :---: | :---: | :---: | :---: | :--- |
+| **2026-04** | 780 | 48.2% | 51.8% | ★ 3.05 | Versi v4.16.2 (Stabil) |
+| **2026-05** | 820 | 45.1% | 54.9% | ★ 2.95 | Versi v4.16.5 |
+| **2026-06** | 950 | 36.4% | 63.6% | ★ 2.50 | ⚠️ Rilis v4.17.0 (Bug OTP) |
+| **2026-07** | 890 | 38.0% | 62.0% | ★ 2.65 | Versi v4.17.2 |
+| **2026-08** | 980 | 42.5% | 57.5% | ★ 2.80 | Versi v4.18.0 (Patch Stabilitas) |
+| **2026-09** | 580 | 41.4% | 58.6% | ★ 2.84 | Versi v4.18.0 Berjalan |
 
 ### 🔍 Analisis Korelasi Versi:
 1. **Penurunan Kepuasan pada Juni 2026 ($36.4\%$)**: Terjadi bersamaan dengan rilis pembaruan versi `v4.17.x` yang mengalami *major bug* pada sistem autentikasi OTP.
