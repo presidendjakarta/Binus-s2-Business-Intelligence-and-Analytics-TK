@@ -9,13 +9,13 @@ Dokumen ini mencatat rencana kerja pembuatan dokumentasi sistem secara bertahap 
 | Fase | File Target | Topik & Fokus Dokumen | Relevansi Akademis / Teknis | Status |
 | :---: | :--- | :--- | :--- | :---: |
 | **Fase 1** | [`01_metodologi_crisp_dm.md`](01_metodologi_crisp_dm.md) | Kerangka Kerja 6 Tahapan CRISP-DM & Pemetaan Source Code | **Bab 3 (Metodologi Penelitian)** | ✅ **Selesai** |
-| **Fase 2** | [`02_algoritma_dan_matematika.md`](02_algoritma_dan_matematika.md) | Penurunan Matematis TF-IDF, MNB, Laplace Smoothing, Softmax, Nazief-Adriani | **Bab 2 (Teori) & Bab 4 (Sistem)** | ⏳ *Sedang Diproses* |
-| **Fase 3** | [`03_flowchart_dan_arsitektur.md`](03_flowchart_dan_arsitektur.md) | Diagram Visual Mermaid: Arsitektur Global, Pipeline NLP, DFD | **Bab 3 & Bab 4 (Perancangan)** | 📝 *Dalam Antrean* |
-| **Fase 4** | [`04_kamus_data_dan_skema.md`](04_kamus_data_dan_skema.md) | Spesifikasi Skema Data Input/Output, Master Leksikon, & Metadata | **Bab 3 & Lampiran Dataset** | 📝 *Dalam Antrean* |
-| **Fase 5** | [`05_evaluasi_dan_eksperimen.md`](05_evaluasi_dan_eksperimen.md) | 5-Fold Cross Validation, Confusion Matrix, Error Misclassification | **Bab 4 (Hasil & Pembahasan)** | 📝 *Dalam Antrean* |
-| **Fase 6** | [`06_analisis_bisnis_rekomendasi.md`](06_analisis_bisnis_rekomendasi.md) | Analisis 4 Aspek JKN, Net Sentiment Score (NSS), Action Plan BPJS | **Bab 5 (Saran & Kesimpulan)** | 📝 *Dalam Antrean* |
-| **Fase 7** | [`07_cheat_sheet_sidang_qna.md`](07_cheat_sheet_sidang_qna.md) | 12+ Tanya-Jawab Kritis Dosen Penguji Sidang & Glosarium Data Mining | **Persiapan Sidang Akhir** | 📝 *Dalam Antrean* |
-| **Fase 8** | [`08_panduan_penggunaan_cli.md`](08_panduan_penggunaan_cli.md) | User Manual Lengkap (Scraper, Analisis, Dashboard, Testing) | **Panduan Teknis / Petunjuk** | 📝 *Dalam Antrean* |
+| **Fase 2** | [`02_algoritma_dan_matematika.md`](02_algoritma_dan_matematika.md) | Penurunan Matematis TF-IDF, MNB, Laplace Smoothing, Softmax, Nazief-Adriani | **Bab 2 (Teori) & Bab 4 (Sistem)** | ✅ **Selesai** |
+| **Fase 3** | [`03_flowchart_dan_arsitektur.md`](03_flowchart_dan_arsitektur.md) | Diagram Visual Mermaid: Arsitektur Global, Pipeline NLP, DFD | **Bab 3 & Bab 4 (Perancangan)** | ✅ **Selesai** |
+| **Fase 4** | [`04_kamus_data_dan_skema.md`](04_kamus_data_dan_skema.md) | Spesifikasi Skema Data Input/Output, Master Leksikon, & Metadata | **Bab 3 & Lampiran Dataset** | ✅ **Selesai** |
+| **Fase 5** | [`05_evaluasi_dan_eksperimen.md`](05_evaluasi_dan_eksperimen.md) | 5-Fold Cross Validation, Confusion Matrix, Error Misclassification | **Bab 4 (Hasil & Pembahasan)** | ✅ **Selesai** |
+| **Fase 6** | [`06_analisis_bisnis_rekomendasi.md`](06_analisis_bisnis_rekomendasi.md) | Analisis 4 Aspek JKN, Net Sentiment Score (NSS), Action Plan BPJS | **Bab 5 (Saran & Kesimpulan)** | ✅ **Selesai** |
+| **Fase 7** | [`07_cheat_sheet_sidang_qna.md`](07_cheat_sheet_sidang_qna.md) | 12+ Tanya-Jawab Kritis Dosen Penguji Sidang & Glosarium Data Mining | **Persiapan Sidang Akhir** | ✅ **Selesai** |
+| **Fase 8** | [`08_panduan_penggunaan_cli.md`](08_panduan_penggunaan_cli.md) | User Manual Lengkap (Scraper, Analisis, Dashboard, Testing) | **Panduan Teknis / Petunjuk** | ✅ **Selesai** |
 
 ---
 
