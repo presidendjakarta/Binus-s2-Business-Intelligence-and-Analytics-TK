@@ -122,14 +122,15 @@ Berkas metadata sesi ekstraksi data:
 
 ## 3. Master Data Kamus Leksikon (Kamus Acuan)
 
-Direktori `master_data/` memuat 4 berkas leksikon acuan untuk standardisasi pemrosesan bahasa alami:
+Direktori `master_data/` memuat 5 berkas leksikon acuan untuk standardisasi pemrosesan bahasa alami dan penentuan ground truth:
 
 ```
 master_data/
-├── emojis.csv            # 80+ pemetaan emoji Unicode ke token semantik teks Indonesia
-├── slang.csv             # 860+ kamus kata gaul/singkatan ke kata baku bahasa Indonesia
-├── stopwords.csv         # Daftar kata tugas non-sentimen dengan proteksi negasi
-└── kbbi_wordlist.txt     # Korpus kata dasar KBBI rujukan stemmer Sastrawi
+├── emojis.csv                # 80+ pemetaan emoji Unicode ke token semantik teks Indonesia
+├── slang.csv                 # 860+ kamus kata gaul/singkatan ke kata baku bahasa Indonesia
+├── stopwords.csv             # Daftar kata tugas non-sentimen dengan proteksi negasi
+├── kbbi_wordlist.txt         # Korpus kata dasar KBBI rujukan stemmer Sastrawi
+└── ground_truth_rules.csv    # Leksikon aturan ground truth & deteksi anomali/sarkasme
 ```
 
 ### 3.1. Kamus Semantik Emoji (`emojis.csv`)
@@ -209,6 +210,35 @@ sebagai
 
 ### 3.4. Korpus Kata Dasar KBBI (`kbbi_wordlist.txt`)
 Berkas teks berformat daftar kata (*wordlist*) yang memuat **29.932 entri kata dasar** bahasa Indonesia berdasarkan Kamus Besar Bahasa Indonesia (KBBI). Berkas ini digunakan oleh mesin stemmer `ts-sastrawi` sebagai acuan verifikasi pemotongan imbuhan morfologis (*affix stripping*).
+
+---
+
+### 3.5. Leksikon Aturan Ground Truth & Anomali (`ground_truth_rules.csv`)
+Berkas kamus aturan heuristik yang memuat pola kata/frasa kunci untuk menetapkan label acuan (*Ground Truth*) dan mengoreksi anomali ulasan (sarkasme rating bintang 5 dan pujian rating bintang 1 keliru).
+
+| Kolom CSV | Tipe Data | Deskripsi & Makna Nilai |
+| :--- | :---: | :--- |
+| `pattern` | `String` | Frasa atau kata kunci pemicu aturan (contoh: *"kecewa parah"*, *"sangat membantu"*, *"lemot"*). |
+| `rule_type` | `String` | Kategori aturan: `override_high_rating` (koreksi bintang $\ge 4$ ke Negatif), `override_low_rating` (koreksi bintang $\le 2$ ke Positif), atau `rating_3_indicator` (indikator untuk bintang 3). |
+| `target_sentiment` | `String` | Label sentimen target (`Positif` atau `Negatif`). |
+
+#### 📄 Cuplikan Isi `ground_truth_rules.csv`:
+```csv
+pattern,rule_type,target_sentiment
+kecewa parah,override_high_rating,Negatif
+sangat buruk,override_high_rating,Negatif
+aplikasi sampah,override_high_rating,Negatif
+tidak berguna,override_high_rating,Negatif
+tidak bisa login,override_high_rating,Negatif
+sangat membantu,override_low_rating,Positif
+sangat bagus,override_low_rating,Positif
+terima kasih bpjs,override_low_rating,Positif
+luar biasa,override_low_rating,Positif
+mudah,rating_3_indicator,Positif
+bagus,rating_3_indicator,Positif
+sulit,rating_3_indicator,Negatif
+lemot,rating_3_indicator,Negatif
+```
 
 ---
 

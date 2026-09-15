@@ -16,6 +16,7 @@ Dokumen ini mencatat rencana kerja pembuatan dokumentasi sistem secara bertahap 
 | **Fase 6** | [`06_analisis_bisnis_rekomendasi.md`](06_analisis_bisnis_rekomendasi.md) | Analisis 4 Aspek JKN, Net Sentiment Score (NSS), Action Plan BPJS | **Bab 5 (Saran & Kesimpulan)** | ✅ **Selesai** |
 | **Fase 7** | [`07_cheat_sheet_sidang_qna.md`](07_cheat_sheet_sidang_qna.md) | 12+ Tanya-Jawab Kritis Dosen Penguji Sidang & Glosarium Data Mining | **Persiapan Sidang Akhir** | ✅ **Selesai** |
 | **Fase 8** | [`08_panduan_penggunaan_cli.md`](08_panduan_penggunaan_cli.md) | User Manual Lengkap (Scraper, Analisis, Dashboard, Testing) | **Panduan Teknis / Petunjuk** | ✅ **Selesai** |
+| **Fase 9** | [`09_dokumentasi_kode_dan_script.md`](09_dokumentasi_kode_dan_script.md) | Bedah Arsitektur Seluruh Modul Script, Fungsi, Algoritma, & API | **Teknis & Arsitektur Kode** | ✅ **Selesai** |
 
 ---
 

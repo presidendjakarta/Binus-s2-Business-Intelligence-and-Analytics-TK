@@ -22,7 +22,8 @@ X:\laragon\kuliah\playstore-mining\docs/
 ├── 05_evaluasi_dan_eksperimen.md       # [Bab 4] 5-Fold Cross Validation, Confusion Matrix & Error Analysis
 ├── 06_analisis_bisnis_rekomendasi.md   # [Bab 5] Voice of Customer, Analisis 4 Aspek JKN, & Action Plan
 ├── 07_cheat_sheet_sidang_qna.md        # 12+ Tanya-Jawab Kritis Ujian Sidang & Glosarium Data Mining
-└── 08_panduan_penggunaan_cli.md        # Panduan teknis menjalankan scraper, analisis, dan dashboard
+├── 08_panduan_penggunaan_cli.md        # Panduan teknis menjalankan scraper, analisis, dan dashboard
+└── 09_dokumentasi_kode_dan_script.md   # [Teknis] Bedah arsitektur seluruh modul kode, algoritma, & API
 ```
 
 ---
@@ -39,6 +40,7 @@ X:\laragon\kuliah\playstore-mining\docs/
 | **[06. Analisis Bisnis & Rekomendasi](06_analisis_bisnis_rekomendasi.md)** | **Bab 5 (Kesimpulan & Saran Bisnis)** | *Insights* manajerial seputar 4 aspek operasional (Akun, Antrean, Server, Iuran), *Net Sentiment Score* (NSS), tren per versi, dan rekomendasi aksi bagi BPJS. |
 | **[07. Cheat Sheet Sidang Q&A](07_cheat_sheet_sidang_qna.md)** | **Persiapan Ujian / Sidang Akhir** | Tanya-jawab ilmiah terhadap pertanyaan kritis dosen penguji (alasan pemilihan algoritma, penanganan negasi, Laplace smoothing, dan sarkasme). |
 | **[08. Panduan Penggunaan CLI](08_panduan_penggunaan_cli.md)** | **User Manual / Petunjuk Teknis** | Langkah instalasi dependensi, panduan eksekusi perintah CLI (`npm run scrape`, `analyze`, `report`, `test`), dan troubleshooting. |
+| **[09. Dokumentasi Kode & Script](09_dokumentasi_kode_dan_script.md)** | **Teknis & Arsitektur Perangkat Lunak** | Penjelasan mendalam seluruh skrip kode (`.js`), parameter fungsi, arsitektur modul NLP/ML, dan kamus API internal. |
 
 ---
 

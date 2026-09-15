@@ -1,0 +1,240 @@
+pattern,rule_type,target_sentiment
+kecewa parah,override_high_rating,Negatif
+sangat buruk,override_high_rating,Negatif
+parah banget,override_high_rating,Negatif
+tidak berguna,override_high_rating,Negatif
+jelek sekali,override_high_rating,Negatif
+eror terus,override_high_rating,Negatif
+error terus,override_high_rating,Negatif
+gagal terus,override_high_rating,Negatif
+aplikasi sampah,override_high_rating,Negatif
+hancur,override_high_rating,Negatif
+tidak membantu,override_high_rating,Negatif
+tidak bisa login,override_high_rating,Negatif
+gabisa login,override_high_rating,Negatif
+sulit login,override_high_rating,Negatif
+susah login,override_high_rating,Negatif
+makin susah login,override_high_rating,Negatif
+dipersulit,override_high_rating,Negatif
+mempersulit,override_high_rating,Negatif
+tambah mempersulit,override_high_rating,Negatif
+sangat mengecewakan,override_high_rating,Negatif
+buruk sekali,override_high_rating,Negatif
+parah sekali,override_high_rating,Negatif
+rugi pulsa,override_high_rating,Negatif
+habis pulsa,override_high_rating,Negatif
+buang pulsa,override_high_rating,Negatif
+bintang 1 rasa bintang 5,override_high_rating,Negatif
+bintang satu rasa bintang lima,override_high_rating,Negatif
+bintang 5 biar dibaca,override_high_rating,Negatif
+bintang lima biar dibaca,override_high_rating,Negatif
+bintang 5 biar direspon,override_high_rating,Negatif
+bintang lima biar direspon,override_high_rating,Negatif
+bintang 5 biar nongol,override_high_rating,Negatif
+bintang lima biar nongol,override_high_rating,Negatif
+bintang 5 biar viral,override_high_rating,Negatif
+bintang 5 biar keatas,override_high_rating,Negatif
+bintang 5 buat pajangan,override_high_rating,Negatif
+bintang lima buat pajangan,override_high_rating,Negatif
+bintang 5 khusus untuk keluhan,override_high_rating,Negatif
+sangat tidak berguna,override_high_rating,Negatif
+sangat tidak membantu,override_high_rating,Negatif
+sangat tidak memuaskan,override_high_rating,Negatif
+sangat tidak menguntungkan,override_high_rating,Negatif
+tidak ada gunanya,override_high_rating,Negatif
+tidak ada faedahnya,override_high_rating,Negatif
+gak ada gunanya,override_high_rating,Negatif
+ga ada gunanya,override_high_rating,Negatif
+gak guna sama sekali,override_high_rating,Negatif
+ga guna sama sekali,override_high_rating,Negatif
+sama saja bohong,override_high_rating,Negatif
+sama aja bohong,override_high_rating,Negatif
+ujung ujungnya ke kantor,override_high_rating,Negatif
+ujung2nya ke kantor,override_high_rating,Negatif
+ujungnya ke kantor,override_high_rating,Negatif
+tidak memberikan solusi,override_high_rating,Negatif
+tidak ada solusi,override_high_rating,Negatif
+buang buang waktu,override_high_rating,Negatif
+buang waktu pulsa,override_high_rating,Negatif
+bikin emosi,override_high_rating,Negatif
+bikin kesel,override_high_rating,Negatif
+bikin jengkel,override_high_rating,Negatif
+bikin darah tinggi,override_high_rating,Negatif
+menyusahkan masyarakat,override_high_rating,Negatif
+mempersulit rakyat,override_high_rating,Negatif
+tidak bisa dibuka sama sekali,override_high_rating,Negatif
+gak bisa dibuka sama sekali,override_high_rating,Negatif
+ga bisa dibuka sama sekali,override_high_rating,Negatif
+gabisa dibuka sama sekali,override_high_rating,Negatif
+gagal verifikasi terus,override_high_rating,Negatif
+verifikasi gagal terus,override_high_rating,Negatif
+verifikasi wajah gagal terus,override_high_rating,Negatif
+otp tidak masuk terus,override_high_rating,Negatif
+otp ga masuk masuk,override_high_rating,Negatif
+otp gak masuk masuk,override_high_rating,Negatif
+otp tidak kunjung datang,override_high_rating,Negatif
+server down terus,override_high_rating,Negatif
+aplikasi bobrok,override_high_rating,Negatif
+aplikasi ampas,override_high_rating,Negatif
+aplikasi jelek banget,override_high_rating,Negatif
+aplikasi tidak bermutu,override_high_rating,Negatif
+aplikasi tidak jelas,override_high_rating,Negatif
+pelayanan sangat buruk,override_high_rating,Negatif
+pelayanan mengecewakan,override_high_rating,Negatif
+tidak ada perbaikan,override_high_rating,Negatif
+makin kesini makin rusak,override_high_rating,Negatif
+makin kesini makin jelek,override_high_rating,Negatif
+makin diupdate makin hancur,override_high_rating,Negatif
+update bukannya bagus malah rusak,override_high_rating,Negatif
+update bukannya makin baik malah lemot,override_high_rating,Negatif
+uninstall aja,override_high_rating,Negatif
+mending hapus aja,override_high_rating,Negatif
+tutup aja aplikasinya,override_high_rating,Negatif
+percuma bikin aplikasi,override_high_rating,Negatif
+percuma download,override_high_rating,Negatif
+percuma donlot,override_high_rating,Negatif
+kecewa berat,override_high_rating,Negatif
+kecewa sekali,override_high_rating,Negatif
+sangat menjengkelkan,override_high_rating,Negatif
+sangat memusingkan,override_high_rating,Negatif
+sistem bobrok,override_high_rating,Negatif
+fitur tidak berfungsi,override_high_rating,Negatif
+sangat membantu,override_low_rating,Positif
+sangat bagus,override_low_rating,Positif
+sangat bermanfaat,override_low_rating,Positif
+sangat membantu sekali,override_low_rating,Positif
+terima kasih bpjs,override_low_rating,Positif
+terima kasih mobile jkn,override_low_rating,Positif
+terima kasih bpjs kesehatan,override_low_rating,Positif
+luar biasa,override_low_rating,Positif
+mantap sekali,override_low_rating,Positif
+terbaik,override_low_rating,Positif
+bintang lima,override_low_rating,Positif
+sangat mudah,override_low_rating,Positif
+sangat puas,override_low_rating,Positif
+sangat recommended,override_low_rating,Positif
+sangat rekomended,override_low_rating,Positif
+recomended banget,override_low_rating,Positif
+top markotop,override_low_rating,Positif
+mantul banget,override_low_rating,Positif
+mantap jiwa,override_low_rating,Positif
+pelayanan sangat memuaskan,override_low_rating,Positif
+sangat praktis dan mudah,override_low_rating,Positif
+sangat cepat dan responsif,override_low_rating,Positif
+sangat efisien,override_low_rating,Positif
+sangat memudahkan pengguna,override_low_rating,Positif
+sangat menolong,override_low_rating,Positif
+pelayanan ramah dan cepat,override_low_rating,Positif
+antrian online sangat membantu,override_low_rating,Positif
+bintang 5 sebenarnya,override_low_rating,Positif
+harusnya bintang 5,override_low_rating,Positif
+seharusnya bintang 5,override_low_rating,Positif
+salah pencet bintang,override_low_rating,Positif
+salah klik bintang,override_low_rating,Positif
+sukses selalu bpjs,override_low_rating,Positif
+maju terus bpjs,override_low_rating,Positif
+semoga makin berkembang,override_low_rating,Positif
+luar biasa manfaatnya,override_low_rating,Positif
+sangat mempermudah urusan,override_low_rating,Positif
+sangat mempermudah pendaftaran,override_low_rating,Positif
+sangat mempermudah pelayanan,override_low_rating,Positif
+sangat responsif dan solutif,override_low_rating,Positif
+mudah,rating_3_indicator,Positif
+bagus,rating_3_indicator,Positif
+bantu,rating_3_indicator,Positif
+puas,rating_3_indicator,Positif
+cepat,rating_3_indicator,Positif
+lancar,rating_3_indicator,Positif
+baik,rating_3_indicator,Positif
+senang,rating_3_indicator,Positif
+praktis,rating_3_indicator,Positif
+hebat,rating_3_indicator,Positif
+mantap,rating_3_indicator,Positif
+keren,rating_3_indicator,Positif
+manfaat,rating_3_indicator,Positif
+bermanfaat,rating_3_indicator,Positif
+tolong,rating_3_indicator,Positif
+menolong,rating_3_indicator,Positif
+rekomendasi,rating_3_indicator,Positif
+responsif,rating_3_indicator,Positif
+rapi,rating_3_indicator,Positif
+memuaskan,rating_3_indicator,Positif
+jelas,rating_3_indicator,Positif
+ringan,rating_3_indicator,Positif
+terbantu,rating_3_indicator,Positif
+efisien,rating_3_indicator,Positif
+oke,rating_3_indicator,Positif
+mantul,rating_3_indicator,Positif
+lengkap,rating_3_indicator,Positif
+solutif,rating_3_indicator,Positif
+baguslah,rating_3_indicator,Positif
+lumayan,rating_3_indicator,Positif
+berguna,rating_3_indicator,Positif
+ramah,rating_3_indicator,Positif
+tertib,rating_3_indicator,Positif
+teratur,rating_3_indicator,Positif
+apresiasi,rating_3_indicator,Positif
+terima kasih,rating_3_indicator,Positif
+makasih,rating_3_indicator,Positif
+good,rating_3_indicator,Positif
+nice,rating_3_indicator,Positif
+sulit,rating_3_indicator,Negatif
+antri,rating_3_indicator,Negatif
+lemot,rating_3_indicator,Negatif
+susah,rating_3_indicator,Negatif
+gagal,rating_3_indicator,Negatif
+kurang,rating_3_indicator,Negatif
+lambat,rating_3_indicator,Negatif
+rumit,rating_3_indicator,Negatif
+eror,rating_3_indicator,Negatif
+rusak,rating_3_indicator,Negatif
+error,rating_3_indicator,Negatif
+ribet,rating_3_indicator,Negatif
+kecewa,rating_3_indicator,Negatif
+kesal,rating_3_indicator,Negatif
+marah,rating_3_indicator,Negatif
+berat,rating_3_indicator,Negatif
+tunda,rating_3_indicator,Negatif
+tertunda,rating_3_indicator,Negatif
+hang,rating_3_indicator,Negatif
+crash,rating_3_indicator,Negatif
+force close,rating_3_indicator,Negatif
+fc,rating_3_indicator,Negatif
+blank,rating_3_indicator,Negatif
+down,rating_3_indicator,Negatif
+rto,rating_3_indicator,Negatif
+loading,rating_3_indicator,Negatif
+stuck,rating_3_indicator,Negatif
+macet,rating_3_indicator,Negatif
+bug,rating_3_indicator,Negatif
+ngelag,rating_3_indicator,Negatif
+lelet,rating_3_indicator,Negatif
+lola,rating_3_indicator,Negatif
+mahal,rating_3_indicator,Negatif
+denda,rating_3_indicator,Negatif
+tunggak,rating_3_indicator,Negatif
+tunggakan,rating_3_indicator,Negatif
+potong,rating_3_indicator,Negatif
+tagih,rating_3_indicator,Negatif
+tagihan,rating_3_indicator,Negatif
+rugi,rating_3_indicator,Negatif
+pulsa,rating_3_indicator,Negatif
+boros,rating_3_indicator,Negatif
+habis,rating_3_indicator,Negatif
+pusing,rating_3_indicator,Negatif
+bingung,rating_3_indicator,Negatif
+emosi,rating_3_indicator,Negatif
+ribetnya,rating_3_indicator,Negatif
+susahnya,rating_3_indicator,Negatif
+gagalnya,rating_3_indicator,Negatif
+payah,rating_3_indicator,Negatif
+amburadul,rating_3_indicator,Negatif
+hancur,rating_3_indicator,Negatif
+parah,rating_3_indicator,Negatif
+buruk,rating_3_indicator,Negatif
+sampah,rating_3_indicator,Negatif
+bermasalah,rating_3_indicator,Negatif
+kendala,rating_3_indicator,Negatif
+gangguan,rating_3_indicator,Negatif
+dipersulit,rating_3_indicator,Negatif
+mempersulit,rating_3_indicator,Negatif

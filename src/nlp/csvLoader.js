@@ -1,4 +1,4 @@
-﻿const fs = require('fs');
+const fs = require('fs');
 const path = require('path');
 
 function parseCSV(filePath) {
@@ -84,8 +84,41 @@ function loadStopwords(masterDataDir) {
   return stopSet;
 }
 
+function loadGroundTruthRules(masterDataDir) {
+  const filePath = path.join(masterDataDir, 'ground_truth_rules.csv');
+  const rows = parseCSV(filePath);
+  
+  const rules = {
+    strongNegativePatterns: [],
+    strongPositivePatterns: [],
+    posIndicators: [],
+    negIndicators: []
+  };
+
+  for (const r of rows) {
+    const pattern = (r.pattern || '').toLowerCase().trim();
+    const ruleType = (r.rule_type || r.type || '').toLowerCase().trim();
+    const sentiment = (r.target_sentiment || r.sentiment || '').toLowerCase().trim();
+
+    if (!pattern) continue;
+
+    if (ruleType === 'override_high_rating' || (ruleType === 'override' && sentiment === 'negatif')) {
+      rules.strongNegativePatterns.push(pattern);
+    } else if (ruleType === 'override_low_rating' || (ruleType === 'override' && sentiment === 'positif')) {
+      rules.strongPositivePatterns.push(pattern);
+    } else if (ruleType === 'rating_3_indicator' && (sentiment === 'positif' || sentiment === 'pos')) {
+      rules.posIndicators.push(pattern);
+    } else if (ruleType === 'rating_3_indicator' && (sentiment === 'negatif' || sentiment === 'neg')) {
+      rules.negIndicators.push(pattern);
+    }
+  }
+
+  return rules;
+}
+
 module.exports = {
   loadSlangDict,
   loadEmojiDict,
-  loadStopwords
+  loadStopwords,
+  loadGroundTruthRules
 };
