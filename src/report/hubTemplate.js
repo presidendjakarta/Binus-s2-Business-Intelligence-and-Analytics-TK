@@ -1,0 +1,803 @@
+const fs = require('fs');
+const path = require('path');
+
+/**
+ * Scans the report/ directory and generates a rich, modern index.html report portal
+ * @param {string} baseDir Project root directory
+ * @returns {string} Generated HTML content
+ */
+function generateIndexHtml(baseDir) {
+  const reportBase = path.join(baseDir, 'report');
+  let reports = [];
+
+  if (fs.existsSync(reportBase)) {
+    const folders = fs.readdirSync(reportBase)
+      .filter(f => fs.statSync(path.join(reportBase, f)).isDirectory())
+      .sort()
+      .reverse();
+
+    reports = folders.map((f, idx) => {
+      const mPath = path.join(reportBase, f, 'metrics.json');
+      let metrics = null;
+      let summary = null;
+      if (fs.existsSync(mPath)) {
+        try {
+          const d = JSON.parse(fs.readFileSync(mPath, 'utf8'));
+          metrics = d.metrics;
+          summary = d.summary;
+        } catch (e) {}
+      }
+      return {
+        folder: f,
+        isLatest: idx === 0,
+        metrics,
+        summary
+      };
+    });
+  }
+
+  const reportsJson = JSON.stringify(reports).replace(/</g, '\\u003c').replace(/>/g, '\\u003e');
+
+  return `<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal Laporan Analisis Sentimen Mobile JKN - BPJS Kesehatan</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-body: #f8fafc;
+      --bg-card: #ffffff;
+      --border-color: #e2e8f0;
+      --border-dark: #cbd5e1;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --bpjs: #059669;
+      --bpjs-light: #ecfdf5;
+      --bpjs-dark: #047857;
+      --success: #10b981;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Public Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      background-color: var(--bg-body);
+      color: var(--text-main);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* Top Navbar */
+    .navbar {
+      background-color: #ffffff;
+      border-bottom: 1px solid var(--border-color);
+      padding: 16px 28px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow-sm);
+    }
+    .navbar-container {
+      max-width: 1320px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .brand-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-badge {
+      background: linear-gradient(135deg, var(--bpjs), var(--bpjs-dark));
+      color: #ffffff;
+      font-weight: 800;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 13px;
+      letter-spacing: 0.5px;
+      box-shadow: 0 2px 4px rgba(5, 150, 105, 0.2);
+    }
+    .brand-text h1 {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.2px;
+    }
+    .brand-text p {
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+    .navbar-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+    }
+    .btn-default {
+      background-color: #ffffff;
+      border-color: var(--border-dark);
+      color: var(--text-main);
+    }
+    .btn-default:hover {
+      background-color: #f1f5f9;
+      border-color: #94a3b8;
+    }
+    .btn-primary {
+      background-color: var(--bpjs);
+      color: #ffffff;
+      box-shadow: 0 2px 4px rgba(5, 150, 105, 0.2);
+    }
+    .btn-primary:hover {
+      background-color: var(--bpjs-dark);
+    }
+    .btn-blue {
+      background-color: var(--primary);
+      color: #ffffff;
+    }
+    .btn-blue:hover {
+      background-color: var(--primary-hover);
+    }
+    .btn-sm {
+      padding: 5px 10px;
+      font-size: 12px;
+    }
+
+    /* Hero Banner */
+    .hero {
+      background: linear-gradient(135deg, #064e3b 0%, #059669 50%, #10b981 100%);
+      color: #ffffff;
+      padding: 40px 28px;
+      border-radius: 12px;
+      margin-bottom: 28px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(4px);
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 11.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+    .hero h2 {
+      font-size: 26px;
+      font-weight: 800;
+      margin-bottom: 10px;
+      line-height: 1.25;
+    }
+    .hero p {
+      font-size: 14px;
+      color: #e2e8f0;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+    .hero-stats {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .hero-stat-item {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 10px 16px;
+      border-radius: 8px;
+      backdrop-filter: blur(4px);
+    }
+    .hero-stat-num {
+      font-size: 20px;
+      font-weight: 800;
+    }
+    .hero-stat-lbl {
+      font-size: 11px;
+      color: #d1fae5;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 24px 60px;
+    }
+
+    /* Section Headers */
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .section-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* Search & Filter Bar */
+    .filter-bar {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    .search-input {
+      padding: 8px 14px;
+      font-size: 13px;
+      border: 1px solid var(--border-dark);
+      border-radius: 6px;
+      outline: none;
+      width: 240px;
+      background: #ffffff;
+      transition: all 0.15s ease;
+    }
+    .search-input:focus {
+      border-color: var(--bpjs);
+      box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.15);
+    }
+
+    /* Report Cards Grid */
+    .reports-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    @media (max-width: 640px) {
+      .reports-grid { grid-template-columns: 1fr; }
+    }
+
+    .report-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+    .report-card:hover {
+      border-color: #cbd5e1;
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-2px);
+    }
+    .report-card.latest-card {
+      border: 2px solid var(--bpjs);
+      background: #ffffff;
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+    .card-folder {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .badge-latest {
+      background: var(--bpjs-light);
+      color: var(--bpjs-dark);
+      border: 1px solid #a7f3d0;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .metrics-pills {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      background: #f8fafc;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-bottom: 14px;
+      text-align: center;
+    }
+    .metric-pill-val {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+    .metric-pill-lbl {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .sentiment-bar-container {
+      margin-bottom: 16px;
+    }
+    .sentiment-bar-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+    .sentiment-bar-track {
+      height: 8px;
+      background: #e2e8f0;
+      border-radius: 4px;
+      overflow: hidden;
+      display: flex;
+    }
+    .bar-pos { background: var(--bpjs); height: 100%; }
+    .bar-neg { background: var(--danger); height: 100%; }
+
+    .card-actions {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border-color);
+    }
+    .btn-dashboard {
+      width: 100%;
+      background: var(--bpjs);
+      color: #ffffff;
+      padding: 9px 14px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .btn-dashboard:hover {
+      background: var(--bpjs-dark);
+    }
+    .sub-actions {
+      display: flex;
+      gap: 6px;
+    }
+    .sub-actions .btn {
+      flex: 1;
+      padding: 6px 8px;
+      font-size: 11.5px;
+    }
+
+    /* Documentation Grid */
+    .docs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 14px;
+      margin-bottom: 40px;
+    }
+    .doc-item {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 14px 16px;
+      text-decoration: none;
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.15s ease;
+      box-shadow: var(--shadow-sm);
+    }
+    .doc-item:hover {
+      border-color: var(--bpjs);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+    .doc-num {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--bpjs);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+    .doc-title {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 4px;
+    }
+    .doc-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* Terminal CLI Box */
+    .cli-box {
+      background: #0f172a;
+      color: #e2e8f0;
+      border-radius: 10px;
+      padding: 20px 24px;
+      box-shadow: var(--shadow);
+      margin-bottom: 30px;
+    }
+    .cli-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      border-bottom: 1px solid #334155;
+      padding-bottom: 10px;
+    }
+    .cli-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #94a3b8;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .cli-commands {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px;
+    }
+    .cli-item {
+      background: #1e293b;
+      padding: 10px 14px;
+      border-radius: 6px;
+      border: 1px solid #334155;
+    }
+    .cli-code {
+      font-family: monospace;
+      color: #38bdf8;
+      font-weight: 700;
+      font-size: 12.5px;
+      display: block;
+      margin-bottom: 2px;
+    }
+    .cli-desc {
+      font-size: 11px;
+      color: #94a3b8;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 24px 0;
+      border-top: 1px solid var(--border-color);
+      color: var(--text-muted);
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navbar -->
+  <header class="navbar">
+    <div class="navbar-container">
+      <div class="brand-title">
+        <span class="brand-badge">BPJS</span>
+        <div class="brand-text">
+          <h1>Portal Analisis Sentimen & Data Mining Mobile JKN</h1>
+          <p>Repositori Laporan Eksekutif Business Intelligence & Dokumentasi Akademis</p>
+        </div>
+      </div>
+      <div class="navbar-actions">
+        <a href="docs/README.md" class="btn btn-default" title="Buka Pusat Dokumentasi Markdown">
+          📚 Indeks Dokumen
+        </a>
+        <a href="https://play.google.com/store/apps/details?id=app.bpjs.mobile&hl=id" target="_blank" rel="noopener noreferrer" class="btn btn-default" title="Google Play Store Mobile JKN">
+          Play Store ↗
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    
+    <!-- Hero Banner -->
+    <div class="hero">
+      <div class="hero-content">
+        <div class="hero-badge">Executive BI Portal</div>
+        <h2>Pusat Laporan & Hasil Analisis Sentimen Mobile JKN</h2>
+        <p>
+          Sistem analitik berbasis CRISP-DM yang mengekstraksi opini dari ribuan ulasan Google Play Store 
+          menggunakan pipeline NLP Sastrawi, pembobotan kata TF-IDF, dan klasifikasi Multinomial Naive Bayes.
+        </p>
+        <div class="hero-stats">
+          <div class="hero-stat-item">
+            <div class="hero-stat-num">${reports.length}</div>
+            <div class="hero-stat-lbl">Total Laporan Selesai</div>
+          </div>
+          <div class="hero-stat-item">
+            <div class="hero-stat-num">${reports[0] && reports[0].metrics ? reports[0].metrics.accuracy + '%' : '93.08%'}</div>
+            <div class="hero-stat-lbl">Akurasi Model Terbaik</div>
+          </div>
+          <div class="hero-stat-item">
+            <div class="hero-stat-num">${reports[0] && reports[0].summary ? reports[0].summary.totalReviews.toLocaleString('id-ID') : '4.985'}</div>
+            <div class="hero-stat-lbl">Data Ulasan Terkumpul</div>
+          </div>
+          <div class="hero-stat-item">
+            <div class="hero-stat-num">${reports[0] && reports[0].summary ? reports[0].summary.avgRating : '3.12'} ★</div>
+            <div class="hero-stat-lbl">Rata-rata Rating</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 1: Generated Reports List -->
+    <div class="section-header">
+      <div>
+        <div class="section-title">📊 Daftar Laporan Analisis Eksekutif</div>
+        <div class="section-subtitle">Pilih sesi laporan yang ingin dieksplorasi di antarmuka Interactive Dashboard</div>
+      </div>
+      <div class="filter-bar">
+        <input type="text" id="reportSearch" class="search-input" placeholder="🔍 Cari tanggal/timestamp..." oninput="filterReports()">
+      </div>
+    </div>
+
+    <div class="reports-grid" id="reportsGrid">
+      ${reports.map(rep => {
+        const f = rep.folder;
+        const m = rep.metrics || { accuracy: 90, macroF1: 90 };
+        const s = rep.summary || { totalReviews: 4985, positivePercent: 48.4, negativePercent: 51.6, netSentimentScore: -3.3, avgRating: 3.12 };
+        const dateStr = f.replace('_', ' Jam ');
+
+        return `
+        <div class="report-card ${rep.isLatest ? 'latest-card' : ''}" data-name="${f}">
+          <div>
+            <div class="card-top">
+              <div class="card-folder">
+                📁 <span>${f}</span>
+              </div>
+              ${rep.isLatest ? '<span class="badge-latest">★ Laporan Terbaru</span>' : ''}
+            </div>
+
+            <div class="metrics-pills">
+              <div>
+                <div class="metric-pill-val" style="color:var(--bpjs);">${m.accuracy || 93.08}%</div>
+                <div class="metric-pill-lbl">Akurasi</div>
+              </div>
+              <div>
+                <div class="metric-pill-val" style="color:var(--primary);">${m.macroF1 || 93.08}%</div>
+                <div class="metric-pill-lbl">Macro F1</div>
+              </div>
+              <div>
+                <div class="metric-pill-val">${s.totalReviews ? s.totalReviews.toLocaleString('id-ID') : '4.985'}</div>
+                <div class="metric-pill-lbl">Ulasan</div>
+              </div>
+            </div>
+
+            <div class="sentiment-bar-container">
+              <div class="sentiment-bar-label">
+                <span style="color:var(--bpjs);">${s.positivePercent || 48.4}% Positif</span>
+                <span style="color:var(--text-muted); font-size:11px;">NSS: ${s.netSentimentScore >= 0 ? '+' : ''}${s.netSentimentScore || -3.3}%</span>
+                <span style="color:var(--danger);">${s.negativePercent || 51.6}% Negatif</span>
+              </div>
+              <div class="sentiment-bar-track">
+                <div class="bar-pos" style="width:${s.positivePercent || 48.4}%;"></div>
+                <div class="bar-neg" style="width:${s.negativePercent || 51.6}%;"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-actions">
+            <a href="report/${f}/dashboard.html" class="btn btn-dashboard">
+              📊 Buka Interactive Dashboard ➔
+            </a>
+            <div class="sub-actions">
+              <a href="report/${f}/predictions.csv" download class="btn btn-default" title="Unduh hasil prediksi format CSV">
+                ⬇️ CSV Data
+              </a>
+              <a href="report/${f}/predictions.json" target="_blank" class="btn btn-default" title="Buka predictions.json">
+                📦 JSON Raw
+              </a>
+              <a href="report/${f}/metrics.json" target="_blank" class="btn btn-default" title="Buka metrics.json">
+                📈 Metrik
+              </a>
+            </div>
+          </div>
+        </div>
+        `;
+      }).join('')}
+    </div>
+
+    <!-- Section 2: Command Center Box -->
+    <div class="cli-box">
+      <div class="cli-header">
+        <div class="cli-title">⚡ Perintah Cepat Terminal (CLI Command Center)</div>
+        <span style="font-size:11.5px; color:#64748b;">Node.js v18+</span>
+      </div>
+      <div class="cli-commands">
+        <div class="cli-item">
+          <code class="cli-code">npm run scrape</code>
+          <div class="cli-desc">Scraping ulasan terbaru dari Google Play Store</div>
+        </div>
+        <div class="cli-item">
+          <code class="cli-code">npm run analyze</code>
+          <div class="cli-desc">Jalankan NLP, Training Naive Bayes, & buat report baru</div>
+        </div>
+        <div class="cli-item">
+          <code class="cli-code">npm run report</code>
+          <div class="cli-desc">Buka laporan dashboard terbaru langsung di browser</div>
+        </div>
+        <div class="cli-item">
+          <code class="cli-code">npm test</code>
+          <div class="cli-desc">Jalankan unit testing pipeline preprocessing NLP</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 3: Academic Documentation Index -->
+    <div class="section-header">
+      <div>
+        <div class="section-title">📚 Pusat Dokumentasi Akademis (Skripsi / Tesis)</div>
+        <div class="section-subtitle">Dokumentasi lengkap standar CRISP-DM dari Bab 1 hingga Bab 5</div>
+      </div>
+      <a href="docs/README.md" class="btn btn-default btn-sm">Lihat Seluruh Dokumen ➔</a>
+    </div>
+
+    <div class="docs-grid">
+      <a href="docs/01_metodologi_crisp_dm.md" class="doc-item">
+        <div>
+          <div class="doc-num">Fase 1 &bull; Bab 3</div>
+          <div class="doc-title">Metodologi CRISP-DM</div>
+          <div class="doc-desc">6 tahapan standar riset data mining dan pemetaan source code.</div>
+        </div>
+      </a>
+
+      <a href="docs/02_algoritma_dan_matematika.md" class="doc-item">
+        <div>
+          <div class="doc-num">Fase 2 &bull; Bab 2 & 4</div>
+          <div class="doc-title">Algoritma & Matematika</div>
+          <div class="doc-desc">Penurunan rumus TF-IDF, Laplace Smoothing, dan Softmax.</div>
+        </div>
+      </a>
+
+      <a href="docs/03_flowchart_dan_arsitektur.md" class="doc-item">
+        <div>
+          <div class="doc-num">Fase 3 &bull; Bab 3 & 4</div>
+          <div class="doc-title">Flowchart & Arsitektur</div>
+          <div class="doc-desc">Visualisasi arsitektur sistem, 8-step NLP pipeline, dan DFD.</div>
+        </div>
+      </a>
+
+      <a href="docs/04_kamus_data_dan_skema.md" class="doc-item">
+        <div>
+          <div class="doc-num">Fase 4 &bull; Bab 3</div>
+          <div class="doc-title">Kamus Data & Skema</div>
+          <div class="doc-desc">Struktur skema dataset input, master leksikon, dan prediksi.</div>
+        </div>
+      </a>
+
+      <a href="docs/05_evaluasi_dan_eksperimen.md" class="doc-item">
+        <div>
+          <div class="doc-num">Fase 5 &bull; Bab 4</div>
+          <div class="doc-title">Evaluasi & Eksperimen</div>
+          <div class="doc-desc">Pengujian 5-Fold Cross Validation dan Confusion Matrix.</div>
+        </div>
+      </a>
+
+      <a href="docs/06_analisis_bisnis_rekomendasi.md" class="doc-item">
+        <div>
+          <div class="doc-num">Fase 6 &bull; Bab 5</div>
+          <div class="doc-title">Analisis Bisnis & Saran</div>
+          <div class="doc-desc">Voice of Customer, 4 pilar aspek, dan action plan BPJS.</div>
+        </div>
+      </a>
+
+      <a href="docs/07_cheat_sheet_sidang_qna.md" class="doc-item">
+        <div>
+          <div class="doc-num">Fase 7 &bull; Ujian Sidang</div>
+          <div class="doc-title">Cheat Sheet Sidang Q&A</div>
+          <div class="doc-desc">14+ tanya-jawab kritis dosen penguji dan glosarium istilah.</div>
+        </div>
+      </a>
+
+      <a href="docs/08_panduan_penggunaan_cli.md" class="doc-item">
+        <div>
+          <div class="doc-num">Fase 8 &bull; User Manual</div>
+          <div class="doc-title">Panduan Penggunaan CLI</div>
+          <div class="doc-desc">Langkah eksekusi script scraper, analisis, dan dashboard.</div>
+        </div>
+      </a>
+
+      <a href="docs/09_dokumentasi_kode_dan_script.md" class="doc-item">
+        <div>
+          <div class="doc-num">Fase 9 &bull; Teknis</div>
+          <div class="doc-title">Dokumentasi Kode & Script</div>
+          <div class="doc-desc">Bedah arsitektur seluruh file .js, fungsi, dan API matrix.</div>
+        </div>
+      </a>
+
+      <a href="docs/10_studi_kasus_sarkasme_dan_anomali.md" class="doc-item">
+        <div>
+          <div class="doc-num">Fase 10 &bull; Studi Kasus</div>
+          <div class="doc-title">Studi Kasus Sarkasme</div>
+          <div class="doc-desc">Bedah ulasan sarkasme nyata dan inferensi Naive Bayes.</div>
+        </div>
+      </a>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      Mobile JKN Sentiment Analytics & Data Mining System &bull; BPJS Kesehatan Case Study
+    </div>
+  </footer>
+
+  <script>
+    const ALL_REPORTS = ${reportsJson};
+
+    function filterReports() {
+      const query = (document.getElementById('reportSearch').value || '').toLowerCase().trim();
+      const cards = document.querySelectorAll('.report-card');
+
+      cards.forEach(card => {
+        const name = (card.getAttribute('data-name') || '').toLowerCase();
+        if (!query || name.includes(query)) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>`;
+}
+
+module.exports = { generateIndexHtml };

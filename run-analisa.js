@@ -7,6 +7,7 @@ const MultinomialNaiveBayes = require('./src/ml/naiveBayes');
 const ModelEvaluator = require('./src/ml/evaluator');
 const { determineGroundTruth } = require('./src/ml/groundTruth');
 const { generateDashboardHtml } = require('./src/report/dashboardTemplate');
+const { generateIndexHtml } = require('./src/report/hubTemplate');
 const { getTimestampFolder, ensureDir, getLatestFolder, parseArgs } = require('./src/utils/helpers');
 
 // Helper to categorize review into Mobile JKN operational aspects
@@ -328,6 +329,14 @@ async function main() {
   });
   await csvWriter.writeRecords(finalSamples.map(s => ({ ...s, aspects: s.aspects.join('; ') })));
 
+  // Automatically refresh index.html portal
+  try {
+    const portalHtml = generateIndexHtml(__dirname);
+    fs.writeFileSync(path.join(__dirname, 'index.html'), portalHtml, 'utf8');
+  } catch (err) {
+    // Ignore portal refresh error if any
+  }
+
   // 10. Print Summary
   console.log('================================================================');
   console.log('                     HASIL ANALISIS SENTIMEN                    ');
@@ -351,6 +360,7 @@ async function main() {
   console.log('================================================================');
   console.log(`[✓] Laporan Dashboard Berhasil Dibuat!`);
   console.log(`    📁 File: ${htmlPath}`);
+  console.log(`    🌐 Portal Laporan: ${path.join(__dirname, 'index.html')}`);
   console.log(`\nBuka dashboard interaktif:`);
   console.log(`  node open-report.js`);
   console.log(`  atau double-click file: report/${reportFolderName}/dashboard.html\n`);
