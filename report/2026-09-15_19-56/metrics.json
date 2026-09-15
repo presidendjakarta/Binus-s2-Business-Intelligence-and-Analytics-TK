@@ -1,0 +1,133 @@
+{
+  "metrics": {
+    "totalSamples": 4985,
+    "accuracy": 89.71,
+    "macroPrecision": 59.88,
+    "macroRecall": 62.32,
+    "macroF1": 60.98,
+    "confusionMatrix": {
+      "matrix": {
+        "Positif": {
+          "Positif": 2323,
+          "Negatif": 218,
+          "Netral": 0
+        },
+        "Negatif": {
+          "Positif": 100,
+          "Negatif": 2149,
+          "Netral": 0
+        },
+        "Netral": {
+          "Positif": 18,
+          "Negatif": 177,
+          "Netral": 0
+        }
+      },
+      "tp": 2323,
+      "fp": 100,
+      "tn": 2149,
+      "fn": 218
+    },
+    "classMetrics": {
+      "Positif": {
+        "support": 2541,
+        "tp": 2323,
+        "fp": 118,
+        "fn": 218,
+        "precision": 95.17,
+        "recall": 91.42,
+        "f1": 93.26
+      },
+      "Negatif": {
+        "support": 2249,
+        "tp": 2149,
+        "fp": 395,
+        "fn": 100,
+        "precision": 84.47,
+        "recall": 95.55,
+        "f1": 89.67
+      },
+      "Netral": {
+        "support": 195,
+        "tp": 0,
+        "fp": 0,
+        "fn": 195,
+        "precision": 0,
+        "recall": 0,
+        "f1": 0
+      }
+    }
+  },
+  "summary": {
+    "totalReviews": 4985,
+    "avgRating": 3.12,
+    "netSentimentScore": -2.4,
+    "positiveCount": 2433,
+    "positivePercent": 48.8,
+    "neutralCount": 0,
+    "neutralPercent": 0,
+    "negativeCount": 2552,
+    "negativePercent": 51.2,
+    "vocabularySize": 1440,
+    "totalThumbsUp": 526
+  },
+  "aspectStats": {
+    "Autentikasi & Akun": {
+      "total": 1578,
+      "Positif": 90,
+      "Negatif": 1488,
+      "Netral": 0
+    },
+    "Antrean & Faskes": {
+      "total": 825,
+      "Positif": 142,
+      "Negatif": 683,
+      "Netral": 0
+    },
+    "Kinerja & Server": {
+      "total": 733,
+      "Positif": 31,
+      "Negatif": 702,
+      "Netral": 0
+    },
+    "Iuran & Layanan": {
+      "total": 395,
+      "Positif": 156,
+      "Negatif": 239,
+      "Netral": 0
+    },
+    "Lainnya": {
+      "total": 2628,
+      "Positif": 2132,
+      "Negatif": 496,
+      "Netral": 0
+    }
+  },
+  "ratingDistribution": {
+    "1": {
+      "Positif": 59,
+      "Negatif": 1973,
+      "Netral": 0
+    },
+    "2": {
+      "Positif": 6,
+      "Negatif": 211,
+      "Netral": 0
+    },
+    "3": {
+      "Positif": 18,
+      "Negatif": 177,
+      "Netral": 0
+    },
+    "4": {
+      "Positif": 117,
+      "Negatif": 81,
+      "Netral": 0
+    },
+    "5": {
+      "Positif": 2233,
+      "Negatif": 110,
+      "Netral": 0
+    }
+  }
+}

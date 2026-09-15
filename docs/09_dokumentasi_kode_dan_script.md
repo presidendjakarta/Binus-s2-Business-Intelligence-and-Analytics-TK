@@ -280,22 +280,13 @@ Menjalankan seluruh alur pipeline teks:
 
 ### 5.1. `groundTruth.js`
 - **Path Berkas**: [`src/ml/groundTruth.js`](file:///x:/laragon/kuliah/playstore-mining/src/ml/groundTruth.js)
-- **Tanggung Jawab**: Menetapkan label acuan *supervised learning* (*Ground Truth*) secara dinamis dari berkas master data `master_data/ground_truth_rules.csv`.
+- **Tanggung Jawab**: Menetapkan label acuan *supervised learning* (*Ground Truth*) secara objektif berbasis nilai rating bintang Play Store (3-Kelas: Positif, Netral, Negatif).
 
-#### ⚙️ Logika Algoritma `determineGroundTruth(score, text, masterDataDir)`:
-1. **Pemuatan Aturan Dinamis**: Membaca aturan dari `master_data/ground_truth_rules.csv` melalui `loadGroundTruthRules` dengan *lazy-loading cache* dan fallback default.
-2. **Pemeriksaan Komplain Keras (Sarkasme Rating 5)**:
-   - Jika teks memuat pola komplain (`override_high_rating`: *"kecewa parah"*, *"sangat buruk"*, *"tidak berguna"*, *"aplikasi sampah"*, *"eror terus"*), label langsung ditetapkan sebagai **`Negatif`** (meskipun rating bintang $\ge 4$).
-3. **Pemeriksaan Pujian Kuat (Pujian Rating 1 Keliru)**:
-   - Jika teks tidak memuat kata negasi dan memuat pola pujian (`override_low_rating`: *"sangat membantu"*, *"sangat bagus"*, *"terbaik"*, *"bintang lima"*), label ditetapkan sebagai **`Positif`** (meskipun rating bintang $\le 2$).
-4. **Pemetaan Rating Standar**:
-   - Skor $\ge 4 \rightarrow$ **`Positif`**.
-   - Skor $\le 2 \rightarrow$ **`Negatif`**.
-5. **Resolusi Rating Netral (Skor 3)**:
-   - Menghitung perbandingan jumlah leksikon `posIndicators` vs `negIndicators` yang dimuat dari CSV.
-   - Skor $\le 2 \rightarrow$ **`Negatif`**.
-4. **Resolusi Rating Netral (Skor 3)**:
-   - Menghitung perbandingan jumlah leksikon positif (*mudah, bagus, bantu, puas, lancar*) vs leksikon negatif (*sulit, antri, lemot, gagal, rusak*).
+#### ⚙️ Logika Algoritma `determineGroundTruth(score, text)`:
+1. **Skor $\ge 4$ (Bintang 4 & 5)**: Ditetapkan sebagai **`Positif`**.
+2. **Skor $= 3$ (Bintang 3)**: Ditetapkan sebagai **`Netral`**.
+3. **Skor $\le 2$ (Bintang 1 & 2)**: Ditetapkan sebagai **`Negatif`**.
+4. Mengembalikan string label: `'Positif' | 'Netral' | 'Negatif'`.
 
 ---
 
@@ -403,7 +394,7 @@ Menjalankan seluruh alur pipeline teks:
 | `src/nlp/csvLoader.js` | `loadStopwords` | `(masterDataDir)` | `Set<string>` | Memuat daftar stopwords dengan proteksi kata negasi. |
 | `src/nlp/stemmer.js` | `stemWord` | `(word: string)` | `string` | Mengembalikan kata dasar via Nazief-Adriani Sastrawi + cache. |
 | `src/nlp/preprocessor.js` | `TextPreprocessor.preprocess` | `(text: string)` | `{raw, cleaned, tokens, processedText}` | Menjalankan 8 tahap NLP: emoji, slang, clause, negasi, stem, stopwords. |
-| `src/ml/groundTruth.js` | `determineGroundTruth` | `(score: number, text: string)` | `'Positif' \| 'Negatif'` | Menetapkan label acuan ground truth & koreksi sarkasme bintang 5. |
+| `src/ml/groundTruth.js` | `determineGroundTruth` | `(score: number, text?: string)` | `'Positif' \| 'Netral' \| 'Negatif'` | Menetapkan label acuan ground truth murni berbasis bintang Play Store (★1-2: Neg, ★3: Net, ★4-5: Pos). |
 | `src/ml/vectorizer.js` | `TfidfVectorizer.fitTransform` | `(docs: Array<string[]>)` | `Array<SparseVector>` | Menghitung Sublinear TF, Smooth IDF, dan $L_2$-norm. |
 | `src/ml/vectorizer.js` | `TfidfVectorizer.getTopFeatures` | `(vectors, topN)` | `Array<{word, score}>` | Mengekstrak $N$ fitur kata kunci teratas berdasarkan akumulasi bobot TF-IDF. |
 | `src/ml/naiveBayes.js` | `MultinomialNaiveBayes.train` | `(X, y, vocabSize)` | `this` | Melatih MNB dengan Laplace Add-One Smoothing ($\alpha=1.0$). |

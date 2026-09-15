@@ -41,7 +41,7 @@ function generateDashboardHtml(data) {
       --primary: #0d6efd;
       --success: #198754;
       --danger: #dc3545;
-      --warning: #ffc107;
+      --warning: #f59e0b;
       --bpjs: #059669;
     }
 
@@ -104,51 +104,83 @@ function generateDashboardHtml(data) {
     .btn {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      justify-content: center;
       padding: 6px 12px;
       font-size: 12.5px;
-      font-weight: 500;
+      font-weight: 600;
       border-radius: 4px;
-      border: 1px solid transparent;
       cursor: pointer;
       text-decoration: none;
-      transition: all 0.15s ease-in-out;
-      font-family: inherit;
+      transition: all 0.15s ease;
+      border: 1px solid transparent;
     }
-    .btn-default { background-color: #ffffff; border-color: var(--border-dark); color: #333333; }
-    .btn-default:hover { background-color: #f8f9fa; border-color: #adb5bd; }
-    .btn-success { background-color: var(--bpjs); color: #ffffff; border-color: var(--bpjs); }
-    .btn-success:hover { background-color: #047857; }
-    .btn-primary { background-color: var(--primary); color: #ffffff; border-color: var(--primary); }
-    .btn-primary:hover { background-color: #0b5ed7; }
-    .btn-sm { padding: 3px 8px; font-size: 11px; border-radius: 3px; }
+    .btn-default {
+      background-color: #ffffff;
+      border-color: var(--border-dark);
+      color: var(--text-main);
+    }
+    .btn-default:hover {
+      background-color: #f8fafc;
+      border-color: #94a3b8;
+    }
+    .btn-primary {
+      background-color: var(--primary);
+      color: #ffffff;
+    }
+    .btn-primary:hover {
+      background-color: #0b5ed7;
+    }
 
     /* Main Container */
     .container {
       max-width: 1440px;
       margin: 20px auto;
-      padding: 0 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
+      padding: 0 24px 40px;
+    }
+
+    /* Layout Grids */
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .grid-3-1 {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 1024px) {
+      .grid-4 { grid-template-columns: repeat(2, 1fr); }
+      .grid-2, .grid-3-1 { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .grid-4 { grid-template-columns: 1fr; }
     }
 
     /* Cards */
     .card {
-      background: var(--bg-card);
+      background-color: var(--bg-card);
       border: 1px solid var(--border-color);
       border-radius: 6px;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      margin-bottom: 20px;
     }
     .card-header {
-      padding: 12px 18px;
+      padding: 14px 18px;
       border-bottom: 1px solid var(--border-color);
-      background-color: #ffffff;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-top-left-radius: 6px;
-      border-top-right-radius: 6px;
+      background-color: #fafbfd;
     }
     .card-title {
       font-size: 14px;
@@ -156,52 +188,47 @@ function generateDashboardHtml(data) {
       color: var(--text-main);
     }
     .card-subtitle {
-      font-size: 12px;
+      font-size: 11.5px;
       color: var(--text-muted);
+      margin-top: 2px;
     }
     .card-body {
-      padding: 18px;
+      padding: 16px 18px;
     }
 
-    /* Grids */
-    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
-    .grid-3-1 { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; }
-    @media (max-width: 992px) {
-      .grid-4 { grid-template-columns: repeat(2, 1fr); }
-      .grid-2, .grid-3-1 { grid-template-columns: 1fr; }
-    }
-    @media (max-width: 576px) {
-      .grid-4 { grid-template-columns: 1fr; }
-    }
-
-    /* Stat Box (Admin Style) */
+    /* Stat Cards */
     .stat-card {
-      padding: 16px;
       background: #ffffff;
       border: 1px solid var(--border-color);
       border-radius: 6px;
-      border-left: 4px solid #adb5bd;
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      border-left: 4px solid var(--primary);
     }
-    .stat-card.stat-blue { border-left-color: var(--primary); }
     .stat-card.stat-green { border-left-color: var(--bpjs); }
-    .stat-card.stat-amber { border-left-color: #d97706; }
-    .stat-card.stat-indigo { border-left-color: #6366f1; }
+    .stat-card.stat-amber { border-left-color: var(--warning); }
+    .stat-card.stat-red   { border-left-color: var(--danger); }
+    .stat-card.stat-indigo{ border-left-color: #6366f1; }
+    .stat-card.stat-blue  { border-left-color: var(--primary); }
+
     .stat-label {
       font-size: 11.5px;
       font-weight: 600;
       color: var(--text-muted);
       text-transform: uppercase;
-      letter-spacing: 0.03em;
+      letter-spacing: 0.5px;
     }
     .stat-value {
-      font-size: 24px;
+      font-size: 22px;
       font-weight: 700;
       color: var(--text-main);
-      margin: 4px 0;
+      margin: 4px 0 2px;
     }
     .stat-desc {
-      font-size: 12px;
+      font-size: 11.5px;
       color: var(--text-muted);
     }
 
@@ -209,36 +236,37 @@ function generateDashboardHtml(data) {
     .aspect-box {
       border: 1px solid var(--border-color);
       border-radius: 6px;
-      padding: 14px;
-      background: #ffffff;
+      padding: 12px;
+      background-color: #ffffff;
+      transition: all 0.15s ease;
       cursor: pointer;
-      transition: all 0.15s ease-in-out;
     }
     .aspect-box:hover {
       border-color: var(--primary);
-      background-color: #f8faff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
     }
     .aspect-box.active {
       border-color: var(--primary);
-      background-color: #f0f7ff;
+      background-color: #eff6ff;
     }
     .aspect-header {
       display: flex;
       justify-content: space-between;
-      font-size: 13px;
-      font-weight: 600;
+      align-items: center;
       margin-bottom: 8px;
+      font-weight: 600;
+      font-size: 12.5px;
     }
     .progress-bar-wrap {
       height: 8px;
-      background-color: #e9ecef;
+      background: #e2e8f0;
       border-radius: 4px;
       overflow: hidden;
       display: flex;
       margin-bottom: 6px;
     }
-    .bar-pos { background-color: var(--bpjs); }
-    .bar-neg { background-color: var(--danger); }
+    .bar-pos { background-color: var(--bpjs); height: 100%; }
+    .bar-neg { background-color: var(--danger); height: 100%; }
     .aspect-meta {
       display: flex;
       justify-content: space-between;
@@ -249,120 +277,100 @@ function generateDashboardHtml(data) {
     /* Badges */
     .badge {
       display: inline-block;
-      padding: 3px 8px;
+      padding: 3px 7px;
       font-size: 11px;
       font-weight: 600;
-      border-radius: 4px;
-      line-height: 1.2;
+      border-radius: 3px;
+      line-height: 1;
     }
     .badge-success { background-color: #d1fae5; color: #065f46; }
-    .badge-danger { background-color: #fee2e2; color: #991b1b; }
-    .badge-info { background-color: #e0f2fe; color: #0369a1; }
-    .badge-secondary { background-color: #e2e8f0; color: #334155; }
+    .badge-danger  { background-color: #fee2e2; color: #991b1b; }
     .badge-warning { background-color: #fef3c7; color: #92400e; }
+    .badge-secondary{ background-color: #e2e8f0; color: #334155; }
+    .badge-info    { background-color: #e0f2fe; color: #0369a1; }
 
     /* Form Controls */
-    .form-group { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
-    .form-control, .form-select {
+    .form-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .form-select, .form-input {
       padding: 6px 10px;
-      font-size: 13px;
+      font-size: 12.5px;
       border: 1px solid var(--border-dark);
       border-radius: 4px;
       background-color: #ffffff;
       color: var(--text-main);
-      font-family: inherit;
       outline: none;
     }
-    .form-control:focus, .form-select:focus {
+    .form-select:focus, .form-input:focus {
       border-color: var(--primary);
-      box-shadow: 0 0 0 2px rgba(13,110,253,0.15);
     }
 
     /* DataTables Custom Styling */
     .dataTables_wrapper {
-      font-size: 13px;
-      color: var(--text-main);
+      font-size: 12.5px;
     }
-    .dataTables_wrapper .dataTables_length, 
-    .dataTables_wrapper .dataTables_filter {
+    .dataTables_wrapper .dt-buttons-wrapper {
+      float: left;
       margin-bottom: 12px;
     }
-    .dataTables_wrapper .dataTables_filter input {
-      padding: 5px 10px;
-      border: 1px solid var(--border-dark);
-      border-radius: 4px;
-      outline: none;
-      font-size: 13px;
-    }
-    .dataTables_wrapper .dataTables_length select {
-      padding: 4px 8px;
-      border: 1px solid var(--border-dark);
-      border-radius: 4px;
-      outline: none;
-    }
-    table.dataTable {
-      border-collapse: collapse !important;
-      width: 100% !important;
-      border: 1px solid var(--border-color) !important;
-    }
-    table.dataTable thead th {
-      background-color: #f8f9fa !important;
-      color: #374151 !important;
-      font-weight: 600 !important;
-      padding: 10px 12px !important;
-      border-bottom: 1px solid var(--border-color) !important;
-    }
-    table.dataTable tbody td {
-      padding: 10px 12px !important;
-      border-bottom: 1px solid var(--border-color) !important;
-      vertical-align: middle !important;
-    }
-    table.dataTable tbody tr:hover {
-      background-color: #f8fafc !important;
-    }
-    .dt-buttons {
+    .dataTables_wrapper .dt-search-wrapper {
+      float: right;
       margin-bottom: 12px;
-      gap: 6px;
-      display: flex;
     }
     .dt-button {
+      padding: 5px 10px !important;
+      font-size: 12px !important;
+      border-radius: 4px !important;
       background: #ffffff !important;
       border: 1px solid var(--border-dark) !important;
-      color: #374151 !important;
-      padding: 5px 12px !important;
-      border-radius: 4px !important;
-      font-size: 12px !important;
-      font-weight: 500 !important;
-      cursor: pointer !important;
+      color: var(--text-main) !important;
+      margin-right: 4px !important;
     }
     .dt-button:hover {
-      background: #f1f5f9 !important;
+      background: #f8fafc !important;
       border-color: #94a3b8 !important;
     }
-    .dt-center {
-      text-align: center !important;
+    table.dataTable thead th {
+      background-color: #f8fafc;
+      color: #334155;
+      font-weight: 600;
+      border-bottom: 1px solid var(--border-color) !important;
+      padding: 10px 12px;
+    }
+    table.dataTable tbody td {
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border-color);
+      vertical-align: middle;
+    }
+    table.dataTable tbody tr:hover {
+      background-color: #f8fafc;
     }
 
-    /* Modal */
+    /* Modal Dialog */
     .modal-overlay {
-      display: none;
       position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.5);
-      z-index: 200;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: rgba(15, 23, 42, 0.5);
+      display: none;
       align-items: center;
       justify-content: center;
-      padding: 16px;
+      z-index: 1000;
     }
-    .modal-overlay.open { display: flex; }
+    .modal-overlay.open {
+      display: flex;
+    }
     .modal-dialog {
       background: #ffffff;
+      width: 90%;
+      max-width: 640px;
       border-radius: 6px;
-      max-width: 650px;
-      width: 100%;
-      max-height: 85vh;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      max-height: 90vh;
       overflow-y: auto;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
     }
     .modal-header {
       padding: 14px 18px;
@@ -371,30 +379,44 @@ function generateDashboardHtml(data) {
       justify-content: space-between;
       align-items: center;
     }
-    .modal-title { font-size: 15px; font-weight: 700; color: #111827; }
-    .modal-close { background: none; border: none; font-size: 18px; cursor: pointer; color: #6b7280; }
-    .modal-body { padding: 18px; font-size: 13px; line-height: 1.6; }
+    .modal-title {
+      font-weight: 700;
+      font-size: 15px;
+    }
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: var(--text-muted);
+    }
+    .modal-body {
+      padding: 18px;
+    }
     .modal-footer {
       padding: 12px 18px;
       border-top: 1px solid var(--border-color);
       display: flex;
       justify-content: flex-end;
       gap: 8px;
-      background-color: #f8f9fa;
+      background-color: #fafbfd;
     }
     .code-block {
-      background: #f8f9fa;
-      border: 1px solid var(--border-color);
-      padding: 10px 14px;
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: 12px;
       border-radius: 4px;
       font-family: monospace;
-      font-size: 12px;
-      margin: 8px 0 14px;
+      font-size: 11.5px;
+      line-height: 1.4;
+      overflow-x: auto;
+      margin-bottom: 12px;
     }
   </style>
 </head>
 <body>
-  <!-- Navbar -->
+
+  <!-- Header -->
   <header class="navbar">
     <div class="navbar-container">
       <div class="brand-title">
@@ -428,7 +450,7 @@ function generateDashboardHtml(data) {
       <div class="stat-card stat-amber">
         <div class="stat-label">Rata-rata Rating Pengguna</div>
         <div class="stat-value">${data.summary.avgRating} <span style="font-size:14px; color:var(--text-muted); font-weight:normal;">/ 5.0</span></div>
-        <div class="stat-desc">Rating 1: ${(data.ratingCounts[1] || 0).toLocaleString('id-ID')} | Rating 5: ${(data.ratingCounts[5] || 0).toLocaleString('id-ID')}</div>
+        <div class="stat-desc">Rating 1: ${(data.ratingCounts[1] || 0).toLocaleString('id-ID')} | Rating 3: ${(data.ratingCounts[3] || 0).toLocaleString('id-ID')} | Rating 5: ${(data.ratingCounts[5] || 0).toLocaleString('id-ID')}</div>
       </div>
 
       <div class="stat-card stat-green">
@@ -438,13 +460,13 @@ function generateDashboardHtml(data) {
           <span style="font-size:16px; color:var(--text-muted); font-weight:normal;">/</span>
           <span style="color:var(--danger);">${data.summary.negativePercent}%</span>
         </div>
-        <div class="stat-desc">NSS: ${data.summary.netSentimentScore >= 0 ? '+' : ''}${data.summary.netSentimentScore}% (${data.summary.positiveCount.toLocaleString('id-ID')} Pos vs ${data.summary.negativeCount.toLocaleString('id-ID')} Neg)</div>
+        <div class="stat-desc">NSS: ${data.summary.netSentimentScore >= 0 ? '+' : ''}${data.summary.netSentimentScore}% (${data.summary.positiveCount.toLocaleString('id-ID')} Positif vs ${data.summary.negativeCount.toLocaleString('id-ID')} Negatif)</div>
       </div>
 
       <div class="stat-card stat-indigo">
         <div class="stat-label">Akurasi Model Naive Bayes</div>
         <div class="stat-value" style="color:var(--bpjs);">${data.metrics.accuracy}%</div>
-        <div class="stat-desc">Precision: ${data.metrics.macroPrecision || data.metrics.precision}% | Recall: ${data.metrics.macroRecall || data.metrics.recall}% (5-Fold CV)</div>
+        <div class="stat-desc">Macro F1: ${data.metrics.macroF1}% | Precision: ${data.metrics.macroPrecision}% (5-Fold CV)</div>
       </div>
     </div>
 
@@ -542,7 +564,7 @@ function generateDashboardHtml(data) {
         <div class="card-body">
           <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items:center;">
             <div>
-              <table class="table" style="width:100%; border-collapse:collapse; border:1px solid var(--border-color); text-align:center;">
+              <table class="table" style="width:100%; border-collapse:collapse; border:1px solid var(--border-color); text-align:center; font-size:12px;">
                 <thead>
                   <tr>
                     <th rowspan="2" style="vertical-align:middle; text-align:center; padding:8px; border:1px solid var(--border-color); background:#f8f9fa;">Aktual</th>
@@ -555,12 +577,12 @@ function generateDashboardHtml(data) {
                 </thead>
                 <tbody>
                   <tr>
-                    <th style="text-align:left; background:#f8f9fa; padding:8px; border:1px solid var(--border-color);">Aktual Positif</th>
+                    <th style="text-align:left; background:#f8f9fa; padding:8px; border:1px solid var(--border-color);">Aktual Positif (4-5★)</th>
                     <td style="background:#d1fae5; font-weight:700; color:#065f46; padding:8px; border:1px solid var(--border-color);">${data.metrics.confusionMatrix.tp} <br><span style="font-size:10px; font-weight:normal;">(True Pos)</span></td>
                     <td style="background:#fee2e2; font-weight:700; color:#991b1b; padding:8px; border:1px solid var(--border-color);">${data.metrics.confusionMatrix.fn} <br><span style="font-size:10px; font-weight:normal;">(False Neg)</span></td>
                   </tr>
                   <tr>
-                    <th style="text-align:left; background:#f8f9fa; padding:8px; border:1px solid var(--border-color);">Aktual Negatif</th>
+                    <th style="text-align:left; background:#f8f9fa; padding:8px; border:1px solid var(--border-color);">Aktual Negatif (1-3★)</th>
                     <td style="background:#fee2e2; font-weight:700; color:#991b1b; padding:8px; border:1px solid var(--border-color);">${data.metrics.confusionMatrix.fp} <br><span style="font-size:10px; font-weight:normal;">(False Pos)</span></td>
                     <td style="background:#d1fae5; font-weight:700; color:#065f46; padding:8px; border:1px solid var(--border-color);">${data.metrics.confusionMatrix.tn} <br><span style="font-size:10px; font-weight:normal;">(True Neg)</span></td>
                   </tr>
@@ -580,22 +602,22 @@ function generateDashboardHtml(data) {
                 </thead>
                 <tbody>
                   <tr>
-                    <td style="padding:6px 8px; border:1px solid var(--border-color);"><strong>Positif</strong></td>
+                    <td style="padding:6px 8px; border:1px solid var(--border-color);"><strong>Positif (4-5★)</strong></td>
                     <td style="padding:6px 8px; border:1px solid var(--border-color);">${data.metrics.classMetrics.Positif.precision}%</td>
                     <td style="padding:6px 8px; border:1px solid var(--border-color);">${data.metrics.classMetrics.Positif.recall}%</td>
                     <td style="padding:6px 8px; border:1px solid var(--border-color);">${data.metrics.classMetrics.Positif.f1}%</td>
                   </tr>
                   <tr>
-                    <td style="padding:6px 8px; border:1px solid var(--border-color);"><strong>Negatif</strong></td>
+                    <td style="padding:6px 8px; border:1px solid var(--border-color);"><strong>Negatif (1-3★)</strong></td>
                     <td style="padding:6px 8px; border:1px solid var(--border-color);">${data.metrics.classMetrics.Negatif.precision}%</td>
                     <td style="padding:6px 8px; border:1px solid var(--border-color);">${data.metrics.classMetrics.Negatif.recall}%</td>
                     <td style="padding:6px 8px; border:1px solid var(--border-color);">${data.metrics.classMetrics.Negatif.f1}%</td>
                   </tr>
                   <tr style="background:#f8f9fa; font-weight:700;">
                     <td style="padding:6px 8px; border:1px solid var(--border-color);">Macro Avg</td>
-                    <td style="padding:6px 8px; border:1px solid var(--border-color);">${data.metrics.macroPrecision || data.metrics.precision}%</td>
-                    <td style="padding:6px 8px; border:1px solid var(--border-color);">${data.metrics.macroRecall || data.metrics.recall}%</td>
-                    <td style="padding:6px 8px; border:1px solid var(--border-color);">${data.metrics.macroF1 || data.metrics.f1}%</td>
+                    <td style="padding:6px 8px; border:1px solid var(--border-color);">${data.metrics.macroPrecision}%</td>
+                    <td style="padding:6px 8px; border:1px solid var(--border-color);">${data.metrics.macroRecall}%</td>
+                    <td style="padding:6px 8px; border:1px solid var(--border-color);">${data.metrics.macroF1}%</td>
                   </tr>
                 </tbody>
               </table>
@@ -612,10 +634,10 @@ function generateDashboardHtml(data) {
           <table style="width:100%; border-collapse:collapse;">
             <tbody>
               <tr><td style="padding:5px 0; color:var(--text-muted);">Algoritma</td><td><strong>Multinomial Naive Bayes</strong></td></tr>
+              <tr><td style="padding:5px 0; color:var(--text-muted);">Klasifikasi</td><td><strong>Biner (Positif vs Negatif)</strong></td></tr>
               <tr><td style="padding:5px 0; color:var(--text-muted);">Smoothing</td><td><strong>Laplace (α = 1.0)</strong></td></tr>
               <tr><td style="padding:5px 0; color:var(--text-muted);">Ekstraksi Fitur</td><td><strong>TF-IDF (Sublinear TF)</strong></td></tr>
-              <tr><td style="padding:5px 0; color:var(--text-muted);">N-Gram</td><td><strong>Unigram & Bigram (1-2)</strong></td></tr>
-              <tr><td style="padding:5px 0; color:var(--text-muted);">Kamus Slang/Emoji</td><td><strong>862 Slang / 228 Emoji</strong></td></tr>
+              <tr><td style="padding:5px 0; color:var(--text-muted);">Ground Truth</td><td><strong>Rating (★4-5: Pos, ★1-3: Neg)</strong></td></tr>
             </tbody>
           </table>
         </div>
@@ -678,12 +700,13 @@ function generateDashboardHtml(data) {
               <th style="width:110px;">Sentimen</th>
               <th style="width:130px;">Aspek Operasional</th>
               <th>Teks Ulasan Asli</th>
-              <th>Token Preprocessing</th>
+              <th style="width:150px;">Token NLP</th>
               <th style="width:90px;">Tanggal</th>
-              <th style="width:80px; text-align:center;">Aksi</th>
+              <th style="width:90px; text-align:center;">Aksi</th>
             </tr>
           </thead>
           <tbody>
+            <!-- Loaded dynamically by DataTables -->
           </tbody>
         </table>
 
@@ -691,6 +714,7 @@ function generateDashboardHtml(data) {
     </div>
 
   </main>
+
   <!-- Formula Modal -->
   <div class="modal-overlay" id="formula-modal" onclick="if(event.target === this) closeFormulaModal()">
     <div class="modal-dialog">
@@ -717,16 +741,15 @@ function generateDashboardHtml(data) {
           dengan alpha = 1.0, |V| = jumlah kosakata unik.
         </div>
 
-        <h4 style="font-size:13px; font-weight:700; margin-bottom:4px;">3. Maximum A Posteriori (MAP) Decision Rule</h4>
+        <h4 style="font-size:13px; font-weight:700; margin-bottom:4px;">3. Maximum A Posteriori (MAP) & Softmax Normalization</h4>
         <div class="code-block">
           c* = argmax_{c in C} [ ln P(c) + sum_{t in d} (TF-IDF_{t, d} * ln P(t | c)) ]
         </div>
 
-        <h4 style="font-size:13px; font-weight:700; margin-bottom:4px;">4. Metrik Evaluasi</h4>
+        <h4 style="font-size:13px; font-weight:700; margin-bottom:4px;">4. Pemetaan Ground Truth Rating</h4>
         <div class="code-block">
-          Accuracy = (TP + TN) / (TP + TN + FP + FN)<br>
-          Precision = TP / (TP + FP) | Recall = TP / (TP + FN)<br>
-          F1-Score = 2 * (Precision * Recall) / (Precision + Recall)
+          Rating 4 & 5 -> Positif (Kepuasan)<br>
+          Rating 1, 2, & 3 -> Negatif (Keluhan / Masukan Kritis)
         </div>
       </div>
       <div class="modal-footer">
@@ -788,8 +811,8 @@ function generateDashboardHtml(data) {
       if (!ctx) return;
       const timeline = REPORT_DATA.timelineData || [];
       const labels = timeline.map(t => t.month);
-      const posData = timeline.map(t => t.Positif);
-      const negData = timeline.map(t => t.Negatif);
+      const posData = timeline.map(t => t.Positif || 0);
+      const negData = timeline.map(t => t.Negatif || 0);
       const ratingData = timeline.map(t => t.avgRating);
 
       new Chart(ctx, {
@@ -865,8 +888,8 @@ function generateDashboardHtml(data) {
       const ctx = document.getElementById('chartRatingSentiment');
       if (!ctx) return;
       const ratings = ['1', '2', '3', '4', '5'];
-      const posCounts = ratings.map(r => (REPORT_DATA.ratingDistribution[r] ? REPORT_DATA.ratingDistribution[r].Positif : 0));
-      const negCounts = ratings.map(r => (REPORT_DATA.ratingDistribution[r] ? REPORT_DATA.ratingDistribution[r].Negatif : 0));
+      const posCounts = ratings.map(r => (REPORT_DATA.ratingDistribution[r] ? REPORT_DATA.ratingDistribution[r].Positif || 0 : 0));
+      const negCounts = ratings.map(r => (REPORT_DATA.ratingDistribution[r] ? REPORT_DATA.ratingDistribution[r].Negatif || 0 : 0));
 
       new Chart(ctx, {
         type: 'bar',
@@ -874,12 +897,12 @@ function generateDashboardHtml(data) {
           labels: ['Rating 1', 'Rating 2', 'Rating 3', 'Rating 4', 'Rating 5'],
           datasets: [
             {
-              label: 'Positif',
+              label: 'Positif (4-5★)',
               data: posCounts,
               backgroundColor: '#059669'
             },
             {
-              label: 'Negatif',
+              label: 'Negatif (1-3★)',
               data: negCounts,
               backgroundColor: '#dc3545'
             }
@@ -1127,8 +1150,9 @@ function generateDashboardHtml(data) {
         ? '[' + tokens.join(', ') + ']'
         : 'Tidak ada token yang tersisa pasca-stopword.';
 
-      const posProb = item.probabilities && item.probabilities.Positif ? (item.probabilities.Positif * 100).toFixed(2) : '-';
-      const negProb = item.probabilities && item.probabilities.Negatif ? (item.probabilities.Negatif * 100).toFixed(2) : '-';
+      const posProb = item.probabilities && item.probabilities.Positif !== undefined ? (item.probabilities.Positif * 100).toFixed(2) : '-';
+      const negProb = item.probabilities && item.probabilities.Negatif !== undefined ? (item.probabilities.Negatif * 100).toFixed(2) : '-';
+
       document.getElementById('modal-probs').innerHTML = 
         '<strong>Prediksi Sentimen:</strong> ' + item.predictedLabel + ' (' + ((item.confidence || 0) * 100).toFixed(1) + '%) &nbsp;|&nbsp; <strong>P(Positif):</strong> ' + posProb + '% &nbsp;|&nbsp; <strong>P(Negatif):</strong> ' + negProb + '% &nbsp;|&nbsp; <strong>Aspek:</strong> ' + (item.aspects || []).join(', ');
 

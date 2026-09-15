@@ -1,7 +1,7 @@
-﻿class MultinomialNaiveBayes {
+class MultinomialNaiveBayes {
   constructor(options = {}) {
     this.alpha = options.alpha !== undefined ? options.alpha : 1.0; // Laplace smoothing
-    this.classes = ['Positif', 'Negatif'];
+    this.classes = options.classes || ['Positif', 'Negatif'];
     this.classPriors = {}; // class -> P(c)
     this.classLogPriors = {}; // class -> ln P(c)
     this.featureLogProb = {}; // class -> Float64Array (log P(w|c))
@@ -24,7 +24,17 @@
     const numDocs = X.length;
 
     // Count class doc occurrences
-    const classDocCounts = { Positif: 0, Negatif: 0 };
+    const classDocCounts = {};
+    const classTotalWeights = {};
+    const classFeatureSums = {};
+
+    for (const c of this.classes) {
+      classDocCounts[c] = 0;
+      classTotalWeights[c] = 0;
+      classFeatureSums[c] = new Float64Array(vocabSize);
+      this.featureLogProb[c] = new Float64Array(vocabSize);
+    }
+
     for (const label of y) {
       if (classDocCounts[label] !== undefined) {
         classDocCounts[label]++;
@@ -36,16 +46,9 @@
       const prior = (classDocCounts[c] + 1) / (numDocs + this.classes.length);
       this.classPriors[c] = prior;
       this.classLogPriors[c] = Math.log(prior);
-      this.featureLogProb[c] = new Float64Array(vocabSize);
     }
 
     // Accumulate word weights per class
-    const classTotalWeights = { Positif: 0, Negatif: 0 };
-    const classFeatureSums = {
-      Positif: new Float64Array(vocabSize),
-      Negatif: new Float64Array(vocabSize)
-    };
-
     for (let i = 0; i < numDocs; i++) {
       const doc = X[i];
       const label = y[i];
@@ -78,7 +81,7 @@
   /**
    * Predicts class and calculates posterior probabilities for a sparse vector
    * @param {Object} doc Sparse vector { [idx]: weight }
-   * @returns {{ label: string, confidence: number, probabilities: { Positif: number, Negatif: number }, logLikelihood: { Positif: number, Negatif: number } }}
+   * @returns {{ label: string, confidence: number, probabilities: Object, logLikelihood: Object }}
    */
   predictDoc(doc) {
     if (!this.isTrained) {
@@ -86,6 +89,7 @@
     }
 
     const logPosteriors = {};
+    let maxLog = -Infinity;
 
     for (const c of this.classes) {
       let logSum = this.classLogPriors[c];
@@ -96,31 +100,41 @@
         }
       }
       logPosteriors[c] = logSum;
+      if (logSum > maxLog) {
+        maxLog = logSum;
+      }
     }
 
-    // Softmax normalization for numerical stability
-    const maxLog = Math.max(logPosteriors.Positif, logPosteriors.Negatif);
-    const expPos = Math.exp(logPosteriors.Positif - maxLog);
-    const expNeg = Math.exp(logPosteriors.Negatif - maxLog);
-    const sumExp = expPos + expNeg;
+    // Softmax normalization with numerical stability
+    let sumExp = 0;
+    const expVals = {};
+    for (const c of this.classes) {
+      const val = Math.exp(logPosteriors[c] - maxLog);
+      expVals[c] = val;
+      sumExp += val;
+    }
 
-    const probPos = expPos / sumExp;
-    const probNeg = expNeg / sumExp;
+    const probabilities = {};
+    const logLikelihood = {};
+    let bestLabel = this.classes[0];
+    let bestProb = -1;
 
-    const label = probPos >= probNeg ? 'Positif' : 'Negatif';
-    const confidence = label === 'Positif' ? probPos : probNeg;
+    for (const c of this.classes) {
+      const prob = sumExp > 0 ? expVals[c] / sumExp : 1 / this.classes.length;
+      probabilities[c] = Number(prob.toFixed(4));
+      logLikelihood[c] = Number(logPosteriors[c].toFixed(4));
+
+      if (prob > bestProb) {
+        bestProb = prob;
+        bestLabel = c;
+      }
+    }
 
     return {
-      label,
-      confidence: Number(confidence.toFixed(4)),
-      probabilities: {
-        Positif: Number(probPos.toFixed(4)),
-        Negatif: Number(probNeg.toFixed(4))
-      },
-      logLikelihood: {
-        Positif: Number(logPosteriors.Positif.toFixed(4)),
-        Negatif: Number(logPosteriors.Negatif.toFixed(4))
-      }
+      label: bestLabel,
+      confidence: Number(bestProb.toFixed(4)),
+      probabilities,
+      logLikelihood
     };
   }
 

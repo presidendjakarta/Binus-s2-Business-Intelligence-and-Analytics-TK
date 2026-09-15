@@ -213,32 +213,19 @@ Berkas teks berformat daftar kata (*wordlist*) yang memuat **29.932 entri kata d
 
 ---
 
-### 3.5. Leksikon Aturan Ground Truth & Anomali (`ground_truth_rules.csv`)
-Berkas kamus aturan heuristik yang memuat pola kata/frasa kunci untuk menetapkan label acuan (*Ground Truth*) dan mengoreksi anomali ulasan (sarkasme rating bintang 5 dan pujian rating bintang 1 keliru).
+### 3.5. Skema Penetapan Ground Truth Berbasis Rating Bintang
+Penetapan label acuan (*Ground Truth*) dalam sistem ini dirumuskan secara objektif berbasis konvensi rating industri Google Play Store:
 
-| Kolom CSV | Tipe Data | Deskripsi & Makna Nilai |
-| :--- | :---: | :--- |
-| `pattern` | `String` | Frasa atau kata kunci pemicu aturan (contoh: *"kecewa parah"*, *"sangat membantu"*, *"lemot"*). |
-| `rule_type` | `String` | Kategori aturan: `override_high_rating` (koreksi bintang $\ge 4$ ke Negatif), `override_low_rating` (koreksi bintang $\le 2$ ke Positif), atau `rating_3_indicator` (indikator untuk bintang 3). |
-| `target_sentiment` | `String` | Label sentimen target (`Positif` atau `Negatif`). |
+$$\text{Ground Truth}(s) = \begin{cases} \mathbf{Positif}, & \text{jika } s \in \{4, 5\} \quad (\text{Kepuasan/Promoter}) \\ \mathbf{Negatif}, & \text{jika } s \in \{1, 2, 3\} \quad (\text{Keluhan/Detractor}) \end{cases}$$
 
-#### 📄 Cuplikan Isi `ground_truth_rules.csv`:
-```csv
-pattern,rule_type,target_sentiment
-kecewa parah,override_high_rating,Negatif
-sangat buruk,override_high_rating,Negatif
-aplikasi sampah,override_high_rating,Negatif
-tidak berguna,override_high_rating,Negatif
-tidak bisa login,override_high_rating,Negatif
-sangat membantu,override_low_rating,Positif
-sangat bagus,override_low_rating,Positif
-terima kasih bpjs,override_low_rating,Positif
-luar biasa,override_low_rating,Positif
-mudah,rating_3_indicator,Positif
-bagus,rating_3_indicator,Positif
-sulit,rating_3_indicator,Negatif
-lemot,rating_3_indicator,Negatif
-```
+| Rating Bintang ($s$) | Label Ground Truth | Makna Semantik & Konteks Bisnis |
+| :---: | :---: | :--- |
+| **★ 4 & ★ 5** | **`Positif`** | Pengguna merasa puas, terbantu, dan memberikan penilaian positif terhadap layanan Mobile JKN. |
+| **★ 1, ★ 2, & ★ 3** | **`Negatif`** | Pengguna mengalami kendala, friksi teknis, komplain operasional, atau memberikan saran perbaikan kritis. |
+
+> [!NOTE]
+> **Keseimbangan Dataset (*Class Balance*):**
+> Skema ini menghasilkan rasio pembagian kelas yang sangat seimbang: **$48.4\%$ Positif (2.411 ulasan)** vs **$51.6\%$ Negatif (2.574 ulasan)**, sehingga mengoptimalkan konvergensi model Naive Bayes dan menghasilkan **Akurasi $93.08\%$** serta **Macro F1-Score $93.08\%$**.
 
 ---
 

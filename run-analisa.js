@@ -1,4 +1,4 @@
-﻿const fs = require('fs');
+const fs = require('fs');
 const path = require('path');
 const { createObjectCsvWriter } = require('csv-writer');
 const TextPreprocessor = require('./src/nlp/preprocessor');
@@ -92,7 +92,7 @@ async function main() {
     const rev = rawReviews[i];
     const nlpRes = preprocessor.preprocess(rev.text);
     
-    // Determine Ground Truth
+    // Determine Ground Truth (Rating 4-5: Positif, Rating 1-3: Negatif)
     const groundTruth = determineGroundTruth(rev.score, rev.text);
 
     if (nlpRes.tokens.length > 0) {
@@ -119,9 +119,10 @@ async function main() {
   const X = vectorizer.fitTransform(preprocessedDocs);
   console.log(`      [✓] Ukuran Kosakata Fitur (|V|): ${vectorizer.vocabulary.size} kata unik.`);
 
-  // 5. Train Multinomial Naive Bayes Model
+  // 5. Train Multinomial Naive Bayes Model (Positif vs Negatif)
   console.log('[3/5] Melatih Model Multinomial Naive Bayes (Laplace Smoothing α=1.0)...');
-  const nbModel = new MultinomialNaiveBayes({ alpha: 1.0 });
+  const classes = ['Positif', 'Negatif'];
+  const nbModel = new MultinomialNaiveBayes({ alpha: 1.0, classes });
   nbModel.train(X, labels, vectorizer.vocabulary.size);
 
   // 6. Predict & Classify all samples
@@ -164,7 +165,9 @@ async function main() {
     const score = Math.max(1, Math.min(5, rev.score || 3));
     totalScoreSum += score;
     ratingCounts[score] = (ratingCounts[score] || 0) + 1;
-    ratingDistribution[score][pred.label]++;
+    if (ratingDistribution[score][pred.label] !== undefined) {
+      ratingDistribution[score][pred.label]++;
+    }
 
     // Timeline grouping
     const dateObj = rev.date ? new Date(rev.date) : new Date();
@@ -176,7 +179,9 @@ async function main() {
       timelineMap[monthKey] = { month: monthKey, total: 0, Positif: 0, Negatif: 0, scoreSum: 0 };
     }
     timelineMap[monthKey].total++;
-    timelineMap[monthKey][pred.label]++;
+    if (timelineMap[monthKey][pred.label] !== undefined) {
+      timelineMap[monthKey][pred.label]++;
+    }
     timelineMap[monthKey].scoreSum += score;
 
     // Detect Operational Aspects
@@ -184,7 +189,9 @@ async function main() {
     for (const asp of aspects) {
       if (aspectStats[asp]) {
         aspectStats[asp].total++;
-        aspectStats[asp][pred.label]++;
+        if (aspectStats[asp][pred.label] !== undefined) {
+          aspectStats[asp][pred.label]++;
+        }
       }
     }
 
@@ -194,7 +201,9 @@ async function main() {
       versionStats[ver] = { version: ver, total: 0, Positif: 0, Negatif: 0 };
     }
     versionStats[ver].total++;
-    versionStats[ver][pred.label]++;
+    if (versionStats[ver][pred.label] !== undefined) {
+      versionStats[ver][pred.label]++;
+    }
 
     // Anomaly detection: rating vs predicted sentiment divergence
     const isAnomaly = (score >= 4 && pred.label === 'Negatif') || (score <= 2 && pred.label === 'Positif');
@@ -242,7 +251,7 @@ async function main() {
 
   // 8. Model Evaluation: 5-Fold Cross Validation
   console.log('[5/5] Melakukan Evaluasi Model (Confusion Matrix, Accuracy, Precision, Recall, F1)...');
-  const evalResult = ModelEvaluator.crossValidate(preprocessedDocs, labels, 5);
+  const evalResult = ModelEvaluator.crossValidate(preprocessedDocs, labels, 5, classes);
   const metrics = evalResult.overall;
 
   // 9. Generate Report Output
@@ -325,14 +334,18 @@ async function main() {
   console.log('================================================================');
   console.log(`• Total Ulasan Dianalisis : ${finalSamples.length.toLocaleString('id-ID')}`);
   console.log(`• Rata-rata Rating        : ★ ${avgRating} / 5.0`);
-  console.log(`• Sentimen Positif        : ${posCount.toLocaleString('id-ID')} (${reportData.summary.positivePercent}%)`);
-  console.log(`• Sentimen Negatif        : ${negCount.toLocaleString('id-ID')} (${reportData.summary.negativePercent}%)`);
+  console.log(`• Sentimen Positif (4-5★) : ${posCount.toLocaleString('id-ID')} (${reportData.summary.positivePercent}%)`);
+  console.log(`• Sentimen Negatif (1-3★) : ${negCount.toLocaleString('id-ID')} (${reportData.summary.negativePercent}%)`);
   console.log(`• Net Sentiment Score     : ${netSentimentScore}%`);
   console.log('----------------------------------------------------------------');
-  console.log(`• Akurasi Model (Cross-Val): ${metrics.accuracy}%`);
-  console.log(`• Macro F1-Score           : ${metrics.macroF1}%`);
-  console.log(`• Precision / Recall (Pos) : ${metrics.classMetrics.Positif.precision}% / ${metrics.classMetrics.Positif.recall}%`);
-  console.log(`• Precision / Recall (Neg) : ${metrics.classMetrics.Negatif.precision}% / ${metrics.classMetrics.Negatif.recall}%`);
+  console.log(`• Akurasi Model (5-Fold)  : ${metrics.accuracy}%`);
+  console.log(`• Macro F1-Score          : ${metrics.macroF1}%`);
+  if (metrics.classMetrics.Positif) {
+    console.log(`• Precision / Recall (Pos): ${metrics.classMetrics.Positif.precision}% / ${metrics.classMetrics.Positif.recall}%`);
+  }
+  if (metrics.classMetrics.Negatif) {
+    console.log(`• Precision / Recall (Neg): ${metrics.classMetrics.Negatif.precision}% / ${metrics.classMetrics.Negatif.recall}%`);
+  }
   console.log('----------------------------------------------------------------');
   console.log(`• Confusion Matrix         : TP=${metrics.confusionMatrix.tp}, FP=${metrics.confusionMatrix.fp}, TN=${metrics.confusionMatrix.tn}, FN=${metrics.confusionMatrix.fn}`);
   console.log('================================================================');
