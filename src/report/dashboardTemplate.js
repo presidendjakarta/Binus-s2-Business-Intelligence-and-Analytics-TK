@@ -628,15 +628,16 @@ function generateDashboardHtml(data) {
 
       <div class="card">
         <div class="card-header">
-          <div class="card-title">Parameter Sistem NLP</div>
+          <div class="card-title">Parameter Sistem NLP & ML</div>
         </div>
         <div class="card-body" style="font-size:12px;">
           <table style="width:100%; border-collapse:collapse;">
             <tbody>
               <tr><td style="padding:5px 0; color:var(--text-muted);">Algoritma</td><td><strong>Multinomial Naive Bayes</strong></td></tr>
               <tr><td style="padding:5px 0; color:var(--text-muted);">Klasifikasi</td><td><strong>Biner (Positif vs Negatif)</strong></td></tr>
-              <tr><td style="padding:5px 0; color:var(--text-muted);">Smoothing</td><td><strong>Laplace (α = 1.0)</strong></td></tr>
-              <tr><td style="padding:5px 0; color:var(--text-muted);">Ekstraksi Fitur</td><td><strong>TF-IDF (Sublinear TF)</strong></td></tr>
+              <tr><td style="padding:5px 0; color:var(--text-muted);">Smoothing</td><td><strong>Lidstone (α = 0.25)</strong></td></tr>
+              <tr><td style="padding:5px 0; color:var(--text-muted);">Ekstraksi Fitur</td><td><strong>TF-IDF N-Grams (1-2 N-Gram)</strong></td></tr>
+              <tr><td style="padding:5px 0; color:var(--text-muted);">Evaluasi Model</td><td><strong>5-Fold Stratified CV (±${data.metrics.stdAccuracy || 0.4}%)</strong></td></tr>
               <tr><td style="padding:5px 0; color:var(--text-muted);">Ground Truth</td><td><strong>Rating (★4-5: Pos, ★1-3: Neg)</strong></td></tr>
             </tbody>
           </table>

@@ -1,6 +1,6 @@
 class MultinomialNaiveBayes {
   constructor(options = {}) {
-    this.alpha = options.alpha !== undefined ? options.alpha : 1.0; // Laplace smoothing
+    this.alpha = options.alpha !== undefined ? options.alpha : 0.25; // Optimized Laplace-Lidstone smoothing
     this.classes = options.classes || ['Positif', 'Negatif'];
     this.classPriors = {}; // class -> P(c)
     this.classLogPriors = {}; // class -> ln P(c)
@@ -144,6 +144,49 @@ class MultinomialNaiveBayes {
    */
   predict(docs) {
     return docs.map(d => this.predictDoc(d));
+  }
+
+  /**
+   * Computes Log-Likelihood Ratio / Feature Salience for Explainable AI (XAI)
+   * @param {string[]} featureNames Array of vocabulary words corresponding to indices
+   * @param {number} topN Number of top features to return per class
+   * @returns {{ Positif: Array<{ word: string, score: number }>, Negatif: Array<{ word: string, score: number }> }}
+   */
+  getExplainableFeatures(featureNames, topN = 25) {
+    if (!this.isTrained || !featureNames || featureNames.length === 0) {
+      return { Positif: [], Negatif: [] };
+    }
+
+    const posLogs = this.featureLogProb['Positif'];
+    const negLogs = this.featureLogProb['Negatif'];
+    const count = Math.min(featureNames.length, this.vocabSize);
+
+    const logOdds = [];
+    for (let i = 0; i < count; i++) {
+      const p = posLogs ? posLogs[i] : 0;
+      const n = negLogs ? negLogs[i] : 0;
+      logOdds.push({
+        word: featureNames[i],
+        logOddsRatio: p - n,
+        posProb: Math.exp(p),
+        negProb: Math.exp(n)
+      });
+    }
+
+    const topPositif = [...logOdds]
+      .sort((a, b) => b.logOddsRatio - a.logOddsRatio)
+      .slice(0, topN)
+      .map(item => ({ word: item.word, score: Number(item.logOddsRatio.toFixed(3)) }));
+
+    const topNegatif = [...logOdds]
+      .sort((a, b) => a.logOddsRatio - b.logOddsRatio)
+      .slice(0, topN)
+      .map(item => ({ word: item.word, score: Number(Math.abs(item.logOddsRatio).toFixed(3)) }));
+
+    return {
+      Positif: topPositif,
+      Negatif: topNegatif
+    };
   }
 }
 

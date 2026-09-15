@@ -257,20 +257,21 @@ Di mana:
 ### 4.3. Likelihood Kata Bersyarat & Laplace Smoothing ($\alpha=1.0$)
 Probabilitas kemunculan term kata ke-$i$ pada kelas $c$ dihitung dari akumulasi bobot TF-IDF dengan **Laplace Add-One Smoothing ($\alpha = 1.0$)**:
 
-$$P(w_i | c) = \frac{\sum_{d \in D_c} w_{i, d} + \alpha}{\sum_{k=1}^{|V|} \left(\sum_{d \in D_c} w_{k, d}\right) + \alpha \cdot |V|}$$
+### 4.3. Likelihood Kata Bersyarat & Laplace-Lidstone Smoothing ($\alpha = 0.25$)
+Untuk mengestimasi probabilitas kemunculan term berbobot $t_k$ pada kelas $c$, digunakan estimasi frekuensi berbobot dengan **Laplace-Lidstone Smoothing ($\alpha = 0.25$)**:
+
+$$P(t_k \mid c) = \frac{\sum_{i \in D_c} w_{k, i} + \alpha}{\sum_{j=1}^{|V|} \sum_{i \in D_c} w_{j, i} + \alpha \cdot |V|}$$
 
 Di mana:
-- $\sum_{d \in D_c} w_{i, d}$ = Total akumulasi bobot TF-IDF fitur kata $w_i$ pada seluruh dokumen kelas $c$.
-- $|V|$ = Ukuran total kosakata unik.
-- $\alpha = 1.0$ = Menjamin $P(w_i | c) > 0$, sehingga tidak ada nilai perkalian nol (*Zero-Frequency Problem*).
+- $D_c$ = Himpunan dokumen yang berlabel kelas $c$.
+- $w_{k, i}$ = Bobot TF-IDF term $k$ pada dokumen ke-$i$.
+- $|V|$ = Ukuran kosakata gabungan N-Gram (21.926 fitur).
+- $\alpha = 0.25$ = Parameter *Lidstone Smoothing* optimal hasil *hyperparameter grid search*, yang memberikan estimasi probabilitas lebih tajam pada korpus leksikon besar dibandingkan $\alpha=1.0$ standar.
 
 ### 4.4. Akumulasi Log-Likelihood (Anti-Underflow)
-Perkalian ratusan probabilitas kecil $\prod P(w_i|c)$ pada komputer dapat menghasilkan nilai 0 (*arithmetic underflow*). Oleh karena itu, persamaan ditransformasikan ke dalam penjumlahan logaritma natural:
+Untuk mencegah *arithmetic underflow* akibat perkalian ratusan probabilitas kecil ($P(t_k \mid c) \ll 1$), komputasi dilakukan pada domain logaritma natural:
 
-$$\ln P(c | d) = \ln P(c) + \sum_{i=1}^{|d|} w_{i, d} \cdot \ln P(w_i | c)$$
-
-Keputusan kelas ditentukan oleh nilai log-posterior tertinggi:
-$$\hat{c} = \arg\max_{c \in \{\text{Positif}, \text{Negatif}\}} \ln P(c | d)$$
+$$\ln P(c \mid d) = \ln P(c) + \sum_{k=1}^{|V|} w_{k, d} \cdot \ln P(t_k \mid c)$$
 
 ### 4.5. Kalibrasi Probabilitas Posterior via Softmax
 Untuk mengubah nilai log-likelihood menjadi probabilitas persentase kepastian $P(c|d) \in [0.0, 1.0]$ yang stabil secara komputasi:

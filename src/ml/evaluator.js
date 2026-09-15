@@ -153,11 +153,11 @@ class ModelEvaluator {
         }
       }
 
-      const vectorizer = new TfidfVectorizer({ minDf: 2, sublinearTf: true });
+      const vectorizer = new TfidfVectorizer({ minDf: 1, sublinearTf: true, ngramRange: [1, 2] });
       const trainX = vectorizer.fitTransform(trainDocs);
       const testX = vectorizer.transform(testDocs);
 
-      const nb = new MultinomialNaiveBayes({ alpha: 1.0, classes });
+      const nb = new MultinomialNaiveBayes({ alpha: 0.25, classes });
       nb.train(trainX, trainLabels, vectorizer.vocabulary.size);
 
       const preds = nb.predict(testX).map(p => p.label);
@@ -168,9 +168,17 @@ class ModelEvaluator {
     }
 
     const overall = this.computeMetrics(allActual, allPredicted, classes);
+    
+    // Calculate standard deviation across folds
+    const accList = foldMetrics.map(f => f.accuracy);
+    const meanAcc = accList.reduce((a, b) => a + b, 0) / accList.length;
+    const stdAcc = Math.sqrt(accList.map(x => Math.pow(x - meanAcc, 2)).reduce((a, b) => a + b, 0) / accList.length);
+
     return {
       k,
       overall,
+      meanAccuracy: Number(meanAcc.toFixed(2)),
+      stdAccuracy: Number(stdAcc.toFixed(2)),
       foldMetrics
     };
   }
@@ -187,11 +195,11 @@ class ModelEvaluator {
     const testDocs = tokenizedDocs.slice(splitIndex);
     const testLabels = labels.slice(splitIndex);
 
-    const vectorizer = new TfidfVectorizer({ minDf: 2, sublinearTf: true });
+    const vectorizer = new TfidfVectorizer({ minDf: 1, sublinearTf: true, ngramRange: [1, 2] });
     const trainX = vectorizer.fitTransform(trainDocs);
     const testX = vectorizer.transform(testDocs);
 
-    const nb = new MultinomialNaiveBayes({ alpha: 1.0, classes });
+    const nb = new MultinomialNaiveBayes({ alpha: 0.25, classes });
     nb.train(trainX, trainLabels, vectorizer.vocabulary.size);
 
     const preds = nb.predict(testX).map(p => p.label);

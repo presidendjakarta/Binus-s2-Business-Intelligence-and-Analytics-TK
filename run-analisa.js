@@ -114,16 +114,16 @@ async function main() {
   const nlpDuration = ((Date.now() - startNlp) / 1000).toFixed(1);
   console.log(`\n      [✓] NLP Selesai (${nlpDuration}s) — ${preprocessedDocs.length} ulasan valid.`);
 
-  // 4. Feature Extraction: TF-IDF
-  console.log('[2/5] Ekstraksi Fitur Bobot Kata dengan TF-IDF Vectorizer...');
-  const vectorizer = new TfidfVectorizer({ minDf: 2, sublinearTf: true });
+  // 4. Feature Extraction: TF-IDF (Unigram + Bigram Collocations)
+  console.log('[2/5] Ekstraksi Fitur N-Gram (Unigram + Bigram) dengan TF-IDF Vectorizer...');
+  const vectorizer = new TfidfVectorizer({ minDf: 1, sublinearTf: true, ngramRange: [1, 2] });
   const X = vectorizer.fitTransform(preprocessedDocs);
-  console.log(`      [✓] Ukuran Kosakata Fitur (|V|): ${vectorizer.vocabulary.size} kata unik.`);
+  console.log(`      [✓] Ukuran Kosakata Fitur (|V|): ${vectorizer.vocabulary.size.toLocaleString('id-ID')} n-grams unik.`);
 
   // 5. Train Multinomial Naive Bayes Model (Positif vs Negatif)
-  console.log('[3/5] Melatih Model Multinomial Naive Bayes (Laplace Smoothing α=1.0)...');
+  console.log('[3/5] Melatih Model Multinomial Naive Bayes (Laplace-Lidstone Smoothing α=0.25)...');
   const classes = ['Positif', 'Negatif'];
-  const nbModel = new MultinomialNaiveBayes({ alpha: 1.0, classes });
+  const nbModel = new MultinomialNaiveBayes({ alpha: 0.25, classes });
   nbModel.train(X, labels, vectorizer.vocabulary.size);
 
   // 6. Predict & Classify all samples
@@ -240,7 +240,7 @@ async function main() {
     .sort((a, b) => b.total - a.total)
     .slice(0, 5);
 
-  // 7. Extract Top Keywords per class
+  // 7. Extract Top Keywords & Explainable AI Features (Log-Likelihood Salience)
   const posVectors = [];
   const negVectors = [];
   for (let i = 0; i < X.length; i++) {
@@ -249,11 +249,18 @@ async function main() {
   }
   const topPosKeywords = vectorizer.getTopFeatures(posVectors, 15);
   const topNegKeywords = vectorizer.getTopFeatures(negVectors, 15);
+  const explainableFeatures = nbModel.getExplainableFeatures(vectorizer.featureNames, 20);
 
-  // 8. Model Evaluation: 5-Fold Cross Validation
-  console.log('[5/5] Melakukan Evaluasi Model (Confusion Matrix, Accuracy, Precision, Recall, F1)...');
+  // 8. Model Evaluation: 5-Fold Stratified Cross Validation
+  console.log('[5/5] Melakukan Evaluasi Model (5-Fold Stratified Cross Validation)...');
   const evalResult = ModelEvaluator.crossValidate(preprocessedDocs, labels, 5, classes);
-  const metrics = evalResult.overall;
+  const metrics = {
+    ...evalResult.overall,
+    kFolds: evalResult.k,
+    meanAccuracy: evalResult.meanAccuracy,
+    stdAccuracy: evalResult.stdAccuracy,
+    foldMetrics: evalResult.foldMetrics
+  };
 
   // 9. Generate Report Output
   const reportFolderName = getTimestampFolder();
@@ -282,7 +289,9 @@ async function main() {
       negativeCount: negCount,
       negativePercent: Number(((negCount / finalSamples.length) * 100).toFixed(1)),
       vocabularySize: vectorizer.vocabulary.size,
-      totalThumbsUp
+      totalThumbsUp,
+      modelAccuracy: metrics.accuracy,
+      modelMacroF1: metrics.macroF1
     },
     topInfluentialReviews,
     ratingCounts,
@@ -291,6 +300,7 @@ async function main() {
     timelineData,
     topVersions,
     metrics,
+    explainableFeatures,
     topKeywords: {
       Positif: topPosKeywords,
       Negatif: topNegKeywords

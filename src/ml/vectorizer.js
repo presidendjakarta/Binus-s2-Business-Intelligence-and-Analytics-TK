@@ -1,12 +1,33 @@
-﻿class TfidfVectorizer {
+class TfidfVectorizer {
   constructor(options = {}) {
-    this.minDf = options.minDf || 2;
+    this.minDf = options.minDf !== undefined ? options.minDf : 1;
     this.maxDfRatio = options.maxDfRatio || 0.95;
     this.sublinearTf = options.sublinearTf !== false; // default true
+    this.ngramRange = options.ngramRange || [1, 2]; // default Unigrams + Bigrams
     this.vocabulary = new Map(); // token -> index
     this.featureNames = []; // index -> token
     this.idf = []; // index -> idf value
     this.docCount = 0;
+  }
+
+  /**
+   * Generates n-grams from a token array according to ngramRange
+   * @param {string[]} tokens
+   * @returns {string[]}
+   */
+  _extractNgrams(tokens) {
+    if (!tokens || tokens.length === 0) return [];
+    if (!this.ngramRange || (this.ngramRange[0] === 1 && this.ngramRange[1] === 1)) {
+      return tokens;
+    }
+    const result = [...tokens];
+    const maxN = this.ngramRange[1] || 2;
+    if (maxN >= 2 && tokens.length >= 2) {
+      for (let i = 0; i < tokens.length - 1; i++) {
+        result.push(`${tokens[i]}_${tokens[i + 1]}`);
+      }
+    }
+    return result;
   }
 
   /**
@@ -17,9 +38,10 @@
     this.docCount = tokenizedDocs.length;
     const docFreq = new Map();
 
-    // 1. Calculate Document Frequency (DF)
+    // 1. Calculate Document Frequency (DF) across n-grams
     for (const tokens of tokenizedDocs) {
-      const uniqueTokens = new Set(tokens);
+      const expandedTokens = this._extractNgrams(tokens);
+      const uniqueTokens = new Set(expandedTokens);
       for (const token of uniqueTokens) {
         docFreq.set(token, (docFreq.get(token) || 0) + 1);
       }
@@ -53,9 +75,10 @@
    * @returns {{ [index: number]: number }}
    */
   transformDoc(tokens) {
+    const expandedTokens = this._extractNgrams(tokens);
     // 1. Calculate Term Frequencies (TF)
     const tfMap = new Map();
-    for (const token of tokens) {
+    for (const token of expandedTokens) {
       const idx = this.vocabulary.get(token);
       if (idx !== undefined) {
         tfMap.set(idx, (tfMap.get(idx) || 0) + 1);
