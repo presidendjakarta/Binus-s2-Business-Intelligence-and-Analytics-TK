@@ -18,13 +18,18 @@ const NEGATION_WORDS = new Set([
 // Note: 'ada' is NOT a filler adverb, 'tidak ada' is a key complaint token!
 const FILLER_ADVERBS = new Set([
   'sangat', 'bgt', 'banget', 'begitu', 'terlalu', 'cukup', 'sanggup', 
-  'memberikan', 'beri', 'untuk', 'utk', 'bisa', 'mau', 'yang', 'yg', 'mampu'
+  'memberikan', 'beri', 'untuk', 'utk', 'bisa', 'mau', 'yang', 'yg', 'mampu', 'di', 'ke', 'pernah'
 ]);
 
 const CORE_SENTIMENT_WORDS = new Set([
   'bagus', 'mantap', 'mudah', 'cepat', 'puas', 'baik', 'lancar', 'hebat', 'keren', 'bermanfaat',
   'kecewa', 'buruk', 'parah', 'rusak', 'error', 'sulit', 'rugi', 'lambat', 'lemot', 'ribet', 'rumit',
-  'tunggak', 'tunggakan', 'potong', 'tagih', 'tagihan', 'bayar'
+  'tunggak', 'tunggakan', 'potong', 'tagih', 'tagihan', 'bayar', 'kesal', 'marah', 'bodoh', 'jelek', 'sampah', 'tolol', 'gagal'
+]);
+
+const NON_NEGATABLE_WORDS = new Set([
+  'saya', 'aku', 'kami', 'kita', 'kamu', 'anda', 'dia', 'mereka', 'kak', 'min', 'admin',
+  'ini', 'itu', 'sini', 'situ', 'sana', 'nya', 'pun', 'lah', 'kah', 'tah', 'dong', 'deh', 'sih', 'yang', 'yg'
 ]);
 
 class TextPreprocessor {
@@ -81,8 +86,8 @@ class TextPreprocessor {
     // 6. Replace punctuation and non-alphanumeric with space (keep letters and spaces)
     cleaned = cleaned.replace(/[^a-z0-9\s]/g, ' ');
 
-    // 7. Normalize elongated characters (e.g. "baguuuus" -> "bagus", "lemmooot" -> "lemot")
-    cleaned = cleaned.replace(/(.)\1{2,}/g, '$1$1');
+    // 7. Normalize elongated characters (e.g. "baguuuus" -> "bagus", "lemmooot" -> "lemot", "rewellll" -> "rewel")
+    cleaned = cleaned.replace(/(.)\1{2,}/g, '$1');
 
     // 8. Collapse whitespace
     cleaned = cleaned.replace(/\s+/g, ' ').trim();
@@ -104,10 +109,14 @@ class TextPreprocessor {
     // 1. Initial tokenize
     let rawTokens = cleaned.split(/\s+/).filter(w => w.length > 1);
 
-    // 2. Slang normalization
+    // 2. Slang normalization (direct + collapsed letter lookup)
     const normalizedWords = [];
     for (const w of rawTokens) {
-      const replaced = this.slangDict[w] || w;
+      let replaced = this.slangDict[w];
+      if (!replaced) {
+        const collapsed = w.replace(/(.)\1+/g, '$1');
+        replaced = this.slangDict[collapsed] || w;
+      }
       const subTokens = replaced.split(/\s+/).filter(Boolean);
       normalizedWords.push(...subTokens);
     }
@@ -130,8 +139,8 @@ class TextPreprocessor {
           }
           if (targetIdx < tokenList.length) {
             const rawTarget = tokenList[targetIdx];
-            // Do not bind negation to pronouns or stopwords (e.g. tidak_saya, tidak_kak)
-            if (!this.stopwords.has(rawTarget) && rawTarget !== 'saya' && rawTarget !== 'aku' && rawTarget !== 'kak') {
+            // Do not bind negation to pronouns or demonstratives (e.g. tidak_saya, tidak_ini)
+            if (!NON_NEGATABLE_WORDS.has(rawTarget)) {
               const targetStemmed = stemWord(rawTarget);
               if (targetStemmed.length >= 2) {
                 const compound = `tidak_${targetStemmed}`;

@@ -1,0 +1,105 @@
+{
+  "metrics": {
+    "totalSamples": 4990,
+    "accuracy": 93.17,
+    "macroPrecision": 93.34,
+    "macroRecall": 93.23,
+    "macroF1": 93.16,
+    "confusionMatrix": {
+      "matrix": {
+        "Positif": {
+          "Positif": 2281,
+          "Negatif": 259
+        },
+        "Negatif": {
+          "Positif": 82,
+          "Negatif": 2368
+        }
+      },
+      "tp": 2281,
+      "fp": 82,
+      "tn": 2368,
+      "fn": 259
+    },
+    "classMetrics": {
+      "Positif": {
+        "support": 2540,
+        "tp": 2281,
+        "fp": 82,
+        "fn": 259,
+        "precision": 96.53,
+        "recall": 89.8,
+        "f1": 93.05
+      },
+      "Negatif": {
+        "support": 2450,
+        "tp": 2368,
+        "fp": 259,
+        "fn": 82,
+        "precision": 90.14,
+        "recall": 96.65,
+        "f1": 93.28
+      }
+    }
+  },
+  "summary": {
+    "totalReviews": 4992,
+    "avgRating": 3.12,
+    "netSentimentScore": -3.8,
+    "positiveCount": 2401,
+    "positivePercent": 48.1,
+    "negativeCount": 2591,
+    "negativePercent": 51.9,
+    "vocabularySize": 1453,
+    "totalThumbsUp": 526
+  },
+  "aspectStats": {
+    "Autentikasi & Akun": {
+      "total": 1580,
+      "Positif": 88,
+      "Negatif": 1492
+    },
+    "Antrean & Faskes": {
+      "total": 825,
+      "Positif": 140,
+      "Negatif": 685
+    },
+    "Kinerja & Server": {
+      "total": 739,
+      "Positif": 23,
+      "Negatif": 716
+    },
+    "Iuran & Layanan": {
+      "total": 395,
+      "Positif": 155,
+      "Negatif": 240
+    },
+    "Lainnya": {
+      "total": 2630,
+      "Positif": 2110,
+      "Negatif": 520
+    }
+  },
+  "ratingDistribution": {
+    "1": {
+      "Positif": 36,
+      "Negatif": 2003
+    },
+    "2": {
+      "Positif": 5,
+      "Negatif": 212
+    },
+    "3": {
+      "Positif": 14,
+      "Negatif": 181
+    },
+    "4": {
+      "Positif": 118,
+      "Negatif": 80
+    },
+    "5": {
+      "Positif": 2228,
+      "Negatif": 115
+    }
+  }
+}
