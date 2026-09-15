@@ -517,11 +517,11 @@
         </p>
         <div class="hero-stats">
           <div class="hero-stat-item">
-            <div class="hero-stat-num">7</div>
+            <div class="hero-stat-num">8</div>
             <div class="hero-stat-lbl">Total Laporan Selesai</div>
           </div>
           <div class="hero-stat-item">
-            <div class="hero-stat-num">93.17%</div>
+            <div class="hero-stat-num">93.37%</div>
             <div class="hero-stat-lbl">Akurasi Model Terbaik</div>
           </div>
           <div class="hero-stat-item">
@@ -549,13 +549,68 @@
 
     <div class="reports-grid" id="reportsGrid">
       
-        <div class="report-card latest-card" data-name="2026-09-15_20-08">
+        <div class="report-card latest-card" data-name="2026-09-15_20-11">
+          <div>
+            <div class="card-top">
+              <div class="card-folder">
+                📁 <span>2026-09-15_20-11</span>
+              </div>
+              <span class="badge-latest">★ Laporan Terbaru</span>
+            </div>
+
+            <div class="metrics-pills">
+              <div>
+                <div class="metric-pill-val" style="color:var(--bpjs);">93.37%</div>
+                <div class="metric-pill-lbl">Akurasi</div>
+              </div>
+              <div>
+                <div class="metric-pill-val" style="color:var(--primary);">93.36%</div>
+                <div class="metric-pill-lbl">Macro F1</div>
+              </div>
+              <div>
+                <div class="metric-pill-val">4.992</div>
+                <div class="metric-pill-lbl">Ulasan</div>
+              </div>
+            </div>
+
+            <div class="sentiment-bar-container">
+              <div class="sentiment-bar-label">
+                <span style="color:var(--bpjs);">47.9% Positif</span>
+                <span style="color:var(--text-muted); font-size:11px;">NSS: -4.2%</span>
+                <span style="color:var(--danger);">52.1% Negatif</span>
+              </div>
+              <div class="sentiment-bar-track">
+                <div class="bar-pos" style="width:47.9%;"></div>
+                <div class="bar-neg" style="width:52.1%;"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-actions">
+            <a href="report/2026-09-15_20-11/dashboard.html" class="btn btn-dashboard">
+              📊 Buka Interactive Dashboard ➔
+            </a>
+            <div class="sub-actions">
+              <a href="report/2026-09-15_20-11/predictions.csv" download class="btn btn-default" title="Unduh hasil prediksi format CSV">
+                ⬇️ CSV Data
+              </a>
+              <a href="report/2026-09-15_20-11/predictions.json" target="_blank" class="btn btn-default" title="Buka predictions.json">
+                📦 JSON Raw
+              </a>
+              <a href="report/2026-09-15_20-11/metrics.json" target="_blank" class="btn btn-default" title="Buka metrics.json">
+                📈 Metrik
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="report-card " data-name="2026-09-15_20-08">
           <div>
             <div class="card-top">
               <div class="card-folder">
                 📁 <span>2026-09-15_20-08</span>
               </div>
-              <span class="badge-latest">★ Laporan Terbaru</span>
+              
             </div>
 
             <div class="metrics-pills">
@@ -1063,7 +1118,7 @@
   </footer>
 
   <script>
-    const ALL_REPORTS = [{"folder":"2026-09-15_20-08","isLatest":true,"metrics":{"totalSamples":4990,"accuracy":93.17,"macroPrecision":93.34,"macroRecall":93.23,"macroF1":93.16,"confusionMatrix":{"matrix":{"Positif":{"Positif":2281,"Negatif":259},"Negatif":{"Positif":82,"Negatif":2368}},"tp":2281,"fp":82,"tn":2368,"fn":259},"classMetrics":{"Positif":{"support":2540,"tp":2281,"fp":82,"fn":259,"precision":96.53,"recall":89.8,"f1":93.05},"Negatif":{"support":2450,"tp":2368,"fp":259,"fn":82,"precision":90.14,"recall":96.65,"f1":93.28}}},"summary":{"totalReviews":4992,"avgRating":3.12,"netSentimentScore":-3.8,"positiveCount":2401,"positivePercent":48.1,"negativeCount":2591,"negativePercent":51.9,"vocabularySize":1453,"totalThumbsUp":526}},{"folder":"2026-09-15_20-05","isLatest":false,"metrics":{"totalSamples":4985,"accuracy":93.08,"macroPrecision":93.19,"macroRecall":93.13,"macroF1":93.08,"confusionMatrix":{"matrix":{"Positif":{"Positif":2295,"Negatif":246},"Negatif":{"Positif":99,"Negatif":2345}},"tp":2295,"fp":99,"tn":2345,"fn":246},"classMetrics":{"Positif":{"support":2541,"tp":2295,"fp":99,"fn":246,"precision":95.86,"recall":90.32,"f1":93.01},"Negatif":{"support":2444,"tp":2345,"fp":246,"fn":99,"precision":90.51,"recall":95.95,"f1":93.15}}},"summary":{"totalReviews":4985,"avgRating":3.12,"netSentimentScore":-3.3,"positiveCount":2411,"positivePercent":48.4,"negativeCount":2574,"negativePercent":51.6,"vocabularySize":1440,"totalThumbsUp":526}},{"folder":"2026-09-15_19-58","isLatest":false,"metrics":{"totalSamples":4985,"accuracy":93.08,"macroPrecision":93.19,"macroRecall":93.13,"macroF1":93.08,"confusionMatrix":{"matrix":{"Positif":{"Positif":2295,"Negatif":246},"Negatif":{"Positif":99,"Negatif":2345}},"tp":2295,"fp":99,"tn":2345,"fn":246},"classMetrics":{"Positif":{"support":2541,"tp":2295,"fp":99,"fn":246,"precision":95.86,"recall":90.32,"f1":93.01},"Negatif":{"support":2444,"tp":2345,"fp":246,"fn":99,"precision":90.51,"recall":95.95,"f1":93.15}}},"summary":{"totalReviews":4985,"avgRating":3.12,"netSentimentScore":-3.3,"positiveCount":2411,"positivePercent":48.4,"negativeCount":2574,"negativePercent":51.6,"vocabularySize":1440,"totalThumbsUp":526}},{"folder":"2026-09-15_19-56","isLatest":false,"metrics":{"totalSamples":4985,"accuracy":89.71,"macroPrecision":59.88,"macroRecall":62.32,"macroF1":60.98,"confusionMatrix":{"matrix":{"Positif":{"Positif":2323,"Negatif":218,"Netral":0},"Negatif":{"Positif":100,"Negatif":2149,"Netral":0},"Netral":{"Positif":18,"Negatif":177,"Netral":0}},"tp":2323,"fp":100,"tn":2149,"fn":218},"classMetrics":{"Positif":{"support":2541,"tp":2323,"fp":118,"fn":218,"precision":95.17,"recall":91.42,"f1":93.26},"Negatif":{"support":2249,"tp":2149,"fp":395,"fn":100,"precision":84.47,"recall":95.55,"f1":89.67},"Netral":{"support":195,"tp":0,"fp":0,"fn":195,"precision":0,"recall":0,"f1":0}}},"summary":{"totalReviews":4985,"avgRating":3.12,"netSentimentScore":-2.4,"positiveCount":2433,"positivePercent":48.8,"neutralCount":0,"neutralPercent":0,"negativeCount":2552,"negativePercent":51.2,"vocabularySize":1440,"totalThumbsUp":526}},{"folder":"2026-09-15_19-18","isLatest":false,"metrics":{"totalSamples":4985,"confusionMatrix":{"tp":2352,"fp":105,"tn":2243,"fn":285},"accuracy":92.18,"macroPrecision":92.23,"macroRecall":92.36,"macroF1":92.17,"classMetrics":{"Positif":{"support":2637,"precision":95.73,"recall":89.19,"f1":92.34},"Negatif":{"support":2348,"precision":88.73,"recall":95.53,"f1":92}}},"summary":{"totalReviews":4985,"avgRating":3.12,"netSentimentScore":-1.5,"positiveCount":2456,"positivePercent":49.3,"negativeCount":2529,"negativePercent":50.7,"vocabularySize":1440,"totalThumbsUp":526}},{"folder":"2026-09-15_19-16","isLatest":false,"metrics":{"totalSamples":4985,"confusionMatrix":{"tp":2352,"fp":111,"tn":2215,"fn":307},"accuracy":91.61,"macroPrecision":91.66,"macroRecall":91.84,"macroF1":91.61,"classMetrics":{"Positif":{"support":2659,"precision":95.49,"recall":88.45,"f1":91.84},"Negatif":{"support":2326,"precision":87.83,"recall":95.23,"f1":91.38}}},"summary":{"totalReviews":4985,"avgRating":3.12,"netSentimentScore":-1.2,"positiveCount":2463,"positivePercent":49.4,"negativeCount":2522,"negativePercent":50.6,"vocabularySize":1440,"totalThumbsUp":526}},{"folder":"2026-09-13_15-28","isLatest":false,"metrics":{"totalSamples":4985,"confusionMatrix":{"tp":2353,"fp":111,"tn":2209,"fn":312},"accuracy":91.51,"macroPrecision":91.56,"macroRecall":91.75,"macroF1":91.51,"classMetrics":{"Positif":{"support":2665,"precision":95.5,"recall":88.29,"f1":91.75},"Negatif":{"support":2320,"precision":87.62,"recall":95.22,"f1":91.26}}},"summary":{"totalReviews":4985,"avgRating":3.12,"netSentimentScore":-1.2,"positiveCount":2463,"positivePercent":49.4,"negativeCount":2522,"negativePercent":50.6,"vocabularySize":1440,"totalThumbsUp":526}}];
+    const ALL_REPORTS = [{"folder":"2026-09-15_20-11","isLatest":true,"metrics":{"totalSamples":4990,"accuracy":93.37,"macroPrecision":93.55,"macroRecall":93.43,"macroF1":93.36,"confusionMatrix":{"matrix":{"Positif":{"Positif":2282,"Negatif":258},"Negatif":{"Positif":73,"Negatif":2377}},"tp":2282,"fp":73,"tn":2377,"fn":258},"classMetrics":{"Positif":{"support":2540,"tp":2282,"fp":73,"fn":258,"precision":96.9,"recall":89.84,"f1":93.24},"Negatif":{"support":2450,"tp":2377,"fp":258,"fn":73,"precision":90.21,"recall":97.02,"f1":93.49}}},"summary":{"totalReviews":4992,"avgRating":3.12,"netSentimentScore":-4.2,"positiveCount":2390,"positivePercent":47.9,"negativeCount":2602,"negativePercent":52.1,"vocabularySize":1454,"totalThumbsUp":526}},{"folder":"2026-09-15_20-08","isLatest":false,"metrics":{"totalSamples":4990,"accuracy":93.17,"macroPrecision":93.34,"macroRecall":93.23,"macroF1":93.16,"confusionMatrix":{"matrix":{"Positif":{"Positif":2281,"Negatif":259},"Negatif":{"Positif":82,"Negatif":2368}},"tp":2281,"fp":82,"tn":2368,"fn":259},"classMetrics":{"Positif":{"support":2540,"tp":2281,"fp":82,"fn":259,"precision":96.53,"recall":89.8,"f1":93.05},"Negatif":{"support":2450,"tp":2368,"fp":259,"fn":82,"precision":90.14,"recall":96.65,"f1":93.28}}},"summary":{"totalReviews":4992,"avgRating":3.12,"netSentimentScore":-3.8,"positiveCount":2401,"positivePercent":48.1,"negativeCount":2591,"negativePercent":51.9,"vocabularySize":1453,"totalThumbsUp":526}},{"folder":"2026-09-15_20-05","isLatest":false,"metrics":{"totalSamples":4985,"accuracy":93.08,"macroPrecision":93.19,"macroRecall":93.13,"macroF1":93.08,"confusionMatrix":{"matrix":{"Positif":{"Positif":2295,"Negatif":246},"Negatif":{"Positif":99,"Negatif":2345}},"tp":2295,"fp":99,"tn":2345,"fn":246},"classMetrics":{"Positif":{"support":2541,"tp":2295,"fp":99,"fn":246,"precision":95.86,"recall":90.32,"f1":93.01},"Negatif":{"support":2444,"tp":2345,"fp":246,"fn":99,"precision":90.51,"recall":95.95,"f1":93.15}}},"summary":{"totalReviews":4985,"avgRating":3.12,"netSentimentScore":-3.3,"positiveCount":2411,"positivePercent":48.4,"negativeCount":2574,"negativePercent":51.6,"vocabularySize":1440,"totalThumbsUp":526}},{"folder":"2026-09-15_19-58","isLatest":false,"metrics":{"totalSamples":4985,"accuracy":93.08,"macroPrecision":93.19,"macroRecall":93.13,"macroF1":93.08,"confusionMatrix":{"matrix":{"Positif":{"Positif":2295,"Negatif":246},"Negatif":{"Positif":99,"Negatif":2345}},"tp":2295,"fp":99,"tn":2345,"fn":246},"classMetrics":{"Positif":{"support":2541,"tp":2295,"fp":99,"fn":246,"precision":95.86,"recall":90.32,"f1":93.01},"Negatif":{"support":2444,"tp":2345,"fp":246,"fn":99,"precision":90.51,"recall":95.95,"f1":93.15}}},"summary":{"totalReviews":4985,"avgRating":3.12,"netSentimentScore":-3.3,"positiveCount":2411,"positivePercent":48.4,"negativeCount":2574,"negativePercent":51.6,"vocabularySize":1440,"totalThumbsUp":526}},{"folder":"2026-09-15_19-56","isLatest":false,"metrics":{"totalSamples":4985,"accuracy":89.71,"macroPrecision":59.88,"macroRecall":62.32,"macroF1":60.98,"confusionMatrix":{"matrix":{"Positif":{"Positif":2323,"Negatif":218,"Netral":0},"Negatif":{"Positif":100,"Negatif":2149,"Netral":0},"Netral":{"Positif":18,"Negatif":177,"Netral":0}},"tp":2323,"fp":100,"tn":2149,"fn":218},"classMetrics":{"Positif":{"support":2541,"tp":2323,"fp":118,"fn":218,"precision":95.17,"recall":91.42,"f1":93.26},"Negatif":{"support":2249,"tp":2149,"fp":395,"fn":100,"precision":84.47,"recall":95.55,"f1":89.67},"Netral":{"support":195,"tp":0,"fp":0,"fn":195,"precision":0,"recall":0,"f1":0}}},"summary":{"totalReviews":4985,"avgRating":3.12,"netSentimentScore":-2.4,"positiveCount":2433,"positivePercent":48.8,"neutralCount":0,"neutralPercent":0,"negativeCount":2552,"negativePercent":51.2,"vocabularySize":1440,"totalThumbsUp":526}},{"folder":"2026-09-15_19-18","isLatest":false,"metrics":{"totalSamples":4985,"confusionMatrix":{"tp":2352,"fp":105,"tn":2243,"fn":285},"accuracy":92.18,"macroPrecision":92.23,"macroRecall":92.36,"macroF1":92.17,"classMetrics":{"Positif":{"support":2637,"precision":95.73,"recall":89.19,"f1":92.34},"Negatif":{"support":2348,"precision":88.73,"recall":95.53,"f1":92}}},"summary":{"totalReviews":4985,"avgRating":3.12,"netSentimentScore":-1.5,"positiveCount":2456,"positivePercent":49.3,"negativeCount":2529,"negativePercent":50.7,"vocabularySize":1440,"totalThumbsUp":526}},{"folder":"2026-09-15_19-16","isLatest":false,"metrics":{"totalSamples":4985,"confusionMatrix":{"tp":2352,"fp":111,"tn":2215,"fn":307},"accuracy":91.61,"macroPrecision":91.66,"macroRecall":91.84,"macroF1":91.61,"classMetrics":{"Positif":{"support":2659,"precision":95.49,"recall":88.45,"f1":91.84},"Negatif":{"support":2326,"precision":87.83,"recall":95.23,"f1":91.38}}},"summary":{"totalReviews":4985,"avgRating":3.12,"netSentimentScore":-1.2,"positiveCount":2463,"positivePercent":49.4,"negativeCount":2522,"negativePercent":50.6,"vocabularySize":1440,"totalThumbsUp":526}},{"folder":"2026-09-13_15-28","isLatest":false,"metrics":{"totalSamples":4985,"confusionMatrix":{"tp":2353,"fp":111,"tn":2209,"fn":312},"accuracy":91.51,"macroPrecision":91.56,"macroRecall":91.75,"macroF1":91.51,"classMetrics":{"Positif":{"support":2665,"precision":95.5,"recall":88.29,"f1":91.75},"Negatif":{"support":2320,"precision":87.62,"recall":95.22,"f1":91.26}}},"summary":{"totalReviews":4985,"avgRating":3.12,"netSentimentScore":-1.2,"positiveCount":2463,"positivePercent":49.4,"negativeCount":2522,"negativePercent":50.6,"vocabularySize":1440,"totalThumbsUp":526}}];
 
     function filterReports() {
       const query = (document.getElementById('reportSearch').value || '').toLowerCase().trim();

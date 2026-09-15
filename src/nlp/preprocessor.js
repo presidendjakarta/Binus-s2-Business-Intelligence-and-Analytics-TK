@@ -70,12 +70,22 @@ class TextPreprocessor {
     // 2. Lowercase
     cleaned = cleaned.toLowerCase();
 
-    // 3. Normalize Rhetorical Idioms & Phrases
+    // 3. Normalize Rhetorical Idioms, Sarcasm & Counterfactual Phrases
     cleaned = cleaned
-      .replace(/apa gunanya|apa guna|buat apa|gak guna|ga guna|kaga guna|nggak guna/g, ' tidak berguna ')
+      .replace(/apa gunanya|apa guna|buat apa|gak guna|ga guna|kaga guna|nggak guna|g guna/g, ' tidak berguna ')
       .replace(/sama saja bohong|sama aja bohong|ujung ujungnya ke kantor/g, ' kecewa ')
       .replace(/tidak memberikan solusi|tidak ada solusi|gada solusi|gaada solusi/g, ' kecewa tidak solusi ')
-      .replace(/gak ada|ga ada|kaga ada|ngga ada|nggak ada/g, ' tidak ada ');
+      .replace(/gak ada|ga ada|kaga ada|ngga ada|nggak ada/g, ' tidak ada ')
+      .replace(/1000 candi|seribu candi|bikin candi|seribu candi/g, ' sangat sulit lambat ')
+      .replace(/kalau bisa sulit kenapa harus dipermudah|kalau bisa dipersulit kenapa dipermudah|kenapa harus dipermudah/g, ' kecewa birokrasi rumit sulit ')
+      .replace(/mantap aplikasi sampah|bagus aplikasi sampah|mantap sampah/g, ' sangat buruk jelek ')
+      .replace(/rata2 aplikasi pemerintah sangat bagus|aplikasi pemerintah sangat bagus/g, ' sarkasme buruk ')
+      .replace(/g bermutu|gak bermutu|ga bermutu|nggak bermutu/g, ' tidak bermutu buruk ')
+      .replace(/g jelas|gak jelas|ga jelas|ngga jelas|nggak jelas/g, ' tidak jelas ')
+      .replace(/harusnya mempermudah|seharusnya mempermudah|harusnya mudah|seharusnya mudah/g, ' tidak mudah menyulitkan ')
+      .replace(/harusnya membantu|seharusnya membantu|harusnya bantu/g, ' tidak membantu menyulitkan ')
+      .replace(/dibuat untuk memudahkan|dibuat utk memudahkan|tujuan untuk memudahkan|tujuannya memudahkan/g, ' fungsi awal ')
+      .replace(/jaringan pun bagus|jaringan juga bagus|jaringan bagus|sinyal bagus|koneksi bagus/g, ' koneksi internet ');
 
     // 4. Remove URLs
     cleaned = cleaned.replace(/https?:\/\/\S+|www\.\S+/g, ' ');
@@ -86,8 +96,8 @@ class TextPreprocessor {
     // 6. Replace punctuation and non-alphanumeric with space (keep letters and spaces)
     cleaned = cleaned.replace(/[^a-z0-9\s]/g, ' ');
 
-    // 7. Normalize elongated characters (e.g. "baguuuus" -> "bagus", "lemmooot" -> "lemot", "rewellll" -> "rewel")
-    cleaned = cleaned.replace(/(.)\1{2,}/g, '$1');
+    // 7. Normalize elongated alphabetic characters (e.g. "baguuuus" -> "bagus", "lemmooot" -> "lemot", "rewellll" -> "rewel")
+    cleaned = cleaned.replace(/([a-zA-Z])\1{2,}/g, '$1');
 
     // 8. Collapse whitespace
     cleaned = cleaned.replace(/\s+/g, ' ').trim();

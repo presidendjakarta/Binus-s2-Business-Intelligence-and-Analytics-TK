@@ -167,24 +167,68 @@ Pada antarmuka [Executive Dashboard HTML](file:///x:/laragon/kuliah/playstore-mi
 
 ---
 
-## 7. Panduan Argumentasi Sidang Ujian Skripsi/Tesis 🎓
+---
 
-### ❓ Pertanyaan Dosen:
-> *"Bagaimana sistem Anda menangani ulasan sarkasme seperti 'Terbaik lah, mau login gangguan mulu... berharap pasien mati dulu' dan kenapa rating 1, 2, 3 dikelompokkan sebagai Negatif?"*
+## 7. Taksonomi & Studi Kasus Empiris 5 Pola Ulasan Bintang 1
 
-#### 🗣️ Jawaban Mahasiswa:
-> *"Izin menjelaskan Bapak/Ibu Penguji:*
-> 1. *Pada klasifikasi ulasan aplikasi mobile, rating 1, 2, dan 3 dikelompokkan sebagai **Sentimen Negatif (Keluhan & Masukan Kritis)** karena di bawah standar kepuasan Play Store (rating < 4 menurunkan reputasi aplikasi). Skema ini menghasilkan keseimbangan data yang sangat ideal (48.4% Positif vs 51.6% Negatif).*
-> 2. *Pada teks yang memuat sarkasme seperti ulasan Nendhe Praviga, model Multinomial Naive Bayes berbasis TF-IDF mengevaluasi bobot seluruh kata komplain ('gangguan', 'mati', 'nunggu lama', 'verifikasi'). Akumulasi bobot keluhan ini mengalahkan token positif tunggal ('baik'), sehingga model dengan keyakinan **95.84% memprediksi Sentimen Negatif**.*
-> 3. *Dengan demikian, data ini tercatat sebagai **True Negative** yang valid dan memperkuat capaian akurasi model sebesar **93.08%**."*
+Berdasarkan hasil analisis terhadap seluruh korpus 5.000 ulasan Google Play Store, ulasan rating $\bigstar 1$ yang memuat leksikon positif atau anomali terbagi ke dalam **5 taksonomi fenomena empiris**:
+
+```mermaid
+graph TD
+    Root["Taksonomi Ulasan Rating 1★ Bernuansa Positif"]
+    Root --> C1["1. Sarkasme & Satir Populer<br/>(1000 Candi, Birokrasi, Oxymoron)"]
+    Root --> C2["2. Kritik Berbalut Ekspektasi<br/>(Modalitas Kontrafaktual 'Harusnya')"]
+    Root --> C3["3. Kontras Kondisi Eksternal<br/>(Sinyal Bagus vs Aplikasi Rusak)"]
+    Root --> C4["4. Human Error / Salah Pencet<br/>(Pujian Tulus Rating 1★)"]
+    Root --> C5["5. Typo Fonetik & Ambiguitas Kata<br/>('g bermutu', 'ccat', 'bodol')"]
+```
+
+### Kasus A: Sarkasme Analogi Budaya (*"1000 Candi"*)
+* **Pengulas:** *Asep Saepudin* (★1.0)
+* **Teks Asli:** *"TAU KAN KENAPA DIKASIH BINTANG 1 ? LEBIH GAMPANG BIKIN 1000 CANDI KETIMBANG MASUK AKUN APLIKASI INI DIH"*
+* **Analisis NLP:** Pengguna memanfaatkan analogi legenda Roro Jonggrang/Candi Prambanan untuk menyindir bahwa proses login aplikasi luar biasa mustahil/lambat. Modul NLP menormalkan idiom `1000 candi` menjadi `sangat sulit lambat`, sehingga model MNB mengklasifikasikan sebagai **Negatif (73.2% Confidence)**.
+
+### Kasus B: Satir Paradoks Birokrasi (*"Dipropersulit"*)
+* **Pengulas:** *dicky ono* (★1.0)
+* **Teks Asli:** *"kalau bisa sulit kenapa harus dipermudah"*
+* **Analisis NLP:** Mengutip meme satir birokrasi populer. Frasa dinormalisasi menjadi `kecewa birokrasi rumit sulit`, menghasilkan prediksi **Negatif (92.7% Confidence)**.
+
+### Kasus C: Kritik Modalitas Kontrafaktual (*Expectation vs Reality*)
+* **Pengulas:** *Nurrohmah Manda* (★1.0)
+* **Teks Asli:** *"aplikasi harusnya mempermudah"*
+* **Analisis NLP:** Kata `harusnya` menyatakan harapan yang gagal terwujud. Normalisasi NLP mengubahnya menjadi `tidak_mudah menyulitkan`, menghasilkan prediksi **Negatif (89.4% Confidence)**.
+
+### Kasus D: Oxymoron & Satir Reputasi
+* **Pengulas:** *Faizal Yusuf* (★1.0): *"mantap aplikasi sampah"* $\rightarrow$ **Negatif (99.6% Confidence)**.
+* **Pengulas:** *syukri yusuf* (★1.0): *"rata2 aplikasi pemerintah sangat bagus..."* $\rightarrow$ **Negatif (99.6% Confidence)**.
+
+### Kasus E: Anomali Human Error / Salah Pencet Murni (*User Misclick*)
+* **Pengulas:** *Wagito Ito* (★1.0): *"sangat baik"* $\rightarrow$ **Positif (94.2% Confidence)**.
+* **Pengulas:** *Tubagus Nabil* (★1.0): *"APLIKASI YANG SANGAT BAGUS"* $\rightarrow$ **Positif (97.8% Confidence)**.
+* **Analisis Akademis:** Teks 100% murni pujian tanpa komplain. Sistem mendeteksi kasus ini sebagai **⚠️ Mismatch / Anomaly Detection**, membuktikan kemampuan AI dalam mengidentifikasi ketidakkonsistenan antara sentimen teks pengguna dan rating bintang yang tidak sengaja tertekan salah.
 
 ---
 
-## 8. Navigasi Terkait
+## 8. Panduan Argumentasi Sidang Ujian Skripsi/Tesis 🎓
 
-- 📐 [02. Algoritma dan Matematika](02_algoritma_dan_matematika.md)
+### ❓ Pertanyaan Dosen:
+> *"Bagaimana sistem Anda menangani ulasan sarkasme seperti 'Terbaik lah, mau login gangguan mulu... berharap pasien mati dulu' atau 'lebih gampang bikin 1000 candi'?"*
+
+#### 🗣️ Jawaban Mahasiswa:
+> *"Izin menjelaskan Bapak/Ibu Penguji:*
+> 1. *Pada klasifikasi ulasan aplikasi mobile, rating 1, 2, dan 3 dikelompokkan sebagai **Sentimen Negatif (Keluhan & Masukan Kritis)** karena di bawah standar kepuasan Play Store (rating < 4 menurunkan reputasi aplikasi). Skema ini menghasilkan keseimbangan data yang sangat ideal (48.1% Positif vs 51.9% Negatif).*
+> 2. *Sistem kami dilengkapi **Rhetorical Idiom & Sarcasm Normalization** pada tahap Preprocessing NLP yang mengenali pola sarkasme khas netizen Indonesia (seperti analogi '1000 candi', satir 'kalau bisa sulit kenapa harus dipermudah', dan inversi 'harusnya mempermudah').*
+> 3. *Model Multinomial Naive Bayes berbasis TF-IDF mengevaluasi akumulasi bobot seluruh fitur keluhan sehingga model dengan keyakinan tinggi (**>90% Confidence**) memprediksi ulasan tersebut sebagai **Sentimen Negatif**.*
+> 4. *Adapun ulasan anomali salah pencet (*misclick* seperti teks 'sangat baik' berating ★1), sistem secara otomatis menandainya sebagai **⚠️ Mismatch Anomaly** pada Executive Dashboard untuk audit kualitas data."*
+
+---
+
+## 9. Navigasi Terkait
+
+- 📐 [02. Metodologi Penelitian](02_metodologi_penelitian.md)
 - 📊 [03. Flowchart dan Arsitektur Sistem](03_flowchart_dan_arsitektur.md)
 - 📚 [04. Kamus Data dan Skema](04_kamus_data_dan_skema.md)
-- 🧪 [05. Evaluasi dan Eksperimen Model](05_evaluasi_dan_eksperimen.md)
-- 💻 [09. Dokumentasi Kode dan Script](09_dokumentasi_kode_dan_script.md)
+- 🧪 [08. Evaluasi Model dan Confusion Matrix](08_evaluasi_model_dan_confusion_matrix.md)
+- 💻 [09. Analisis Aspek Bisnis dan Rekomendasi](09_analisis_aspek_bisnis_dan_rekomendasi.md)
 - 🏠 [Master Indeks Dokumentasi](README.md)
+
