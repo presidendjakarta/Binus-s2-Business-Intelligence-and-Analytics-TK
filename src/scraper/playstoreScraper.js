@@ -1,18 +1,19 @@
-﻿const rawGplay = require('google-play-scraper');
+const rawGplay = require('google-play-scraper');
 const gplay = rawGplay.default || rawGplay;
 const fs = require('fs');
 const path = require('path');
 const { createObjectCsvWriter } = require('csv-writer');
 
-const APP_ID = 'app.bpjs.mobile';
+const DEFAULT_APP_ID = 'id.bmri.livin'; // Livin' by Mandiri
 
 /**
- * Scrapes Google Play Store reviews for Mobile JKN
+ * Scrapes Google Play Store reviews for a specified App ID
  * @param {number} targetCount Number of reviews to fetch (e.g. 5000)
+ * @param {string} appId Target app package ID (default: 'id.bmri.livin')
  * @param {function} onProgress Progress callback
  */
-async function scrapeMobileJKN(targetCount = 1000, onProgress = null) {
-  console.log(`[SCRAPER] Memulai scraping Mobile JKN (${APP_ID})... Target: ${targetCount} data`);
+async function scrapeReviews(targetCount = 1000, appId = DEFAULT_APP_ID, onProgress = null) {
+  console.log(`[SCRAPER] Memulai scraping Play Store (${appId})... Target: ${targetCount.toLocaleString('id-ID')} ulasan`);
   
   let allReviews = [];
   const seenIds = new Set();
@@ -30,7 +31,7 @@ async function scrapeMobileJKN(targetCount = 1000, onProgress = null) {
 
     try {
       const result = await gplay.reviews({
-        appId: APP_ID,
+        appId: appId,
         lang: 'id',
         country: 'id',
         sort: sorts[sortIndex],
@@ -48,7 +49,7 @@ async function scrapeMobileJKN(targetCount = 1000, onProgress = null) {
           seenIds.add(item.id);
           allReviews.push({
             id: item.id,
-            userName: item.userName || 'Pengguna Mobile JKN',
+            userName: item.userName || 'Pengguna Play Store',
             score: item.score || 0,
             date: item.date ? new Date(item.date).toISOString() : new Date().toISOString(),
             text: item.text.trim(),
@@ -122,8 +123,8 @@ async function saveReviews(reviews, outputDir) {
   // 3. Save Meta info
   const metaPath = path.join(outputDir, 'meta.json');
   const meta = {
-    appId: APP_ID,
-    appName: 'Mobile JKN (BPJS Kesehatan)',
+    appId: reviews[0]?.appId || DEFAULT_APP_ID,
+    appName: reviews[0]?.appId === 'app.bpjs.mobile' ? 'Mobile JKN (BPJS Kesehatan)' : "Livin' by Mandiri (PT Bank Mandiri Tbk)",
     totalReviews: reviews.length,
     scrapedAt: new Date().toISOString()
   };
@@ -133,7 +134,8 @@ async function saveReviews(reviews, outputDir) {
 }
 
 module.exports = {
-  APP_ID,
-  scrapeMobileJKN,
+  DEFAULT_APP_ID,
+  scrapeReviews,
+  scrapeMobileJKN: (count, onProg) => scrapeReviews(count, 'app.bpjs.mobile', onProg),
   saveReviews
 };

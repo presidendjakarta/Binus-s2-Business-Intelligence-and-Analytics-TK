@@ -1,10 +1,12 @@
-﻿{
+{
   "name": "mobile-jkn-sentiment-analytics",
   "version": "1.0.0",
   "description": "Analisis Sentimen & Data Mining Ulasan Mobile JKN Google Play Store menggunakan Sastrawi Stemmer, TF-IDF Vectorizer, dan Multinomial Naive Bayes",
   "main": "run-analisa.js",
   "scripts": {
-    "scrape": "node scrap-jkn.js",
+    "scrape": "node scrap-livin.js",
+    "scrape:livin": "node scrap-livin.js",
+    "scrape:jkn": "node scrap-jkn.js",
     "analyze": "node run-analisa.js",
     "report": "node open-report.js",
     "test": "node test-nlp.js"

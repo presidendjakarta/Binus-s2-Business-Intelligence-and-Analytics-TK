@@ -16,10 +16,10 @@ function detectAspects(text, tokens) {
   const aspects = [];
 
   const aspectKeywords = {
-    'Autentikasi & Akun': ['login', 'masuk', 'daftar', 'registrasi', 'otp', 'sms', 'password', 'sandi', 'pin', 'nik', 'ktp', 'email', 'akun', 'verifikasi', 'tidak_bisa_masuk', 'lupa_sandi'],
-    'Antrean & Faskes': ['antre', 'antrean', 'antrian', 'faskes', 'puskesmas', 'pkm', 'rs', 'rumah_sakit', 'klinik', 'kuota', 'dokter', 'poli', 'jadwal', 'rujuk', 'rujukan', 'obat', 'fktp'],
+    'Autentikasi & Akun': ['login', 'masuk', 'daftar', 'registrasi', 'otp', 'sms', 'password', 'sandi', 'pin', 'nik', 'ktp', 'email', 'akun', 'verifikasi', 'face_id', 'biometrik', 'sidik_jari', 'fingerprint', 'blokir', 'aktivasi', 'ganti_hp', 'tidak_bisa_masuk', 'lupa_sandi'],
+    'Transaksi & Pembayaran': ['transfer', 'tf', 'bi-fast', 'bfast', 'topup', 'top up', 'gopay', 'ovo', 'dana', 'shopeepay', 'e-money', 'etoll', 'e-toll', 'qr', 'qris', 'bayar', 'tagihan', 'beli', 'pulsa', 'listrik', 'pln', 'pdam', 'valas', 'setor', 'tarik_tunai', 'antre', 'antrean', 'faskes', 'rujukan'],
     'Kinerja & Server': ['eror', 'error', 'lemot', 'lambat', 'lola', 'lelet', 'force_close', 'fc', 'crash', 'hang', 'freeze', 'blank', 'server', 'jaringan', 'koneksi', 'update', 'apdet', 'bug', 'rto', 'loading'],
-    'Iuran & Layanan': ['iuran', 'bayar', 'tagihan', 'autodebet', 'potong', 'denda', 'kis', 'kartu', 'digital', 'cetak', 'pindah', 'ubah', 'mutasi', 'pbi', 'keluarga', 'bpjs', 'screening', 'klaim']
+    'Layanan & Fitur Finansial': ['kartu_kredit', 'tabungan', 'rekening', 'deposito', 'pinjaman', 'ksm', 'paylater', 'sukha', 'investasi', 'reksadana', 'valas', 'bunga', 'promo', 'cs', 'customer_service', 'call_center', '14000', 'iuran', 'bpjs']
   };
 
   for (const [aspect, kws] of Object.entries(aspectKeywords)) {
