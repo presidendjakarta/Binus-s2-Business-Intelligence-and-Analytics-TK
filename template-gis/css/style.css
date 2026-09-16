@@ -1,0 +1,1315 @@
+/* ==========================================================================
+   INA-SEISMOBI: Full-Screen Digital Twin & GIS Command Center UI Kit
+   Design: Enterprise Smart City / Earth Observatory Digital Twin
+   Inspired by: ESRI ArcGIS Enterprise, USGS, BMKG, Smart Infrastructure GIS
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. COLOR PALETTE & DESIGN TOKENS (DARK & LIGHT THEME)
+   -------------------------------------------------------------------------- */
+:root {
+    /* Base Dimensions */
+    --header-height: 52px;
+    --ticker-height: 28px;
+    --dock-bottom: 38px;
+
+    /* Theme: Digital Twin Cyber Navy (Dark Mode Default) */
+    --gis-bg: #060d1a;
+    --gis-panel-bg: rgba(8, 20, 42, 0.88);
+    --gis-panel-header: rgba(12, 28, 58, 0.95);
+    --gis-card-bg: rgba(13, 30, 60, 0.72);
+    --gis-card-hover: rgba(20, 45, 90, 0.85);
+    --gis-input-bg: rgba(6, 16, 36, 0.85);
+
+    /* Tech Borders & Highlights */
+    --gis-border: rgba(56, 189, 248, 0.22);
+    --gis-border-glow: rgba(56, 189, 248, 0.5);
+    --gis-border-subtle: rgba(255, 255, 255, 0.08);
+
+    /* Typography Colors */
+    --gis-text-primary: #f0f6fc;
+    --gis-text-secondary: #94a3b8;
+    --gis-text-muted: #64748b;
+    --gis-text-cyan: #38bdf8;
+    --gis-text-emerald: #34d399;
+    --gis-text-amber: #fbbf24;
+    --gis-text-rose: #f43f5e;
+
+    /* Tactical Seismology Palette */
+    --risk-red: #ef4444;
+    --risk-red-bg: rgba(239, 68, 68, 0.18);
+    --risk-amber: #f59e0b;
+    --risk-amber-bg: rgba(245, 158, 11, 0.18);
+    --risk-green: #10b981;
+    --risk-green-bg: rgba(16, 185, 129, 0.18);
+    --p-wave-color: #00f0ff;
+    --s-wave-color: #f43f5e;
+
+    /* Shadows & Glassmorphism Blur */
+    --gis-blur: blur(14px);
+    --gis-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.58);
+    --gis-glow-cyan: 0 0 12px rgba(56, 189, 248, 0.35);
+}
+
+[data-bs-theme="light"] {
+    --gis-bg: #f1f5f9;
+    --gis-panel-bg: rgba(255, 255, 255, 0.92);
+    --gis-panel-header: rgba(241, 245, 249, 0.96);
+    --gis-card-bg: rgba(248, 250, 252, 0.85);
+    --gis-card-hover: rgba(241, 245, 249, 0.95);
+    --gis-input-bg: #ffffff;
+
+    --gis-border: rgba(14, 116, 144, 0.28);
+    --gis-border-glow: rgba(14, 116, 144, 0.6);
+    --gis-border-subtle: rgba(0, 0, 0, 0.1);
+
+    --gis-text-primary: #0f172a;
+    --gis-text-secondary: #334155;
+    --gis-text-muted: #64748b;
+    --gis-text-cyan: #0284c7;
+    --gis-text-emerald: #059669;
+    --gis-text-amber: #d97706;
+    --gis-text-rose: #e11d48;
+
+    --risk-red: #dc2626;
+    --risk-red-bg: rgba(220, 38, 38, 0.12);
+    --risk-amber: #d97706;
+    --risk-amber-bg: rgba(217, 119, 6, 0.12);
+    --risk-green: #059669;
+    --risk-green-bg: rgba(5, 150, 105, 0.12);
+    --p-wave-color: #0284c7;
+    --s-wave-color: #e11d48;
+
+    --gis-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.12);
+    --gis-glow-cyan: 0 0 10px rgba(14, 116, 144, 0.25);
+}
+
+/* --------------------------------------------------------------------------
+   2. GLOBAL LAYOUT (100% VIEWPORT IMMERSION)
+   -------------------------------------------------------------------------- */
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background-color: var(--gis-bg);
+    color: var(--gis-text-primary);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 0.85rem;
+    line-height: 1.45;
+    user-select: none;
+    -webkit-font-smoothing: antialiased;
+}
+
+.font-mono {
+    font-family: 'JetBrains Mono', Menlo, Monaco, Consolas, monospace !important;
+    font-variant-numeric: tabular-nums;
+}
+
+/* Custom Tactical Scrollbars */
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(56, 189, 248, 0.3);
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(56, 189, 248, 0.6);
+}
+
+/* --------------------------------------------------------------------------
+   3. FULLSCREEN MAP CANVAS & LEAFLET TWEAKS
+   -------------------------------------------------------------------------- */
+#mapContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+    background-color: #040810;
+}
+
+/* Leaflet Zoom Controls Customization */
+.leaflet-control-zoom {
+    border: 1px solid var(--gis-border) !important;
+    box-shadow: var(--gis-shadow) !important;
+    border-radius: 6px !important;
+    overflow: hidden;
+    margin-right: 20px !important;
+    margin-bottom: 80px !important;
+}
+.leaflet-control-zoom a {
+    background: var(--gis-panel-bg) !important;
+    backdrop-filter: var(--gis-blur);
+    color: var(--gis-text-primary) !important;
+    border-bottom: 1px solid var(--gis-border) !important;
+    width: 32px !important;
+    height: 32px !important;
+    line-height: 32px !important;
+    font-size: 15px !important;
+}
+.leaflet-control-zoom a:hover {
+    background: var(--gis-card-hover) !important;
+    color: var(--gis-text-cyan) !important;
+}
+
+.leaflet-control-attribution {
+    background: rgba(0, 0, 0, 0.65) !important;
+    color: #64748b !important;
+    font-size: 10px !important;
+    backdrop-filter: blur(4px);
+    margin-bottom: var(--ticker-height) !important;
+}
+
+/* Leaflet Tactical Dark/Light Popups & Tooltips */
+.leaflet-popup-content-wrapper {
+    background: var(--gis-panel-bg) !important;
+    backdrop-filter: var(--gis-blur) !important;
+    -webkit-backdrop-filter: var(--gis-blur) !important;
+    border: 1px solid var(--gis-border) !important;
+    color: var(--gis-text-primary) !important;
+    border-radius: 8px !important;
+    box-shadow: var(--gis-shadow) !important;
+    padding: 2px !important;
+}
+
+.leaflet-popup-tip {
+    background: var(--gis-panel-bg) !important;
+    border: 1px solid var(--gis-border) !important;
+}
+
+.leaflet-popup-content {
+    margin: 10px 14px !important;
+    line-height: 1.4 !important;
+    color: var(--gis-text-primary) !important;
+}
+
+.leaflet-popup-content .text-muted {
+    color: var(--gis-text-secondary) !important;
+}
+
+.leaflet-container a.leaflet-popup-close-button {
+    color: var(--gis-text-secondary) !important;
+    padding: 6px 8px 0 0 !important;
+    top: 2px !important;
+    right: 2px !important;
+    font-size: 16px !important;
+}
+
+.leaflet-container a.leaflet-popup-close-button:hover {
+    color: var(--gis-text-cyan) !important;
+}
+
+.leaflet-tooltip {
+    background: var(--gis-panel-bg) !important;
+    backdrop-filter: var(--gis-blur) !important;
+    -webkit-backdrop-filter: var(--gis-blur) !important;
+    border: 1px solid var(--gis-border) !important;
+    color: var(--gis-text-primary) !important;
+    border-radius: 6px !important;
+    box-shadow: var(--gis-shadow) !important;
+    padding: 6px 10px !important;
+    font-size: 0.75rem !important;
+}
+.leaflet-tooltip-top:before, 
+.leaflet-tooltip-bottom:before, 
+.leaflet-tooltip-left:before, 
+.leaflet-tooltip-right:before {
+    border-top-color: var(--gis-panel-bg) !important;
+    border-bottom-color: var(--gis-panel-bg) !important;
+    border-left-color: var(--gis-panel-bg) !important;
+    border-right-color: var(--gis-panel-bg) !important;
+}
+
+/* --------------------------------------------------------------------------
+   4. TOP COMMAND CENTER HEADER BAR (.gis-header)
+   -------------------------------------------------------------------------- */
+.gis-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--header-height);
+    z-index: 1000;
+    background: var(--gis-panel-bg);
+    backdrop-filter: var(--gis-blur);
+    -webkit-backdrop-filter: var(--gis-blur);
+    border-bottom: 1px solid var(--gis-border);
+    box-shadow: var(--gis-shadow);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+}
+
+.gis-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.gis-brand-logo {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.45));
+    transition: transform 0.25s ease;
+    flex-shrink: 0;
+}
+.gis-brand-logo:hover {
+    transform: scale(1.08);
+}
+
+.gis-brand-svg {
+    width: 100%;
+    height: 100%;
+}
+
+.gis-brand-meta {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.gis-brand-title {
+    font-size: 1.12rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.gis-title-swan {
+    color: var(--gis-text-primary);
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0.03em;
+}
+
+.gis-title-geo {
+    background: linear-gradient(135deg, #00f0ff 0%, #38bdf8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: 'Inter', sans-serif;
+    font-weight: 900;
+}
+
+.gis-live-badge {
+    background: rgba(56, 189, 248, 0.12);
+    border: 1px solid rgba(56, 189, 248, 0.35);
+    color: #38bdf8;
+    font-size: 0.62rem;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    letter-spacing: 0.05em;
+    line-height: 1;
+}
+
+.pulse-beacon {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #00f0ff;
+    box-shadow: 0 0 6px #00f0ff;
+    animation: beaconPulse 1.5s infinite ease-in-out;
+}
+
+@keyframes beaconPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.3; transform: scale(0.7); }
+}
+
+.gis-brand-sub {
+    font-size: 0.64rem;
+    font-weight: 600;
+    color: var(--gis-text-secondary);
+    letter-spacing: 0.08em;
+    margin-top: 3px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'Inter', sans-serif;
+}
+
+.sub-sep {
+    color: #38bdf8;
+    font-size: 0.65rem;
+}
+
+/* Header Nav Pills */
+.gis-header-nav {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.gis-nav-btn {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--gis-border-subtle);
+    color: var(--gis-text-secondary);
+    padding: 5px 12px;
+    border-radius: 5px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.gis-nav-btn:hover, .gis-nav-btn.active {
+    background: rgba(56, 189, 248, 0.15);
+    border-color: var(--gis-border);
+    color: var(--gis-text-cyan);
+    box-shadow: var(--gis-glow-cyan);
+}
+
+/* Header Telemetry Right */
+.gis-header-telemetry {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.gis-tele-pill {
+    background: var(--gis-card-bg);
+    border: 1px solid var(--gis-border-subtle);
+    padding: 4px 10px;
+    border-radius: 5px;
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.pulse-dot-green {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #10b981;
+    box-shadow: 0 0 8px #10b981;
+    animation: livePulse 2s infinite ease-in-out;
+}
+
+@keyframes livePulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+/* --------------------------------------------------------------------------
+   5. FLOATING HUD PANELS (LEFT & RIGHT COCKPIT WIDGETS)
+   -------------------------------------------------------------------------- */
+.gis-panel {
+    position: absolute;
+    top: calc(var(--header-height) + 12px);
+    bottom: calc(var(--ticker-height) + 14px);
+    z-index: 900;
+    background: var(--gis-panel-bg);
+    backdrop-filter: var(--gis-blur);
+    -webkit-backdrop-filter: var(--gis-blur);
+    border: 1px solid var(--gis-border);
+    border-radius: 8px;
+    box-shadow: var(--gis-shadow);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+}
+
+/* Tech Corner Accents */
+.gis-panel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 10px;
+    height: 10px;
+    border-top: 2px solid var(--gis-text-cyan);
+    border-left: 2px solid var(--gis-text-cyan);
+    pointer-events: none;
+    z-index: 10;
+}
+.gis-panel::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 10px;
+    height: 10px;
+    border-top: 2px solid var(--gis-text-cyan);
+    border-right: 2px solid var(--gis-text-cyan);
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* Left Panel: Filter & Event Feed (Ultra-Compact Tactical HUD & Auto-Height) */
+.gis-panel-left {
+    left: 14px;
+    width: 275px;
+    bottom: auto;
+    max-height: calc(100vh - var(--header-height) - var(--ticker-height) - 30px);
+}
+.gis-panel-left.collapsed {
+    transform: translateX(calc(-100% - 20px));
+}
+.gis-panel-left .gis-panel-body {
+    padding: 8px 10px;
+    gap: 8px;
+}
+.gis-panel-left .gis-subcard {
+    padding: 8px;
+}
+.gis-panel-left .gis-subcard-title {
+    margin-bottom: 6px;
+    font-size: 0.7rem;
+}
+
+/* Right Panel: Analytics & KPIs */
+.gis-panel-right {
+    right: 14px;
+    width: 330px;
+}
+.gis-panel-right.collapsed {
+    transform: translateX(calc(100% + 20px));
+}
+
+/* Panel Header */
+.gis-panel-header {
+    height: 40px;
+    background: var(--gis-panel-header);
+    border-bottom: 1px solid var(--gis-border);
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+}
+
+.gis-panel-title {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--gis-text-cyan);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-transform: uppercase;
+}
+
+.gis-panel-btn {
+    background: transparent;
+    border: none;
+    color: var(--gis-text-secondary);
+    font-size: 13px;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+}
+.gis-panel-btn:hover {
+    color: var(--gis-text-cyan);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* Panel Body & Scroll Area */
+.gis-panel-body {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Tactical Sub-cards */
+.gis-subcard {
+    background: var(--gis-card-bg);
+    border: 1px solid var(--gis-border-subtle);
+    border-radius: 6px;
+    padding: 10px;
+}
+
+.gis-subcard-title {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--gis-text-secondary);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Floating Collapse Toggles (When panel is closed) */
+.gis-toggle-tab {
+    position: absolute;
+    top: calc(var(--header-height) + 18px);
+    z-index: 850;
+    background: var(--gis-panel-bg);
+    backdrop-filter: var(--gis-blur);
+    border: 1px solid var(--gis-border);
+    color: var(--gis-text-cyan);
+    padding: 10px 8px;
+    cursor: pointer;
+    box-shadow: var(--gis-shadow);
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+.gis-toggle-tab-left {
+    left: 0;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    border-left: none;
+}
+.gis-toggle-tab-right {
+    right: 0;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+    border-right: none;
+}
+.gis-toggle-tab:hover {
+    background: var(--gis-card-hover);
+    box-shadow: var(--gis-glow-cyan);
+}
+
+/* --------------------------------------------------------------------------
+   6. EVENT FEED LIST (LEFT PANEL TAB 2)
+   -------------------------------------------------------------------------- */
+.gis-feed-item {
+    background: var(--gis-card-bg);
+    border: 1px solid var(--gis-border-subtle);
+    border-radius: 6px;
+    padding: 8px 10px;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    margin-bottom: 6px;
+    position: relative;
+    overflow: hidden;
+}
+.gis-feed-item:hover {
+    background: var(--gis-card-hover);
+    border-color: var(--gis-border);
+    transform: translateX(3px);
+}
+.gis-feed-item.active {
+    border-color: var(--gis-text-cyan);
+    box-shadow: var(--gis-glow-cyan);
+}
+.gis-feed-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--risk-color, var(--gis-text-cyan));
+}
+
+.gis-mag-badge {
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+    display: inline-flex;
+    align-items: center;
+}
+.gis-mag-red { background: var(--risk-red-bg); color: var(--risk-red); border: 1px solid rgba(239, 68, 68, 0.4); }
+.gis-mag-amber { background: var(--risk-amber-bg); color: var(--risk-amber); border: 1px solid rgba(245, 158, 11, 0.4); }
+.gis-mag-green { background: var(--risk-green-bg); color: var(--risk-green); border: 1px solid rgba(16, 185, 129, 0.4); }
+
+/* --------------------------------------------------------------------------
+   7. KPI METRIC MINI CARDS (RIGHT PANEL)
+   -------------------------------------------------------------------------- */
+.gis-kpi-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.gis-kpi-card {
+    background: var(--gis-card-bg);
+    border: 1px solid var(--gis-border-subtle);
+    border-radius: 6px;
+    padding: 8px 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.gis-kpi-label {
+    font-size: 0.68rem;
+    color: var(--gis-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 2px;
+}
+
+.gis-kpi-value {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--gis-text-primary);
+    line-height: 1.1;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.gis-kpi-sub {
+    font-size: 0.68rem;
+    color: var(--gis-text-muted);
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* --------------------------------------------------------------------------
+   8. FLOATING BOTTOM TACTICAL CONTROL DOCK (.gis-bottom-dock)
+   -------------------------------------------------------------------------- */
+.gis-bottom-dock {
+    position: absolute;
+    bottom: calc(var(--ticker-height) + 12px);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 950;
+    background: var(--gis-panel-bg);
+    backdrop-filter: var(--gis-blur);
+    -webkit-backdrop-filter: var(--gis-blur);
+    border: 1px solid var(--gis-border);
+    border-radius: 30px;
+    box-shadow: var(--gis-shadow);
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.gis-dock-btn {
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--gis-text-secondary);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.gis-dock-btn:hover {
+    background: rgba(56, 189, 248, 0.12);
+    border-color: var(--gis-border);
+    color: var(--gis-text-cyan);
+    box-shadow: var(--gis-glow-cyan);
+    transform: translateY(-2px);
+}
+
+.gis-dock-btn.active {
+    background: linear-gradient(135deg, rgba(2, 132, 199, 0.4) 0%, rgba(3, 105, 161, 0.4) 100%);
+    border-color: var(--gis-text-cyan);
+    color: #ffffff;
+    box-shadow: var(--gis-glow-cyan);
+}
+
+.gis-dock-divider {
+    width: 1px;
+    height: 18px;
+    background: var(--gis-border-subtle);
+    margin: 0 2px;
+}
+
+/* --------------------------------------------------------------------------
+   9. FLOATING WAVE SIMULATOR HUD (#simHUD)
+   -------------------------------------------------------------------------- */
+.gis-sim-hud {
+    position: absolute;
+    top: calc(var(--header-height) + 14px);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 920;
+    width: 440px;
+    max-width: calc(100vw - 40px);
+    background: var(--gis-panel-bg);
+    backdrop-filter: var(--gis-blur);
+    -webkit-backdrop-filter: var(--gis-blur);
+    border: 1px solid var(--gis-border);
+    border-radius: 8px;
+    box-shadow: var(--gis-shadow);
+    padding: 12px;
+    display: none;
+    animation: hudSlideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes hudSlideDown {
+    from { opacity: 0; transform: translate(-50%, -20px); }
+    to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+.gis-sim-hud-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--gis-border-subtle);
+    padding-bottom: 8px;
+    margin-bottom: 10px;
+}
+
+.gis-sim-countdown {
+    font-size: 2.2rem;
+    font-weight: 800;
+    line-height: 1;
+    color: var(--risk-red);
+    font-family: 'JetBrains Mono', monospace;
+}
+
+/* --------------------------------------------------------------------------
+   10. LIVE SEISMIC TICKER RIBBON (.gis-ticker)
+   -------------------------------------------------------------------------- */
+.gis-ticker {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: var(--ticker-height);
+    z-index: 1000;
+    background: rgba(4, 10, 22, 0.95);
+    backdrop-filter: blur(8px);
+    border-top: 1px solid var(--gis-border);
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    padding: 0 10px;
+}
+
+.gis-ticker-badge {
+    background: rgba(239, 68, 68, 0.2);
+    border: 1px solid rgba(239, 68, 68, 0.4);
+    color: var(--risk-red);
+    font-size: 0.68rem;
+    font-weight: 700;
+    padding: 1px 6px;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex-shrink: 0;
+    margin-right: 12px;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.gis-ticker-content {
+    flex: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 0.75rem;
+    color: var(--gis-text-secondary);
+}
+
+.gis-ticker-marquee {
+    display: inline-block;
+    padding-left: 100%;
+    animation: tickerScroll 45s linear infinite;
+}
+.gis-ticker-marquee:hover {
+    animation-play-state: paused;
+}
+
+@keyframes tickerScroll {
+    0% { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(-100%, 0, 0); }
+}
+
+/* --------------------------------------------------------------------------
+   11. DATA CATALOG DRAWER / MODAL
+   -------------------------------------------------------------------------- */
+.gis-drawer-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 1100;
+    display: none;
+}
+
+.gis-drawer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 70vh;
+    background: var(--gis-panel-bg);
+    backdrop-filter: var(--gis-blur);
+    border-top: 2px solid var(--gis-text-cyan);
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.7);
+    z-index: 1200;
+    display: flex;
+    flex-direction: column;
+    transform: translateY(100%);
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.gis-drawer.open {
+    transform: translateY(0);
+}
+
+.gis-drawer-header {
+    height: 48px;
+    background: var(--gis-panel-header);
+    border-bottom: 1px solid var(--gis-border);
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+}
+
+.gis-drawer-body {
+    flex: 1;
+    overflow: auto;
+    padding: 16px;
+}
+
+/* --------------------------------------------------------------------------
+   12. PULSING HALO & LEAFLET MARKER ANIMATIONS
+   -------------------------------------------------------------------------- */
+.pulsing-marker-halo {
+    position: relative;
+}
+.pulsing-marker-halo::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: rgba(239, 68, 68, 0.4);
+    border: 1px solid #ef4444;
+    animation: seismicPulse 1.8s ease-out infinite;
+    pointer-events: none;
+}
+
+@keyframes seismicPulse {
+    0% { transform: translate(-50%, -50%) scale(0.6); opacity: 1; }
+    100% { transform: translate(-50%, -50%) scale(2.8); opacity: 0; }
+}
+
+/* --------------------------------------------------------------------------
+   13. FORM CONTROLS & NOUISLIDER & DATERANGEPICKER TACTICAL STYLING
+   -------------------------------------------------------------------------- */
+.gis-input {
+    background: var(--gis-input-bg) !important;
+    border: 1px solid var(--gis-border-subtle) !important;
+    color: var(--gis-text-primary) !important;
+    border-radius: 5px !important;
+    font-size: 0.78rem !important;
+}
+.gis-input:focus {
+    border-color: var(--gis-border) !important;
+    box-shadow: var(--gis-glow-cyan) !important;
+}
+
+/* DateRangePicker.com Dark/Light Theme Styling */
+.daterangepicker {
+    background-color: var(--gis-panel-bg) !important;
+    backdrop-filter: var(--gis-blur) !important;
+    -webkit-backdrop-filter: var(--gis-blur) !important;
+    border: 1px solid var(--gis-border) !important;
+    color: var(--gis-text-primary) !important;
+    font-family: 'Inter', sans-serif !important;
+    box-shadow: var(--gis-shadow) !important;
+    border-radius: 8px !important;
+}
+.daterangepicker:before, .daterangepicker:after {
+    border-bottom-color: var(--gis-panel-bg) !important;
+}
+.daterangepicker .calendar-table {
+    background-color: transparent !important;
+    border: none !important;
+}
+.daterangepicker .calendar-table table {
+    color: var(--gis-text-primary) !important;
+}
+.daterangepicker th, .daterangepicker td {
+    color: var(--gis-text-primary) !important;
+}
+.daterangepicker td.available:hover, .daterangepicker th.available:hover {
+    background-color: var(--gis-card-hover) !important;
+    color: var(--gis-text-cyan) !important;
+}
+.daterangepicker td.off, .daterangepicker td.off.in-range, .daterangepicker td.off.start-date, .daterangepicker td.off.end-date {
+    background-color: transparent !important;
+    color: var(--gis-text-muted) !important;
+}
+.daterangepicker td.in-range {
+    background-color: rgba(56, 189, 248, 0.18) !important;
+    color: var(--gis-text-primary) !important;
+}
+.daterangepicker td.active, .daterangepicker td.active:hover {
+    background-color: #0284c7 !important;
+    color: #ffffff !important;
+    font-weight: 700 !important;
+}
+
+/* DateRangePicker Prev/Next Arrows Visibility */
+.daterangepicker .prev span, 
+.daterangepicker .next span {
+    border: solid var(--gis-text-cyan) !important;
+    border-width: 0 2px 2px 0 !important;
+    padding: 3px !important;
+    display: inline-block !important;
+    opacity: 0.9 !important;
+}
+
+.daterangepicker th.prev:hover span, 
+.daterangepicker th.next:hover span {
+    border-color: #ffffff !important;
+}
+
+.daterangepicker th.prev:hover, 
+.daterangepicker th.next:hover {
+    background-color: var(--gis-card-hover) !important;
+    border-radius: 4px !important;
+}
+.daterangepicker .drp-buttons {
+    border-top: 1px solid var(--gis-border-subtle) !important;
+    background-color: var(--gis-panel-header) !important;
+    padding: 8px 12px !important;
+}
+.daterangepicker .ranges li {
+    color: var(--gis-text-secondary) !important;
+    background-color: transparent !important;
+    font-size: 0.78rem !important;
+}
+.daterangepicker .ranges li:hover {
+    background-color: var(--gis-card-hover) !important;
+    color: var(--gis-text-cyan) !important;
+}
+.daterangepicker .ranges li.active {
+    background-color: #0284c7 !important;
+    color: #ffffff !important;
+}
+.daterangepicker .drp-selected {
+    color: var(--gis-text-cyan) !important;
+    font-family: 'JetBrains Mono', monospace !important;
+    font-size: 0.75rem !important;
+}
+.daterangepicker select.monthselect {
+    width: 98px !important;
+    background-color: var(--gis-input-bg) !important;
+    color: var(--gis-text-primary) !important;
+    border: 1px solid var(--gis-border-subtle) !important;
+    border-radius: 4px !important;
+    padding: 2px 4px !important;
+    font-size: 0.78rem !important;
+    cursor: pointer;
+}
+.daterangepicker select.yearselect {
+    width: 72px !important;
+    background-color: var(--gis-input-bg) !important;
+    color: var(--gis-text-primary) !important;
+    border: 1px solid var(--gis-border-subtle) !important;
+    border-radius: 4px !important;
+    padding: 2px 4px !important;
+    font-size: 0.78rem !important;
+    cursor: pointer;
+}
+.daterangepicker .cancelBtn {
+    background: transparent !important;
+    border: 1px solid var(--gis-border-subtle) !important;
+    color: var(--gis-text-secondary) !important;
+    padding: 4px 12px !important;
+    border-radius: 4px !important;
+    font-size: 0.75rem !important;
+    font-weight: 600 !important;
+    transition: all 0.2s ease !important;
+}
+.daterangepicker .cancelBtn:hover {
+    background: var(--gis-card-hover) !important;
+    color: var(--gis-text-primary) !important;
+}
+.daterangepicker .applyBtn {
+    background: #0284c7 !important;
+    border: 1px solid #38bdf8 !important;
+    color: #ffffff !important;
+    padding: 4px 14px !important;
+    border-radius: 4px !important;
+    font-size: 0.75rem !important;
+    font-weight: 600 !important;
+    box-shadow: 0 0 8px rgba(56, 189, 248, 0.4) !important;
+}
+.daterangepicker .applyBtn:hover {
+    background: #0369a1 !important;
+}
+
+/* Floating Map Legend Widget */
+.gis-legend-card {
+    position: absolute;
+    bottom: calc(var(--ticker-height) + 14px);
+    left: 14px;
+    z-index: 800;
+    background: var(--gis-panel-bg);
+    backdrop-filter: var(--gis-blur);
+    -webkit-backdrop-filter: var(--gis-blur);
+    border: 1px solid var(--gis-border);
+    border-radius: 6px;
+    box-shadow: var(--gis-shadow);
+    padding: 8px 12px;
+    font-size: 0.72rem;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    max-width: 230px;
+    transition: all 0.2s ease;
+}
+.gis-legend-title {
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--gis-text-cyan);
+    letter-spacing: 0.04em;
+    margin-bottom: 2px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.gis-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--gis-text-secondary);
+}
+.gis-legend-bullet {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+/* Floating Tactical Coordinates & Zoom Inspector */
+.gis-coords-inspector {
+    position: absolute;
+    bottom: calc(var(--ticker-height) + 14px);
+    right: 14px;
+    z-index: 800;
+    background: var(--gis-panel-bg);
+    backdrop-filter: var(--gis-blur);
+    -webkit-backdrop-filter: var(--gis-blur);
+    border: 1px solid var(--gis-border);
+    border-radius: 6px;
+    box-shadow: var(--gis-shadow);
+    padding: 6px 12px;
+    font-size: 0.72rem;
+    color: var(--gis-text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    letter-spacing: 0.04em;
+}
+.gis-coords-inspector b {
+    color: var(--gis-text-cyan);
+}
+
+/* Ruler Active Indicator Badge */
+.ruler-active-badge {
+    position: absolute;
+    top: calc(var(--header-height) + 14px);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 920;
+    background: rgba(2, 132, 199, 0.92);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(56, 189, 248, 0.5);
+    color: #ffffff;
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 6px 16px;
+    border-radius: 20px;
+    box-shadow: 0 4px 16px rgba(2, 132, 199, 0.4);
+    display: none;
+    align-items: center;
+    gap: 8px;
+}
+
+.noUi-target {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--gis-border-subtle);
+    border-radius: 4px;
+    height: 6px;
+    box-shadow: none;
+}
+.noUi-connect {
+    background: linear-gradient(90deg, #0284c7, #38bdf8);
+}
+.noUi-handle {
+    border: 2px solid #38bdf8;
+    background: #0284c7;
+    border-radius: 50%;
+    width: 14px !important;
+    height: 14px !important;
+    right: -7px !important;
+    top: -5px !important;
+    box-shadow: 0 0 6px rgba(56, 189, 248, 0.8);
+    cursor: pointer;
+}
+.noUi-handle::before, .noUi-handle::after { display: none; }
+
+/* --------------------------------------------------------------------------
+   14. RESPONSIVE MEDIA QUERIES (DESKTOP, TABLET, MOBILE)
+   -------------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+    .gis-panel-left { width: 300px; }
+    .gis-panel-right { width: 320px; }
+    .gis-header-nav { display: none; }
+}
+
+@media (max-width: 768px) {
+    .gis-panel-left, .gis-panel-right {
+        width: calc(100vw - 20px);
+        left: 10px;
+        right: 10px;
+        bottom: 80px;
+    }
+    .gis-bottom-dock {
+        width: calc(100vw - 20px);
+        overflow-x: auto;
+        justify-content: flex-start;
+    }
+    .gis-sim-hud {
+        width: calc(100vw - 20px);
+    }
+}
+
+/* --------------------------------------------------------------------------
+   15. TACTICAL HUD BANNERS, SHAKEMAP, RADAR & TIMELINE TIME-LAPSE
+   -------------------------------------------------------------------------- */
+.ruler-active-badge,
+.shakemap-active-badge,
+.radius-active-badge {
+    position: absolute;
+    top: calc(var(--header-height) + 16px);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    background: rgba(8, 20, 42, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--gis-border);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+    border-radius: 30px;
+    padding: 6px 16px;
+    font-size: 0.76rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--gis-text-primary);
+}
+
+.ruler-active-badge {
+    border-color: var(--gis-text-cyan);
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.35);
+}
+
+.shakemap-active-badge {
+    border-color: #f59e0b;
+    box-shadow: 0 0 15px rgba(245, 158, 11, 0.35);
+}
+
+.radius-active-badge {
+    border-color: #00f0ff;
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.35);
+}
+
+.gis-coords-inspector {
+    position: absolute;
+    bottom: calc(var(--ticker-height) + 14px);
+    left: 14px;
+    z-index: 850;
+    background: rgba(8, 20, 42, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid var(--gis-border-subtle);
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 0.72rem;
+    color: var(--gis-text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    pointer-events: none;
+}
+.gis-coords-inspector b {
+    color: var(--gis-text-cyan);
+}
+
+/* Timeline Playback HUD Bar */
+.gis-timeline-hud {
+    position: absolute;
+    bottom: calc(var(--ticker-height) + 68px);
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(720px, calc(100vw - 32px));
+    z-index: 950;
+    background: rgba(8, 20, 42, 0.94);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid var(--gis-border);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.75), 0 0 15px rgba(0, 240, 255, 0.25);
+    border-radius: 10px;
+    padding: 12px 16px;
+    color: var(--gis-text-primary);
+    animation: timelineSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes timelineSlideUp {
+    from { transform: translate(-50%, 20px); opacity: 0; }
+    to { transform: translate(-50%, 0); opacity: 1; }
+}
+
+.timeline-shockwave-ring {
+    border-radius: 50%;
+    border: 2px solid #00f0ff;
+    background: rgba(0, 240, 255, 0.2);
+    animation: shockwaveExpand 1.2s ease-out infinite;
+    pointer-events: none;
+}
+
+@keyframes shockwaveExpand {
+    0% { transform: scale(0.3); opacity: 1; }
+    100% { transform: scale(2.8); opacity: 0; }
+}
+

@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="id" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SWANGEO // Digital Twin Earth Observatory & Multi-Hazard Web GIS Command Center</title>
+
+    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- CSS Dependencies -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.2/css/dataTables.bootstrap5.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.7/dist/sweetalert2.min.css">
+
+    <!-- Digital Twin Command Center Custom Stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- ====================================================================
+         1. 100% IMMERSIVE FULL-VIEWPORT MAP CANVAS
+         ==================================================================== -->
+    <div id="mapContainer"></div>
+
+    <!-- ====================================================================
+         2. TOP COMMAND CENTER HEADER BAR
+         ==================================================================== -->
+    <header class="gis-header">
+        <div class="gis-brand">
+            <div class="gis-brand-logo">
+                <svg class="gis-brand-svg" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <polygon points="20,2 37,11 37,29 20,38 3,29 3,11" fill="url(#brandGrad)" stroke="#38bdf8" stroke-width="1.5" stroke-opacity="0.7"/>
+                    <circle cx="20" cy="20" r="11" stroke="#38bdf8" stroke-width="0.8" stroke-opacity="0.4" stroke-dasharray="2 2"/>
+                    <circle cx="20" cy="20" r="6" stroke="#00f0ff" stroke-width="0.8" stroke-opacity="0.6"/>
+                    <circle cx="20" cy="20" r="2.5" fill="#00f0ff"/>
+                    <path d="M12 20L28 20M20 12L20 28" stroke="#38bdf8" stroke-width="0.8" stroke-opacity="0.3"/>
+                    <path d="M7 23C12 18 16 19 20 20C24 19 28 18 33 23" stroke="#ffffff" stroke-width="1.4" stroke-linecap="round" stroke-opacity="0.9"/>
+                    <defs>
+                        <linearGradient id="brandGrad" x1="3" y1="2" x2="37" y2="38" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#0284c7"/>
+                            <stop offset="1" stop-color="#08152e"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+            <div class="gis-brand-meta">
+                <div class="gis-brand-title">
+                    <span class="gis-title-swan">SWAN</span><span class="gis-title-geo">GEO</span>
+                    <span class="gis-live-badge font-mono">
+                        <span class="pulse-beacon"></span>
+                        <span>OPS CENTER</span>
+                    </span>
+                </div>
+                <div class="gis-brand-sub">
+                    <span>EARTH OBSERVATORY</span>
+                    <span class="sub-sep">•</span>
+                    <span>MULTI-HAZARD INTELLIGENCE</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick View Mode Pills -->
+        <div class="gis-header-nav">
+            <button class="gis-nav-btn active" id="btnToggleFaults">
+                <i class="fa-solid fa-bolt-lightning text-warning"></i> Sesar Tektonik
+            </button>
+            <button class="gis-nav-btn" id="btnToggleVolcanoes" title="Tampilkan 127 Gunung Api Aktif Indonesia">
+                <i class="fa-solid fa-volcano text-danger"></i> 127 Gunung Api
+            </button>
+            <button class="gis-nav-btn active" id="btnToggleLegend">
+                <i class="fa-solid fa-list-check text-success"></i> Legenda
+            </button>
+            <button class="gis-nav-btn" id="btnOpenCatalogTop">
+                <i class="fa-solid fa-table-list text-info"></i> Katalog Data
+            </button>
+            <button class="gis-nav-btn" id="btnToggleSimMode">
+                <i class="fa-solid fa-wave-square text-danger"></i> Simulator Gelombang
+            </button>
+        </div>
+
+        <!-- Telemetry & Clock -->
+        <div class="gis-header-telemetry">
+            <button class="gis-nav-btn" id="btnAudioToggle" title="Suara Alarm Aktif (Klik untuk Mute)">
+                <i class="fa-solid fa-volume-high text-success" id="audioIcon"></i>
+            </button>
+            <div class="gis-tele-pill font-mono d-none d-md-flex">
+                <span class="pulse-dot-green"></span>
+                <span>SYNC: <b class="text-success">BMKG & USGS</b></span>
+            </div>
+            <div class="gis-tele-pill font-mono d-none d-lg-flex">
+                <i class="fa-regular fa-clock text-muted"></i>
+                <span id="headerClock">--:--:-- UTC</span>
+            </div>
+            <button class="gis-nav-btn" id="btnThemeToggle" title="Ganti Tema Dark/Light">
+                <i class="fa-solid fa-sun text-warning" id="themeIcon"></i>
+            </button>
+            <button class="gis-nav-btn" id="btnFullscreen" title="Layar Penuh">
+                <i class="fa-solid fa-expand"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- ====================================================================
+         3. FLOATING LEFT HUD PANEL (PARAMETER FILTER & EVENT FEED)
+         ==================================================================== -->
+    <div class="gis-toggle-tab gis-toggle-tab-left" id="tabToggleLeft" style="display: none;">
+        <i class="fa-solid fa-chevron-right"></i> PANEL FILTER
+    </div>
+
+    <aside class="gis-panel gis-panel-left" id="panelLeft">
+        <div class="gis-panel-header">
+            <div class="gis-panel-title">
+                <i class="fa-solid fa-sliders"></i> KONTROL PARAMETER & FEED
+            </div>
+            <div class="d-flex gap-1">
+                <button class="gis-panel-btn" id="btnMinimizeLeft" title="Sembunyikan Panel">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs inside Left Panel -->
+        <ul class="nav nav-tabs nav-fill px-2 pt-2 border-bottom border-subtle" id="leftPanelTabs" role="tablist" style="background: var(--gis-panel-header);">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active font-mono py-1 px-2" id="tab-filter-btn" data-bs-toggle="tab" data-bs-target="#tab-filter-content" type="button" role="tab" style="font-size:0.75rem;">
+                    <i class="fa-solid fa-filter me-1"></i> Filter
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link font-mono py-1 px-2" id="tab-feed-btn" data-bs-toggle="tab" data-bs-target="#tab-feed-content" type="button" role="tab" style="font-size:0.75rem;">
+                    <i class="fa-solid fa-list-ul me-1"></i> Feed (<span id="feedCountBadge">0</span>)
+                </button>
+            </li>
+        </ul>
+
+        <div class="tab-content gis-panel-body" id="leftPanelTabContent">
+            
+            <!-- Tab 1: Parameter Filter -->
+            <div class="tab-pane fade show active" id="tab-filter-content" role="tabpanel">
+                
+                <!-- Magnitude Slider Card -->
+                <div class="gis-subcard">
+                    <div class="gis-subcard-title">
+                        <span><i class="fa-solid fa-chart-simple text-cyan me-1"></i> Rentang Magnitudo</span>
+                        <span class="badge bg-primary font-mono" style="font-size:0.7rem;"><span id="valMinMag">0.0</span> - <span id="valMaxMag">10.0</span> M</span>
+                    </div>
+                    <div class="px-2 py-3">
+                        <div id="sliderMagnitude"></div>
+                    </div>
+                </div>
+
+                <!-- Hypocenter Depth Checkboxes -->
+                <div class="gis-subcard">
+                    <div class="gis-subcard-title">
+                        <span><i class="fa-solid fa-layer-group text-cyan me-1"></i> Kedalaman Hiposentrum</span>
+                    </div>
+                    <div class="d-flex flex-column gap-2 mt-1">
+                        <label class="form-check d-flex align-items-center justify-content-between p-0 m-0">
+                            <span class="small"><i class="fa-solid fa-circle text-danger me-1" style="font-size:8px;"></i> Dangkal (&lt; 60 km)</span>
+                            <input class="form-check-input ms-2 m-0" type="checkbox" id="chkShallow" checked>
+                        </label>
+                        <label class="form-check d-flex align-items-center justify-content-between p-0 m-0">
+                            <span class="small"><i class="fa-solid fa-circle text-warning me-1" style="font-size:8px;"></i> Menengah (60 - 300 km)</span>
+                            <input class="form-check-input ms-2 m-0" type="checkbox" id="chkMedium" checked>
+                        </label>
+                        <label class="form-check d-flex align-items-center justify-content-between p-0 m-0">
+                            <span class="small"><i class="fa-solid fa-circle text-success me-1" style="font-size:8px;"></i> Dalam (&gt; 300 km)</span>
+                            <input class="form-check-input ms-2 m-0" type="checkbox" id="chkDeep" checked>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Data Source Filter -->
+                <div class="gis-subcard">
+                    <div class="gis-subcard-title">
+                        <span><i class="fa-solid fa-tower-broadcast text-cyan me-1"></i> Sumber Telemetri</span>
+                    </div>
+                    <div class="btn-group w-100" role="group">
+                        <input type="radio" class="btn-check" name="filterSource" id="srcAll" value="ALL" checked>
+                        <label class="btn btn-sm btn-outline-secondary font-mono py-1" for="srcAll" style="font-size:0.72rem;">SEMUA</label>
+                        <input type="radio" class="btn-check" name="filterSource" id="srcBMKG" value="BMKG">
+                        <label class="btn btn-sm btn-outline-secondary font-mono py-1" for="srcBMKG" style="font-size:0.72rem;">BMKG</label>
+                        <input type="radio" class="btn-check" name="filterSource" id="srcUSGS" value="USGS">
+                        <label class="btn btn-sm btn-outline-secondary font-mono py-1" for="srcUSGS" style="font-size:0.72rem;">USGS</label>
+                    </div>
+                </div>
+
+                <!-- Date Range Calendar -->
+                <div class="gis-subcard">
+                    <div class="gis-subcard-title">
+                        <span><i class="fa-regular fa-calendar text-cyan me-1"></i> Rentang Waktu</span>
+                    </div>
+                    <input type="text" id="filterDateRange" class="form-control gis-input font-mono py-1 px-2" placeholder="Pilih rentang tanggal...">
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="d-flex flex-column gap-1 mt-1">
+                    <button class="btn btn-sm btn-outline-info w-100 py-1 font-mono" id="btnToggleRadius" style="font-size:0.75rem;">
+                        <i class="fa-solid fa-bullseye me-1"></i> Filter Radius / GPS Radar
+                    </button>
+                    <button class="btn btn-sm btn-outline-secondary w-100 py-1 font-mono" id="btnResetFilter" style="font-size:0.75rem;">
+                        <i class="fa-solid fa-rotate-left me-1"></i> Reset Semua Filter
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tab 2: Live Event Feed -->
+            <div class="tab-pane fade" id="tab-feed-content" role="tabpanel">
+                <input type="text" id="inputSearchFeed" class="form-control gis-input font-mono py-1 px-2 mb-2" placeholder="Cari wilayah gempa...">
+                <div id="feedListContainer" class="d-flex flex-column">
+                    <!-- Dynamic feed items rendered here -->
+                </div>
+            </div>
+
+        </div>
+    </aside>
+
+    <!-- ====================================================================
+         4. FLOATING RIGHT HUD PANEL (ANALYTICS & KPI METRICS)
+         ==================================================================== -->
+    <div class="gis-toggle-tab gis-toggle-tab-right" id="tabToggleRight" style="display: none;">
+        <i class="fa-solid fa-chevron-left"></i> TELEMETRI
+    </div>
+
+    <aside class="gis-panel gis-panel-right" id="panelRight">
+        <div class="gis-panel-header">
+            <div class="gis-panel-title">
+                <i class="fa-solid fa-chart-line"></i> TELEMETRI & ANALISIS RISIKO
+            </div>
+            <button class="gis-panel-btn" id="btnMinimizeRight" title="Sembunyikan Panel">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+        </div>
+
+        <div class="gis-panel-body">
+            
+            <!-- 4 Tactical KPI Cards Grid -->
+            <div class="gis-kpi-grid">
+                <div class="gis-kpi-card">
+                    <div class="gis-kpi-label"><i class="fa-solid fa-globe text-cyan me-1"></i> Total Gempa</div>
+                    <div class="gis-kpi-value text-cyan" id="kpiTotalEvents">0</div>
+                    <div class="gis-kpi-sub">Katalog Terintegrasi</div>
+                </div>
+                <div class="gis-kpi-card">
+                    <div class="gis-kpi-label"><i class="fa-solid fa-clock-rotate-left text-warning me-1"></i> 24 Jam Terakhir</div>
+                    <div class="gis-kpi-value text-warning" id="kpi24hEvents">0</div>
+                    <div class="gis-kpi-sub">Frekuensi Harian</div>
+                </div>
+                <div class="gis-kpi-card">
+                    <div class="gis-kpi-label"><i class="fa-solid fa-bolt text-danger me-1"></i> M Terkuat</div>
+                    <div class="gis-kpi-value text-danger" id="kpiMaxMag">M 0.0</div>
+                    <div class="gis-kpi-sub" id="kpiMaxPlace">-</div>
+                </div>
+                <div class="gis-kpi-card">
+                    <div class="gis-kpi-label"><i class="fa-solid fa-water text-info me-1"></i> Status Tsunami</div>
+                    <div class="gis-kpi-value fs-6 mt-1" id="kpiTsunamiStatus">
+                        <span class="text-success"><i class="fa-solid fa-shield-halved"></i> AMAN</span>
+                    </div>
+                    <div class="gis-kpi-sub">Peringatan Dini BMKG</div>
+                </div>
+            </div>
+
+            <!-- Chart 1: Seismic Frequency Trend -->
+            <div class="gis-subcard">
+                <div class="gis-subcard-title">
+                    <span><i class="fa-solid fa-chart-area text-cyan me-1"></i> Tren Frekuensi Harian</span>
+                </div>
+                <div style="height: 140px; position: relative;">
+                    <canvas id="trendChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Chart 2: K-Means Risk Zoning Proportion -->
+            <div class="gis-subcard">
+                <div class="gis-subcard-title">
+                    <span><i class="fa-solid fa-chart-pie text-cyan me-1"></i> Klaster Zonasi Risiko (K-Means)</span>
+                </div>
+                <div style="height: 135px; position: relative;">
+                    <canvas id="clusterChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Chart 3: Hypocenter Depth Distribution -->
+            <div class="gis-subcard">
+                <div class="gis-subcard-title">
+                    <span><i class="fa-solid fa-chart-column text-cyan me-1"></i> Distribusi Kedalaman Hiposentrum</span>
+                </div>
+                <div style="height: 135px; position: relative;">
+                    <canvas id="depthChart"></canvas>
+                </div>
+            </div>
+
+        </div>
+    </aside>
+
+    <!-- ====================================================================
+         5. FLOATING MAP LEGEND CARD
+         ==================================================================== -->
+    <div class="gis-legend-card font-mono" id="mapLegend">
+        <div class="gis-legend-title">
+            <i class="fa-solid fa-layer-group"></i> LEGENDA ZONASI
+        </div>
+        <div class="gis-legend-item">
+            <span class="gis-legend-bullet" style="background:#ef4444; box-shadow: 0 0 6px #ef4444;"></span>
+            <span>Zona Merah (Tinggi / &lt;60km)</span>
+        </div>
+        <div class="gis-legend-item">
+            <span class="gis-legend-bullet" style="background:#f59e0b; box-shadow: 0 0 6px #f59e0b;"></span>
+            <span>Zona Kuning (Sedang / 60-300km)</span>
+        </div>
+        <div class="gis-legend-item">
+            <span class="gis-legend-bullet" style="background:#10b981; box-shadow: 0 0 6px #10b981;"></span>
+            <span>Zona Hijau (Rendah / &gt;300km)</span>
+        </div>
+        <div class="gis-legend-item">
+            <span style="width: 12px; height: 2px; background: #ef4444; border-top: 1px dashed #fff; flex-shrink: 0;"></span>
+            <span>Sesar Aktif & Megathrust</span>
+        </div>
+    </div>
+
+    <!-- Floating Ruler Active Banner -->
+    <div class="ruler-active-badge font-mono" id="rulerBadge">
+        <i class="fa-solid fa-ruler-combined"></i>
+        <span>MODE UKUR AKTIF: KLIK 2 TITIK DI PETA</span>
+        <button class="btn btn-sm btn-outline-light py-0 px-2 ms-2" id="btnCloseRuler" style="font-size:0.7rem;">Selesai</button>
+    </div>
+
+    <!-- Floating ShakeMap MMI Active Banner -->
+    <div class="shakemap-active-badge font-mono" id="shakemapBadge" style="display:none;">
+        <i class="fa-solid fa-bullseye text-warning"></i>
+        <span>PETA GUNCANGAN: <b id="shakemapMag" class="text-danger">M 7.6</b> - <span id="shakemapPlace">Laut Banda</span></span>
+        <button class="btn btn-sm btn-outline-light py-0 px-2 ms-2" id="btnCloseShakeMap" style="font-size:0.7rem;">Tutup</button>
+    </div>
+
+    <!-- Floating Spatial Radius Radar Banner -->
+    <div class="radius-active-badge font-mono" id="radiusFilterBadge" style="display:none;">
+        <i class="fa-solid fa-satellite-dish text-cyan"></i>
+        <span>RADAR SPASIAL: <b id="radiusValueLabel" class="text-cyan">250 km</b> (<span id="radiusCenterCoord">-2.50°, 118.00°</span>)</span>
+        <input type="range" class="form-range mx-2" id="inputRadiusRange" min="50" max="800" step="25" value="250" style="width:90px;">
+        <button class="btn btn-sm btn-outline-info py-0 px-2" id="btnRadiusGPS" title="Gunakan Posisi GPS Saya"><i class="fa-solid fa-location-crosshairs me-1"></i>GPS</button>
+        <button class="btn btn-sm btn-outline-light py-0 px-2 ms-1" id="btnCloseRadiusBadge" style="font-size:0.7rem;">Reset</button>
+    </div>
+
+    <!-- Floating Chronological Timeline Time-Lapse HUD -->
+    <div class="gis-timeline-hud font-mono" id="timelineHUD" style="display:none;">
+        <div class="d-flex align-items-center justify-content-between mb-2">
+            <div class="d-flex align-items-center gap-2">
+                <span class="badge bg-primary"><i class="fa-solid fa-clock-rotate-left me-1"></i>PEMUTAR WAKTU</span>
+                <span class="badge bg-dark border border-subtle text-cyan" id="timelineCounter">GEMPA 1 / 52</span>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+                <span class="text-muted small" id="timelineDate">--:--:-- UTC</span>
+                <button class="btn-close btn-close-white btn-sm ms-2" id="btnCloseTimeline"></button>
+            </div>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+            <div class="btn-group btn-group-sm">
+                <button class="btn btn-outline-secondary py-1" id="btnTimelinePrev" title="Sebelumnya"><i class="fa-solid fa-backward-step"></i></button>
+                <button class="btn btn-primary px-3 py-1" id="btnTimelinePlay" title="Mulai / Jeda"><i class="fa-solid fa-play"></i></button>
+                <button class="btn btn-outline-secondary py-1" id="btnTimelineNext" title="Berikutnya"><i class="fa-solid fa-forward-step"></i></button>
+            </div>
+            <button class="btn btn-sm btn-outline-info font-mono py-1" id="btnTimelineSpeed" title="Ubah Kecepatan">1x</button>
+            <div class="flex-grow-1 mx-2">
+                <input type="range" class="form-range" id="timelineScrubber" min="0" max="51" value="0">
+            </div>
+        </div>
+        <div class="small mt-1 text-truncate" id="timelineEventDetail">
+            <span class="text-secondary">Pilih atau putar untuk melihat perambatan episenter kronologis.</span>
+        </div>
+    </div>
+
+    <!-- Floating Tactical Coordinates & Zoom Inspector -->
+    <div class="gis-coords-inspector font-mono" id="coordsInspector">
+        <span>LAT: <b id="inspLat">-2.5000°</b></span>
+        <span class="text-muted">|</span>
+        <span>LON: <b id="inspLon">118.0000°</b></span>
+        <span class="text-muted">|</span>
+        <span>ZOOM: <b id="inspZoom">5.0</b></span>
+    </div>
+
+    <!-- ====================================================================
+         6. FLOATING BOTTOM TACTICAL CONTROL DOCK
+         ==================================================================== -->
+    <nav class="gis-bottom-dock">
+        <!-- Basemap Dropdown Trigger -->
+        <div class="dropdown">
+            <button class="gis-dock-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="btnBasemapMenu">
+                <i class="fa-solid fa-earth-asia text-primary"></i> <span>ESRI Dark Canvas</span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-dark shadow font-mono" style="font-size:0.8rem;">
+                <li><a class="dropdown-item active" href="#" data-basemap="dark"><i class="fa-solid fa-moon me-2 text-info"></i> ESRI Dark Gray Canvas (Gelap)</a></li>
+                <li><a class="dropdown-item" href="#" data-basemap="satellite"><i class="fa-solid fa-satellite me-2 text-warning"></i> ESRI World Imagery (Satelit)</a></li>
+                <li><a class="dropdown-item" href="#" data-basemap="light"><i class="fa-solid fa-sun me-2 text-warning"></i> ESRI Light Gray Canvas (Terang)</a></li>
+                <li><a class="dropdown-item" href="#" data-basemap="topo"><i class="fa-solid fa-mountain me-2 text-success"></i> ESRI World Topo (Topografi)</a></li>
+                <li><a class="dropdown-item" href="#" data-basemap="osm"><i class="fa-solid fa-map me-2 text-primary"></i> ESRI World Street Map (Vektor)</a></li>
+            </ul>
+        </div>
+
+        <div class="gis-dock-divider"></div>
+
+        <button class="gis-dock-btn" id="btnDockTimeline" title="Pemutar Waktu Kronologis">
+            <i class="fa-solid fa-clock-rotate-left text-info"></i> <span>Timeline</span>
+        </button>
+
+        <button class="gis-dock-btn" id="btnDockShakeMap" title="Hitung Peta Guncangan MMI Gempa Terkuat">
+            <i class="fa-solid fa-bullseye text-warning"></i> <span>ShakeMap</span>
+        </button>
+
+        <button class="gis-dock-btn" id="btnDockRadius" title="Filter Radius Spasial / Radar GPS">
+            <i class="fa-solid fa-crosshairs text-cyan"></i> <span>Radar</span>
+        </button>
+
+        <button class="gis-dock-btn" id="btnDockVolcanoes" title="Layer 127 Gunung Api Aktif">
+            <i class="fa-solid fa-volcano text-danger"></i> <span>Gunung Api</span>
+        </button>
+
+        <div class="gis-dock-divider"></div>
+
+        <button class="gis-dock-btn" id="btnDockFaults">
+            <i class="fa-solid fa-bolt-lightning text-warning"></i> <span>Sesar</span>
+        </button>
+
+        <button class="gis-dock-btn" id="btnDockHeatmap">
+            <i class="fa-solid fa-fire text-danger"></i> <span>Heatmap</span>
+        </button>
+
+        <button class="gis-dock-btn" id="btnDockRuler">
+            <i class="fa-solid fa-ruler-combined text-cyan"></i> <span>Ukur Jarak</span>
+        </button>
+
+        <button class="gis-dock-btn" id="btnDockSim">
+            <i class="fa-solid fa-wave-square text-danger"></i> <span>Simulasi</span>
+        </button>
+
+        <button class="gis-dock-btn" id="btnDockCatalog">
+            <i class="fa-solid fa-table text-info"></i> <span>Katalog</span>
+        </button>
+
+        <button class="gis-dock-btn" id="btnDockAlarm">
+            <i class="fa-solid fa-bullhorn text-warning"></i> <span>Alarm</span>
+        </button>
+
+        <div class="gis-dock-divider"></div>
+
+        <!-- Export Dropdown -->
+        <div class="dropdown">
+            <button class="gis-dock-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fa-solid fa-download text-success"></i> <span>Ekspor</span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-dark shadow font-mono" style="font-size:0.8rem;">
+                <li><a class="dropdown-item" href="#" id="btnExportCSV"><i class="fa-solid fa-file-csv me-2 text-success"></i> Format CSV (.csv)</a></li>
+                <li><a class="dropdown-item" href="#" id="btnExportGeoJSON"><i class="fa-solid fa-file-code me-2 text-info"></i> Format GeoJSON (.geojson)</a></li>
+                <li><a class="dropdown-item" href="#" id="btnExportPNG"><i class="fa-solid fa-camera me-2 text-warning"></i> Snapshot Peta (.PNG)</a></li>
+            </ul>
+        </div>
+
+        <button class="gis-dock-btn" id="btnResetMap" title="Pusatkan Peta Indonesia">
+            <i class="fa-solid fa-crosshairs text-cyan"></i>
+        </button>
+    </nav>
+
+    <!-- ====================================================================
+         6. FLOATING WAVE SIMULATOR HUD WIDGET
+         ==================================================================== -->
+    <div class="gis-sim-hud" id="simHUD">
+        <div class="gis-sim-hud-header">
+            <div class="d-flex align-items-center gap-2">
+                <span class="badge bg-danger font-mono"><i class="fa-solid fa-calculator me-1"></i>SIMULASI RAMBAT GELOMBANG</span>
+                <span class="small text-muted font-mono" id="simQuakeId">BMKG-EQ</span>
+            </div>
+            <button class="btn-close btn-close-white btn-sm" id="btnCloseSimHUD" title="Tutup Simulasi"></button>
+        </div>
+
+        <div class="row g-2 align-items-center">
+            <div class="col-7">
+                <div class="small fw-semibold text-heading text-truncate" id="simQuakePlace">Wilayah Episentrum Gempa</div>
+                <div class="text-muted small font-mono mt-1" style="font-size:0.72rem; line-height: 1.5;">
+                    <div>Jarak Permukaan: <b id="simDistEpi" class="text-primary">0.0 km</b></div>
+                    <div>Jarak Hiposentral 3D: <b id="simDistHipo" class="text-cyan">0.0 km</b></div>
+                    <div>Waktu Rambat P-Wave: <b id="simTimeP" class="text-info">0.0 s</b> (6.0 km/s)</div>
+                    <div>Waktu Rambat S-Wave: <b id="simTimeS" class="text-danger">0.0 s</b> (3.5 km/s)</div>
+                </div>
+            </div>
+            <div class="col-5 text-center border-start border-subtle">
+                <div class="small text-muted font-mono" style="font-size:0.68rem;">ESTIMASI WAKTU TIBA S-WAVE</div>
+                <div class="gis-sim-countdown" id="simLeadTime">0s</div>
+                <div class="badge bg-warning text-dark font-mono mt-1" id="simMMIBadge" style="font-size:0.75rem;">MMI V (Sedang)</div>
+            </div>
+        </div>
+
+        <div class="mt-2 pt-2 border-top border-subtle small text-muted font-mono" style="font-size:0.7rem;" id="simGuidanceText">
+            <i class="fa-solid fa-shield-halved text-warning me-1"></i> Klik titik manapun di peta untuk menghitung waktu peringatan dini di lokasi Anda.
+        </div>
+    </div>
+
+    <!-- ====================================================================
+         7. SLIDE-UP FULL DATA CATALOG DRAWER
+         ==================================================================== -->
+    <div class="gis-drawer-overlay" id="drawerOverlay"></div>
+    <div class="gis-drawer" id="catalogDrawer">
+        <div class="gis-drawer-header">
+            <div class="d-flex align-items-center gap-2">
+                <i class="fa-solid fa-table-list text-cyan"></i>
+                <span class="fw-bold font-mono text-heading">KATALOG SEISMIK & TABEL DATA TERINTEGRASI</span>
+            </div>
+            <button class="btn btn-sm btn-outline-secondary font-mono" id="btnCloseCatalogDrawer">
+                <i class="fa-solid fa-xmark me-1"></i> Tutup
+            </button>
+        </div>
+        <div class="gis-drawer-body">
+            <div class="table-responsive">
+                <table id="quakeTable" class="table table-hover table-sm align-middle w-100" style="font-size: 0.82rem;">
+                    <thead>
+                        <tr>
+                            <th>ID Event</th>
+                            <th>Waktu (UTC)</th>
+                            <th>Magnitudo</th>
+                            <th>Kedalaman</th>
+                            <th>Episentrum Wilayah</th>
+                            <th>Zonasi Risiko</th>
+                            <th class="text-end">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody class="font-mono"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====================================================================
+         8. REAL-TIME SEISMIC NEWS TICKER RIBBON
+         ==================================================================== -->
+    <footer class="gis-ticker">
+        <div class="gis-ticker-badge">
+            <span class="pulse-dot-green"></span>
+            <span>LIVE SEISMIC FEED</span>
+        </div>
+        <div class="gis-ticker-content font-mono">
+            <div class="gis-ticker-marquee" id="tickerContent">
+                Menghubungkan ke aliran telemetri seismik nasional BMKG & USGS...
+            </div>
+        </div>
+    </footer>
+
+    <!-- ====================================================================
+         9. JAVASCRIPT LIBRARIES & CLIENT ENGINE
+         ==================================================================== -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.datatables.net/2.0.2/js/dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/2.0.2/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.7/dist/sweetalert2.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+    <!-- Embedded Data for file:/// and Offline Support -->
+    <script src="assets/faults.js"></script>
+    <script src="assets/volcanoes.js"></script>
+    <script src="js/mock_data.js"></script>
+
+    <!-- Application Modules -->
+    <script src="js/theme.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/simulator.js"></script>
+    <script src="js/charts.js"></script>
+    <script src="js/timeline.js"></script>
+    <script src="js/app.js"></script>
+
+</body>
+</html>
