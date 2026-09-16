@@ -1,5 +1,5 @@
 # 📖 FASE 1: METODOLOGI PENELITIAN CRISP-DM
-## Analisis Sentimen & Data Mining Ulasan Mobile JKN (BPJS Kesehatan)
+## Analisis Sentimen & Data Mining Ulasan Livin' by Mandiri (PT Bank Mandiri Tbk)
 
 ---
 
@@ -21,7 +21,7 @@
 Dalam penelitian analitik data dan *data mining*, pemilihan kerangka kerja metodologis yang terstruktur sangat penting untuk memastikan keterulangan (*reproducibility*), keandalan hasil, dan relevansi temuan terhadap kebutuhan praktis. 
 
 Penelitian ini mengadopsi standar internasional **CRISP-DM (*Cross-Industry Standard Process for Data Mining*)**. CRISP-DM dipilih karena memiliki keunggulan:
-- **Pendekatan Berorientasi Masalah Bisnis**: Menghubungkan metrik teknis *Machine Learning* langsung dengan tujuan manajerial BPJS Kesehatan.
+- **Pendekatan Berorientasi Masalah Bisnis**: Menghubungkan metrik teknis *Machine Learning* langsung dengan tujuan manajerial PT Bank Mandiri (Persero) Tbk.
 - **Sifat Siklus Iteratif (*Cyclical & Iterative*)**: Memungkinkan penyempurnaan leksikon kamus (*slang*, *emoji*, *negation*) dan fitur ekstraksi TF-IDF berdasarkan hasil evaluasi model secara berkesinambungan.
 - **Standar Baku Industri & Akademisi**: Diakui secara luas dalam penulisan tesis, skripsi, dan publikasi ilmiah internasional pada bidang *Business Intelligence and Analytics*.
 
@@ -31,8 +31,8 @@ Penelitian ini mengadopsi standar internasional **CRISP-DM (*Cross-Industry Stan
 
 ```mermaid
 flowchart TD
-    subgraph CRISP_DM_FRAMEWORK [Kerangka Kerja CRISP-DM Proyek Mobile JKN]
-        F1["1. Business Understanding<br>• Identifikasi Kebutuhan BPJS Kesehatan<br>• Perumusan 4 Aspek Operasional<br>• Penetapan Target NSS & F1-Score"]
+    subgraph CRISP_DM_FRAMEWORK [Kerangka Kerja CRISP-DM Proyek Livin' by Mandiri]
+        F1["1. Business Understanding<br>• Identifikasi Kebutuhan PT Bank Mandiri (Persero) Tbk<br>• Perumusan 4 Aspek Operasional<br>• Penetapan Target NSS & F1-Score"]
         F2["2. Data Understanding<br>• Scraping Ulasan Google Play Store<br>• Ekstraksi Atribut & Metadata<br>• Eksplorasi Bahasa Informal & Slang"]
         F3["3. Data Preparation<br>• 8-Step NLP Preprocessing Pipeline<br>• Sastrawi Stemmer + Domain Lexicon<br>• TF-IDF Vectorizer & Ground Truth"]
         F4["4. Modeling<br>• Multinomial Naive Bayes (MNB)<br>• Laplace Add-One Smoothing (α=1.0)<br>• Log-Likelihood & Softmax Calibration"]
@@ -54,38 +54,38 @@ flowchart TD
 ## 3. Fase 1: Business Understanding
 
 ### 3.1. Latar Belakang & Urgensi Masalah
-Aplikasi **Mobile JKN** yang dikelola oleh BPJS Kesehatan merupakan platform transformasi layanan kesehatan digital terbesar di Indonesia dengan puluhan juta pengguna terdaftar. Melalui aplikasi ini, peserta dapat mengakses antrean online fasilitas kesehatan tingkat pertama (FKTP), mengecek status kepesertaan KIS/BPJS, memilih jadwal dokter rumah sakit, hingga melakukan pembayaran iuran.
+Aplikasi **Livin' by Mandiri** yang dikelola oleh PT Bank Mandiri (Persero) Tbk merupakan platform transformasi layanan kesehatan digital terbesar di Indonesia dengan puluhan juta pengguna terdaftar. Melalui aplikasi ini, nasabah dapat mengakses Transaksi online fasilitas kesehatan tingkat pertama (cabang), mengecek status kenasabahan KIS/Bank Mandiri, memilih jadwal dokter kantor cabang, hingga melakukan pembayaran Tagihan.
 
 Namun, tingginya volume pengguna menghadirkan tantangan operasional:
 1. **Volume Ulasan Sangat Masif**: Google Play Store menerima ribuan ulasan per minggu yang mustahil dipilah dan dianalisis secara manual oleh tim *Customer Care* maupun manajemen.
 2. **Bias Rating Bintang**: Banyak pengguna memberikan **bintang 5 disertai keluhan keras** dengan tujuan agar ulasan mereka diprioritaskan oleh sistem (*"bintang 5 biar dibaca developer, aplikasi crash terus"*). Sebaliknya, sebagian pengguna keliru memberi **bintang 1 untuk ulasan yang sangat puas**.
-3. **Ketiadaan Pemetaan Isu Operasional**: Rating bintang rata-rata tidak memberikan informasi spesifik mengenai unit kerja mana yang mengalami kendala (apakah server IT, faskes/puskesmas, atau sistem pembayaran perbankan).
+3. **Ketiadaan Pemetaan Isu Operasional**: Rating bintang rata-rata tidak memberikan informasi spesifik mengenai unit kerja mana yang mengalami kendala (apakah server IT, Pembayaran/cabang, atau sistem pembayaran perbankan).
 
-### 3.2. Perumusan 4 Aspek Operasional Mobile JKN
+### 3.2. Perumusan 4 Aspek Operasional Livin' by Mandiri
 Sistem dirancang untuk mengelompokkan setiap ulasan secara otomatis ke dalam **4 Pilar Aspek Operasional**:
 
 ```mermaid
 mindmap
-  root((4 Pilar Aspek Mobile JKN))
+  root((4 Pilar Aspek Livin' by Mandiri))
     Autentikasi & Akun
       Login & Register
       OTP & Verifikasi SMS
       Lupa Password / PIN
       Validasi NIK / e-KTP
-    Antrean & Faskes
-      Antrean Online Puskesmas
-      Rujukan FKTP ke RS
+    Transaksi & Pembayaran
+      Transaksi Online cabang
+      Rujukan cabang ke RS
       Jadwal Dokter & Poli
-      Ketersediaan Kuota Faskes
+      Ketersediaan Kuota Pembayaran
     Kinerja & Server
       Aplikasi Lemot / Lola
       Server Error / RTO
       Crash / Force Close
       Bug & Gagal Update
-    Iuran & Layanan
+    Layanan & Fitur Finansial
       Autodebet Bank
       Pembayaran Tagihan / Denda
-      Perubahan Data Kepesertaan
+      Perubahan Data Kenasabahan
       Status Kartu KIS Digital
 ```
 
@@ -111,19 +111,19 @@ $$\text{NSS} = \left( \frac{N_{\text{Positif}} - N_{\text{Negatif}}}{N_{\text{To
 ## 4. Fase 2: Data Understanding
 
 ### 4.1. Ekstraksi Data (Data Acquisition)
-Pengambilan data ulasan dilakukan secara terprogram menggunakan pustaka `google-play-scraper` pada aplikasi `app.bpjs.mobile` dengan parameter lokalisasi bahasa Indonesia (`lang=id`, `country=id`).
+Pengambilan data ulasan dilakukan secara terprogram menggunakan pustaka `google-play-scraper` pada aplikasi `app.Bank Mandiri.mobile` dengan parameter lokalisasi bahasa Indonesia (`lang=id`, `country=id`).
 
 - **Modul Scraper**: [`src/scraper/playstoreScraper.js`](file:///x:/laragon/kuliah/playstore-mining/src/scraper/playstoreScraper.js)
-- **Skrip CLI**: [`scrap-jkn.js`](file:///x:/laragon/kuliah/playstore-mining/scrap-jkn.js)
+- **Skrip CLI**: [`scrap-livin.js`](file:///x:/laragon/kuliah/playstore-mining/scrap-livin.js)
 
 ```mermaid
 sequenceDiagram
-    participant CLI as scrap-jkn.js
+    participant CLI as scrap-livin.js
     participant Scraper as playstoreScraper.js
     participant PlayStore as Google Play Store API
     participant FS as Local Storage (data/)
 
-    CLI->>Scraper: scrapeMobileJKN(targetCount=5000)
+    CLI->>Scraper: scrapeLivinMandiri(targetCount=5000)
     loop Pagination & Rotation
         Scraper->>PlayStore: reviews(appId, sort, paginateToken, num=150)
         PlayStore-->>Scraper: Array<ReviewItems> + nextPaginationToken
@@ -143,7 +143,7 @@ Data ulasan mentah disimpan dalam folder `data/<timestamp>/reviews.json` dengan 
 | `userName` | *String* | Nama profil pengguna (disamarkan) | `"Ahmad Fauzi"` |
 | `score` | *Integer* | Skor rating bintang (1 hingga 5) | `1` |
 | `date` | *ISO String* | Waktu ulasan dipublikasikan | `"2026-08-25T10:15:30.000Z"` |
-| `text` | *String* | Konten ulasan teks asli pengguna | `"Aplikasi bagus tapi antrean faskes sering error!"` |
+| `text` | *String* | Konten ulasan teks asli pengguna | `"Aplikasi bagus tapi Transaksi Pembayaran sering error!"` |
 | `thumbsUp` | *Integer* | Jumlah *helpful votes* dari pengguna lain | `42` |
 | `version` | *String* | Versi rilis aplikasi saat ulasan dibuat | `"v4.18.0"` |
 
@@ -167,7 +167,7 @@ flowchart LR
     D --> E["4. Slang Expansion<br>(slang.csv - 860+ kata)"]
     E --> F["5. Clause Splitting<br>(tapi / padahal weighting)"]
     F --> G["6. Multi-step Negation<br>(tidak_bisa, tidak_bantu)"]
-    G --> H["7. Nazief-Adriani Stemming<br>(ts-sastrawi + BPJS Dict)"]
+    G --> H["7. Nazief-Adriani Stemming<br>(ts-sastrawi + Bank Mandiri Dict)"]
     H --> I["8. Stopwords Removal<br>(stopwords.csv)"]
     I --> J["TF-IDF Vectorizer<br>(Sublinear TF + L2-Norm)"]
 ```
@@ -205,7 +205,7 @@ flowchart LR
    - *Proteksi Pronoun*: Negasi tidak digabungkan pada kata ganti (*"tidak saya"*, *"bukan kak"*).
 
 7. **Stemming Morfologis Nazief-Adriani ([`src/nlp/stemmer.js`](file:///x:/laragon/kuliah/playstore-mining/src/nlp/stemmer.js))**:
-   Menggunakan algoritma Nazief-Adriani berbasis kamus dasar 29.932 entri, diperkaya dengan istilah domain kesehatan dan BPJS (*faskes, antrean, rujukan, iuran, autodebet, skrining, puskesmas*), serta dilengkapi *memoization cache* untuk efisiensi komputasi.
+   Menggunakan algoritma Nazief-Adriani berbasis kamus dasar 29.932 entri, diperkaya dengan istilah domain kesehatan dan Bank Mandiri (*Pembayaran, Transaksi, rujukan, Tagihan, autodebet, skrining, cabang*), serta dilengkapi *memoization cache* untuk efisiensi komputasi.
 
 8. **Pembersihan Stopwords (Stopwords Removal)**:
    Menghapus kata tugas non-sentimen menggunakan [`master_data/stopwords.csv`](file:///x:/laragon/kuliah/playstore-mining/master_data/stopwords.csv) dengan pengecualian ketat terhadap seluruh token negasi dan kata sentimen inti.
@@ -311,7 +311,7 @@ graph TD
 1. **Scorecard KPI**: Menyajikan Net Sentiment Score (NSS), persentase sentimen, total ulasan, rata-rata rating bintang, dan akurasi model evaluasi.
 2. **Visualisasi Interaktif (Chart.js)**:
    - *Donut Chart*: Proporsi perbandingan sentimen Positif vs Negatif.
-   - *Bar Chart*: Distribusi komplain per Aspek Operasional Mobile JKN.
+   - *Bar Chart*: Distribusi komplain per Aspek Operasional Livin' by Mandiri.
    - *Line Chart*: Tren bulanan rata-rata rating bintang dan rasio sentimen.
    - *Heatmap Matrix*: Korelasi antara rating bintang 1–5 dengan sentimen prediksi.
 3. **DataTables Interaktif**:
@@ -336,11 +336,11 @@ Tabel berikut menunjukkan keselarasan penuh antara setiap fase CRISP-DM dengan m
 | Fase CRISP-DM | Modul / Berkas Sumber | Fungsi & Kelas Utama | Output / Artefak |
 | :--- | :--- | :--- | :--- |
 | **1. Business Understanding** | [`run-analisa.js`](file:///x:/laragon/kuliah/playstore-mining/run-analisa.js)<br>[`README.md`](file:///x:/laragon/kuliah/playstore-mining/README.md) | `detectAspects()`<br>Definisi 4 Pilar Aspek & NSS | Parameter aspek bisnis & target metrik evaluasi |
-| **2. Data Understanding** | [`scrap-jkn.js`](file:///x:/laragon/kuliah/playstore-mining/scrap-jkn.js)<br>[`src/scraper/playstoreScraper.js`](file:///x:/laragon/kuliah/playstore-mining/src/scraper/playstoreScraper.js) | `scrapeMobileJKN()`<br>`saveReviews()` | `data/<timestamp>/reviews.json`<br>`data/<timestamp>/reviews.csv`<br>`data/<timestamp>/meta.json` |
+| **2. Data Understanding** | [`scrap-livin.js`](file:///x:/laragon/kuliah/playstore-mining/scrap-livin.js)<br>[`src/scraper/playstoreScraper.js`](file:///x:/laragon/kuliah/playstore-mining/src/scraper/playstoreScraper.js) | `scrapeLivinMandiri()`<br>`saveReviews()` | `data/<timestamp>/reviews.json`<br>`data/<timestamp>/reviews.csv`<br>`data/<timestamp>/meta.json` |
 | **3. Data Preparation** | [`src/nlp/preprocessor.js`](file:///x:/laragon/kuliah/playstore-mining/src/nlp/preprocessor.js)<br>[`src/nlp/stemmer.js`](file:///x:/laragon/kuliah/playstore-mining/src/nlp/stemmer.js)<br>[`src/nlp/csvLoader.js`](file:///x:/laragon/kuliah/playstore-mining/src/nlp/csvLoader.js)<br>[`src/ml/vectorizer.js`](file:///x:/laragon/kuliah/playstore-mining/src/ml/vectorizer.js)<br>[`src/ml/groundTruth.js`](file:///x:/laragon/kuliah/playstore-mining/src/ml/groundTruth.js) | `TextPreprocessor.preprocess()`<br>`stemWord()` / `stemSentence()`<br>`TfidfVectorizer.fitTransform()`<br>`determineGroundTruth()` | Array Token NLP Bersih<br>Matriks Vektor TF-IDF ($X$)<br>Label Ground Truth ($y$) |
 | **4. Modeling** | [`src/ml/naiveBayes.js`](file:///x:/laragon/kuliah/playstore-mining/src/ml/naiveBayes.js) | `MultinomialNaiveBayes.train()`<br>`MultinomialNaiveBayes.predict()` | Model MNB Terlatih<br>Vektor Log-Likelihood<br>Skor Confidence & Softmax |
 | **5. Evaluation** | [`src/ml/evaluator.js`](file:///x:/laragon/kuliah/playstore-mining/src/ml/evaluator.js)<br>[`test-nlp.js`](file:///x:/laragon/kuliah/playstore-mining/test-nlp.js) | `ModelEvaluator.crossValidate()`<br>`ModelEvaluator.computeMetrics()` | `report/<timestamp>/metrics.json`<br>Confusion Matrix ($TP, FP, TN, FN$)<br>Akurasi & Macro F1 |
 | **6. Deployment** | [`src/report/dashboardTemplate.js`](file:///x:/laragon/kuliah/playstore-mining/src/report/dashboardTemplate.js)<br>[`open-report.js`](file:///x:/laragon/kuliah/playstore-mining/open-report.js) | `generateDashboardHtml()`<br>`exec('start dashboard.html')` | `report/<timestamp>/dashboard.html`<br>`report/<timestamp>/predictions.json`<br>`report/<timestamp>/predictions.csv` |
 
 ---
-*Dokumen ini merupakan standar metodologis resmi proyek Mobile JKN Data Mining & Sentiment Analytics.*
+*Dokumen ini merupakan standar metodologis resmi proyek Livin' by Mandiri Data Mining & Sentiment Analytics.*

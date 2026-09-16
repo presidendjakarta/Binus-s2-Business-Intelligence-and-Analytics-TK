@@ -1,5 +1,5 @@
 # 📖 FASE 8: PANDUAN PENGGUNAAN CLI & USER MANUAL
-## Analisis Sentimen & Data Mining Ulasan Mobile JKN (BPJS Kesehatan)
+## Analisis Sentimen & Data Mining Ulasan Livin' by Mandiri (PT Bank Mandiri Tbk)
 
 ---
 
@@ -71,35 +71,35 @@ Sistem menyediakan 4 perintah npm terpadu:
 ---
 
 ### 3.1. Pengambilan Data Ulasan (Scraping)
-Skrip ini mengambil ulasan publik dari aplikasi `app.bpjs.mobile` (Mobile JKN).
+Skrip ini mengambil ulasan publik dari aplikasi `app.Bank Mandiri.mobile` (Livin' by Mandiri).
 
 #### A. Mengambil Jumlah Data Default (1.000 Ulasan):
 ```bash
 npm run scrape
 # atau
-node scrap-jkn.js
+node scrap-livin.js
 ```
 
 #### B. Menentukan Jumlah Target Ulasan Kustom:
 Anda dapat menentukan jumlah data (misal: 5.000 ulasan) menggunakan salah satu variasi perintah berikut:
 ```bash
 # Menggunakan parameter data
-node scrap-jkn.js data=5000
+node scrap-livin.js data=5000
 
 # Menggunakan parameter limit
-node scrap-jkn.js limit=5000
+node scrap-livin.js limit=5000
 
 # Menggunakan argumen posisi langsung
-node scrap-jkn.js 5000
+node scrap-livin.js 5000
 ```
 
 #### 🖥️ Contoh Tampilan Log Terminal Scraping:
 ```
 ================================================================
-       SCRAPER ULASAN GOOGLE PLAY STORE - MOBILE JKN            
+       SCRAPER ULASAN GOOGLE PLAY STORE - Livin' by Mandiri            
 ================================================================
 [*] Target Data     : 5.000 ulasan
-[*] Target App ID   : app.bpjs.mobile (Mobile JKN)
+[*] Target App ID   : app.Bank Mandiri.mobile (Livin' by Mandiri)
 [*] Output Direktori: data/2026-09-13_15-30/
 ----------------------------------------------------------------
 [SCRAPER] Terkumpul: 5.000/5.000 ulasan...
@@ -135,7 +135,7 @@ node run-analisa.js data/2026-09-13_15-30
 ```
 ================================================================
    PIPELINE ANALISIS SENTIMEN & EXECUTIVE BUSINESS INTELLIGENCE 
-                 DATA MINING ULASAN MOBILE JKN                  
+                 DATA MINING ULASAN Livin' by Mandiri                  
 ================================================================
 [*] Membaca data dari: data\2026-09-13_15-30
 [*] Total ulasan dimuat: 5.000 ulasan
@@ -225,7 +225,7 @@ Dashboard dirancang dengan tema **Enterprise Metabase/PowerBI** yang intuitif da
 ```mermaid
 graph TD
     subgraph Dashboard_Layout [Tata Letak Antarmuka dashboard.html]
-        H["Top Navigation Bar: Brand Mobile JKN & Tombol Refresh/Print"]
+        H["Top Navigation Bar: Brand Livin' by Mandiri & Tombol Refresh/Print"]
         K["Baris 1: Scorecard KPI (Total Ulasan, Net Sentiment Score, Avg Rating, Akurasi)"]
         C["Baris 2: Visualisasi Chart.js (Donut Sentimen, Bar 4 Aspek, Line Timeline, Heatmap)"]
         W["Baris 3: Cloud Top 15 Kata Kunci Positif & Negatif (TF-IDF Weight)"]
@@ -238,7 +238,7 @@ graph TD
 ### 🖱️ Panduan Fitur DataTables:
 1. **Pencarian Real-Time (*Search Bar*)**: Ketik kata apa pun (misal: *"otp"*, *"dokter"*, *"antre"*) pada kolom pencarian di kanan atas tabel; baris tabel akan terfilter dalam waktu $< 10\text{ ms}$.
 2. **Filter Multi-Kategori (Dropdown)**:
-   - **Filter Aspek**: Pilih salah satu dari *Autentikasi & Akun*, *Antrean & Faskes*, *Kinerja & Server*, *Iuran & Layanan*.
+   - **Filter Aspek**: Pilih salah satu dari *Autentikasi & Akun*, *Transaksi & Pembayaran*, *Kinerja & Server*, *Layanan & Fitur Finansial*.
    - **Filter Rating Bintang**: Pilih ulasan bintang 1, 2, 3, 4, atau 5.
    - **Filter Sentimen**: Tampilkan hanya ulasan *Positif* atau *Negatif*.
    - **Filter Anomali**: Tampilkan ulasan dengan status ⚠️ *Mismatch* (bintang 5 komplain atau bintang 1 pujian).
@@ -286,4 +286,4 @@ graph TD
   ```
 
 ---
-*Dokumen ini merupakan panduan operasional teknis resmi sistem Mobile JKN Sentiment Analytics.*
+*Dokumen ini merupakan panduan operasional teknis resmi sistem Livin' by Mandiri Sentiment Analytics.*

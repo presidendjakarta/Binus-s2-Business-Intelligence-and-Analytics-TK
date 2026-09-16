@@ -11,15 +11,30 @@ async function main() {
   console.log('================================================================');
 
   const args = parseArgs(process.argv);
-  // Support: node scrap-livin.js data=5000 OR node scrap-livin.js 5000
+  
+  // Support: node scrap-livin.js all OR node scrap-livin.js data=all OR node scrap-livin.js data=5000
+  let isUnlimited = false;
   let targetCount = 5000;
-  if (args.data) targetCount = Number(args.data);
-  else if (args.limit) targetCount = Number(args.limit);
-  else if (args.count) targetCount = Number(args.count);
-  else if (process.argv[2] && !isNaN(process.argv[2])) targetCount = Number(process.argv[2]);
 
-  console.log(`[*] Target Data     : ${targetCount.toLocaleString('id-ID')} ulasan`);
+  if (args.all || args.full || args.max || args.data === 'all' || args.data === 'max' || args.data === 'full' || process.argv.includes('all') || process.argv.includes('full') || process.argv.includes('max')) {
+    isUnlimited = true;
+    targetCount = Infinity;
+  } else if (args.data) {
+    targetCount = Number(args.data);
+  } else if (args.limit) {
+    targetCount = Number(args.limit);
+  } else if (args.count) {
+    targetCount = Number(args.count);
+  } else if (process.argv[2] && !isNaN(process.argv[2])) {
+    targetCount = Number(process.argv[2]);
+  }
+
+  const targetYear = args.year ? Number(args.year) : 2026;
+  const filterOptions = { year: targetYear };
+
+  console.log(`[*] Target Data     : ${isUnlimited ? 'FULL / SEMUA (Tanpa Batasan)' : targetCount.toLocaleString('id-ID') + ' ulasan'}`);
   console.log(`[*] Target App ID   : ${APP_ID} (${APP_NAME})`);
+  console.log(`[*] Target Tahun    : ${targetYear}`);
 
   const folderName = getTimestampFolder();
   const outputDir = path.join(__dirname, 'data', folderName);
@@ -29,7 +44,7 @@ async function main() {
   console.log('----------------------------------------------------------------');
 
   const startTime = Date.now();
-  const reviews = await scrapeReviews(targetCount, APP_ID);
+  const reviews = await scrapeReviews(targetCount, APP_ID, null, filterOptions);
 
   if (reviews.length === 0) {
     console.error('[!] Gagal mengambil ulasan atau koneksi bermasalah.');

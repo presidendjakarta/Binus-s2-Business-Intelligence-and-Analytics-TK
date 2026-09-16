@@ -16,8 +16,8 @@
    - [Q8: Keunggulan Macro F1-Score dibanding Akurasi](#q8-mengapa-macro-f1-score-lebih-valid-dibanding-akurasi)
    - [Q9: Pencegahan Kebocoran Data (Data Leakage)](#q9-bagaimana-anda-menjamin-tidak-ada-data-leakage)
    - [Q10: Akumulasi Log-Likelihood & Softmax Calibration](#q10-apa-fungsi-log-likelihood-dan-softmax-calibration)
-   - [Q11: Stemmer Nazief-Adriani & Kamus Domain BPJS](#q11-bagaimana-stemmer-sastrawi-dioptimasi-untuk-domain-bpjs)
-   - [Q12: Penentuan 4 Aspek Operasional Mobile JKN](#q12-bagaimana-sistem-mengelompokkan-4-aspek-operasional)
+   - [Q11: Stemmer Nazief-Adriani & Kamus Domain Bank Mandiri](#q11-bagaimana-stemmer-sastrawi-dioptimasi-untuk-domain-Bank Mandiri)
+   - [Q12: Penentuan 4 Aspek Operasional Livin' by Mandiri](#q12-bagaimana-sistem-mengelompokkan-4-aspek-operasional)
    - [Q13: Interpretasi Skor Net Sentiment Score (NSS = -17.2%)](#q13-apa-arti-skor-net-sentiment-score-172)
    - [Q14: Pemrosesan Semantik Emoji & Emotikon](#q14-bagaimana-sistem-memproses-emoji-dan-emotikon)
 3. [Strategi Menghadapi Sanggahan Penguji (Defense Tactics)](#3-strategi-menghadapi-sanggahan-penguji-defense-tactics)
@@ -41,7 +41,7 @@ Dokumen ini disusun khusus sebagai **panduan pertahanan ilmiah (*defense cheat s
 **Jawaban Akademis**:
 1. **Efisiensi Komputasi & Latensi Sangat Rendah**: MNB memiliki kompleksitas komputasi pelatihan linear $\mathcal{O}(N \cdot |V|)$ yang mampu melatih ribuan ulasan dalam hitungan milidetik tanpa memerlukan GPU atau infrastruktur server mahal.
 2. **Kesesuaian dengan Karakteristik Teks Pendek (Short Text)**: Pada korpus teks ulasan berdimensi tinggi (*sparse text*), MNB terbukti memiliki performa kompetitif dengan akurasi $\mathbf{92.20\%}$ dan Macro F1 $\mathbf{92.05\%}$.
-3. **Transparansi & *Explainability* (White-Box Model)**: Setiap keputusan klasifikasi MNB dapat dilacak secara matematis melalui akumulasi log-likelihood bobot TF-IDF per kata, berbeda dengan Deep Learning (*Black-Box*) yang sulit diaudit oleh pihak manajemen BPJS Kesehatan.
+3. **Transparansi & *Explainability* (White-Box Model)**: Setiap keputusan klasifikasi MNB dapat dilacak secara matematis melalui akumulasi log-likelihood bobot TF-IDF per kata, berbeda dengan Deep Learning (*Black-Box*) yang sulit diaudit oleh pihak manajemen PT Bank Mandiri (Persero) Tbk.
 4. **Portabilitas Standalone Dashboard**: MNB memungkinkan seluruh model, parameter bobot kata, dan inferensi dibundel ke dalam satu berkas HTML mandiri (*zero-dependency*).
 
 ---
@@ -123,7 +123,7 @@ Dokumen ini disusun khusus sebagai **panduan pertahanan ilmiah (*defense cheat s
 > **Pertanyaan Penguji**: *"Akurasi model Anda $92.20\%$. Mengapa Anda masih menekankan metrik Macro F1-Score ($92.05\%$)? Bukankah Akurasi sudah cukup?"*
 
 **Jawaban Akademis**:
-- Dataset ulasan Mobile JKN memiliki distribusi kelas yang tidak seimbang (*class imbalance*), yaitu **$58.6\%$ Negatif** dan **$41.4\%$ Positif**.
+- Dataset ulasan Livin' by Mandiri memiliki distribusi kelas yang tidak seimbang (*class imbalance*), yaitu **$58.6\%$ Negatif** dan **$41.4\%$ Positif**.
 - Pada data yang tidak seimbang, metrik Akurasi dapat menipu (*accuracy paradox*). Model yang memprediksi seluruh data sebagai kelas mayoritas (Negatif) akan tetap memperoleh akurasi $58.6\%$, padahal model tersebut gagal total mengenali ulasan Positif.
 - **Macro F1-Score** menghitung rata-rata harmonik antara Presisi dan Recall untuk setiap kelas secara independen tanpa memandang jumlah sampel, sehingga memberikan penilaian objektif atas performa kedua kelas sentimen.
 
@@ -150,27 +150,27 @@ Dokumen ini disusun khusus sebagai **panduan pertahanan ilmiah (*defense cheat s
 
 ---
 
-### Q11: Bagaimana Stemmer Sastrawi dioptimasi untuk domain BPJS?
-> **Pertanyaan Penguji**: *"Bagaimana cara Anda mencegah kesalahan pemotongan kata (over-stemming) pada istilah khusus BPJS seperti 'faskes', 'antrean', atau 'rujukan'?"*
+### Q11: Bagaimana Stemmer Sastrawi dioptimasi untuk domain Bank Mandiri?
+> **Pertanyaan Penguji**: *"Bagaimana cara Anda mencegah kesalahan pemotongan kata (over-stemming) pada istilah khusus Bank Mandiri seperti 'Pembayaran', 'Transaksi', atau 'rujukan'?"*
 
 **Jawaban Akademis**:
 - Pada modul [`src/nlp/stemmer.js`](file:///x:/laragon/kuliah/playstore-mining/src/nlp/stemmer.js):
-  1. Kami memperluas kamus dasar standar Sastrawi (29.932 kata) dengan **26 istilah domain spesifik BPJS**: `faskes`, `bpjs`, `jkn`, `kis`, `nik`, `otp`, `fktp`, `autodebet`, `skrining`, `antrean`, `rujukan`, `iuran`, `puskesmas`.
+  1. Kami memperluas kamus dasar standar Sastrawi (29.932 kata) dengan **26 istilah domain spesifik Bank Mandiri**: `Pembayaran`, `Bank Mandiri`, `jkn`, `kis`, `nik`, `otp`, `cabang`, `autodebet`, `skrining`, `Transaksi`, `rujukan`, `Tagihan`, `cabang`.
   2. Kata-kata tersebut didaftarkan sebagai kata dasar terlindungi, sehingga tidak dipotong secara keliru oleh algoritma derivasi awalan/akhiran.
   3. Kami menambahkan **Memoization Cache (`Map`)** untuk menyimpan kata yang sudah pernah distem, mempercepat proses NLP hingga $300\%$.
 
 ---
 
 ### Q12: Bagaimana sistem mengelompokkan 4 Aspek Operasional?
-> **Pertanyaan Penguji**: *"Bagaimana mekanisme sistem dalam mengelompokkan ulasan ke dalam 4 aspek operasional (Akun, Antrean, Server, Iuran)?"*
+> **Pertanyaan Penguji**: *"Bagaimana mekanisme sistem dalam mengelompokkan ulasan ke dalam 4 aspek operasional (Akun, Transaksi, Server, Tagihan)?"*
 
 **Jawaban Akademis**:
 - Melalui fungsi `detectAspects` pada [`run-analisa.js`](file:///x:/laragon/kuliah/playstore-mining/run-analisa.js#L13-L34).
 - Sistem memindai kombinasi teks mentah dan token hasil stemming terhadap taksonomi leksikon kata kunci operasional:
   - **Autentikasi & Akun**: `login`, `daftar`, `otp`, `sms`, `password`, `nik`, `ktp`, `lupa_sandi`, `tidak_bisa_masuk`.
-  - **Antrean & Faskes**: `antre`, `faskes`, `puskesmas`, `rs`, `kuota`, `dokter`, `poli`, `rujuk`, `obat`.
+  - **Transaksi & Pembayaran**: `antre`, `Pembayaran`, `cabang`, `rs`, `kuota`, `dokter`, `poli`, `rujuk`, `obat`.
   - **Kinerja & Server**: `error`, `lemot`, `lambat`, `crash`, `force_close`, `server`, `jaringan`, `bug`, `loading`.
-  - **Iuran & Layanan**: `iuran`, `bayar`, `tagihan`, `autodebet`, `kis`, `kartu`, `mutasi`, `pbi`, `denda`.
+  - **Layanan & Fitur Finansial**: `Tagihan`, `bayar`, `tagihan`, `autodebet`, `kis`, `kartu`, `mutasi`, `pbi`, `denda`.
 - Ulasan dapat memiliki lebih dari satu aspek (*multi-aspect labeling*).
 
 ---
@@ -182,7 +182,7 @@ Dokumen ini disusun khusus sebagai **panduan pertahanan ilmiah (*defense cheat s
 - Rating bintang sering kali bias dan terdistorsi oleh pengguna yang memberi bintang 3 (netral) atau bintang 5 palsu (komplain taktis).
 - **Net Sentiment Score (NSS)** mengevaluasi sentimen teks riil:
   $$\text{NSS} = \left( \frac{\text{Positif } (41.4\%) - \text{Negatif } (58.6\%)}{\text{Total } (100\%)} \right) = \mathbf{-17.2\%}$$
-- Nilai negatif ini secara jujur merefleksikan bahwa sentimen komplain publik $17.2\%$ lebih banyak daripada sentimen pujian, mengindikasikan bahwa persepsi publik berada pada level **Kritis** yang membutuhkan intervensi pada sistem antrean dan OTP.
+- Nilai negatif ini secara jujur merefleksikan bahwa sentimen komplain publik $17.2\%$ lebih banyak daripada sentimen pujian, mengindikasikan bahwa persepsi publik berada pada level **Kritis** yang membutuhkan intervensi pada sistem Transaksi dan OTP.
 
 ---
 
@@ -202,7 +202,7 @@ Dokumen ini disusun khusus sebagai **panduan pertahanan ilmiah (*defense cheat s
 
 | Tipe Sanggahan Dosen Penguji | Respon Ilmiah & Taktik Bertahan |
 | :--- | :--- |
-| *"Data ulasan Play Store tidak mewakili seluruh peserta BPJS di pelosok desa yang tidak punya smartphone."* | *"Benar. Batasan penelitian ini secara eksplisit berfokus pada **User Experience (UX) kanal layanan digital Mobile JKN**, bukan seluruh populasi peserta BPJS luring. Analisis ini ditujukan khusus untuk pengembangan produk digital BPJS."* |
+| *"Data ulasan Play Store tidak mewakili seluruh nasabah Bank Mandiri di pelosok desa yang tidak punya smartphone."* | *"Benar. Batasan penelitian ini secara eksplisit berfokus pada **User Experience (UX) kanal layanan digital Livin' by Mandiri**, bukan seluruh populasi nasabah Bank Mandiri luring. Analisis ini ditujukan khusus untuk pengembangan produk digital Bank Mandiri."* |
 | *"Kenapa tidak menambahkan kelas Netral?"* | *"Dalam evaluasi kepuasan layanan publik, polaritas biner (Positif vs Negatif) memberikan sinyal aksi manajerial yang lebih tegas (*actionable*). Rating 3 telah diurai menggunakan analisis leksikon untuk menetapkan kecenderungan polaritasnya."* |
 | *"Apakah scraping ulasan Play Store melanggar privasi pengguna?"* | *"Tidak. Data ulasan Google Play Store bersifat publik (*publicly accessible data*). Selain itu, sistem menerapkan **prinsip sanitasi privasi** dengan menyamarkan identitas pengguna dan membatasi frekuensi request (*rate-limiting delay*). "* |
 
@@ -239,4 +239,4 @@ Dokumen ini disusun khusus sebagai **panduan pertahanan ilmiah (*defense cheat s
 | **True Positive (TP)** | Jumlah dokumen aktual Positif yang berhasil diprediksi secara tepat sebagai Positif. |
 
 ---
-*Dokumen ini merupakan pedoman pertahanan akademis dan glosarium resmi proyek Mobile JKN Sentiment Analytics.*
+*Dokumen ini merupakan pedoman pertahanan akademis dan glosarium resmi proyek Livin' by Mandiri Sentiment Analytics.*

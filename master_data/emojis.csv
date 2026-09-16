@@ -1,4 +1,4 @@
-﻿emoji,translation,sentiment,description
+emoji,translation,sentiment,description
 👍,sangat bagus,Positif,Jempol apresiasi bagus
 👍🏻,sangat bagus,Positif,Jempol apresiasi kulit cerah
 👍🏼,sangat bagus,Positif,Jempol apresiasi kulit langsat
@@ -66,12 +66,12 @@
 🧡,suka hangat puas,Positif,Hati oranye hangat
 🤍,tulus terima kasih,Positif,Hati putih suci tulus
 🤎,suka puas mantap,Positif,Hati cokelat stabil
-⭐,bintang lima bagus,Positif,Bintang nilai terbaik
-🌟,bintang bersinar luar biasa,Positif,Bintang bersinar cemerlang
+⭐,bintang apresiasi bagus,Positif,Bintang nilai ulasan
+🌟,sangat bagus bersinar istimewa,Positif,Bintang bersinar megah
 ✨,luar biasa istimewa bagus,Positif,Kilauan bintang istimewa
 💫,luar biasa memukau,Positif,Bintang pusing memukau
-💯,sempurna nilai seratus,Positif,Angka seratus sempurna puas
-🔥,mantap keren luar biasa,Positif,Kobaran api sangat keren mantap
+💯,sempurna sangat puas terbaik,Positif,Nilai seratus sempurna
+🔥,sangat keren mantap hebat,Positif,Api semangat keren
 🎉,selamat sukses perayaan,Positif,Trompet pesta perayaan sukses
 🎊,selamat sukses gembira,Positif,Bola konfeti pesta gembira
 🥳,sangat senang puas pesta,Positif,Wajah pesta topi terompet gembira
@@ -102,7 +102,7 @@
 🩺,dokter medis periksa,Positif,Stetoskop kesehatan medis
 💊,obat sehat lancar,Positif,Kapsul obat BPJS lancar
 💉,vaksin suntik sehat,Positif,Suntikan medis sehat
-✅,sukses berhasil benar,Positif,Centang hijau berhasil sukses
+✅,berhasil sukses benar lancar,Positif,Centang hijau berhasil
 ✔️,sukses berhasil benar,Positif,Centang tebal sukses benar
 ☑️,sukses selesai tuntas,Positif,Kotak centang sukses selesai
 ☑,sukses selesai tuntas,Positif,Kotak centang sukses
@@ -114,7 +114,7 @@
 👎🏿,sangat buruk kecewa jelek,Negatif,Jempol ke bawah buruk gelap
 😡,marah kesal emosi parah,Negatif,Wajah merah sangat marah kesal
 😠,marah kesal jengkel geram,Negatif,Wajah marah geram jengkel
-🤬,sangat marah mengumpat kotor,Negatif,Wajah marah mulut sensor umpatan
+🤬,marah mengumpat sangat kesal,Negatif,Wajah sensor umpatan marah
 🤮,mual muntah muak menjijikkan,Negatif,Wajah muntah hijau muak parah
 🤢,mual pusing muak buruk,Negatif,Wajah mual jijik muak
 😭,menangis sedih kecewa berat,Negatif,Wajah menangis deras sedih parah
@@ -136,30 +136,30 @@
 🥺,memohon sedih memelas kecewa,Negatif,Wajah memohon mata besar sedih
 💔,patah hati kecewa hancur,Negatif,Hati retak hancur patah kecewa
 🥀,layu mati hancur kecewa,Negatif,Mawar layu mati rusak
-💩,sampah kotoran buruk ampas,Negatif,Kotoran tahi ampas jelek sampah
+💩,kotoran sampah sangat buruk,Negatif,Kotoran sampah jelek
 🔪,bahaya ancaman rusak,Negatif,Pisau belati tajam ancaman bahaya
 💥,rusak meledak hancur error,Negatif,Ledakan tubrukan tabrakan hancur
 💣,bom bahaya hancur rusak,Negatif,Bom waktu bahaya meledak
-⚠️,peringatan masalah bahaya error,Negatif,Simbol segitiga peringatan error
+⚠️,peringatan kendala waspada,Negatif,Tanda seru peringatan
 ⚠,peringatan masalah bahaya error,Negatif,Simbol peringatan bahaya
 🚨,darurat bahaya masalah alarm,Negatif,Lampu sirine darurat masalah
 🛑,berhenti macet stop gagal,Negatif,Rambu segi delapan stop macet
 ⛔,dilarang tutup macet tidak bisa,Negatif,Tanda dilarang masuk stop macet
 🚫,dilarang tidak bisa gagal tolak,Negatif,Lingkaran garis silang tolak
-❌,salah gagal ditolak silang error,Negatif,Tanda silang merah salah gagal
+❌,gagal salah ditolak error,Negatif,Tanda silang merah gagal
 ❎,gagal silang salah tolak,Negatif,Kotak tombol silang tolak salah
 🗑️,sampah buang hapus jelek,Negatif,Tempat sampah buang jelek
 🗑,sampah buang hapus jelek,Negatif,Tempat sampah buang
 🚮,buang sampah kotor buruk,Negatif,Tanda buang sampah ampas
-🤦,pusing kepala frustrasi tepuk jidat,Negatif,Orang menepuk jidat kesal pusing
-🤦‍♂️,pusing kepala frustrasi tepuk jidat,Negatif,Pria menepuk jidat kesal pusing
-🤦‍♀️,pusing kepala frustrasi tepuk jidat,Negatif,Wanita menepuk jidat kesal pusing
+🤦,kecewa heran tidak habis pikir,Negatif,Tepok jidat lelah
+🤦‍♂️,kecewa heran tidak habis pikir,Negatif,Tepok jidat pria
+🤦‍♀️,kecewa heran tidak habis pikir,Negatif,Tepok jidat wanita
 🤦🏻,pusing kepala frustrasi tepuk jidat,Negatif,Tepuk jidat kesal cerah
 🤦🏼,pusing kepala frustrasi tepuk jidat,Negatif,Tepuk jidat kesal langsat
 🤦🏽,pusing kepala frustrasi tepuk jidat,Negatif,Tepuk jidat kesal sawo
 🤦🏾,pusing kepala frustrasi tepuk jidat,Negatif,Tepuk jidat kesal manis
 🤦🏿,pusing kepala frustrasi tepuk jidat,Negatif,Tepuk jidat kesal gelap
-🤷,tidak tahu bingung pasrah kecewa,Negatif,Orang mengangkat bahu bingung pasrah
+🤷,bingung tidak tahu pasrah,Negatif,Angkat bahu bingung
 🤷‍♂️,tidak tahu bingung pasrah kecewa,Negatif,Pria mengangkat bahu bingung pasrah
 🤷‍♀️,tidak tahu bingung pasrah kecewa,Negatif,Wanita mengangkat bahu bingung pasrah
 🙄,jengkel kesal malas bosan,Negatif,Wajah memutar bola mata malas jengkel
@@ -182,10 +182,10 @@
 🤒,demam sakit keluhan bermasalah,Negatif,Wajah termometer demam keluhan
 🤕,terluka sakit celaka perban,Negatif,Wajah perban kepala luka sakit
 🤧,bersin sakit flu keluhan,Negatif,Wajah bersin tisu sakit keluhan
-💀,mati hancur parah habis tamat,Negatif,Tengkorak mati tamat rusak
+💀,mati rusak hancur parah,Negatif,Tengkorak mati rusak
 ☠️,racun bahaya mati hancur,Negatif,Tengkorak tulang silang bahaya mati
 ☠,racun bahaya mati hancur,Negatif,Tengkorak tulang silang bahaya
-🤡,badut lelucon konyol bohong,Negatif,Wajah badut konyol penipu bohong
+🤡,badut lelucon mengecewakan,Negatif,Wajah badut sindiran
 👹,iblis monster jahat buruk seram,Negatif,Monster ogre merah jahat seram
 👺,iblis jahat jahil sombong buruk,Negatif,Goblin hidung panjang jahat sombong
 👿,jahat marah iblis buruk kesal,Negatif,Iblis ungu marah bertanduk kesal
@@ -195,10 +195,10 @@
 ⏱️,menunggu lama lambat lemot,Negatif,Stopwatch waktu lama lemot lambat
 ⏱,menunggu lama lambat lemot,Negatif,Stopwatch waktu lama lemot
 ⏰,menunggu lambat buang waktu,Negatif,Jam beker waktu habis lambat
-📉,menurun anjlok rugi buruk drop,Negatif,Grafik tren turun anjlok rugi
-💸,rugi bayar mahal uang hilang,Negatif,Uang terbang melayang rugi mahal
-💳,debit bayar potong uang iuran,Negatif,Kartu kredit iuran bayar potong
-🔒,terkunci tidak bisa masuk gembok,Negatif,Gembok terkunci tertutup gagal masuk
+📉,kinerja turun memburuk jelek,Negatif,Grafik tren menurun
+💸,uang melayang boros biaya,Negatif,Uang terbang berkurang
+💳,kartu debit kredit pembayaran,Positif,Kartu bank transaksi
+🔒,aman terkunci terproteksi,Positif,Gembok keamanan proteksi
 ‼️,sangat penting keluhan darurat parah,Negatif,Tanda seru ganda darurat parah
 ❗,peringatan masalah tolong perbaiki,Negatif,Tanda seru peringatan tegas masalah
 ❓,bingung tidak jelas pertanyaan gagal,Negatif,Tanda tanya bingung masalah gagal
@@ -227,3 +227,9 @@ T_T,menangis sedih kecewa putus asa,Negatif,Emotikon menangis terisak
 TT_TT,menangis deras sangat kecewa sedih,Negatif,Emotikon menangis tersedu-sedu
 (n),buruk jelek tidak suka kecewa,Negatif,Emotikon jempol ke bawah
 (N),buruk jelek tidak suka kecewa,Negatif,Emotikon jempol ke bawah
+💰,banyak uang saldo rezeki,Positif,Kantong uang koin saldo
+🏧,mesin atm setor tarik tunai,Positif,Mesin ATM bank
+📱,aplikasi handphone mobile,Positif,Smartphone m-banking
+🔓,terbuka akses tidak aman,Negatif,Gembok terbuka
+📈,kinerja naik membaik bagus,Positif,Grafik tren meningkat
+🚀,sangat cepat melesat hebat,Positif,Roket cepat maju

@@ -10,16 +10,16 @@ const { generateDashboardHtml } = require('./src/report/dashboardTemplate');
 const { generateIndexHtml } = require('./src/report/hubTemplate');
 const { getTimestampFolder, ensureDir, getLatestFolder, parseArgs } = require('./src/utils/helpers');
 
-// Helper to categorize review into Mobile JKN operational aspects
+// Helper to categorize review into Livin' by Mandiri banking operational aspects
 function detectAspects(text, tokens) {
   const combined = (text + ' ' + (tokens || []).join(' ')).toLowerCase();
   const aspects = [];
 
   const aspectKeywords = {
     'Autentikasi & Akun': ['login', 'masuk', 'daftar', 'registrasi', 'otp', 'sms', 'password', 'sandi', 'pin', 'nik', 'ktp', 'email', 'akun', 'verifikasi', 'face_id', 'biometrik', 'sidik_jari', 'fingerprint', 'blokir', 'aktivasi', 'ganti_hp', 'tidak_bisa_masuk', 'lupa_sandi'],
-    'Transaksi & Pembayaran': ['transfer', 'tf', 'bi-fast', 'bfast', 'topup', 'top up', 'gopay', 'ovo', 'dana', 'shopeepay', 'e-money', 'etoll', 'e-toll', 'qr', 'qris', 'bayar', 'tagihan', 'beli', 'pulsa', 'listrik', 'pln', 'pdam', 'valas', 'setor', 'tarik_tunai', 'antre', 'antrean', 'faskes', 'rujukan'],
+    'Transaksi & Pembayaran': ['transfer', 'tf', 'bi-fast', 'bfast', 'topup', 'top up', 'gopay', 'ovo', 'dana', 'shopeepay', 'e-money', 'etoll', 'e-toll', 'qr', 'qris', 'bayar', 'tagihan', 'beli', 'pulsa', 'listrik', 'pln', 'pdam', 'valas', 'setor', 'tarik_tunai'],
     'Kinerja & Server': ['eror', 'error', 'lemot', 'lambat', 'lola', 'lelet', 'force_close', 'fc', 'crash', 'hang', 'freeze', 'blank', 'server', 'jaringan', 'koneksi', 'update', 'apdet', 'bug', 'rto', 'loading'],
-    'Layanan & Fitur Finansial': ['kartu_kredit', 'tabungan', 'rekening', 'deposito', 'pinjaman', 'ksm', 'paylater', 'sukha', 'investasi', 'reksadana', 'valas', 'bunga', 'promo', 'cs', 'customer_service', 'call_center', '14000', 'iuran', 'bpjs']
+    'Layanan & Fitur Finansial': ['pelayanan', 'layanan', 'fitur', 'kartu_kredit', 'tabungan', 'rekening', 'deposito', 'pinjaman', 'ksm', 'paylater', 'sukha', 'investasi', 'reksadana', 'valas', 'bunga', 'promo', 'cs', 'customer_service', 'call_center', '14000', 'cabang', 'teller', 'bantuan']
   };
 
   for (const [aspect, kws] of Object.entries(aspectKeywords)) {
@@ -37,7 +37,7 @@ function detectAspects(text, tokens) {
 async function main() {
   console.log('================================================================');
   console.log('   PIPELINE ANALISIS SENTIMEN & EXECUTIVE BUSINESS INTELLIGENCE ');
-  console.log('                 DATA MINING ULASAN MOBILE JKN                  ');
+  console.log('             DATA MINING ULASAN LIVIN\' BY MANDIRI               ');
   console.log('================================================================');
 
   const args = parseArgs(process.argv);
@@ -57,14 +57,25 @@ async function main() {
 
   if (!targetDataFolder || !fs.existsSync(targetDataFolder)) {
     console.error(`[!] Folder data tidak ditemukan: ${targetDataFolder || '(tidak ada folder di data/)'}`);
-    console.error(`    Silakan jalankan: node scrap-jkn.js data=5000\n`);
+    console.error(`    Silakan jalankan: node scrap-livin.js data=5000\n`);
     process.exit(1);
   }
 
   console.log(`[*] Membaca data dari: ${path.relative(__dirname, targetDataFolder)}`);
 
-  // 2. Load Reviews
+  // 2. Load Reviews & Meta
   const jsonPath = path.join(targetDataFolder, 'reviews.json');
+  const metaPath = path.join(targetDataFolder, 'meta.json');
+  let metaInfo = {
+    appId: 'id.bmri.livin',
+    appName: "Livin' by Mandiri (PT Bank Mandiri Tbk)"
+  };
+  if (fs.existsSync(metaPath)) {
+    try {
+      metaInfo = { ...metaInfo, ...JSON.parse(fs.readFileSync(metaPath, 'utf8')) };
+    } catch (e) {}
+  }
+
   let rawReviews = [];
   if (fs.existsSync(jsonPath)) {
     rawReviews = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
@@ -78,6 +89,7 @@ async function main() {
     process.exit(1);
   }
 
+  console.log(`[*] Aplikasi           : ${metaInfo.appName} (${metaInfo.appId})`);
   console.log(`[*] Total ulasan dimuat: ${rawReviews.length.toLocaleString('id-ID')} ulasan`);
   console.log('----------------------------------------------------------------');
 
@@ -145,12 +157,12 @@ async function main() {
 
   // Timeline aggregation (by Month-Year)
   const timelineMap = {};
-  // Aspect aggregation
+  // Aspect aggregation for Digital Banking Livin' by Mandiri
   const aspectStats = {
     'Autentikasi & Akun': { total: 0, Positif: 0, Negatif: 0 },
-    'Antrean & Faskes': { total: 0, Positif: 0, Negatif: 0 },
+    'Transaksi & Pembayaran': { total: 0, Positif: 0, Negatif: 0 },
     'Kinerja & Server': { total: 0, Positif: 0, Negatif: 0 },
-    'Iuran & Layanan': { total: 0, Positif: 0, Negatif: 0 },
+    'Layanan & Fitur Finansial': { total: 0, Positif: 0, Negatif: 0 },
     'Lainnya': { total: 0, Positif: 0, Negatif: 0 }
   };
   // App Version stats
@@ -278,6 +290,7 @@ async function main() {
   const totalThumbsUp = finalSamples.reduce((sum, s) => sum + (s.thumbsUp || 0), 0);
 
   const reportData = {
+    appInfo: metaInfo,
     generatedAt: new Date().toLocaleString('id-ID', { dateStyle: 'full', timeStyle: 'short' }),
     sourceDataFolder: path.relative(__dirname, targetDataFolder),
     summary: {

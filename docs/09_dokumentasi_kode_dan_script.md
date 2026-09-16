@@ -6,7 +6,7 @@
 ## 📌 Daftar Isi
 1. [Pengantar & Peta Ketergantungan Modul (Dependency Graph)](#1-pengantar--peta-ketergantungan-modul-dependency-graph)
 2. [Skrip Eksekusi Utama (Root Entry Points)](#2-skrip-eksekusi-utama-root-entry-points)
-   - [2.1. scrap-jkn.js (Data Scraper CLI)](#21-scrap-jknjs-data-scraper-cli)
+   - [2.1. scrap-livin.js (Data Scraper CLI)](#21-scrap-jknjs-data-scraper-cli)
    - [2.2. run-analisa.js (Pipeline Utama Analisis Sentimen)](#22-run-analisajs-pipeline-utama-analisis-sentimen)
    - [2.3. open-report.js (Launcher Dashboard Eksekutif)](#23-open-reportjs-launcher-dashboard-eksekutif)
    - [2.4. test-nlp.js (Unit Testing Verifikasi NLP & ML)](#24-test-nlpjs-unit-testing-verifikasi-nlp--ml)
@@ -36,7 +36,7 @@ Sistem dibangun dengan arsitektur **modular berorientasi komponen (*Component-Ba
 ```mermaid
 flowchart TD
     subgraph CLI_EntryPoints ["1. Entry Points (CLI)"]
-        ScrapCLI["scrap-jkn.js"]
+        ScrapCLI["scrap-livin.js"]
         MainCLI["run-analisa.js"]
         OpenCLI["open-report.js"]
         TestCLI["test-nlp.js"]
@@ -97,14 +97,14 @@ flowchart TD
 
 ---
 
-### 2.1. `scrap-jkn.js` (Data Scraper CLI)
-- **Path Berkas**: [`scrap-jkn.js`](file:///x:/laragon/kuliah/playstore-mining/scrap-jkn.js)
+### 2.1. `scrap-livin.js` (Data Scraper CLI)
+- **Path Berkas**: [`scrap-livin.js`](file:///x:/laragon/kuliah/playstore-mining/scrap-livin.js)
 - **Fungsi Utama**: Antarmuka baris perintah (CLI) untuk mengekstrak data ulasan publik dari Google Play Store.
 
 #### ⚙️ Cara Kerja & Alur Program:
-1. Membaca argumen CLI melalui fungsi `parseArgs` (misal: `node scrap-jkn.js data=5000`).
+1. Membaca argumen CLI melalui fungsi `parseArgs` (misal: `node scrap-livin.js data=5000`).
 2. Membuat folder target berstempel waktu di direktori `data/<YYYY-MM-DD_HH-mm>/`.
-3. Memanggil fungsi `scrapeMobileJKN` untuk mengekstrak ulasan dari paket `app.bpjs.mobile`.
+3. Memanggil fungsi `scrapeLivinMandiri` untuk mengekstrak ulasan dari paket `app.Bank Mandiri.mobile`.
 4. Memanggil `saveReviews` untuk mengarsipkan data ke dalam tiga format: `reviews.json`, `reviews.csv`, dan `meta.json`.
 5. Menampilkan waktu eksekusi (*execution duration*) dan petunjuk menjalankan tahap analisis selanjutnya.
 
@@ -130,7 +130,7 @@ flowchart TD
    - Melatih model `MultinomialNaiveBayes` dengan parameter Laplace Smoothing $\alpha = 1.0$.
 6. **[Tahap 4/5] Inferensi, Aspek, & Anomali**:
    - Memprediksi seluruh sampel ulasan.
-   - Menjalankan fungsi `detectAspects(text, tokens)` untuk memetakan ulasan ke 4 Pilar Aspek Operasional Mobile JKN (*Autentikasi, Antrean, Server, Iuran*).
+   - Menjalankan fungsi `detectAspects(text, tokens)` untuk memetakan ulasan ke 4 Pilar Aspek Operasional Livin' by Mandiri (*Autentikasi, Transaksi, Server, Tagihan*).
    - Mengelompokkan tren bulanan (*timeline*) dan performa versi aplikasi.
    - Mengidentifikasi anomali ulasan (rating $\ge 4$ tapi Negatif atau rating $\le 2$ tapi Positif).
 7. **[Tahap 5/5] Evaluasi Model 5-Fold Cross Validation**:
@@ -146,9 +146,9 @@ function detectAspects(text, tokens)
 - **Fungsi**: Memindai kemunculan kata kunci operasional pada teks asli dan token hasil stemming untuk mengkategorikan ulasan.
 - **Kamus Aspek**:
   - `Autentikasi & Akun`: *login, masuk, daftar, otp, sms, password, sandi, pin, nik, ktp, verifikasi*.
-  - `Antrean & Faskes`: *antre, antrean, faskes, puskesmas, pkm, rs, klinik, kuota, dokter, poli, rujuk, obat*.
+  - `Transaksi & Pembayaran`: *antre, Transaksi, Pembayaran, cabang, pkm, rs, klinik, kuota, dokter, poli, rujuk, obat*.
   - `Kinerja & Server`: *eror, error, lemot, lambat, lola, crash, hang, blank, server, jaringan, bug*.
-  - `Iuran & Layanan`: *iuran, bayar, tagihan, autodebet, denda, kis, kartu, digital, mutasi, bpjs, klaim*.
+  - `Layanan & Fitur Finansial`: *Tagihan, bayar, tagihan, autodebet, denda, kis, kartu, digital, mutasi, Bank Mandiri, klaim*.
 
 ---
 
@@ -178,9 +178,9 @@ function detectAspects(text, tokens)
 
 #### 🔧 Fungsi Utama:
 
-#### 1. `scrapeMobileJKN(targetCount, onProgress)`
+#### 1. `scrapeLivinMandiri(targetCount, onProgress)`
 ```javascript
-async function scrapeMobileJKN(targetCount = 1000, onProgress = null) -> Promise<Array<ReviewObject>>
+async function scrapeLivinMandiri(targetCount = 1000, onProgress = null) -> Promise<Array<ReviewObject>>
 ```
 - **Algoritma**:
   - Menggunakan *batching* maksimal 150 ulasan per *request*.
@@ -221,12 +221,12 @@ async function saveReviews(reviews, outputDir) -> Promise<{ jsonPath, csvPath, m
 
 #### ⚙️ Arsitektur & Optimasi:
 1. **Basis Kamus Sastrawi**: Menggunakan `ts-sastrawi` dengan kamus dasar standar 29.932 kata.
-2. **Injeksi Kosakata Domain BPJS**:
+2. **Injeksi Kosakata Domain Bank Mandiri**:
    ```javascript
    const domainTerms = [
-     'faskes', 'bpjs', 'jkn', 'kis', 'nik', 'otp', 'pkm', 'fktp', 'fkrtl', 
-     'autodebet', 'skrining', 'antre', 'antrean', 'rujuk', 'rujukan', 'tagihan', 
-     'iuran', 'peserta', 'kepesertaan', 'klinik', 'puskesmas', 'perbaiki', 
+     'Pembayaran', 'Bank Mandiri', 'jkn', 'kis', 'nik', 'otp', 'pkm', 'cabang', 'fkrtl', 
+     'autodebet', 'skrining', 'antre', 'Transaksi', 'rujuk', 'rujukan', 'tagihan', 
+     'Tagihan', 'nasabah', 'kenasabahan', 'klinik', 'cabang', 'perbaiki', 
      'validasi', 'otentikasi', 'reaktivasi', 'unduh'
    ];
    dict.add(domainTerms);
@@ -359,7 +359,7 @@ Menjalankan seluruh alur pipeline teks:
 
 #### ⚙️ Arsitektur & Komponen Template:
 1. **Enkapsulasi Data JSON**: Menyematkan seluruh data ringkasan, metrik evaluasi, dan 5.000 sampel prediksi ke dalam tag `<script>const REPORT_DATA = ...</script>` di dalam HTML (tanpa butuh koneksi server eksternal).
-2. **Desain Sistem & Styling**: Menggunakan font modern *Public Sans*, palet warna resmi BPJS Kesehatan (`#059669`), dan tata letak *Executive KPI Scorecards*.
+2. **Desain Sistem & Styling**: Menggunakan font modern *Public Sans*, palet warna resmi PT Bank Mandiri (Persero) Tbk (`#059669`), dan tata letak *Executive KPI Scorecards*.
 3. **Pustaka Visualisasi Terintegrasi**:
    - `Chart.js 4.4.1`: Render grafik Donut Sentimen, Bar Aspek Operasional, Line Timeline Bulanan, dan Heatmap Rating Matrix.
    - `jQuery 3.7.1` + `DataTables 1.13.7`: Tabel dinamis dengan fitur sortir kolom, pencarian instan real-time, filter dropdown multi-kategori, dan popup modal rincian token NLP ulasan.
@@ -387,7 +387,7 @@ Menjalankan seluruh alur pipeline teks:
 
 | Lokasi Berkas | Nama Fungsi / Kelas | Parameter Masukan | Nilai Kembalian (Return) | Deskripsi Ringkas |
 | :--- | :--- | :--- | :--- | :--- |
-| `src/scraper/playstoreScraper.js` | `scrapeMobileJKN` | `(targetCount, onProgress)` | `Promise<Array<ReviewObject>>` | Mengambil ulasan Play Store dengan pagination, sort rotation, dan jitter delay. |
+| `src/scraper/playstoreScraper.js` | `scrapeLivinMandiri` | `(targetCount, onProgress)` | `Promise<Array<ReviewObject>>` | Mengambil ulasan Play Store dengan pagination, sort rotation, dan jitter delay. |
 | `src/scraper/playstoreScraper.js` | `saveReviews` | `(reviews, outputDir)` | `Promise<{jsonPath, csvPath, metaPath}>` | Menyimpan ulasan ke `reviews.json`, `reviews.csv`, dan `meta.json`. |
 | `src/nlp/csvLoader.js` | `loadSlangDict` | `(masterDataDir)` | `Object: {[slang]: formal}` | Memuat 860+ kamus kata gaul/singkatan ke kata baku. |
 | `src/nlp/csvLoader.js` | `loadEmojiDict` | `(masterDataDir)` | `Object: {[emoji]: token}` | Memuat 80+ kamus semantik emoji ke teks Indonesia. |
@@ -404,4 +404,4 @@ Menjalankan seluruh alur pipeline teks:
 | `src/utils/helpers.js` | `getLatestFolder` | `(baseDir: string)` | `string \| null` | Mencari path direktori berstempel waktu paling mutakhir. |
 
 ---
-*Dokumen ini merupakan referensi teknis resmi arsitektur kode dan API internal sistem Mobile JKN Sentiment Analytics.*
+*Dokumen ini merupakan referensi teknis resmi arsitektur kode dan API internal sistem Livin' by Mandiri Sentiment Analytics.*

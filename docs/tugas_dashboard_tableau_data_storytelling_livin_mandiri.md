@@ -20,7 +20,7 @@ graph TD
 ### a. Goal (Tujuan Utama)
 > **Dasbor ini memudahkan mereka yang terlibat dalam pengembangan aplikasi perbankan digital, operasional layanan transaksi, dan manajemen Bank Mandiri untuk memahami faktor mana yang secara signifikan memengaruhi kualitas aplikasi Livin' by Mandiri dan kepuasan nasabah.**
 
-* **Tujuan Strategis:** Mengidentifikasi kendala transaksi digital (*payment & transfer bottleneck*) sedini mungkin guna mempertahankan reputasi perbankan digital nomor satu dan meminimalkan antrean di kantor cabang.
+* **Tujuan Strategis:** Mengidentifikasi kendala transaksi digital (*payment & transfer bottleneck*) sedini mungkin guna mempertahankan reputasi perbankan digital nomor satu dan meminimalkan Transaksi di kantor cabang.
 * **Tujuan Finansial:** Memaksimalkan volume transaksi digital (*fee-based income*), adopsi fitur investasi/Sukha, dan retensi nasabah aktif harian (*Daily Active Users / DAU*).
 
 ---

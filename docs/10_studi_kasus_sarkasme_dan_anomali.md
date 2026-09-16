@@ -55,7 +55,7 @@ Berikut adalah data JSON ulasan aktual yang diambil dari berkas prediksi [`repor
 
 | Parameter Diagnostik | Nilai Observasi | Penjelasan Teknis & Relevansi Sistem |
 | :--- | :--- | :--- |
-| **Identitas Pengulas** | `Nendhe Praviga` | Pengguna nyata aplikasi Mobile JKN di Google Play Store |
+| **Identitas Pengulas** | `Nendhe Praviga` | Pengguna nyata aplikasi Livin' by Mandiri di Google Play Store |
 | **Rating Pengguna** | $\bigstar 1.0$ (Bintang 1) | Rating terendah (indikasi ketidakpuasan ekstrem / komplain fatal) |
 | **Versi Aplikasi** | `4.18.0` | Versi rilis aplikasi saat pengguna menulis ulasan |
 | **Label Acuan (*Ground Truth*)** | <span style="color:#dc3545; font-weight:bold;">Negatif</span> | Ditentukan murni oleh Rating Bintang ($\bigstar 1-3 \rightarrow \text{Negatif}$) |

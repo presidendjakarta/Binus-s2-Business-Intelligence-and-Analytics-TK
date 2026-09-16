@@ -1,5 +1,5 @@
 # 📐 FASE 2: ALGORITMA & FORMULASI MATEMATIKA
-## Analisis Sentimen & Data Mining Ulasan Mobile JKN (BPJS Kesehatan)
+## Analisis Sentimen & Data Mining Ulasan Livin' by Mandiri (PT Bank Mandiri Tbk)
 
 ---
 
@@ -33,7 +33,7 @@
 
 ## 1. Pengantar Landasan Matematis
 
-Dokumen ini menyajikan formalisasi matematis, teori probabilitas, dan rincian algoritma yang menjadi fondasi sistem data mining ulasan Mobile JKN. Formulasi ini dirancang untuk mengatasi tantangan unik pada teks ulasan bahasa Indonesia informal, seperti:
+Dokumen ini menyajikan formalisasi matematis, teori probabilitas, dan rincian algoritma yang menjadi fondasi sistem data mining ulasan Livin' by Mandiri. Formulasi ini dirancang untuk mengatasi tantangan unik pada teks ulasan bahasa Indonesia informal, seperti:
 1. Ambiguitas kata negasi (*negation leakage*).
 2. Pergeseran polaritas sentimen pada kalimat majemuk bertingkat.
 3. *Floating-point arithmetic underflow* pada perkalian rantai probabilitas kecil.
@@ -89,7 +89,7 @@ Untuk menangkap pergeseran polaritas pada kalimat majemuk, teks dipecah berdasar
    
    $$\text{Weight}(K_1) = 2, \quad \text{Weight}(K_2) = 1$$
 
-$$\text{Contoh:} \quad \text{"Aplikasinya bagus } \underbrace{\text{tapi}}_{\text{adv}} \text{ } \underbrace{\text{antrean faskes sering error}}_{K_2 \text{ (Bobot } 2\times\text{)}}"$$
+$$\text{Contoh:} \quad \text{"Aplikasinya bagus } \underbrace{\text{tapi}}_{\text{adv}} \text{ } \underbrace{\text{Transaksi Pembayaran sering error}}_{K_2 \text{ (Bobot } 2\times\text{)}}"$$
 
 ### 2.4. Multi-Step Negation Binding
 Kelemahan model *Bag-of-Words* konvensional adalah memisahkan kata negasi dengan kata sifat setelahnya (misal: *"tidak"* dan *"bantu"* dipisah, sehingga kata *"bantu"* terhitung positif). 
@@ -160,9 +160,9 @@ flowchart TD
 | **`peng-`** | `peng-` + $\{e, g, h, q\}$ | `peng-V...` $\rightarrow$ `k-V...` atau `V...` | *pengguna* $\rightarrow$ *guna* |
 | **`ber-`** | `ber-` + Vokal | `ber-V...` $\rightarrow$ `r-V...` atau `V...` | *berobat* $\rightarrow$ *obat* |
 
-#### Optimasi Kamus Domain Khusus BPJS:
+#### Optimasi Kamus Domain Khusus Bank Mandiri:
 Untuk mencegah kesalahan pemotongan istilah medis/asuransi, kamus dasar diperluas dengan istilah domain:
-$$\mathcal{K}_{\text{domain}} = \{\text{faskes, antrean, rujukan, autodebet, iuran, skrining, puskesmas, peserta, kepesertaan, klinik, bpjs, jkn, kis, nik, otp}\}$$
+$$\mathcal{K}_{\text{domain}} = \{\text{Pembayaran, Transaksi, rujukan, autodebet, Tagihan, skrining, cabang, nasabah, kenasabahan, klinik, Bank Mandiri, jkn, kis, nik, otp}\}$$
 
 ### 2.6. Penyaringan Stopwords Selektif
 $$\text{Token Bersih} = \{t \in T \mid t \notin \mathcal{S}_{\text{stop}} \lor t \in \mathcal{T}_{\text{sentiment}} \lor \text{startsWith}(t, \text{"tidak\_"})\}$$
@@ -332,7 +332,7 @@ Pada dataset ulasan aplikasi publik, distribusi sentimen sering kali tidak seimb
 
 ## 6. Metrik Bisnis: Net Sentiment Score (NSS)
 
-Untuk keperluan pelaporan eksekutif pada level manajemen BPJS Kesehatan, dihitung indeks **Net Sentiment Score (NSS)**:
+Untuk keperluan pelaporan eksekutif pada level manajemen PT Bank Mandiri (Persero) Tbk, dihitung indeks **Net Sentiment Score (NSS)**:
 
 $$\text{NSS} = \left( \frac{N_{\text{Positif}} - N_{\text{Negatif}}}{N_{\text{Total}}} \right) \times 100\%$$
 
@@ -347,7 +347,7 @@ Di mana:
 | **$+50\% \le \text{NSS} \le +100\%$** | *Sangat Positif / Loyal* | Pertahankan fitur unggulan & program kepuasan pengguna. |
 | **$+10\% \le \text{NSS} < +50\%$** | *Positif Moderat* | Tingkatkan stabilitas performa pada versi rilis berikutnya. |
 | **$-10\% \le \text{NSS} < +10\%$** | *Netral / Kritis* | Investigasi kendala utama pada aspek Autentikasi dan Server. |
-| **$-100\% \le \text{NSS} < -10\%$** | *Sangat Negatif / Darurat* | Perbaikan darurat (*hotfix*) terhadap sistem antrean dan login. |
+| **$-100\% \le \text{NSS} < -10\%$** | *Sangat Negatif / Darurat* | Perbaikan darurat (*hotfix*) terhadap sistem Transaksi dan login. |
 
 ---
-*Dokumen ini merupakan referensi matematis dan algoritmis formal untuk proyek Mobile JKN Sentiment Analytics.*
+*Dokumen ini merupakan referensi matematis dan algoritmis formal untuk proyek Livin' by Mandiri Sentiment Analytics.*

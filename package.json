@@ -1,18 +1,18 @@
 {
-  "name": "mobile-jkn-sentiment-analytics",
+  "name": "livin-mandiri-sentiment-analytics",
   "version": "1.0.0",
-  "description": "Analisis Sentimen & Data Mining Ulasan Mobile JKN Google Play Store menggunakan Sastrawi Stemmer, TF-IDF Vectorizer, dan Multinomial Naive Bayes",
+  "description": "Analisis Sentimen & Data Mining Ulasan Livin' by Mandiri Google Play Store menggunakan Sastrawi Stemmer, TF-IDF Vectorizer, dan Multinomial Naive Bayes",
   "main": "run-analisa.js",
   "scripts": {
     "scrape": "node scrap-livin.js",
     "scrape:livin": "node scrap-livin.js",
-    "scrape:jkn": "node scrap-jkn.js",
     "analyze": "node run-analisa.js",
     "report": "node open-report.js",
     "test": "node test-nlp.js"
   },
   "keywords": [
-    "mobile-jkn",
+    "livin-mandiri",
+    "bank-mandiri",
     "naive-bayes",
     "sentiment-analysis",
     "text-mining",

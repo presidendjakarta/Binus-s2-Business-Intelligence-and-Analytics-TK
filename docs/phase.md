@@ -13,7 +13,7 @@ Dokumen ini mencatat rencana kerja pembuatan dokumentasi sistem secara bertahap 
 | **Fase 3** | [`03_flowchart_dan_arsitektur.md`](03_flowchart_dan_arsitektur.md) | Diagram Visual Mermaid: Arsitektur Global, Pipeline NLP, DFD | **Bab 3 & Bab 4 (Perancangan)** | ✅ **Selesai** |
 | **Fase 4** | [`04_kamus_data_dan_skema.md`](04_kamus_data_dan_skema.md) | Spesifikasi Skema Data Input/Output, Master Leksikon, & Metadata | **Bab 3 & Lampiran Dataset** | ✅ **Selesai** |
 | **Fase 5** | [`05_evaluasi_dan_eksperimen.md`](05_evaluasi_dan_eksperimen.md) | 5-Fold Cross Validation, Confusion Matrix, Error Misclassification | **Bab 4 (Hasil & Pembahasan)** | ✅ **Selesai** |
-| **Fase 6** | [`06_analisis_bisnis_rekomendasi.md`](06_analisis_bisnis_rekomendasi.md) | Analisis 4 Aspek JKN, Net Sentiment Score (NSS), Action Plan BPJS | **Bab 5 (Saran & Kesimpulan)** | ✅ **Selesai** |
+| **Fase 6** | [`06_analisis_bisnis_rekomendasi.md`](06_analisis_bisnis_rekomendasi.md) | Analisis 4 Aspek JKN, Net Sentiment Score (NSS), Action Plan Bank Mandiri | **Bab 5 (Saran & Kesimpulan)** | ✅ **Selesai** |
 | **Fase 7** | [`07_cheat_sheet_sidang_qna.md`](07_cheat_sheet_sidang_qna.md) | 12+ Tanya-Jawab Kritis Dosen Penguji Sidang & Glosarium Data Mining | **Persiapan Sidang Akhir** | ✅ **Selesai** |
 | **Fase 8** | [`08_panduan_penggunaan_cli.md`](08_panduan_penggunaan_cli.md) | User Manual Lengkap (Scraper, Analisis, Dashboard, Testing) | **Panduan Teknis / Petunjuk** | ✅ **Selesai** |
 | **Fase 9** | [`09_dokumentasi_kode_dan_script.md`](09_dokumentasi_kode_dan_script.md) | Bedah Arsitektur Seluruh Modul Script, Fungsi, Algoritma, & API | **Teknis & Arsitektur Kode** | ✅ **Selesai** |
@@ -32,7 +32,7 @@ Dokumen ini mencatat rencana kerja pembuatan dokumentasi sistem secara bertahap 
 - **Isi**: 
   - Formula TF-IDF: Sublinear TF ($1 + \ln(TF)$), Smooth IDF ($\ln((1+N)/(1+DF)) + 1$), Normalisasi $L_2$-norm Euclidean.
   - Formula Multinomial Naive Bayes: Class Priors $P(c)$, Word Likelihood $P(w|c)$ dengan Laplace Smoothing $\alpha=1.0$, Akumulasi Log-Likelihood $\ln P(c|d)$, dan Softmax Posterior Calibration.
-  - Algoritma Stemmer Nazief-Adriani: Aturan afiksasi (prefiks, sufiks, konfiks, infiks) dan kamus dasar domain BPJS.
+  - Algoritma Stemmer Nazief-Adriani: Aturan afiksasi (prefiks, sufiks, konfiks, infiks) dan kamus dasar domain Bank Mandiri.
   - Aturan *Negation Binding* multi-step.
 
 ### 🔹 Fase 3: Flowchart & Diagram Arsitektur (`03_flowchart_dan_arsitektur.md`)
@@ -62,9 +62,9 @@ Dokumen ini mencatat rencana kerja pembuatan dokumentasi sistem secara bertahap 
 - **Tujuan**: Menerjemahkan hasil analitik data mining menjadi wawasan bisnis (*actionable insights*).
 - **Isi**:
   - Analisis kepuasan publik berdasarkan *Net Sentiment Score* (NSS).
-  - Analisis mendalam 4 Aspek Operasional Mobile JKN (*Akun & Login*, *Antrean & Faskes*, *Kinerja Server*, *Iuran & Tagihan*).
+  - Analisis mendalam 4 Aspek Operasional Livin' by Mandiri (*Akun & Login*, *Transaksi & Pembayaran*, *Kinerja Server*, *Layanan & Fitur Finansial*).
   - Analisis tren ulasan per versi rilis aplikasi.
-  - Rekomendasi strategis perbaikan sistem untuk manajemen BPJS Kesehatan.
+  - Rekomendasi strategis perbaikan sistem untuk manajemen PT Bank Mandiri (Persero) Tbk.
 
 ### 🔹 Fase 7: Cheat Sheet Sidang Q&A & Glosarium (`07_cheat_sheet_sidang_qna.md`)
 - **Tujuan**: Membekali penyusun skripsi/tesis menghadapi pertanyaan penguji saat sidang.

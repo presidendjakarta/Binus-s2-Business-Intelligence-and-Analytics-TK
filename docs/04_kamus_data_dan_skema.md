@@ -1,5 +1,5 @@
 # 📋 FASE 4: KAMUS DATA & SPESIFIKASI SKEMA
-## Analisis Sentimen & Data Mining Ulasan Mobile JKN (BPJS Kesehatan)
+## Analisis Sentimen & Data Mining Ulasan Livin' by Mandiri (PT Bank Mandiri Tbk)
 
 ---
 
@@ -24,7 +24,7 @@
 
 ## 1. Pengantar & Standar Kamus Data
 
-Kamus Data (*Data Dictionary*) adalah dokumen acuan formal yang mendefinisikan struktur, tipe data, hubungan, batasan nilai (*constraints*), dan makna semantik dari seluruh berkas yang digunakan dalam pipeline data mining Mobile JKN.
+Kamus Data (*Data Dictionary*) adalah dokumen acuan formal yang mendefinisikan struktur, tipe data, hubungan, batasan nilai (*constraints*), dan makna semantik dari seluruh berkas yang digunakan dalam pipeline data mining Livin' by Mandiri.
 
 Struktur penyimpanan data dalam repositori terbagi menjadi 3 direktori utama:
 1. `data/<timestamp>/`: Berkas data mentah hasil scraping Google Play Store.
@@ -35,7 +35,7 @@ Struktur penyimpanan data dalam repositori terbagi menjadi 3 direktori utama:
 
 ## 2. Spesifikasi Data Mentah Masukan (Raw Data Input)
 
-Data mentah dihasilkan oleh skrip [`scrap-jkn.js`](file:///x:/laragon/kuliah/playstore-mining/scrap-jkn.js) melalui pemanggilan API `google-play-scraper`.
+Data mentah dihasilkan oleh skrip [`scrap-livin.js`](file:///x:/laragon/kuliah/playstore-mining/scrap-livin.js) melalui pemanggilan API `google-play-scraper`.
 
 ### 2.1. Skema `reviews.json`
 Berkas JSON utama yang memuat array objek ulasan mentah:
@@ -43,12 +43,12 @@ Berkas JSON utama yang memuat array objek ulasan mentah:
 | Nama Atribut | Tipe Data | Nullable | Rentang Nilai | Deskripsi & Aturan Bisnis |
 | :--- | :---: | :---: | :---: | :--- |
 | `id` | `String` | Tidak | String unik | ID ulasan unik dari Google Play Store (misal: `"gp:AOqpTOE..."`). |
-| `userName` | `String` | Ya | Teks bebas | Nama akun pengguna yang memposting ulasan. Jika kosong, diberi nilai default `"Pengguna Mobile JKN"`. |
+| `userName` | `String` | Ya | Teks bebas | Nama akun pengguna yang memposting ulasan. Jika kosong, diberi nilai default `"Pengguna Livin' by Mandiri"`. |
 | `score` | `Integer` | Tidak | $1 \le \text{score} \le 5$ | Jumlah bintang rating yang diberikan pengguna. |
 | `date` | `String` | Tidak | ISO 8601 | Waktu publikasi ulasan dalam format UTC (`YYYY-MM-DDTHH:mm:ss.sssZ`). |
 | `text` | `String` | Tidak | Panjang $> 0$ | Konten teks ulasan asli pengguna (tanpa modifikasi). |
 | `thumbsUp` | `Integer` | Tidak | $\ge 0$ | Jumlah pengguna lain yang menandai ulasan ini bermanfaat. |
-| `version` | `String` | Ya | Teks versi | Nomor versi rilis aplikasi Mobile JKN saat ulasan dibuat (contoh: `"v4.18.0"`). Jika tidak tercatat, bernilai `""`. |
+| `version` | `String` | Ya | Teks versi | Nomor versi rilis aplikasi Livin' by Mandiri saat ulasan dibuat (contoh: `"v4.18.0"`). Jika tidak tercatat, bernilai `""`. |
 
 #### 📄 Cuplikan Contoh `reviews.json`:
 ```json
@@ -58,7 +58,7 @@ Berkas JSON utama yang memuat array objek ulasan mentah:
     "userName": "Budi Santoso",
     "score": 1,
     "date": "2026-08-25T08:30:00.000Z",
-    "text": "Aplikasi sering keluar sendiri saat mau ambil antrean puskesmas, tolong diperbaiki!! 😡",
+    "text": "Aplikasi sering keluar sendiri saat mau ambil Transaksi cabang, tolong diperbaiki!! 😡",
     "thumbsUp": 14,
     "version": "v4.18.0"
   },
@@ -67,7 +67,7 @@ Berkas JSON utama yang memuat array objek ulasan mentah:
     "userName": "Siti Rahma",
     "score": 5,
     "date": "2026-08-24T14:20:10.000Z",
-    "text": "Sangat membantu untuk bayar iuran autodebet dan cek status kartu KIS keluarga 👍",
+    "text": "Sangat membantu untuk bayar Tagihan autodebet dan cek status kartu KIS keluarga 👍",
     "thumbsUp": 3,
     "version": "v4.18.0"
   }
@@ -92,8 +92,8 @@ Berkas tabular dengan format *Comma-Separated Values* (CSV) untuk keperluan audi
 #### 📄 Cuplikan Contoh `reviews.csv`:
 ```csv
 id,user_name,score,date,thumbs_up,version,text
-gp:AOqpTOE9_xK3v...,Budi Santoso,1,2026-08-25T08:30:00.000Z,14,v4.18.0,"Aplikasi sering keluar sendiri saat mau ambil antrean puskesmas, tolong diperbaiki!! 😡"
-gp:AOqpTOG2_zM1q...,Siti Rahma,5,2026-08-24T14:20:10.000Z,3,v4.18.0,"Sangat membantu untuk bayar iuran autodebet dan cek status kartu KIS keluarga 👍"
+gp:AOqpTOE9_xK3v...,Budi Santoso,1,2026-08-25T08:30:00.000Z,14,v4.18.0,"Aplikasi sering keluar sendiri saat mau ambil Transaksi cabang, tolong diperbaiki!! 😡"
+gp:AOqpTOG2_zM1q...,Siti Rahma,5,2026-08-24T14:20:10.000Z,3,v4.18.0,"Sangat membantu untuk bayar Tagihan autodebet dan cek status kartu KIS keluarga 👍"
 ```
 
 ---
@@ -103,16 +103,16 @@ Berkas metadata sesi ekstraksi data:
 
 | Nama Atribut | Tipe Data | Deskripsi |
 | :--- | :---: | :--- |
-| `appId` | `String` | Paket ID aplikasi target (`"app.bpjs.mobile"`). |
-| `appName` | `String` | Nama resmi aplikasi (`"Mobile JKN (BPJS Kesehatan)"`). |
+| `appId` | `String` | Paket ID aplikasi target (`"app.Bank Mandiri.mobile"`). |
+| `appName` | `String` | Nama resmi aplikasi (`"Livin' by Mandiri (PT Bank Mandiri Tbk)"`). |
 | `totalReviews` | `Integer` | Total jumlah ulasan yang berhasil diambil dalam sesi scraping. |
 | `scrapedAt` | `String` | Timestamp waktu pelaksanaan scraping (ISO 8601). |
 
 #### 📄 Cuplikan Contoh `meta.json`:
 ```json
 {
-  "appId": "app.bpjs.mobile",
-  "appName": "Mobile JKN (BPJS Kesehatan)",
+  "appId": "app.Bank Mandiri.mobile",
+  "appName": "Livin' by Mandiri (PT Bank Mandiri Tbk)",
   "totalReviews": 5000,
   "scrapedAt": "2026-09-13T08:00:00.000Z"
 }
@@ -220,7 +220,7 @@ $$\text{Ground Truth}(s) = \begin{cases} \mathbf{Positif}, & \text{jika } s \in 
 
 | Rating Bintang ($s$) | Label Ground Truth | Makna Semantik & Konteks Bisnis |
 | :---: | :---: | :--- |
-| **★ 4 & ★ 5** | **`Positif`** | Pengguna merasa puas, terbantu, dan memberikan penilaian positif terhadap layanan Mobile JKN. |
+| **★ 4 & ★ 5** | **`Positif`** | Pengguna merasa puas, terbantu, dan memberikan penilaian positif terhadap layanan Livin' by Mandiri. |
 | **★ 1, ★ 2, & ★ 3** | **`Negatif`** | Pengguna mengalami kendala, friksi teknis, komplain operasional, atau memberikan saran perbaikan kritis. |
 
 > [!NOTE]
@@ -262,8 +262,8 @@ Berkas JSON lengkap yang berisi seluruh data ulasan beserta hasil inferensi Mach
 | `text` | `String` | Konten ulasan teks mentah asli. |
 | `tokens` | `Array<String>` | Array token bersih hasil 8 tahap NLP Preprocessing. |
 | `thumbsUp` | `Integer` | Jumlah helpful votes. |
-| `version` | `String` | Versi aplikasi Mobile JKN. |
-| `aspects` | `Array<String>` | Array label aspek operasional Mobile JKN (`"Autentikasi & Akun"`, `"Antrean & Faskes"`, `"Kinerja & Server"`, `"Iuran & Layanan"`, atau `["Lainnya"]`). |
+| `version` | `String` | Versi aplikasi Livin' by Mandiri. |
+| `aspects` | `Array<String>` | Array label aspek operasional Livin' by Mandiri (`"Autentikasi & Akun"`, `"Transaksi & Pembayaran"`, `"Kinerja & Server"`, `"Layanan & Fitur Finansial"`, atau `["Lainnya"]`). |
 | `actualLabel` | `String` | Label acuan (*ground truth*) hasil validasi leksikon (`"Positif"` / `"Negatif"`). |
 | `predictedLabel` | `String` | Keputusan kelas sentimen oleh model Naive Bayes (`"Positif"` / `"Negatif"`). |
 | `confidence` | `Float` | Nilai keyakinan model ($0.5000 \le \text{confidence} \le 1.0000$). |
@@ -278,11 +278,11 @@ Berkas JSON lengkap yang berisi seluruh data ulasan beserta hasil inferensi Mach
     "userName": "Budi Santoso",
     "score": 1,
     "date": "2026-08-25T08:30:00.000Z",
-    "text": "Aplikasi sering keluar sendiri saat mau ambil antrean puskesmas, tolong diperbaiki!! 😡",
-    "tokens": ["aplikasi", "sering", "keluar", "ambil", "antre", "puskesmas", "perbaiki", "emoji_marah_kesal"],
+    "text": "Aplikasi sering keluar sendiri saat mau ambil Transaksi cabang, tolong diperbaiki!! 😡",
+    "tokens": ["aplikasi", "sering", "keluar", "ambil", "antre", "cabang", "perbaiki", "emoji_marah_kesal"],
     "thumbsUp": 14,
     "version": "v4.18.0",
-    "aspects": ["Antrean & Faskes", "Kinerja & Server"],
+    "aspects": ["Transaksi & Pembayaran", "Kinerja & Server"],
     "actualLabel": "Negatif",
     "predictedLabel": "Negatif",
     "confidence": 0.9421,
@@ -315,7 +315,7 @@ Format tabular yang siap diimpor ke aplikasi spreadsheet (Microsoft Excel, Googl
 #### 📄 Cuplikan Contoh `predictions.csv`:
 ```csv
 id,user_name,star_rating,date,operational_aspect,ground_truth,predicted_sentiment,confidence,raw_review
-gp:AOqpTOE9_xK3v...,Budi Santoso,1,2026-08-25T08:30:00.000Z,Antrean & Faskes; Kinerja & Server,Negatif,Negatif,0.9421,"Aplikasi sering keluar sendiri saat mau ambil antrean puskesmas, tolong diperbaiki!! 😡"
+gp:AOqpTOE9_xK3v...,Budi Santoso,1,2026-08-25T08:30:00.000Z,Transaksi & Pembayaran; Kinerja & Server,Negatif,Negatif,0.9421,"Aplikasi sering keluar sendiri saat mau ambil Transaksi cabang, tolong diperbaiki!! 😡"
 ```
 
 ---
@@ -375,9 +375,9 @@ graph TD
   },
   "aspectStats": {
     "Autentikasi & Akun": { "total": 1420, "Positif": 320, "Negatif": 1100 },
-    "Antrean & Faskes": { "total": 1850, "Positif": 610, "Negatif": 1240 },
+    "Transaksi & Pembayaran": { "total": 1850, "Positif": 610, "Negatif": 1240 },
     "Kinerja & Server": { "total": 1290, "Positif": 180, "Negatif": 1110 },
-    "Iuran & Layanan": { "total": 940, "Positif": 520, "Negatif": 420 },
+    "Layanan & Fitur Finansial": { "total": 940, "Positif": 520, "Negatif": 420 },
     "Lainnya": { "total": 650, "Positif": 440, "Negatif": 210 }
   },
   "ratingDistribution": {
@@ -391,4 +391,4 @@ graph TD
 ```
 
 ---
-*Dokumen ini merupakan spesifikasi skema data dan kamus data resmi sistem Mobile JKN Sentiment Analytics.*
+*Dokumen ini merupakan spesifikasi skema data dan kamus data resmi sistem Livin' by Mandiri Sentiment Analytics.*

@@ -1,5 +1,5 @@
 # 🧪 FASE 5: EVALUASI MODEL & ANALISIS EKSPERIMEN
-## Analisis Sentimen & Data Mining Ulasan Mobile JKN (BPJS Kesehatan)
+## Analisis Sentimen & Data Mining Ulasan Livin' by Mandiri (PT Bank Mandiri Tbk)
 
 ---
 
@@ -19,7 +19,7 @@
 
 ## 1. Pengantar & Desain Eksperimen
 
-Bab ini menyajikan hasil evaluasi empiris model **Multinomial Naive Bayes (MNB)** yang dipadukan dengan pembobotan **TF-IDF** pada dataset ulasan publik aplikasi **Mobile JKN (BPJS Kesehatan)**. 
+Bab ini menyajikan hasil evaluasi empiris model **Multinomial Naive Bayes (MNB)** yang dipadukan dengan pembobotan **TF-IDF** pada dataset ulasan publik aplikasi **Livin' by Mandiri (PT Bank Mandiri Tbk)**. 
 
 Tujuan evaluasi empiris ini adalah:
 1. Mengukur daya generalisasi (*generalization capability*) model terhadap data ulasan baru yang belum pernah dilihat sebelumnya.
@@ -59,7 +59,7 @@ Pada setiap iterasi fold $k$:
 
 ## 3. Tabel Hasil Eksperimen per Fold
 
-Pengujian dilakukan pada dataset representatif $N = 5.000$ ulasan Mobile JKN:
+Pengujian dilakukan pada dataset representatif $N = 5.000$ ulasan Livin' by Mandiri:
 
 | Iterasi Pengujian | Ukuran Test Set | Accuracy (%) | Precision Pos (%) | Recall Pos (%) | F1-Score Pos (%) | Precision Neg (%) | Recall Neg (%) | F1-Score Neg (%) | Macro F1 (%) |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
@@ -160,8 +160,8 @@ Ulasan aktual berlabel **Negatif**, namun model memprediksi **Positif**.
 
 | ID Sample | Teks Asli Pengguna | Token NLP yang Dihasilkan | Faktor Penyebab Misklasifikasi |
 | :--- | :--- | :--- | :--- |
-| `#1042` | *"Luar biasa sekali aplikasi ini, dari kemarin mau bayar iuran muter-muter terus sampai pusing."* | `['luar_biasa', 'bayar', 'iuran', 'putar', 'sulit']` | **Sarkasme Halus**: Penggunaan frasa pujian hiperbolis (*"luar biasa sekali"*) di awal kalimat tanpa kata makian eksplisit mendominasi bobot log-likelihood positif. |
-| `#2811` | *"Semoga ke depannya pelayanan bpjs makin bagus dan dokter tidak terlambat lagi."* | `['moga', 'depan', 'layan', 'bpjs', 'bagus', 'dokter', 'tidak_lambat']` | **Kalimat Harapan / Doa**: Memuat kata *"bagus"* dan *"tidak lambat"* yang secara leksikal bernilai positif, padahal secara implisit pengguna mengeluhkan dokter yang sering telat. |
+| `#1042` | *"Luar biasa sekali aplikasi ini, dari kemarin mau bayar Tagihan muter-muter terus sampai pusing."* | `['luar_biasa', 'bayar', 'Tagihan', 'putar', 'sulit']` | **Sarkasme Halus**: Penggunaan frasa pujian hiperbolis (*"luar biasa sekali"*) di awal kalimat tanpa kata makian eksplisit mendominasi bobot log-likelihood positif. |
+| `#2811` | *"Semoga ke depannya pelayanan Bank Mandiri makin bagus dan dokter tidak terlambat lagi."* | `['moga', 'depan', 'layan', 'Bank Mandiri', 'bagus', 'dokter', 'tidak_lambat']` | **Kalimat Harapan / Doa**: Memuat kata *"bagus"* dan *"tidak lambat"* yang secara leksikal bernilai positif, padahal secara implisit pengguna mengeluhkan dokter yang sering telat. |
 
 ---
 
@@ -170,8 +170,8 @@ Ulasan aktual berlabel **Positif**, namun model memprediksi **Negatif**.
 
 | ID Sample | Teks Asli Pengguna | Token NLP yang Dihasilkan | Faktor Penyebab Misklasifikasi |
 | :--- | :--- | :--- | :--- |
-| `#0893` | *"Kemarin sempat terkendala antrean faskes penuh, tapi sekarang sudah lancar dan cepat sekali pelayanannya."* | `['kendala', 'antre', 'faskes', 'penuh', 'lancar', 'cepat', 'layan']` | **Penyelesaian Masalah**: Memuat kata kendala (*"kendala"*, *"penuh"*) yang memiliki bobot IDF negatif kuat di korpus, mengimbangi kata *"lancar"*. |
-| `#3419` | *"Tidak ada kendala sama sekali saat berobat di puskesmas, mantap!"* | `['tidak_kendala', 'obat', 'puskesmas', 'mantap']` | **Negasi Kata Negatif (*Double Negative*)**: Frasa *"tidak ada kendala"* diubah menjadi `tidak_kendala`, yang pada korpus latih belum memiliki asosiasi positif sekuat kata *"mantap"*. |
+| `#0893` | *"Kemarin sempat terkendala Transaksi Pembayaran penuh, tapi sekarang sudah lancar dan cepat sekali pelayanannya."* | `['kendala', 'antre', 'Pembayaran', 'penuh', 'lancar', 'cepat', 'layan']` | **Penyelesaian Masalah**: Memuat kata kendala (*"kendala"*, *"penuh"*) yang memiliki bobot IDF negatif kuat di korpus, mengimbangi kata *"lancar"*. |
+| `#3419` | *"Tidak ada kendala sama sekali saat berobat di cabang, mantap!"* | `['tidak_kendala', 'obat', 'cabang', 'mantap']` | **Negasi Kata Negatif (*Double Negative*)**: Frasa *"tidak ada kendala"* diubah menjadi `tidak_kendala`, yang pada korpus latih belum memiliki asosiasi positif sekuat kata *"mantap"*. |
 
 ---
 
@@ -198,15 +198,15 @@ graph TD
 
 ### 8.2. Kasus Bintang 1 Bernada Pujian (Accidental Low Rating)
 - **Contoh Ulasan**: 
-  > *"Aplikasi nomor satu terbaik, sangat membantu saya saat rujukan berobat ke rumah sakit tanpa perlu antre lama."* (Rating: ⭐)
+  > *"Aplikasi nomor satu terbaik, sangat membantu saya saat rujukan berobat ke kantor cabang tanpa perlu antre lama."* (Rating: ⭐)
 - **Keputusan Sistem**:
   - *Ground Truth Correction*: **Positif**.
   - *Prediksi Naive Bayes*: **Positif (Confidence: 96.1%)**.
   - *Status*: ⚠️ **Mismatch / Anomaly Flagged**.
 
-### 📈 Nilai Manajerial Deteksi Anomali bagi BPJS Kesehatan:
+### 📈 Nilai Manajerial Deteksi Anomali bagi PT Bank Mandiri (Persero) Tbk:
 1. **Audit Akurasi Voice of Customer**: Menghindarkan manajemen dari kepalsuan metrik rating Play Store yang sering terdistorsi oleh komplain berbintang 5.
 2. **Prioritas Penanganan Keluhan**: Tim teknis IT dapat langsung memfilter ulasan dengan tanda ⚠️ *Anomaly* untuk menangani isu kritis yang tersembunyi di balik rating tinggi.
 
 ---
-*Dokumen ini merupakan laporan evaluasi empiris dan verifikasi model resmi proyek Mobile JKN Sentiment Analytics.*
+*Dokumen ini merupakan laporan evaluasi empiris dan verifikasi model resmi proyek Livin' by Mandiri Sentiment Analytics.*

@@ -1,5 +1,5 @@
 # 📊 FASE 3: FLOWCHART & DIAGRAM ARSITEKTUR SISTEM
-## Analisis Sentimen & Data Mining Ulasan Mobile JKN (BPJS Kesehatan)
+## Analisis Sentimen & Data Mining Ulasan Livin' by Mandiri (PT Bank Mandiri Tbk)
 
 ---
 
@@ -17,7 +17,7 @@
 
 ## 1. Pengantar & Gambaran Umum Arsitektur
 
-Dokumen ini menyajikan visualisasi grafis dan representasi struktural sistem analisis sentimen ulasan **Mobile JKN**. Diagram disusun menggunakan format **Mermaid Diagram** yang terintegrasi dengan penjelasan naratif teknis. 
+Dokumen ini menyajikan visualisasi grafis dan representasi struktural sistem analisis sentimen ulasan **Livin' by Mandiri**. Diagram disusun menggunakan format **Mermaid Diagram** yang terintegrasi dengan penjelasan naratif teknis. 
 
 Dokumen ini sangat ideal dijadikan rujukan utama untuk **Bab 3 (Perancangan Sistem)** dan **Bab 4 (Implementasi)** pada penulisan karya ilmiah/skripsi/tesis.
 
@@ -30,14 +30,14 @@ Diagram di bawah menggambarkan arsitektur sistem secara menyeluruh, mulai dari l
 ```mermaid
 flowchart TD
     subgraph Layer_1_Ingestion ["1. Lapisan Pengumpulan Data (Data Acquisition)"]
-        A1["Google Play Store<br>(app.bpjs.mobile)"] -->|scrap-jkn.js| A2["google-play-scraper Engine<br>• Pagination Token<br>• Sort Rotation<br>• Request Jitter Delay"]
+        A1["Google Play Store<br>(app.Bank Mandiri.mobile)"] -->|scrap-livin.js| A2["google-play-scraper Engine<br>• Pagination Token<br>• Sort Rotation<br>• Request Jitter Delay"]
         A2 --> A3[("Raw Storage (data/)<br>• reviews.json<br>• reviews.csv<br>• meta.json")]
     end
 
     subgraph Layer_2_Preparation ["2. Lapisan NLP Preprocessing & Ekstraksi Fitur"]
         A3 --> B1["TextPreprocessor (src/nlp/preprocessor.js)"]
         B0[("Master Data Kamus<br>• emojis.csv<br>• slang.csv (860+)<br>• stopwords.csv<br>• kbbi_wordlist.txt")] --> B1
-        B1 --> B2["Nazief-Adriani Stemmer<br>(ts-sastrawi + BPJS Domain)"]
+        B1 --> B2["Nazief-Adriani Stemmer<br>(ts-sastrawi + Bank Mandiri Domain)"]
         B2 --> B3["Ground Truth Annotator<br>(src/ml/groundTruth.js)"]
         B3 --> B4["TfidfVectorizer (src/ml/vectorizer.js)<br>• Sublinear TF: 1 + ln(TF)<br>• Smooth IDF: ln((1+N)/(1+DF)) + 1<br>• L2-Norm Normalization"]
     end
@@ -62,7 +62,7 @@ flowchart TD
 ```
 
 ### 📖 Narasi Teknis Arsitektur:
-1. **Data Ingestion**: Skrip `scrap-jkn.js` berinteraksi dengan API Google Play Store untuk mengekstrak ribuan ulasan ulasan secara terstruktur. Data mentah diarsipkan di folder `data/<timestamp>/`.
+1. **Data Ingestion**: Skrip `scrap-livin.js` berinteraksi dengan API Google Play Store untuk mengekstrak ribuan ulasan ulasan secara terstruktur. Data mentah diarsipkan di folder `data/<timestamp>/`.
 2. **NLP & Feature Engineering**: Modul `preprocessor.js` mengintegrasikan kamus emoji, slang, dan stemmer Nazief-Adriani untuk menghasilkan token kata bersih. Vektor numerik dibentuk melalui `vectorizer.js`.
 3. **Machine Learning & Evaluasi**: Modul `naiveBayes.js` melatih model probabilitas dengan Laplace Smoothing, sementara `evaluator.js` menjalankan *5-Fold Cross Validation* untuk menguji stabilitas model.
 4. **Executive Dashboard**: Generator `dashboardTemplate.js` menyusun seluruh artefak hasil prediksi menjadi berkas mandiri `dashboard.html` yang dapat langsung dioperasikan di peramban web (*browser*).
@@ -91,7 +91,7 @@ flowchart TD
     Step6B --> Step7
     Step6C --> Step7
 
-    Step7 --> Step8["8. Nazief-Adriani Stemming & Stopwords Filtering<br>• Reduksi kata berimbuhan ke kata dasar (ts-sastrawi)<br>• Proteksi istilah domain BPJS (faskes, antrean, iuran)<br>• Hapus stopwords umum non-sentimen (stopwords.csv)"]
+    Step7 --> Step8["8. Nazief-Adriani Stemming & Stopwords Filtering<br>• Reduksi kata berimbuhan ke kata dasar (ts-sastrawi)<br>• Proteksi istilah domain Bank Mandiri (Pembayaran, Transaksi, Tagihan)<br>• Hapus stopwords umum non-sentimen (stopwords.csv)"]
 
     Step8 --> End([Selesai: Array Token Bersih & Berbobot])
 ```
@@ -100,7 +100,7 @@ flowchart TD
 - **Penerjemahan Emoji & Frasa Retoris**: Dijalankan paling awal sebelum simbol dibersihkan oleh Regex agar nilai sentimen emotikon tidak hilang.
 - **Slang Normalization**: Mengubah bahasa ulasan non-baku menjadi kata baku bahasa Indonesia sebelum proses morfologi.
 - **Clause Splitting & Negation Binding**: Memastikan sentimen tidak terbalik akibat konjungsi majemuk atau kebocoran kata positif yang dinegasikan.
-- **Stemming Nazief-Adriani**: Menggunakan kamus dasar 29.932 kata ditambah kamus domain BPJS untuk menjamin akurasi pemotongan imbuhan (*affix stripping*).
+- **Stemming Nazief-Adriani**: Menggunakan kamus dasar 29.932 kata ditambah kamus domain Bank Mandiri untuk menjamin akurasi pemotongan imbuhan (*affix stripping*).
 
 ---
 
@@ -143,10 +143,10 @@ Context Diagram menggambarkan batas sistem (*system boundary*) serta interaksi a
 
 ```mermaid
 flowchart LR
-    Entity1["Google Play Store<br>(Penyedia Data Publik)"] -->|Data Mentah Ulasan & Rating| System["(0.0)<br>SISTEM ANALISIS SENTIMEN &<br>DATA MINING MOBILE JKN"]
+    Entity1["Google Play Store<br>(Penyedia Data Publik)"] -->|Data Mentah Ulasan & Rating| System["(0.0)<br>SISTEM ANALISIS SENTIMEN &<br>DATA MINING Livin' by Mandiri"]
     System -->|Parameter Scraping & Request| Entity1
     
-    System -->|Executive BI Dashboard HTML,<br>Laporan Metrik & Tren Kepuasan| Entity2["Manajemen BPJS Kesehatan<br>& Tim Customer Care"]
+    System -->|Executive BI Dashboard HTML,<br>Laporan Metrik & Tren Kepuasan| Entity2["Manajemen PT Bank Mandiri (Persero) Tbk<br>& Tim Customer Care"]
     
     Entity3["Data Analyst / Peneliti"] -->|Instruksi CLI (Jumlah Data, Eksekusi)| System
     System -->|File Dataset CSV, JSON,<br>Hasil Evaluasi 5-Fold CV| Entity3
@@ -177,7 +177,7 @@ flowchart TD
 
     DS5 -->|12. Data Metrik| P5["(5.0)<br>Penyusunan Dashboard BI<br>(dashboardTemplate.js)"]
     DS6 -->|13. Data Prediksi & Aspek| P5
-    P5 -->|14. Output File HTML| E2["Executive Dashboard HTML<br>(Untuk Manajemen BPJS)"]
+    P5 -->|14. Output File HTML| E2["Executive Dashboard HTML<br>(Untuk Manajemen Bank Mandiri)"]
 ```
 
 ---
@@ -197,7 +197,7 @@ flowchart TD
     RenderDT --> UserAction{"Pilihan Interaksi Pengguna"}
 
     UserAction -->|"Pencarian Cepat"| Act1["Ketik Kata Kunci pada Search Bar<br>DataTables memfilter baris secara real-time"]
-    UserAction -->|"Filter Dropdown"| Act2["Pilih Filter Spesifik:<br>• Aspek: Autentikasi / Antrean / Server / Iuran<br>• Rating: Bintang 1 s.d. 5<br>• Sentimen: Positif / Negatif<br>• Anomali: Ya / Tidak"]
+    UserAction -->|"Filter Dropdown"| Act2["Pilih Filter Spesifik:<br>• Aspek: Autentikasi / Transaksi / Server / Tagihan<br>• Rating: Bintang 1 s.d. 5<br>• Sentimen: Positif / Negatif<br>• Anomali: Ya / Tidak"]
     UserAction -->|"Klik Baris / Tombol Detail"| Act3["Buka Modal Popup Detail Ulasan<br>• Tampilkan Teks Asli & Teks Bersih<br>• Tampilkan Token NLP Hasil Preprocessing<br>• Tampilkan Probabilitas Posterior & Confidence Score"]
     UserAction -->|"Ekspor Data"| Act4["Klik Tombol Ekspor:<br>• Copy to Clipboard<br>• Unduh Berkas CSV / Excel<br>• Cetak Laporan (Print / PDF)"]
 
@@ -216,4 +216,4 @@ flowchart TD
 - **Responsivitas Tinggi**: Operasi pemfilteran kolom, pencarian kata kunci, dan penyortiran data dijalankan pada memori sisi klien (*client-side memory*) menggunakan pustaka *jQuery DataTables* teroptimasi dengan latensi di bawah 50 milidetik.
 
 ---
-*Dokumen ini merupakan standar arsitektur dan perancangan visual resmi sistem Mobile JKN Sentiment Analytics.*
+*Dokumen ini merupakan standar arsitektur dan perancangan visual resmi sistem Livin' by Mandiri Sentiment Analytics.*

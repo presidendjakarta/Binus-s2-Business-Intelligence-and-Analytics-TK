@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portal Laporan Analisis Sentimen Mobile JKN - BPJS Kesehatan</title>
+  <title>Daftar Laporan Analisis Sentimen Livin' by Mandiri</title>
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,9 +20,9 @@
       --text-muted: #64748b;
       --primary: #2563eb;
       --primary-hover: #1d4ed8;
-      --bpjs: #059669;
-      --bpjs-light: #ecfdf5;
-      --bpjs-dark: #047857;
+      --brand-primary: #00529c;
+      --brand-light: #eff6ff;
+      --brand-dark: #003d75;
       --success: #10b981;
       --danger: #ef4444;
       --warning: #f59e0b;
@@ -65,14 +65,13 @@
       gap: 12px;
     }
     .brand-badge {
-      background: linear-gradient(135deg, var(--bpjs), var(--bpjs-dark));
+      background: linear-gradient(135deg, var(--brand-primary), var(--brand-dark));
       color: #ffffff;
       font-weight: 800;
       padding: 6px 10px;
       border-radius: 6px;
       font-size: 13px;
       letter-spacing: 0.5px;
-      box-shadow: 0 2px 4px rgba(5, 150, 105, 0.2);
     }
     .brand-text h1 {
       font-size: 17px;
@@ -115,93 +114,19 @@
       border-color: #94a3b8;
     }
     .btn-primary {
-      background-color: var(--bpjs);
+      background-color: var(--brand-primary);
       color: #ffffff;
-      box-shadow: 0 2px 4px rgba(5, 150, 105, 0.2);
+      box-shadow: 0 2px 4px rgba(0, 82, 156, 0.2);
     }
     .btn-primary:hover {
-      background-color: var(--bpjs-dark);
-    }
-    .btn-blue {
-      background-color: var(--primary);
-      color: #ffffff;
-    }
-    .btn-blue:hover {
-      background-color: var(--primary-hover);
-    }
-    .btn-sm {
-      padding: 5px 10px;
-      font-size: 12px;
-    }
-
-    /* Hero Banner */
-    .hero {
-      background: linear-gradient(135deg, #064e3b 0%, #059669 50%, #10b981 100%);
-      color: #ffffff;
-      padding: 40px 28px;
-      border-radius: 12px;
-      margin-bottom: 28px;
-      box-shadow: var(--shadow);
-      position: relative;
-      overflow: hidden;
-    }
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      max-width: 800px;
-    }
-    .hero-badge {
-      display: inline-block;
-      background: rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(4px);
-      padding: 4px 10px;
-      border-radius: 20px;
-      font-size: 11.5px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-      margin-bottom: 12px;
-    }
-    .hero h2 {
-      font-size: 26px;
-      font-weight: 800;
-      margin-bottom: 10px;
-      line-height: 1.25;
-    }
-    .hero p {
-      font-size: 14px;
-      color: #e2e8f0;
-      margin-bottom: 20px;
-      line-height: 1.6;
-    }
-    .hero-stats {
-      display: flex;
-      gap: 24px;
-      flex-wrap: wrap;
-    }
-    .hero-stat-item {
-      background: rgba(255, 255, 255, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      padding: 10px 16px;
-      border-radius: 8px;
-      backdrop-filter: blur(4px);
-    }
-    .hero-stat-num {
-      font-size: 20px;
-      font-weight: 800;
-    }
-    .hero-stat-lbl {
-      font-size: 11px;
-      color: #d1fae5;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+      background-color: var(--brand-dark);
     }
 
     /* Main Container */
     .container {
       max-width: 1320px;
       margin: 0 auto;
-      padding: 0 24px 60px;
+      padding: 32px 24px 60px;
     }
 
     /* Section Headers */
@@ -209,22 +134,24 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 18px;
+      margin-bottom: 24px;
       flex-wrap: wrap;
-      gap: 12px;
+      gap: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-color);
     }
     .section-title {
-      font-size: 18px;
+      font-size: 20px;
       font-weight: 800;
       color: var(--text-main);
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
     }
     .section-subtitle {
-      font-size: 13px;
+      font-size: 13.5px;
       color: var(--text-muted);
-      margin-top: 2px;
+      margin-top: 4px;
     }
 
     /* Search & Filter Bar */
@@ -234,25 +161,25 @@
       align-items: center;
     }
     .search-input {
-      padding: 8px 14px;
+      padding: 9px 16px;
       font-size: 13px;
       border: 1px solid var(--border-dark);
-      border-radius: 6px;
+      border-radius: 8px;
       outline: none;
-      width: 240px;
+      width: 280px;
       background: #ffffff;
       transition: all 0.15s ease;
     }
     .search-input:focus {
-      border-color: var(--bpjs);
-      box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.15);
+      border-color: var(--brand-primary);
+      box-shadow: 0 0 0 3px rgba(0, 82, 156, 0.15);
     }
 
     /* Report Cards Grid */
     .reports-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      gap: 22px;
       margin-bottom: 40px;
     }
     @media (max-width: 640px) {
@@ -262,110 +189,116 @@
     .report-card {
       background: #ffffff;
       border: 1px solid var(--border-color);
-      border-radius: 10px;
-      padding: 20px;
-      box-shadow: var(--shadow-sm);
-      transition: all 0.2s ease;
+      border-radius: 12px;
+      padding: 22px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s ease;
       position: relative;
     }
     .report-card:hover {
-      border-color: #cbd5e1;
+      border-color: var(--brand-primary);
       box-shadow: var(--shadow-lg);
-      transform: translateY(-2px);
+      transform: translateY(-3px);
     }
     .report-card.latest-card {
-      border: 2px solid var(--bpjs);
-      background: #ffffff;
+      border: 2px solid var(--brand-primary);
+      background: linear-gradient(180deg, #ffffff 0%, #f0f7ff 100%);
     }
 
     .card-top {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 12px;
+      align-items: center;
+      margin-bottom: 16px;
     }
     .card-folder {
-      font-size: 15px;
       font-weight: 700;
+      font-size: 14px;
       color: var(--text-main);
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
+      font-family: monospace;
     }
     .badge-latest {
-      background: var(--bpjs-light);
-      color: var(--bpjs-dark);
-      border: 1px solid #a7f3d0;
-      font-size: 11px;
+      background: var(--brand-light);
+      color: var(--brand-dark);
       font-weight: 700;
-      padding: 2px 8px;
-      border-radius: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid #bfdbfe;
     }
 
+    /* Metric Pills */
     .metrics-pills {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: 1fr 1fr 1fr;
       gap: 8px;
       background: #f8fafc;
-      border: 1px solid var(--border-color);
+      padding: 12px;
       border-radius: 8px;
-      padding: 10px 12px;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
+      border: 1px solid var(--border-color);
       text-align: center;
     }
     .metric-pill-val {
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 800;
       color: var(--text-main);
+      line-height: 1.2;
     }
     .metric-pill-lbl {
-      font-size: 11px;
+      font-size: 10.5px;
       color: var(--text-muted);
       text-transform: uppercase;
+      font-weight: 600;
+      margin-top: 2px;
     }
 
+    /* Sentiment Track */
     .sentiment-bar-container {
-      margin-bottom: 16px;
+      margin-bottom: 20px;
     }
     .sentiment-bar-label {
       display: flex;
       justify-content: space-between;
-      font-size: 12px;
-      font-weight: 600;
-      margin-bottom: 5px;
+      font-size: 11.5px;
+      font-weight: 700;
+      margin-bottom: 6px;
     }
     .sentiment-bar-track {
       height: 8px;
-      background: #e2e8f0;
+      background: #fee2e2;
       border-radius: 4px;
       overflow: hidden;
       display: flex;
     }
-    .bar-pos { background: var(--bpjs); height: 100%; }
+    .bar-pos { background: var(--success); height: 100%; }
     .bar-neg { background: var(--danger); height: 100%; }
 
     .card-actions {
       display: grid;
       grid-template-columns: 1fr;
       gap: 8px;
-      padding-top: 12px;
+      padding-top: 14px;
       border-top: 1px solid var(--border-color);
     }
     .btn-dashboard {
       width: 100%;
-      background: var(--bpjs);
+      background: var(--brand-primary);
       color: #ffffff;
-      padding: 9px 14px;
+      padding: 10px 14px;
       font-size: 13px;
       font-weight: 700;
+      border-radius: 6px;
     }
     .btn-dashboard:hover {
-      background: var(--bpjs-dark);
+      background: var(--brand-dark);
+      color: #ffffff;
     }
     .sub-actions {
       display: flex;
@@ -375,100 +308,6 @@
       flex: 1;
       padding: 6px 8px;
       font-size: 11.5px;
-    }
-
-    /* Documentation Grid */
-    .docs-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 14px;
-      margin-bottom: 40px;
-    }
-    .doc-item {
-      background: #ffffff;
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 14px 16px;
-      text-decoration: none;
-      color: var(--text-main);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition: all 0.15s ease;
-      box-shadow: var(--shadow-sm);
-    }
-    .doc-item:hover {
-      border-color: var(--bpjs);
-      transform: translateY(-2px);
-      box-shadow: var(--shadow);
-    }
-    .doc-num {
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--bpjs);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 4px;
-    }
-    .doc-title {
-      font-size: 13.5px;
-      font-weight: 700;
-      color: var(--text-main);
-      margin-bottom: 4px;
-    }
-    .doc-desc {
-      font-size: 12px;
-      color: var(--text-muted);
-      line-height: 1.4;
-    }
-
-    /* Terminal CLI Box */
-    .cli-box {
-      background: #0f172a;
-      color: #e2e8f0;
-      border-radius: 10px;
-      padding: 20px 24px;
-      box-shadow: var(--shadow);
-      margin-bottom: 30px;
-    }
-    .cli-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 14px;
-      border-bottom: 1px solid #334155;
-      padding-bottom: 10px;
-    }
-    .cli-title {
-      font-size: 13px;
-      font-weight: 700;
-      color: #94a3b8;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .cli-commands {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 12px;
-    }
-    .cli-item {
-      background: #1e293b;
-      padding: 10px 14px;
-      border-radius: 6px;
-      border: 1px solid #334155;
-    }
-    .cli-code {
-      font-family: monospace;
-      color: #38bdf8;
-      font-weight: 700;
-      font-size: 12.5px;
-      display: block;
-      margin-bottom: 2px;
-    }
-    .cli-desc {
-      font-size: 11px;
-      color: #94a3b8;
     }
 
     /* Footer */
@@ -487,18 +326,15 @@
   <header class="navbar">
     <div class="navbar-container">
       <div class="brand-title">
-        <span class="brand-badge">BPJS</span>
+        <span class="brand-badge">MANDIRI</span>
         <div class="brand-text">
-          <h1>Portal Analisis Sentimen & Data Mining Mobile JKN</h1>
-          <p>Repositori Laporan Eksekutif Business Intelligence & Dokumentasi Akademis</p>
+          <h1>Portal Analisis Sentimen Livin' by Mandiri</h1>
+          <p>Laporan Eksekutif Business Intelligence & Data Mining Ulasan Play Store</p>
         </div>
       </div>
       <div class="navbar-actions">
-        <a href="docs/README.md" class="btn btn-default" title="Buka Pusat Dokumentasi Markdown">
-          📚 Indeks Dokumen
-        </a>
-        <a href="https://play.google.com/store/apps/details?id=app.bpjs.mobile&hl=id" target="_blank" rel="noopener noreferrer" class="btn btn-default" title="Google Play Store Mobile JKN">
-          Play Store ↗
+        <a href="https://play.google.com/store/apps/details?id=id.bmri.livin&hl=id" target="_blank" rel="noopener noreferrer" class="btn btn-default" title="Google Play Store Livin' by Mandiri">
+          Google Play Store ↗
         </a>
       </div>
     </div>
@@ -506,37 +342,7 @@
 
   <main class="container">
     
-    <!-- Hero Banner -->
-    <div class="hero">
-      <div class="hero-content">
-        <div class="hero-badge">Executive BI Portal</div>
-        <h2>Pusat Laporan & Hasil Analisis Sentimen Mobile JKN</h2>
-        <p>
-          Sistem analitik berbasis CRISP-DM yang mengekstraksi opini dari ribuan ulasan Google Play Store 
-          menggunakan pipeline NLP Sastrawi, pembobotan kata TF-IDF, dan klasifikasi Multinomial Naive Bayes.
-        </p>
-        <div class="hero-stats">
-          <div class="hero-stat-item">
-            <div class="hero-stat-num">9</div>
-            <div class="hero-stat-lbl">Total Laporan Selesai</div>
-          </div>
-          <div class="hero-stat-item">
-            <div class="hero-stat-num">93.77%</div>
-            <div class="hero-stat-lbl">Akurasi Model Terbaik</div>
-          </div>
-          <div class="hero-stat-item">
-            <div class="hero-stat-num">4.992</div>
-            <div class="hero-stat-lbl">Data Ulasan Terkumpul</div>
-          </div>
-          <div class="hero-stat-item">
-            <div class="hero-stat-num">3.12 ★</div>
-            <div class="hero-stat-lbl">Rata-rata Rating</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Section 1: Generated Reports List -->
+    <!-- Section: Generated Reports List -->
     <div class="section-header">
       <div>
         <div class="section-title">📊 Daftar Laporan Analisis Eksekutif</div>
@@ -549,618 +355,281 @@
 
     <div class="reports-grid" id="reportsGrid">
       
-        <div class="report-card latest-card" data-name="2026-09-15_20-16">
+        <div class="report-card latest-card" data-name="2026-09-16_14-15">
           <div>
             <div class="card-top">
               <div class="card-folder">
-                📁 <span>2026-09-15_20-16</span>
+                📁 <span>2026-09-16_14-15</span>
               </div>
               <span class="badge-latest">★ Laporan Terbaru</span>
             </div>
 
             <div class="metrics-pills">
               <div>
-                <div class="metric-pill-val" style="color:var(--bpjs);">93.77%</div>
+                <div class="metric-pill-val" style="color:var(--success);">91.48%</div>
                 <div class="metric-pill-lbl">Akurasi</div>
               </div>
               <div>
-                <div class="metric-pill-val" style="color:var(--primary);">93.76%</div>
+                <div class="metric-pill-val" style="color:var(--primary);">89.84%</div>
                 <div class="metric-pill-lbl">Macro F1</div>
               </div>
               <div>
-                <div class="metric-pill-val">4.992</div>
+                <div class="metric-pill-val">37.053</div>
                 <div class="metric-pill-lbl">Ulasan</div>
               </div>
             </div>
 
             <div class="sentiment-bar-container">
               <div class="sentiment-bar-label">
-                <span style="color:var(--bpjs);">48.9% Positif</span>
-                <span style="color:var(--text-muted); font-size:11px;">NSS: -2.2%</span>
-                <span style="color:var(--danger);">51.1% Negatif</span>
+                <span style="color:var(--success);">30.2% Positif</span>
+                <span style="color:var(--text-muted); font-size:11px;">NSS: -39.5%</span>
+                <span style="color:var(--danger);">69.8% Negatif</span>
               </div>
               <div class="sentiment-bar-track">
-                <div class="bar-pos" style="width:48.9%;"></div>
-                <div class="bar-neg" style="width:51.1%;"></div>
+                <div class="bar-pos" style="width:30.2%;"></div>
+                <div class="bar-neg" style="width:69.8%;"></div>
               </div>
             </div>
           </div>
 
           <div class="card-actions">
-            <a href="report/2026-09-15_20-16/dashboard.html" class="btn btn-dashboard">
+            <a href="report/2026-09-16_14-15/dashboard.html" class="btn btn-dashboard">
               📊 Buka Interactive Dashboard ➔
             </a>
             <div class="sub-actions">
-              <a href="report/2026-09-15_20-16/predictions.csv" download class="btn btn-default" title="Unduh hasil prediksi format CSV">
+              <a href="report/2026-09-16_14-15/predictions.csv" download class="btn btn-default" title="Unduh hasil prediksi format CSV">
                 ⬇️ CSV Data
               </a>
-              <a href="report/2026-09-15_20-16/predictions.json" target="_blank" class="btn btn-default" title="Buka predictions.json">
+              <a href="report/2026-09-16_14-15/predictions.json" target="_blank" class="btn btn-default" title="Buka predictions.json">
                 📦 JSON Raw
               </a>
-              <a href="report/2026-09-15_20-16/metrics.json" target="_blank" class="btn btn-default" title="Buka metrics.json">
+              <a href="report/2026-09-16_14-15/metrics.json" target="_blank" class="btn btn-default" title="Buka metrics.json">
                 📈 Metrik
               </a>
             </div>
           </div>
         </div>
         
-        <div class="report-card " data-name="2026-09-15_20-11">
+        <div class="report-card " data-name="2026-09-16_14-12">
           <div>
             <div class="card-top">
               <div class="card-folder">
-                📁 <span>2026-09-15_20-11</span>
+                📁 <span>2026-09-16_14-12</span>
               </div>
               
             </div>
 
             <div class="metrics-pills">
               <div>
-                <div class="metric-pill-val" style="color:var(--bpjs);">93.37%</div>
+                <div class="metric-pill-val" style="color:var(--success);">91.48%</div>
                 <div class="metric-pill-lbl">Akurasi</div>
               </div>
               <div>
-                <div class="metric-pill-val" style="color:var(--primary);">93.36%</div>
+                <div class="metric-pill-val" style="color:var(--primary);">89.84%</div>
                 <div class="metric-pill-lbl">Macro F1</div>
               </div>
               <div>
-                <div class="metric-pill-val">4.992</div>
+                <div class="metric-pill-val">37.053</div>
                 <div class="metric-pill-lbl">Ulasan</div>
               </div>
             </div>
 
             <div class="sentiment-bar-container">
               <div class="sentiment-bar-label">
-                <span style="color:var(--bpjs);">47.9% Positif</span>
-                <span style="color:var(--text-muted); font-size:11px;">NSS: -4.2%</span>
-                <span style="color:var(--danger);">52.1% Negatif</span>
+                <span style="color:var(--success);">30.2% Positif</span>
+                <span style="color:var(--text-muted); font-size:11px;">NSS: -39.5%</span>
+                <span style="color:var(--danger);">69.8% Negatif</span>
               </div>
               <div class="sentiment-bar-track">
-                <div class="bar-pos" style="width:47.9%;"></div>
-                <div class="bar-neg" style="width:52.1%;"></div>
+                <div class="bar-pos" style="width:30.2%;"></div>
+                <div class="bar-neg" style="width:69.8%;"></div>
               </div>
             </div>
           </div>
 
           <div class="card-actions">
-            <a href="report/2026-09-15_20-11/dashboard.html" class="btn btn-dashboard">
+            <a href="report/2026-09-16_14-12/dashboard.html" class="btn btn-dashboard">
               📊 Buka Interactive Dashboard ➔
             </a>
             <div class="sub-actions">
-              <a href="report/2026-09-15_20-11/predictions.csv" download class="btn btn-default" title="Unduh hasil prediksi format CSV">
+              <a href="report/2026-09-16_14-12/predictions.csv" download class="btn btn-default" title="Unduh hasil prediksi format CSV">
                 ⬇️ CSV Data
               </a>
-              <a href="report/2026-09-15_20-11/predictions.json" target="_blank" class="btn btn-default" title="Buka predictions.json">
+              <a href="report/2026-09-16_14-12/predictions.json" target="_blank" class="btn btn-default" title="Buka predictions.json">
                 📦 JSON Raw
               </a>
-              <a href="report/2026-09-15_20-11/metrics.json" target="_blank" class="btn btn-default" title="Buka metrics.json">
+              <a href="report/2026-09-16_14-12/metrics.json" target="_blank" class="btn btn-default" title="Buka metrics.json">
                 📈 Metrik
               </a>
             </div>
           </div>
         </div>
         
-        <div class="report-card " data-name="2026-09-15_20-08">
+        <div class="report-card " data-name="2026-09-16_14-10">
           <div>
             <div class="card-top">
               <div class="card-folder">
-                📁 <span>2026-09-15_20-08</span>
+                📁 <span>2026-09-16_14-10</span>
               </div>
               
             </div>
 
             <div class="metrics-pills">
               <div>
-                <div class="metric-pill-val" style="color:var(--bpjs);">93.17%</div>
+                <div class="metric-pill-val" style="color:var(--success);">91.45%</div>
                 <div class="metric-pill-lbl">Akurasi</div>
               </div>
               <div>
-                <div class="metric-pill-val" style="color:var(--primary);">93.16%</div>
+                <div class="metric-pill-val" style="color:var(--primary);">89.8%</div>
                 <div class="metric-pill-lbl">Macro F1</div>
               </div>
               <div>
-                <div class="metric-pill-val">4.992</div>
+                <div class="metric-pill-val">37.045</div>
                 <div class="metric-pill-lbl">Ulasan</div>
               </div>
             </div>
 
             <div class="sentiment-bar-container">
               <div class="sentiment-bar-label">
-                <span style="color:var(--bpjs);">48.1% Positif</span>
-                <span style="color:var(--text-muted); font-size:11px;">NSS: -3.8%</span>
-                <span style="color:var(--danger);">51.9% Negatif</span>
+                <span style="color:var(--success);">30.3% Positif</span>
+                <span style="color:var(--text-muted); font-size:11px;">NSS: -39.5%</span>
+                <span style="color:var(--danger);">69.7% Negatif</span>
               </div>
               <div class="sentiment-bar-track">
-                <div class="bar-pos" style="width:48.1%;"></div>
-                <div class="bar-neg" style="width:51.9%;"></div>
+                <div class="bar-pos" style="width:30.3%;"></div>
+                <div class="bar-neg" style="width:69.7%;"></div>
               </div>
             </div>
           </div>
 
           <div class="card-actions">
-            <a href="report/2026-09-15_20-08/dashboard.html" class="btn btn-dashboard">
+            <a href="report/2026-09-16_14-10/dashboard.html" class="btn btn-dashboard">
               📊 Buka Interactive Dashboard ➔
             </a>
             <div class="sub-actions">
-              <a href="report/2026-09-15_20-08/predictions.csv" download class="btn btn-default" title="Unduh hasil prediksi format CSV">
+              <a href="report/2026-09-16_14-10/predictions.csv" download class="btn btn-default" title="Unduh hasil prediksi format CSV">
                 ⬇️ CSV Data
               </a>
-              <a href="report/2026-09-15_20-08/predictions.json" target="_blank" class="btn btn-default" title="Buka predictions.json">
+              <a href="report/2026-09-16_14-10/predictions.json" target="_blank" class="btn btn-default" title="Buka predictions.json">
                 📦 JSON Raw
               </a>
-              <a href="report/2026-09-15_20-08/metrics.json" target="_blank" class="btn btn-default" title="Buka metrics.json">
+              <a href="report/2026-09-16_14-10/metrics.json" target="_blank" class="btn btn-default" title="Buka metrics.json">
                 📈 Metrik
               </a>
             </div>
           </div>
         </div>
         
-        <div class="report-card " data-name="2026-09-15_20-05">
+        <div class="report-card " data-name="2026-09-16_14-07">
           <div>
             <div class="card-top">
               <div class="card-folder">
-                📁 <span>2026-09-15_20-05</span>
+                📁 <span>2026-09-16_14-07</span>
               </div>
               
             </div>
 
             <div class="metrics-pills">
               <div>
-                <div class="metric-pill-val" style="color:var(--bpjs);">93.08%</div>
+                <div class="metric-pill-val" style="color:var(--success);">91.45%</div>
                 <div class="metric-pill-lbl">Akurasi</div>
               </div>
               <div>
-                <div class="metric-pill-val" style="color:var(--primary);">93.08%</div>
+                <div class="metric-pill-val" style="color:var(--primary);">89.8%</div>
                 <div class="metric-pill-lbl">Macro F1</div>
               </div>
               <div>
-                <div class="metric-pill-val">4.985</div>
+                <div class="metric-pill-val">37.045</div>
                 <div class="metric-pill-lbl">Ulasan</div>
               </div>
             </div>
 
             <div class="sentiment-bar-container">
               <div class="sentiment-bar-label">
-                <span style="color:var(--bpjs);">48.4% Positif</span>
-                <span style="color:var(--text-muted); font-size:11px;">NSS: -3.3%</span>
-                <span style="color:var(--danger);">51.6% Negatif</span>
+                <span style="color:var(--success);">30.3% Positif</span>
+                <span style="color:var(--text-muted); font-size:11px;">NSS: -39.5%</span>
+                <span style="color:var(--danger);">69.7% Negatif</span>
               </div>
               <div class="sentiment-bar-track">
-                <div class="bar-pos" style="width:48.4%;"></div>
-                <div class="bar-neg" style="width:51.6%;"></div>
+                <div class="bar-pos" style="width:30.3%;"></div>
+                <div class="bar-neg" style="width:69.7%;"></div>
               </div>
             </div>
           </div>
 
           <div class="card-actions">
-            <a href="report/2026-09-15_20-05/dashboard.html" class="btn btn-dashboard">
+            <a href="report/2026-09-16_14-07/dashboard.html" class="btn btn-dashboard">
               📊 Buka Interactive Dashboard ➔
             </a>
             <div class="sub-actions">
-              <a href="report/2026-09-15_20-05/predictions.csv" download class="btn btn-default" title="Unduh hasil prediksi format CSV">
+              <a href="report/2026-09-16_14-07/predictions.csv" download class="btn btn-default" title="Unduh hasil prediksi format CSV">
                 ⬇️ CSV Data
               </a>
-              <a href="report/2026-09-15_20-05/predictions.json" target="_blank" class="btn btn-default" title="Buka predictions.json">
+              <a href="report/2026-09-16_14-07/predictions.json" target="_blank" class="btn btn-default" title="Buka predictions.json">
                 📦 JSON Raw
               </a>
-              <a href="report/2026-09-15_20-05/metrics.json" target="_blank" class="btn btn-default" title="Buka metrics.json">
+              <a href="report/2026-09-16_14-07/metrics.json" target="_blank" class="btn btn-default" title="Buka metrics.json">
                 📈 Metrik
               </a>
             </div>
           </div>
         </div>
         
-        <div class="report-card " data-name="2026-09-15_19-58">
+        <div class="report-card " data-name="2026-09-16_13-55">
           <div>
             <div class="card-top">
               <div class="card-folder">
-                📁 <span>2026-09-15_19-58</span>
+                📁 <span>2026-09-16_13-55</span>
               </div>
               
             </div>
 
             <div class="metrics-pills">
               <div>
-                <div class="metric-pill-val" style="color:var(--bpjs);">93.08%</div>
+                <div class="metric-pill-val" style="color:var(--success);">90.03%</div>
                 <div class="metric-pill-lbl">Akurasi</div>
               </div>
               <div>
-                <div class="metric-pill-val" style="color:var(--primary);">93.08%</div>
+                <div class="metric-pill-val" style="color:var(--primary);">64.9%</div>
                 <div class="metric-pill-lbl">Macro F1</div>
               </div>
               <div>
-                <div class="metric-pill-val">4.985</div>
+                <div class="metric-pill-val">4.986</div>
                 <div class="metric-pill-lbl">Ulasan</div>
               </div>
             </div>
 
             <div class="sentiment-bar-container">
               <div class="sentiment-bar-label">
-                <span style="color:var(--bpjs);">48.4% Positif</span>
-                <span style="color:var(--text-muted); font-size:11px;">NSS: -3.3%</span>
-                <span style="color:var(--danger);">51.6% Negatif</span>
+                <span style="color:var(--success);">10.6% Positif</span>
+                <span style="color:var(--text-muted); font-size:11px;">NSS: -78.8%</span>
+                <span style="color:var(--danger);">89.4% Negatif</span>
               </div>
               <div class="sentiment-bar-track">
-                <div class="bar-pos" style="width:48.4%;"></div>
-                <div class="bar-neg" style="width:51.6%;"></div>
+                <div class="bar-pos" style="width:10.6%;"></div>
+                <div class="bar-neg" style="width:89.4%;"></div>
               </div>
             </div>
           </div>
 
           <div class="card-actions">
-            <a href="report/2026-09-15_19-58/dashboard.html" class="btn btn-dashboard">
+            <a href="report/2026-09-16_13-55/dashboard.html" class="btn btn-dashboard">
               📊 Buka Interactive Dashboard ➔
             </a>
             <div class="sub-actions">
-              <a href="report/2026-09-15_19-58/predictions.csv" download class="btn btn-default" title="Unduh hasil prediksi format CSV">
+              <a href="report/2026-09-16_13-55/predictions.csv" download class="btn btn-default" title="Unduh hasil prediksi format CSV">
                 ⬇️ CSV Data
               </a>
-              <a href="report/2026-09-15_19-58/predictions.json" target="_blank" class="btn btn-default" title="Buka predictions.json">
+              <a href="report/2026-09-16_13-55/predictions.json" target="_blank" class="btn btn-default" title="Buka predictions.json">
                 📦 JSON Raw
               </a>
-              <a href="report/2026-09-15_19-58/metrics.json" target="_blank" class="btn btn-default" title="Buka metrics.json">
+              <a href="report/2026-09-16_13-55/metrics.json" target="_blank" class="btn btn-default" title="Buka metrics.json">
                 📈 Metrik
               </a>
             </div>
           </div>
         </div>
         
-        <div class="report-card " data-name="2026-09-15_19-56">
-          <div>
-            <div class="card-top">
-              <div class="card-folder">
-                📁 <span>2026-09-15_19-56</span>
-              </div>
-              
-            </div>
-
-            <div class="metrics-pills">
-              <div>
-                <div class="metric-pill-val" style="color:var(--bpjs);">89.71%</div>
-                <div class="metric-pill-lbl">Akurasi</div>
-              </div>
-              <div>
-                <div class="metric-pill-val" style="color:var(--primary);">60.98%</div>
-                <div class="metric-pill-lbl">Macro F1</div>
-              </div>
-              <div>
-                <div class="metric-pill-val">4.985</div>
-                <div class="metric-pill-lbl">Ulasan</div>
-              </div>
-            </div>
-
-            <div class="sentiment-bar-container">
-              <div class="sentiment-bar-label">
-                <span style="color:var(--bpjs);">48.8% Positif</span>
-                <span style="color:var(--text-muted); font-size:11px;">NSS: -2.4%</span>
-                <span style="color:var(--danger);">51.2% Negatif</span>
-              </div>
-              <div class="sentiment-bar-track">
-                <div class="bar-pos" style="width:48.8%;"></div>
-                <div class="bar-neg" style="width:51.2%;"></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="card-actions">
-            <a href="report/2026-09-15_19-56/dashboard.html" class="btn btn-dashboard">
-              📊 Buka Interactive Dashboard ➔
-            </a>
-            <div class="sub-actions">
-              <a href="report/2026-09-15_19-56/predictions.csv" download class="btn btn-default" title="Unduh hasil prediksi format CSV">
-                ⬇️ CSV Data
-              </a>
-              <a href="report/2026-09-15_19-56/predictions.json" target="_blank" class="btn btn-default" title="Buka predictions.json">
-                📦 JSON Raw
-              </a>
-              <a href="report/2026-09-15_19-56/metrics.json" target="_blank" class="btn btn-default" title="Buka metrics.json">
-                📈 Metrik
-              </a>
-            </div>
-          </div>
-        </div>
-        
-        <div class="report-card " data-name="2026-09-15_19-18">
-          <div>
-            <div class="card-top">
-              <div class="card-folder">
-                📁 <span>2026-09-15_19-18</span>
-              </div>
-              
-            </div>
-
-            <div class="metrics-pills">
-              <div>
-                <div class="metric-pill-val" style="color:var(--bpjs);">92.18%</div>
-                <div class="metric-pill-lbl">Akurasi</div>
-              </div>
-              <div>
-                <div class="metric-pill-val" style="color:var(--primary);">92.17%</div>
-                <div class="metric-pill-lbl">Macro F1</div>
-              </div>
-              <div>
-                <div class="metric-pill-val">4.985</div>
-                <div class="metric-pill-lbl">Ulasan</div>
-              </div>
-            </div>
-
-            <div class="sentiment-bar-container">
-              <div class="sentiment-bar-label">
-                <span style="color:var(--bpjs);">49.3% Positif</span>
-                <span style="color:var(--text-muted); font-size:11px;">NSS: -1.5%</span>
-                <span style="color:var(--danger);">50.7% Negatif</span>
-              </div>
-              <div class="sentiment-bar-track">
-                <div class="bar-pos" style="width:49.3%;"></div>
-                <div class="bar-neg" style="width:50.7%;"></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="card-actions">
-            <a href="report/2026-09-15_19-18/dashboard.html" class="btn btn-dashboard">
-              📊 Buka Interactive Dashboard ➔
-            </a>
-            <div class="sub-actions">
-              <a href="report/2026-09-15_19-18/predictions.csv" download class="btn btn-default" title="Unduh hasil prediksi format CSV">
-                ⬇️ CSV Data
-              </a>
-              <a href="report/2026-09-15_19-18/predictions.json" target="_blank" class="btn btn-default" title="Buka predictions.json">
-                📦 JSON Raw
-              </a>
-              <a href="report/2026-09-15_19-18/metrics.json" target="_blank" class="btn btn-default" title="Buka metrics.json">
-                📈 Metrik
-              </a>
-            </div>
-          </div>
-        </div>
-        
-        <div class="report-card " data-name="2026-09-15_19-16">
-          <div>
-            <div class="card-top">
-              <div class="card-folder">
-                📁 <span>2026-09-15_19-16</span>
-              </div>
-              
-            </div>
-
-            <div class="metrics-pills">
-              <div>
-                <div class="metric-pill-val" style="color:var(--bpjs);">91.61%</div>
-                <div class="metric-pill-lbl">Akurasi</div>
-              </div>
-              <div>
-                <div class="metric-pill-val" style="color:var(--primary);">91.61%</div>
-                <div class="metric-pill-lbl">Macro F1</div>
-              </div>
-              <div>
-                <div class="metric-pill-val">4.985</div>
-                <div class="metric-pill-lbl">Ulasan</div>
-              </div>
-            </div>
-
-            <div class="sentiment-bar-container">
-              <div class="sentiment-bar-label">
-                <span style="color:var(--bpjs);">49.4% Positif</span>
-                <span style="color:var(--text-muted); font-size:11px;">NSS: -1.2%</span>
-                <span style="color:var(--danger);">50.6% Negatif</span>
-              </div>
-              <div class="sentiment-bar-track">
-                <div class="bar-pos" style="width:49.4%;"></div>
-                <div class="bar-neg" style="width:50.6%;"></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="card-actions">
-            <a href="report/2026-09-15_19-16/dashboard.html" class="btn btn-dashboard">
-              📊 Buka Interactive Dashboard ➔
-            </a>
-            <div class="sub-actions">
-              <a href="report/2026-09-15_19-16/predictions.csv" download class="btn btn-default" title="Unduh hasil prediksi format CSV">
-                ⬇️ CSV Data
-              </a>
-              <a href="report/2026-09-15_19-16/predictions.json" target="_blank" class="btn btn-default" title="Buka predictions.json">
-                📦 JSON Raw
-              </a>
-              <a href="report/2026-09-15_19-16/metrics.json" target="_blank" class="btn btn-default" title="Buka metrics.json">
-                📈 Metrik
-              </a>
-            </div>
-          </div>
-        </div>
-        
-        <div class="report-card " data-name="2026-09-13_15-28">
-          <div>
-            <div class="card-top">
-              <div class="card-folder">
-                📁 <span>2026-09-13_15-28</span>
-              </div>
-              
-            </div>
-
-            <div class="metrics-pills">
-              <div>
-                <div class="metric-pill-val" style="color:var(--bpjs);">91.51%</div>
-                <div class="metric-pill-lbl">Akurasi</div>
-              </div>
-              <div>
-                <div class="metric-pill-val" style="color:var(--primary);">91.51%</div>
-                <div class="metric-pill-lbl">Macro F1</div>
-              </div>
-              <div>
-                <div class="metric-pill-val">4.985</div>
-                <div class="metric-pill-lbl">Ulasan</div>
-              </div>
-            </div>
-
-            <div class="sentiment-bar-container">
-              <div class="sentiment-bar-label">
-                <span style="color:var(--bpjs);">49.4% Positif</span>
-                <span style="color:var(--text-muted); font-size:11px;">NSS: -1.2%</span>
-                <span style="color:var(--danger);">50.6% Negatif</span>
-              </div>
-              <div class="sentiment-bar-track">
-                <div class="bar-pos" style="width:49.4%;"></div>
-                <div class="bar-neg" style="width:50.6%;"></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="card-actions">
-            <a href="report/2026-09-13_15-28/dashboard.html" class="btn btn-dashboard">
-              📊 Buka Interactive Dashboard ➔
-            </a>
-            <div class="sub-actions">
-              <a href="report/2026-09-13_15-28/predictions.csv" download class="btn btn-default" title="Unduh hasil prediksi format CSV">
-                ⬇️ CSV Data
-              </a>
-              <a href="report/2026-09-13_15-28/predictions.json" target="_blank" class="btn btn-default" title="Buka predictions.json">
-                📦 JSON Raw
-              </a>
-              <a href="report/2026-09-13_15-28/metrics.json" target="_blank" class="btn btn-default" title="Buka metrics.json">
-                📈 Metrik
-              </a>
-            </div>
-          </div>
-        </div>
-        
-    </div>
-
-    <!-- Section 2: Command Center Box -->
-    <div class="cli-box">
-      <div class="cli-header">
-        <div class="cli-title">⚡ Perintah Cepat Terminal (CLI Command Center)</div>
-        <span style="font-size:11.5px; color:#64748b;">Node.js v18+</span>
-      </div>
-      <div class="cli-commands">
-        <div class="cli-item">
-          <code class="cli-code">npm run scrape</code>
-          <div class="cli-desc">Scraping ulasan terbaru dari Google Play Store</div>
-        </div>
-        <div class="cli-item">
-          <code class="cli-code">npm run analyze</code>
-          <div class="cli-desc">Jalankan NLP, Training Naive Bayes, & buat report baru</div>
-        </div>
-        <div class="cli-item">
-          <code class="cli-code">npm run report</code>
-          <div class="cli-desc">Buka laporan dashboard terbaru langsung di browser</div>
-        </div>
-        <div class="cli-item">
-          <code class="cli-code">npm test</code>
-          <div class="cli-desc">Jalankan unit testing pipeline preprocessing NLP</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Section 3: Academic Documentation Index -->
-    <div class="section-header">
-      <div>
-        <div class="section-title">📚 Pusat Dokumentasi Akademis (Skripsi / Tesis)</div>
-        <div class="section-subtitle">Dokumentasi lengkap standar CRISP-DM dari Bab 1 hingga Bab 5</div>
-      </div>
-      <a href="docs/README.md" class="btn btn-default btn-sm">Lihat Seluruh Dokumen ➔</a>
-    </div>
-
-    <div class="docs-grid">
-      <a href="docs/01_metodologi_crisp_dm.md" class="doc-item">
-        <div>
-          <div class="doc-num">Fase 1 &bull; Bab 3</div>
-          <div class="doc-title">Metodologi CRISP-DM</div>
-          <div class="doc-desc">6 tahapan standar riset data mining dan pemetaan source code.</div>
-        </div>
-      </a>
-
-      <a href="docs/02_algoritma_dan_matematika.md" class="doc-item">
-        <div>
-          <div class="doc-num">Fase 2 &bull; Bab 2 & 4</div>
-          <div class="doc-title">Algoritma & Matematika</div>
-          <div class="doc-desc">Penurunan rumus TF-IDF, Laplace Smoothing, dan Softmax.</div>
-        </div>
-      </a>
-
-      <a href="docs/03_flowchart_dan_arsitektur.md" class="doc-item">
-        <div>
-          <div class="doc-num">Fase 3 &bull; Bab 3 & 4</div>
-          <div class="doc-title">Flowchart & Arsitektur</div>
-          <div class="doc-desc">Visualisasi arsitektur sistem, 8-step NLP pipeline, dan DFD.</div>
-        </div>
-      </a>
-
-      <a href="docs/04_kamus_data_dan_skema.md" class="doc-item">
-        <div>
-          <div class="doc-num">Fase 4 &bull; Bab 3</div>
-          <div class="doc-title">Kamus Data & Skema</div>
-          <div class="doc-desc">Struktur skema dataset input, master leksikon, dan prediksi.</div>
-        </div>
-      </a>
-
-      <a href="docs/05_evaluasi_dan_eksperimen.md" class="doc-item">
-        <div>
-          <div class="doc-num">Fase 5 &bull; Bab 4</div>
-          <div class="doc-title">Evaluasi & Eksperimen</div>
-          <div class="doc-desc">Pengujian 5-Fold Cross Validation dan Confusion Matrix.</div>
-        </div>
-      </a>
-
-      <a href="docs/06_analisis_bisnis_rekomendasi.md" class="doc-item">
-        <div>
-          <div class="doc-num">Fase 6 &bull; Bab 5</div>
-          <div class="doc-title">Analisis Bisnis & Saran</div>
-          <div class="doc-desc">Voice of Customer, 4 pilar aspek, dan action plan BPJS.</div>
-        </div>
-      </a>
-
-      <a href="docs/07_cheat_sheet_sidang_qna.md" class="doc-item">
-        <div>
-          <div class="doc-num">Fase 7 &bull; Ujian Sidang</div>
-          <div class="doc-title">Cheat Sheet Sidang Q&A</div>
-          <div class="doc-desc">14+ tanya-jawab kritis dosen penguji dan glosarium istilah.</div>
-        </div>
-      </a>
-
-      <a href="docs/08_panduan_penggunaan_cli.md" class="doc-item">
-        <div>
-          <div class="doc-num">Fase 8 &bull; User Manual</div>
-          <div class="doc-title">Panduan Penggunaan CLI</div>
-          <div class="doc-desc">Langkah eksekusi script scraper, analisis, dan dashboard.</div>
-        </div>
-      </a>
-
-      <a href="docs/09_dokumentasi_kode_dan_script.md" class="doc-item">
-        <div>
-          <div class="doc-num">Fase 9 &bull; Teknis</div>
-          <div class="doc-title">Dokumentasi Kode & Script</div>
-          <div class="doc-desc">Bedah arsitektur seluruh file .js, fungsi, dan API matrix.</div>
-        </div>
-      </a>
-
-      <a href="docs/10_studi_kasus_sarkasme_dan_anomali.md" class="doc-item">
-        <div>
-          <div class="doc-num">Fase 10 &bull; Studi Kasus</div>
-          <div class="doc-title">Studi Kasus Sarkasme</div>
-          <div class="doc-desc">Bedah ulasan sarkasme nyata dan inferensi Naive Bayes.</div>
-        </div>
-      </a>
     </div>
 
   </main>
@@ -1168,12 +637,12 @@
   <!-- Footer -->
   <footer class="footer">
     <div class="container">
-      Mobile JKN Sentiment Analytics & Data Mining System &bull; BPJS Kesehatan Case Study
+      Livin' by Mandiri Sentiment Analytics & Data Mining System &bull; PT Bank Mandiri (Persero) Tbk Case Study
     </div>
   </footer>
 
   <script>
-    const ALL_REPORTS = [{"folder":"2026-09-15_20-16","isLatest":true,"metrics":{"totalSamples":4990,"accuracy":93.77,"macroPrecision":94.02,"macroRecall":93.84,"macroF1":93.76,"confusionMatrix":{"matrix":{"Positif":{"Positif":2280,"Negatif":260},"Negatif":{"Positif":51,"Negatif":2399}},"tp":2280,"fp":51,"tn":2399,"fn":260},"classMetrics":{"Positif":{"support":2540,"tp":2280,"fp":51,"fn":260,"precision":97.81,"recall":89.76,"f1":93.62},"Negatif":{"support":2450,"tp":2399,"fp":260,"fn":51,"precision":90.22,"recall":97.92,"f1":93.91}},"kFolds":5,"meanAccuracy":93.77,"stdAccuracy":0.4,"foldMetrics":[{"totalSamples":998,"accuracy":93.09,"macroPrecision":93.96,"macroRecall":92.39,"macroF1":92.89,"confusionMatrix":{"matrix":{"Positif":{"Positif":382,"Negatif":61},"Negatif":{"Positif":8,"Negatif":547}},"tp":382,"fp":8,"tn":547,"fn":61},"classMetrics":{"Positif":{"support":443,"tp":382,"fp":8,"fn":61,"precision":97.95,"recall":86.23,"f1":91.72},"Negatif":{"support":555,"tp":547,"fp":61,"fn":8,"precision":89.97,"recall":98.56,"f1":94.07}}},{"totalSamples":998,"accuracy":93.79,"macroPrecision":94.11,"macroRecall":93.73,"macroF1":93.77,"confusionMatrix":{"matrix":{"Positif":{"Positif":441,"Negatif":51},"Negatif":{"Positif":11,"Negatif":495}},"tp":441,"fp":11,"tn":495,"fn":51},"classMetrics":{"Positif":{"support":492,"tp":441,"fp":11,"fn":51,"precision":97.57,"recall":89.63,"f1":93.43},"Negatif":{"support":506,"tp":495,"fp":51,"fn":11,"precision":90.66,"recall":97.83,"f1":94.11}}},{"totalSamples":998,"accuracy":94.29,"macroPrecision":94.56,"macroRecall":94.22,"macroF1":94.27,"confusionMatrix":{"matrix":{"Positif":{"Positif":444,"Negatif":46},"Negatif":{"Positif":11,"Negatif":497}},"tp":444,"fp":11,"tn":497,"fn":46},"classMetrics":{"Positif":{"support":490,"tp":444,"fp":11,"fn":46,"precision":97.58,"recall":90.61,"f1":93.97},"Negatif":{"support":508,"tp":497,"fp":46,"fn":11,"precision":91.53,"recall":97.83,"f1":94.58}}},{"totalSamples":998,"accuracy":93.69,"macroPrecision":93.47,"macroRecall":94.19,"macroF1":93.63,"confusionMatrix":{"matrix":{"Positif":{"Positif":513,"Negatif":54},"Negatif":{"Positif":9,"Negatif":422}},"tp":513,"fp":9,"tn":422,"fn":54},"classMetrics":{"Positif":{"support":567,"tp":513,"fp":9,"fn":54,"precision":98.28,"recall":90.48,"f1":94.21},"Negatif":{"support":431,"tp":422,"fp":54,"fn":9,"precision":88.66,"recall":97.91,"f1":93.05}}},{"totalSamples":998,"accuracy":93.99,"macroPrecision":93.89,"macroRecall":94.29,"macroF1":93.96,"confusionMatrix":{"matrix":{"Positif":{"Positif":500,"Negatif":48},"Negatif":{"Positif":12,"Negatif":438}},"tp":500,"fp":12,"tn":438,"fn":48},"classMetrics":{"Positif":{"support":548,"tp":500,"fp":12,"fn":48,"precision":97.66,"recall":91.24,"f1":94.34},"Negatif":{"support":450,"tp":438,"fp":48,"fn":12,"precision":90.12,"recall":97.33,"f1":93.59}}}]},"summary":{"totalReviews":4992,"avgRating":3.12,"netSentimentScore":-2.2,"positiveCount":2441,"positivePercent":48.9,"negativeCount":2551,"negativePercent":51.1,"vocabularySize":21926,"totalThumbsUp":526,"modelAccuracy":93.77,"modelMacroF1":93.76}},{"folder":"2026-09-15_20-11","isLatest":false,"metrics":{"totalSamples":4990,"accuracy":93.37,"macroPrecision":93.55,"macroRecall":93.43,"macroF1":93.36,"confusionMatrix":{"matrix":{"Positif":{"Positif":2282,"Negatif":258},"Negatif":{"Positif":73,"Negatif":2377}},"tp":2282,"fp":73,"tn":2377,"fn":258},"classMetrics":{"Positif":{"support":2540,"tp":2282,"fp":73,"fn":258,"precision":96.9,"recall":89.84,"f1":93.24},"Negatif":{"support":2450,"tp":2377,"fp":258,"fn":73,"precision":90.21,"recall":97.02,"f1":93.49}}},"summary":{"totalReviews":4992,"avgRating":3.12,"netSentimentScore":-4.2,"positiveCount":2390,"positivePercent":47.9,"negativeCount":2602,"negativePercent":52.1,"vocabularySize":1454,"totalThumbsUp":526}},{"folder":"2026-09-15_20-08","isLatest":false,"metrics":{"totalSamples":4990,"accuracy":93.17,"macroPrecision":93.34,"macroRecall":93.23,"macroF1":93.16,"confusionMatrix":{"matrix":{"Positif":{"Positif":2281,"Negatif":259},"Negatif":{"Positif":82,"Negatif":2368}},"tp":2281,"fp":82,"tn":2368,"fn":259},"classMetrics":{"Positif":{"support":2540,"tp":2281,"fp":82,"fn":259,"precision":96.53,"recall":89.8,"f1":93.05},"Negatif":{"support":2450,"tp":2368,"fp":259,"fn":82,"precision":90.14,"recall":96.65,"f1":93.28}}},"summary":{"totalReviews":4992,"avgRating":3.12,"netSentimentScore":-3.8,"positiveCount":2401,"positivePercent":48.1,"negativeCount":2591,"negativePercent":51.9,"vocabularySize":1453,"totalThumbsUp":526}},{"folder":"2026-09-15_20-05","isLatest":false,"metrics":{"totalSamples":4985,"accuracy":93.08,"macroPrecision":93.19,"macroRecall":93.13,"macroF1":93.08,"confusionMatrix":{"matrix":{"Positif":{"Positif":2295,"Negatif":246},"Negatif":{"Positif":99,"Negatif":2345}},"tp":2295,"fp":99,"tn":2345,"fn":246},"classMetrics":{"Positif":{"support":2541,"tp":2295,"fp":99,"fn":246,"precision":95.86,"recall":90.32,"f1":93.01},"Negatif":{"support":2444,"tp":2345,"fp":246,"fn":99,"precision":90.51,"recall":95.95,"f1":93.15}}},"summary":{"totalReviews":4985,"avgRating":3.12,"netSentimentScore":-3.3,"positiveCount":2411,"positivePercent":48.4,"negativeCount":2574,"negativePercent":51.6,"vocabularySize":1440,"totalThumbsUp":526}},{"folder":"2026-09-15_19-58","isLatest":false,"metrics":{"totalSamples":4985,"accuracy":93.08,"macroPrecision":93.19,"macroRecall":93.13,"macroF1":93.08,"confusionMatrix":{"matrix":{"Positif":{"Positif":2295,"Negatif":246},"Negatif":{"Positif":99,"Negatif":2345}},"tp":2295,"fp":99,"tn":2345,"fn":246},"classMetrics":{"Positif":{"support":2541,"tp":2295,"fp":99,"fn":246,"precision":95.86,"recall":90.32,"f1":93.01},"Negatif":{"support":2444,"tp":2345,"fp":246,"fn":99,"precision":90.51,"recall":95.95,"f1":93.15}}},"summary":{"totalReviews":4985,"avgRating":3.12,"netSentimentScore":-3.3,"positiveCount":2411,"positivePercent":48.4,"negativeCount":2574,"negativePercent":51.6,"vocabularySize":1440,"totalThumbsUp":526}},{"folder":"2026-09-15_19-56","isLatest":false,"metrics":{"totalSamples":4985,"accuracy":89.71,"macroPrecision":59.88,"macroRecall":62.32,"macroF1":60.98,"confusionMatrix":{"matrix":{"Positif":{"Positif":2323,"Negatif":218,"Netral":0},"Negatif":{"Positif":100,"Negatif":2149,"Netral":0},"Netral":{"Positif":18,"Negatif":177,"Netral":0}},"tp":2323,"fp":100,"tn":2149,"fn":218},"classMetrics":{"Positif":{"support":2541,"tp":2323,"fp":118,"fn":218,"precision":95.17,"recall":91.42,"f1":93.26},"Negatif":{"support":2249,"tp":2149,"fp":395,"fn":100,"precision":84.47,"recall":95.55,"f1":89.67},"Netral":{"support":195,"tp":0,"fp":0,"fn":195,"precision":0,"recall":0,"f1":0}}},"summary":{"totalReviews":4985,"avgRating":3.12,"netSentimentScore":-2.4,"positiveCount":2433,"positivePercent":48.8,"neutralCount":0,"neutralPercent":0,"negativeCount":2552,"negativePercent":51.2,"vocabularySize":1440,"totalThumbsUp":526}},{"folder":"2026-09-15_19-18","isLatest":false,"metrics":{"totalSamples":4985,"confusionMatrix":{"tp":2352,"fp":105,"tn":2243,"fn":285},"accuracy":92.18,"macroPrecision":92.23,"macroRecall":92.36,"macroF1":92.17,"classMetrics":{"Positif":{"support":2637,"precision":95.73,"recall":89.19,"f1":92.34},"Negatif":{"support":2348,"precision":88.73,"recall":95.53,"f1":92}}},"summary":{"totalReviews":4985,"avgRating":3.12,"netSentimentScore":-1.5,"positiveCount":2456,"positivePercent":49.3,"negativeCount":2529,"negativePercent":50.7,"vocabularySize":1440,"totalThumbsUp":526}},{"folder":"2026-09-15_19-16","isLatest":false,"metrics":{"totalSamples":4985,"confusionMatrix":{"tp":2352,"fp":111,"tn":2215,"fn":307},"accuracy":91.61,"macroPrecision":91.66,"macroRecall":91.84,"macroF1":91.61,"classMetrics":{"Positif":{"support":2659,"precision":95.49,"recall":88.45,"f1":91.84},"Negatif":{"support":2326,"precision":87.83,"recall":95.23,"f1":91.38}}},"summary":{"totalReviews":4985,"avgRating":3.12,"netSentimentScore":-1.2,"positiveCount":2463,"positivePercent":49.4,"negativeCount":2522,"negativePercent":50.6,"vocabularySize":1440,"totalThumbsUp":526}},{"folder":"2026-09-13_15-28","isLatest":false,"metrics":{"totalSamples":4985,"confusionMatrix":{"tp":2353,"fp":111,"tn":2209,"fn":312},"accuracy":91.51,"macroPrecision":91.56,"macroRecall":91.75,"macroF1":91.51,"classMetrics":{"Positif":{"support":2665,"precision":95.5,"recall":88.29,"f1":91.75},"Negatif":{"support":2320,"precision":87.62,"recall":95.22,"f1":91.26}}},"summary":{"totalReviews":4985,"avgRating":3.12,"netSentimentScore":-1.2,"positiveCount":2463,"positivePercent":49.4,"negativeCount":2522,"negativePercent":50.6,"vocabularySize":1440,"totalThumbsUp":526}}];
+    const ALL_REPORTS = [{"folder":"2026-09-16_14-15","isLatest":true,"metrics":{"totalSamples":37050,"accuracy":91.48,"macroPrecision":91.88,"macroRecall":88.39,"macroF1":89.84,"confusionMatrix":{"matrix":{"Positif":{"Positif":9495,"Negatif":2415},"Negatif":{"Positif":740,"Negatif":24400}},"tp":9495,"fp":740,"tn":24400,"fn":2415},"classMetrics":{"Positif":{"support":11910,"tp":9495,"fp":740,"fn":2415,"precision":92.77,"recall":79.72,"f1":85.75},"Negatif":{"support":25140,"tp":24400,"fp":2415,"fn":740,"precision":90.99,"recall":97.06,"f1":93.93}},"kFolds":5,"meanAccuracy":91.49,"stdAccuracy":5.1,"foldMetrics":[{"totalSamples":7410,"accuracy":95.4,"macroPrecision":85.34,"macroRecall":84.68,"macroF1":85.01,"confusionMatrix":{"matrix":{"Positif":{"Positif":450,"Negatif":177},"Negatif":{"Positif":164,"Negatif":6619}},"tp":450,"fp":164,"tn":6619,"fn":177},"classMetrics":{"Positif":{"support":627,"tp":450,"fp":164,"fn":177,"precision":73.29,"recall":71.77,"f1":72.52},"Negatif":{"support":6783,"tp":6619,"fp":177,"fn":164,"precision":97.4,"recall":97.58,"f1":97.49}}},{"totalSamples":7410,"accuracy":98.22,"macroPrecision":59.51,"macroRecall":78.58,"macroF1":64.07,"confusionMatrix":{"matrix":{"Positif":{"Positif":27,"Negatif":19},"Negatif":{"Positif":113,"Negatif":7251}},"tp":27,"fp":113,"tn":7251,"fn":19},"classMetrics":{"Positif":{"support":46,"tp":27,"fp":113,"fn":19,"precision":19.29,"recall":58.7,"f1":29.03},"Negatif":{"support":7364,"tp":7251,"fp":19,"fn":113,"precision":99.74,"recall":98.47,"f1":99.1}}},{"totalSamples":7410,"accuracy":92.5,"macroPrecision":93.19,"macroRecall":90.99,"macroF1":91.87,"confusionMatrix":{"matrix":{"Positif":{"Positif":2401,"Negatif":439},"Negatif":{"Positif":117,"Negatif":4453}},"tp":2401,"fp":117,"tn":4453,"fn":439},"classMetrics":{"Positif":{"support":2840,"tp":2401,"fp":117,"fn":439,"precision":95.35,"recall":84.54,"f1":89.62},"Negatif":{"support":4570,"tp":4453,"fp":439,"fn":117,"precision":91.03,"recall":97.44,"f1":94.12}}},{"totalSamples":7410,"accuracy":85.14,"macroPrecision":86.31,"macroRecall":85.11,"macroF1":85.01,"confusionMatrix":{"matrix":{"Positif":{"Positif":2810,"Negatif":880},"Negatif":{"Positif":221,"Negatif":3499}},"tp":2810,"fp":221,"tn":3499,"fn":880},"classMetrics":{"Positif":{"support":3690,"tp":2810,"fp":221,"fn":880,"precision":92.71,"recall":76.15,"f1":83.62},"Negatif":{"support":3720,"tp":3499,"fp":880,"fn":221,"precision":79.9,"recall":94.06,"f1":86.41}}},{"totalSamples":7410,"accuracy":86.17,"macroPrecision":85.47,"macroRecall":88.13,"macroF1":85.78,"confusionMatrix":{"matrix":{"Positif":{"Positif":3807,"Negatif":900},"Negatif":{"Positif":125,"Negatif":2578}},"tp":3807,"fp":125,"tn":2578,"fn":900},"classMetrics":{"Positif":{"support":4707,"tp":3807,"fp":125,"fn":900,"precision":96.82,"recall":80.88,"f1":88.14},"Negatif":{"support":2703,"tp":2578,"fp":900,"fn":125,"precision":74.12,"recall":95.38,"f1":83.42}}}]},"summary":{"totalReviews":37053,"avgRating":2.36,"netSentimentScore":-39.5,"positiveCount":11203,"positivePercent":30.2,"negativeCount":25850,"negativePercent":69.8,"vocabularySize":96923,"totalThumbsUp":12338,"modelAccuracy":91.48,"modelMacroF1":89.84}},{"folder":"2026-09-16_14-12","isLatest":false,"metrics":{"totalSamples":37050,"accuracy":91.48,"macroPrecision":91.88,"macroRecall":88.39,"macroF1":89.84,"confusionMatrix":{"matrix":{"Positif":{"Positif":9495,"Negatif":2415},"Negatif":{"Positif":740,"Negatif":24400}},"tp":9495,"fp":740,"tn":24400,"fn":2415},"classMetrics":{"Positif":{"support":11910,"tp":9495,"fp":740,"fn":2415,"precision":92.77,"recall":79.72,"f1":85.75},"Negatif":{"support":25140,"tp":24400,"fp":2415,"fn":740,"precision":90.99,"recall":97.06,"f1":93.93}},"kFolds":5,"meanAccuracy":91.49,"stdAccuracy":5.1,"foldMetrics":[{"totalSamples":7410,"accuracy":95.4,"macroPrecision":85.34,"macroRecall":84.68,"macroF1":85.01,"confusionMatrix":{"matrix":{"Positif":{"Positif":450,"Negatif":177},"Negatif":{"Positif":164,"Negatif":6619}},"tp":450,"fp":164,"tn":6619,"fn":177},"classMetrics":{"Positif":{"support":627,"tp":450,"fp":164,"fn":177,"precision":73.29,"recall":71.77,"f1":72.52},"Negatif":{"support":6783,"tp":6619,"fp":177,"fn":164,"precision":97.4,"recall":97.58,"f1":97.49}}},{"totalSamples":7410,"accuracy":98.22,"macroPrecision":59.51,"macroRecall":78.58,"macroF1":64.07,"confusionMatrix":{"matrix":{"Positif":{"Positif":27,"Negatif":19},"Negatif":{"Positif":113,"Negatif":7251}},"tp":27,"fp":113,"tn":7251,"fn":19},"classMetrics":{"Positif":{"support":46,"tp":27,"fp":113,"fn":19,"precision":19.29,"recall":58.7,"f1":29.03},"Negatif":{"support":7364,"tp":7251,"fp":19,"fn":113,"precision":99.74,"recall":98.47,"f1":99.1}}},{"totalSamples":7410,"accuracy":92.5,"macroPrecision":93.19,"macroRecall":90.99,"macroF1":91.87,"confusionMatrix":{"matrix":{"Positif":{"Positif":2401,"Negatif":439},"Negatif":{"Positif":117,"Negatif":4453}},"tp":2401,"fp":117,"tn":4453,"fn":439},"classMetrics":{"Positif":{"support":2840,"tp":2401,"fp":117,"fn":439,"precision":95.35,"recall":84.54,"f1":89.62},"Negatif":{"support":4570,"tp":4453,"fp":439,"fn":117,"precision":91.03,"recall":97.44,"f1":94.12}}},{"totalSamples":7410,"accuracy":85.14,"macroPrecision":86.31,"macroRecall":85.11,"macroF1":85.01,"confusionMatrix":{"matrix":{"Positif":{"Positif":2810,"Negatif":880},"Negatif":{"Positif":221,"Negatif":3499}},"tp":2810,"fp":221,"tn":3499,"fn":880},"classMetrics":{"Positif":{"support":3690,"tp":2810,"fp":221,"fn":880,"precision":92.71,"recall":76.15,"f1":83.62},"Negatif":{"support":3720,"tp":3499,"fp":880,"fn":221,"precision":79.9,"recall":94.06,"f1":86.41}}},{"totalSamples":7410,"accuracy":86.17,"macroPrecision":85.47,"macroRecall":88.13,"macroF1":85.78,"confusionMatrix":{"matrix":{"Positif":{"Positif":3807,"Negatif":900},"Negatif":{"Positif":125,"Negatif":2578}},"tp":3807,"fp":125,"tn":2578,"fn":900},"classMetrics":{"Positif":{"support":4707,"tp":3807,"fp":125,"fn":900,"precision":96.82,"recall":80.88,"f1":88.14},"Negatif":{"support":2703,"tp":2578,"fp":900,"fn":125,"precision":74.12,"recall":95.38,"f1":83.42}}}]},"summary":{"totalReviews":37053,"avgRating":2.36,"netSentimentScore":-39.5,"positiveCount":11203,"positivePercent":30.2,"negativeCount":25850,"negativePercent":69.8,"vocabularySize":96923,"totalThumbsUp":12338,"modelAccuracy":91.48,"modelMacroF1":89.84}},{"folder":"2026-09-16_14-10","isLatest":false,"metrics":{"totalSamples":37045,"accuracy":91.45,"macroPrecision":91.83,"macroRecall":88.35,"macroF1":89.8,"confusionMatrix":{"matrix":{"Positif":{"Positif":9492,"Negatif":2420},"Negatif":{"Positif":749,"Negatif":24384}},"tp":9492,"fp":749,"tn":24384,"fn":2420},"classMetrics":{"Positif":{"support":11912,"tp":9492,"fp":749,"fn":2420,"precision":92.69,"recall":79.68,"f1":85.69},"Negatif":{"support":25133,"tp":24384,"fp":2420,"fn":749,"precision":90.97,"recall":97.02,"f1":93.9}},"kFolds":5,"meanAccuracy":91.45,"stdAccuracy":5.11,"foldMetrics":[{"totalSamples":7409,"accuracy":95.36,"macroPrecision":85.16,"macroRecall":84.65,"macroF1":84.91,"confusionMatrix":{"matrix":{"Positif":{"Positif":450,"Negatif":177},"Negatif":{"Positif":167,"Negatif":6615}},"tp":450,"fp":167,"tn":6615,"fn":177},"classMetrics":{"Positif":{"support":627,"tp":450,"fp":167,"fn":177,"precision":72.93,"recall":71.77,"f1":72.35},"Negatif":{"support":6782,"tp":6615,"fp":177,"fn":167,"precision":97.39,"recall":97.54,"f1":97.47}}},{"totalSamples":7409,"accuracy":98.18,"macroPrecision":59.31,"macroRecall":78.56,"macroF1":63.82,"confusionMatrix":{"matrix":{"Positif":{"Positif":27,"Negatif":19},"Negatif":{"Positif":116,"Negatif":7247}},"tp":27,"fp":116,"tn":7247,"fn":19},"classMetrics":{"Positif":{"support":46,"tp":27,"fp":116,"fn":19,"precision":18.88,"recall":58.7,"f1":28.57},"Negatif":{"support":7363,"tp":7247,"fp":19,"fn":116,"precision":99.74,"recall":98.42,"f1":99.08}}},{"totalSamples":7409,"accuracy":92.51,"macroPrecision":93.19,"macroRecall":91.02,"macroF1":91.89,"confusionMatrix":{"matrix":{"Positif":{"Positif":2403,"Negatif":437},"Negatif":{"Positif":118,"Negatif":4451}},"tp":2403,"fp":118,"tn":4451,"fn":437},"classMetrics":{"Positif":{"support":2840,"tp":2403,"fp":118,"fn":437,"precision":95.32,"recall":84.61,"f1":89.65},"Negatif":{"support":4569,"tp":4451,"fp":437,"fn":118,"precision":91.06,"recall":97.42,"f1":94.13}}},{"totalSamples":7409,"accuracy":85.17,"macroPrecision":86.31,"macroRecall":85.13,"macroF1":85.04,"confusionMatrix":{"matrix":{"Positif":{"Positif":2815,"Negatif":876},"Negatif":{"Positif":223,"Negatif":3495}},"tp":2815,"fp":223,"tn":3495,"fn":876},"classMetrics":{"Positif":{"support":3691,"tp":2815,"fp":223,"fn":876,"precision":92.66,"recall":76.27,"f1":83.67},"Negatif":{"support":3718,"tp":3495,"fp":876,"fn":223,"precision":79.96,"recall":94,"f1":86.41}}},{"totalSamples":7409,"accuracy":86.02,"macroPrecision":85.34,"macroRecall":88.01,"macroF1":85.63,"confusionMatrix":{"matrix":{"Positif":{"Positif":3797,"Negatif":911},"Negatif":{"Positif":125,"Negatif":2576}},"tp":3797,"fp":125,"tn":2576,"fn":911},"classMetrics":{"Positif":{"support":4708,"tp":3797,"fp":125,"fn":911,"precision":96.81,"recall":80.65,"f1":88},"Negatif":{"support":2701,"tp":2576,"fp":911,"fn":125,"precision":73.87,"recall":95.37,"f1":83.26}}}]},"summary":{"totalReviews":37045,"avgRating":2.37,"netSentimentScore":-39.5,"positiveCount":11213,"positivePercent":30.3,"negativeCount":25832,"negativePercent":69.7,"vocabularySize":96855,"totalThumbsUp":12338,"modelAccuracy":91.45,"modelMacroF1":89.8}},{"folder":"2026-09-16_14-07","isLatest":false,"metrics":{"totalSamples":37045,"accuracy":91.45,"macroPrecision":91.83,"macroRecall":88.35,"macroF1":89.8,"confusionMatrix":{"matrix":{"Positif":{"Positif":9492,"Negatif":2420},"Negatif":{"Positif":749,"Negatif":24384}},"tp":9492,"fp":749,"tn":24384,"fn":2420},"classMetrics":{"Positif":{"support":11912,"tp":9492,"fp":749,"fn":2420,"precision":92.69,"recall":79.68,"f1":85.69},"Negatif":{"support":25133,"tp":24384,"fp":2420,"fn":749,"precision":90.97,"recall":97.02,"f1":93.9}},"kFolds":5,"meanAccuracy":91.45,"stdAccuracy":5.11,"foldMetrics":[{"totalSamples":7409,"accuracy":95.36,"macroPrecision":85.16,"macroRecall":84.65,"macroF1":84.91,"confusionMatrix":{"matrix":{"Positif":{"Positif":450,"Negatif":177},"Negatif":{"Positif":167,"Negatif":6615}},"tp":450,"fp":167,"tn":6615,"fn":177},"classMetrics":{"Positif":{"support":627,"tp":450,"fp":167,"fn":177,"precision":72.93,"recall":71.77,"f1":72.35},"Negatif":{"support":6782,"tp":6615,"fp":177,"fn":167,"precision":97.39,"recall":97.54,"f1":97.47}}},{"totalSamples":7409,"accuracy":98.18,"macroPrecision":59.31,"macroRecall":78.56,"macroF1":63.82,"confusionMatrix":{"matrix":{"Positif":{"Positif":27,"Negatif":19},"Negatif":{"Positif":116,"Negatif":7247}},"tp":27,"fp":116,"tn":7247,"fn":19},"classMetrics":{"Positif":{"support":46,"tp":27,"fp":116,"fn":19,"precision":18.88,"recall":58.7,"f1":28.57},"Negatif":{"support":7363,"tp":7247,"fp":19,"fn":116,"precision":99.74,"recall":98.42,"f1":99.08}}},{"totalSamples":7409,"accuracy":92.51,"macroPrecision":93.19,"macroRecall":91.02,"macroF1":91.89,"confusionMatrix":{"matrix":{"Positif":{"Positif":2403,"Negatif":437},"Negatif":{"Positif":118,"Negatif":4451}},"tp":2403,"fp":118,"tn":4451,"fn":437},"classMetrics":{"Positif":{"support":2840,"tp":2403,"fp":118,"fn":437,"precision":95.32,"recall":84.61,"f1":89.65},"Negatif":{"support":4569,"tp":4451,"fp":437,"fn":118,"precision":91.06,"recall":97.42,"f1":94.13}}},{"totalSamples":7409,"accuracy":85.17,"macroPrecision":86.31,"macroRecall":85.13,"macroF1":85.04,"confusionMatrix":{"matrix":{"Positif":{"Positif":2815,"Negatif":876},"Negatif":{"Positif":223,"Negatif":3495}},"tp":2815,"fp":223,"tn":3495,"fn":876},"classMetrics":{"Positif":{"support":3691,"tp":2815,"fp":223,"fn":876,"precision":92.66,"recall":76.27,"f1":83.67},"Negatif":{"support":3718,"tp":3495,"fp":876,"fn":223,"precision":79.96,"recall":94,"f1":86.41}}},{"totalSamples":7409,"accuracy":86.02,"macroPrecision":85.34,"macroRecall":88.01,"macroF1":85.63,"confusionMatrix":{"matrix":{"Positif":{"Positif":3797,"Negatif":911},"Negatif":{"Positif":125,"Negatif":2576}},"tp":3797,"fp":125,"tn":2576,"fn":911},"classMetrics":{"Positif":{"support":4708,"tp":3797,"fp":125,"fn":911,"precision":96.81,"recall":80.65,"f1":88},"Negatif":{"support":2701,"tp":2576,"fp":911,"fn":125,"precision":73.87,"recall":95.37,"f1":83.26}}}]},"summary":{"totalReviews":37045,"avgRating":2.37,"netSentimentScore":-39.5,"positiveCount":11213,"positivePercent":30.3,"negativeCount":25832,"negativePercent":69.7,"vocabularySize":96855,"totalThumbsUp":12338,"modelAccuracy":91.45,"modelMacroF1":89.8}},{"folder":"2026-09-16_13-55","isLatest":false,"metrics":{"totalSamples":4985,"accuracy":90.03,"macroPrecision":86.06,"macroRecall":60.87,"macroF1":64.9,"confusionMatrix":{"matrix":{"Positif":{"Positif":135,"Negatif":467},"Negatif":{"Positif":30,"Negatif":4353}},"tp":135,"fp":30,"tn":4353,"fn":467},"classMetrics":{"Positif":{"support":602,"tp":135,"fp":30,"fn":467,"precision":81.82,"recall":22.43,"f1":35.2},"Negatif":{"support":4383,"tp":4353,"fp":467,"fn":30,"precision":90.31,"recall":99.32,"f1":94.6}},"kFolds":5,"meanAccuracy":90.03,"stdAccuracy":14.3,"foldMetrics":[{"totalSamples":997,"accuracy":61.69,"macroPrecision":77.65,"macroRecall":54.37,"macroF1":45.86,"confusionMatrix":{"matrix":{"Positif":{"Positif":38,"Negatif":380},"Negatif":{"Positif":2,"Negatif":577}},"tp":38,"fp":2,"tn":577,"fn":380},"classMetrics":{"Positif":{"support":418,"tp":38,"fp":2,"fn":380,"precision":95,"recall":9.09,"f1":16.59},"Negatif":{"support":579,"tp":577,"fp":380,"fn":2,"precision":60.29,"recall":99.65,"f1":75.13}}},{"totalSamples":997,"accuracy":93.58,"macroPrecision":90.69,"macroRecall":75.98,"macroF1":81.21,"confusionMatrix":{"matrix":{"Positif":{"Positif":62,"Negatif":55},"Negatif":{"Positif":9,"Negatif":871}},"tp":62,"fp":9,"tn":871,"fn":55},"classMetrics":{"Positif":{"support":117,"tp":62,"fp":9,"fn":55,"precision":87.32,"recall":52.99,"f1":65.96},"Negatif":{"support":880,"tp":871,"fp":55,"fn":9,"precision":94.06,"recall":98.98,"f1":96.46}}},{"totalSamples":997,"accuracy":97.29,"macroPrecision":84.73,"macroRecall":75.22,"macroF1":79.15,"confusionMatrix":{"matrix":{"Positif":{"Positif":20,"Negatif":19},"Negatif":{"Positif":8,"Negatif":950}},"tp":20,"fp":8,"tn":950,"fn":19},"classMetrics":{"Positif":{"support":39,"tp":20,"fp":8,"fn":19,"precision":71.43,"recall":51.28,"f1":59.7},"Negatif":{"support":958,"tp":950,"fp":19,"fn":8,"precision":98.04,"recall":99.16,"f1":98.6}}},{"totalSamples":997,"accuracy":98.6,"macroPrecision":82.92,"macroRecall":79.69,"macroF1":81.22,"confusionMatrix":{"matrix":{"Positif":{"Positif":12,"Negatif":8},"Negatif":{"Positif":6,"Negatif":971}},"tp":12,"fp":6,"tn":971,"fn":8},"classMetrics":{"Positif":{"support":20,"tp":12,"fp":6,"fn":8,"precision":66.67,"recall":60,"f1":63.16},"Negatif":{"support":977,"tp":971,"fp":8,"fn":6,"precision":99.18,"recall":99.39,"f1":99.28}}},{"totalSamples":997,"accuracy":99,"macroPrecision":68.5,"macroRecall":68.5,"macroF1":68.5,"confusionMatrix":{"matrix":{"Positif":{"Positif":3,"Negatif":5},"Negatif":{"Positif":5,"Negatif":984}},"tp":3,"fp":5,"tn":984,"fn":5},"classMetrics":{"Positif":{"support":8,"tp":3,"fp":5,"fn":5,"precision":37.5,"recall":37.5,"f1":37.5},"Negatif":{"support":989,"tp":984,"fp":5,"fn":5,"precision":99.49,"recall":99.49,"f1":99.49}}}]},"summary":{"totalReviews":4986,"avgRating":1.52,"netSentimentScore":-78.8,"positiveCount":528,"positivePercent":10.6,"negativeCount":4458,"negativePercent":89.4,"vocabularySize":18755,"totalThumbsUp":1818,"modelAccuracy":90.03,"modelMacroF1":64.9}}];
 
     function filterReports() {
       const query = (document.getElementById('reportSearch').value || '').toLowerCase().trim();

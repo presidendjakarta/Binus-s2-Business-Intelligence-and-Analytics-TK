@@ -2,13 +2,17 @@ const fs = require('fs');
 
 function generateDashboardHtml(data) {
   const jsonReportData = JSON.stringify(data).replace(/</g, '\\u003c').replace(/>/g, '\\u003e');
+  const appName = data.appInfo?.appName || "Livin' by Mandiri (PT Bank Mandiri Tbk)";
+  const appId = data.appInfo?.appId || 'id.bmri.livin';
+  const appBadge = appId.includes('bpjs') ? 'BPJS' : (appId.includes('bmri') || appId.includes('livin') ? 'MANDIRI' : 'APP');
+  const aspectCards = Object.keys(data.aspectStats || {}).filter(k => k !== 'Lainnya').slice(0, 4);
 
   return `<!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard Analisis Sentimen Mobile JKN - BPJS Kesehatan</title>
+  <title>Dashboard Analisis Sentimen ${appName}</title>
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -42,7 +46,8 @@ function generateDashboardHtml(data) {
       --success: #198754;
       --danger: #dc3545;
       --warning: #f59e0b;
-      --bpjs: #059669;
+      --brand-primary: #00529c;
+      --brand-dark: #002d62;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -50,7 +55,7 @@ function generateDashboardHtml(data) {
       font-family: 'Public Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
       background-color: var(--bg-body);
       color: var(--text-main);
-      font-size: 13.5px;
+      font-size: 13px;
       line-height: 1.5;
     }
 
@@ -62,9 +67,10 @@ function generateDashboardHtml(data) {
       position: sticky;
       top: 0;
       z-index: 100;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     }
     .navbar-container {
-      max-width: 1440px;
+      max-width: 1400px;
       margin: 0 auto;
       display: flex;
       justify-content: space-between;
@@ -75,29 +81,31 @@ function generateDashboardHtml(data) {
     .brand-title {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
     }
     .brand-badge {
-      background-color: var(--bpjs);
-      color: #ffffff;
+      background-color: var(--brand-primary);
+      color: white;
       font-weight: 700;
-      padding: 4px 8px;
-      border-radius: 4px;
       font-size: 13px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      letter-spacing: 0.5px;
     }
     .brand-text h1 {
       font-size: 16px;
       font-weight: 700;
       color: var(--text-main);
+      margin: 0;
     }
     .brand-text p {
       font-size: 12px;
       color: var(--text-muted);
+      margin: 0;
     }
     .navbar-actions {
       display: flex;
       gap: 8px;
-      align-items: center;
     }
 
     /* Buttons */
@@ -133,9 +141,9 @@ function generateDashboardHtml(data) {
 
     /* Main Container */
     .container {
-      max-width: 1440px;
+      max-width: 1400px;
       margin: 20px auto;
-      padding: 0 24px 40px;
+      padding: 0 16px;
     }
 
     /* Layout Grids */
@@ -151,6 +159,12 @@ function generateDashboardHtml(data) {
       gap: 16px;
       margin-bottom: 20px;
     }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 20px;
+    }
     .grid-3-1 {
       display: grid;
       grid-template-columns: 2fr 1fr;
@@ -160,7 +174,7 @@ function generateDashboardHtml(data) {
 
     @media (max-width: 1024px) {
       .grid-4 { grid-template-columns: repeat(2, 1fr); }
-      .grid-2, .grid-3-1 { grid-template-columns: 1fr; }
+      .grid-2, .grid-3, .grid-3-1 { grid-template-columns: 1fr; }
     }
     @media (max-width: 640px) {
       .grid-4 { grid-template-columns: 1fr; }
@@ -170,17 +184,19 @@ function generateDashboardHtml(data) {
     .card {
       background-color: var(--bg-card);
       border: 1px solid var(--border-color);
-      border-radius: 6px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      border-radius: 8px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
       margin-bottom: 20px;
     }
     .card-header {
-      padding: 14px 18px;
+      padding: 14px 20px;
       border-bottom: 1px solid var(--border-color);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background-color: #fafbfd;
+      background-color: #fafbfc;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
     }
     .card-title {
       font-size: 14px;
@@ -188,44 +204,55 @@ function generateDashboardHtml(data) {
       color: var(--text-main);
     }
     .card-subtitle {
-      font-size: 11.5px;
+      font-size: 12px;
       color: var(--text-muted);
       margin-top: 2px;
     }
     .card-body {
-      padding: 16px 18px;
+      padding: 20px;
     }
 
     /* Stat Cards */
     .stat-card {
-      background: #ffffff;
+      background: var(--bg-card);
       border: 1px solid var(--border-color);
-      border-radius: 6px;
-      padding: 14px 16px;
+      border-radius: 8px;
+      padding: 16px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       position: relative;
-      border-left: 4px solid var(--primary);
+      overflow: hidden;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
     }
-    .stat-card.stat-green { border-left-color: var(--bpjs); }
-    .stat-card.stat-amber { border-left-color: var(--warning); }
-    .stat-card.stat-red   { border-left-color: var(--danger); }
-    .stat-card.stat-indigo{ border-left-color: #6366f1; }
-    .stat-card.stat-blue  { border-left-color: var(--primary); }
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+    }
+    .stat-card.stat-green::before { background-color: var(--success); }
+    .stat-card.stat-amber::before { background-color: var(--warning); }
+    .stat-card.stat-red::before   { background-color: var(--danger); }
+    .stat-card.stat-indigo::before{ background-color: #6366f1; }
+    .stat-card.stat-blue::before  { background-color: var(--primary); }
 
     .stat-label {
-      font-size: 11.5px;
+      font-size: 12px;
       font-weight: 600;
       color: var(--text-muted);
       text-transform: uppercase;
       letter-spacing: 0.5px;
+      margin-bottom: 6px;
     }
     .stat-value {
-      font-size: 22px;
+      font-size: 26px;
       font-weight: 700;
       color: var(--text-main);
-      margin: 4px 0 2px;
+      line-height: 1.2;
+      margin-bottom: 4px;
     }
     .stat-desc {
       font-size: 11.5px;
@@ -236,14 +263,15 @@ function generateDashboardHtml(data) {
     .aspect-box {
       border: 1px solid var(--border-color);
       border-radius: 6px;
-      padding: 12px;
+      padding: 14px;
       background-color: #ffffff;
-      transition: all 0.15s ease;
+      transition: all 0.2s ease;
       cursor: pointer;
     }
     .aspect-box:hover {
       border-color: var(--primary);
-      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+      box-shadow: 0 2px 8px rgba(13,110,253,0.12);
+      transform: translateY(-2px);
     }
     .aspect-box.active {
       border-color: var(--primary);
@@ -259,35 +287,77 @@ function generateDashboardHtml(data) {
     }
     .progress-bar-wrap {
       height: 8px;
-      background: #e2e8f0;
+      background: #fee2e2;
       border-radius: 4px;
       overflow: hidden;
       display: flex;
       margin-bottom: 6px;
     }
-    .bar-pos { background-color: var(--bpjs); height: 100%; }
+    .bar-pos { background-color: var(--success); height: 100%; }
     .bar-neg { background-color: var(--danger); height: 100%; }
     .aspect-meta {
       display: flex;
       justify-content: space-between;
       font-size: 11px;
-      color: var(--text-muted);
+    }
+    .aspect-meta span {
+      display: flex;
+      align-items: center;
+      gap: 4px;
     }
 
-    /* Badges */
-    .badge {
-      display: inline-block;
-      padding: 3px 7px;
+    /* Filters Section */
+    .filters-section {
+      background-color: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 20px;
+    }
+    .filters-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .filters-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+    }
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .filter-label {
       font-size: 11px;
       font-weight: 600;
-      border-radius: 3px;
-      line-height: 1;
+      color: var(--text-muted);
+      text-transform: uppercase;
     }
-    .badge-success { background-color: #d1fae5; color: #065f46; }
-    .badge-danger  { background-color: #fee2e2; color: #991b1b; }
-    .badge-warning { background-color: #fef3c7; color: #92400e; }
-    .badge-secondary{ background-color: #e2e8f0; color: #334155; }
-    .badge-info    { background-color: #e0f2fe; color: #0369a1; }
+    .filter-select, .filter-input {
+      padding: 7px 10px;
+      border: 1px solid var(--border-dark);
+      border-radius: 6px;
+      font-size: 12.5px;
+      background-color: #ffffff;
+      color: var(--text-main);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .filter-select:focus, .filter-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(13,110,253,0.15);
+    }
+    .filter-actions {
+      display: flex;
+      gap: 8px;
+      align-items: flex-end;
+    }
 
     /* Form Controls */
     .form-group {
@@ -349,6 +419,21 @@ function generateDashboardHtml(data) {
     table.dataTable tbody tr:hover {
       background-color: #f8fafc;
     }
+
+    /* Badges */
+    .badge {
+      display: inline-block;
+      padding: 3px 7px;
+      font-size: 11px;
+      font-weight: 600;
+      border-radius: 3px;
+      line-height: 1;
+    }
+    .badge-success { background-color: #d1fae5; color: #065f46; }
+    .badge-danger  { background-color: #fee2e2; color: #991b1b; }
+    .badge-warning { background-color: #fef3c7; color: #92400e; }
+    .badge-secondary{ background-color: #e2e8f0; color: #334155; }
+    .badge-info    { background-color: #e0f2fe; color: #0369a1; }
 
     /* Modal Dialog */
     .modal-overlay {
@@ -416,23 +501,19 @@ function generateDashboardHtml(data) {
 </head>
 <body>
 
-  <!-- Header -->
+  <!-- Top Navbar -->
   <header class="navbar">
     <div class="navbar-container">
       <div class="brand-title">
-        <span class="brand-badge">BPJS</span>
+        <div class="brand-badge">${appBadge}</div>
         <div class="brand-text">
-          <h1>Sistem Analisis Sentimen & Aspek Operasional Mobile JKN</h1>
-          <p>Dataset: <strong>${data.sourceDataFolder}</strong> | Diproses: ${data.generatedAt}</p>
+          <h1>${appName} — Executive Intelligence Dashboard</h1>
+          <p>Laporan Analisis Data Mining & Klasifikasi Sentimen Ulasan Google Play Store</p>
         </div>
       </div>
-      <div class="navbar-actions">
-        <a href="https://play.google.com/store/apps/details?id=app.bpjs.mobile&hl=id" target="_blank" rel="noopener noreferrer" class="btn btn-default" title="Buka aplikasi di Google Play Store">
-          Google Play Store ↗
-        </a>
-        <button class="btn btn-default" onclick="openFormulaModal()">
-          Metodologi & Rumus
-        </button>
+      <div class="header-actions">
+        <button class="btn btn-outline" onclick="window.print()">Cetak PDF</button>
+        <a href="${data.appInfo?.playstoreUrl || ('https://play.google.com/store/apps/details?id=' + appId)}" target="_blank" class="btn btn-primary">Google Play Store ↗</a>
       </div>
     </div>
   </header>
@@ -456,7 +537,7 @@ function generateDashboardHtml(data) {
       <div class="stat-card stat-green">
         <div class="stat-label">Polaritas Sentimen</div>
         <div class="stat-value">
-          <span style="color:var(--bpjs);">${data.summary.positivePercent}%</span>
+          <span style="color:var(--success);">${data.summary.positivePercent}%</span>
           <span style="font-size:16px; color:var(--text-muted); font-weight:normal;">/</span>
           <span style="color:var(--danger);">${data.summary.negativePercent}%</span>
         </div>
@@ -465,7 +546,7 @@ function generateDashboardHtml(data) {
 
       <div class="stat-card stat-indigo">
         <div class="stat-label">Akurasi Model Naive Bayes</div>
-        <div class="stat-value" style="color:var(--bpjs);">${data.metrics.accuracy}%</div>
+        <div class="stat-value" style="color:var(--success);">${data.metrics.accuracy}%</div>
         <div class="stat-desc">Macro F1: ${data.metrics.macroF1}% | Precision: ${data.metrics.macroPrecision}% (5-Fold CV)</div>
       </div>
     </div>
@@ -474,13 +555,13 @@ function generateDashboardHtml(data) {
     <div class="card">
       <div class="card-header">
         <div>
-          <div class="card-title">Analisis Modul Operasional Mobile JKN</div>
+          <div class="card-title">Analisis Modul Operasional & Fitur Layanan</div>
           <div class="card-subtitle">Distribusi sentimen pada pilar layanan aplikasi (Klik kotak aspek untuk filter DataTables)</div>
         </div>
       </div>
       <div class="card-body">
         <div class="grid-4" id="aspect-cards-grid">
-          ${['Autentikasi & Akun', 'Antrean & Faskes', 'Kinerja & Server', 'Iuran & Layanan'].map(asp => {
+          ${aspectCards.map(asp => {
             const stat = data.aspectStats[asp] || { total: 0, Positif: 0, Negatif: 0 };
             const posPct = stat.total > 0 ? ((stat.Positif / stat.total) * 100).toFixed(1) : 0;
             const negPct = stat.total > 0 ? ((stat.Negatif / stat.total) * 100).toFixed(1) : 0;
@@ -495,7 +576,7 @@ function generateDashboardHtml(data) {
                 <div class="bar-neg" style="width:${negPct}%;" title="Negatif: ${negPct}%"></div>
               </div>
               <div class="aspect-meta">
-                <span style="color:var(--bpjs); font-weight:600;">${posPct}% Positif</span>
+                <span style="color:var(--success); font-weight:600;">${posPct}% Positif</span>
                 <span style="color:var(--danger); font-weight:600;">${negPct}% Negatif</span>
               </div>
             </div>
@@ -677,11 +758,7 @@ function generateDashboardHtml(data) {
 
             <select id="dt-filter-aspect" class="form-select">
               <option value="">Semua Modul Aspek</option>
-              <option value="Autentikasi & Akun">Autentikasi & Akun</option>
-              <option value="Antrean & Faskes">Antrean & Faskes</option>
-              <option value="Kinerja & Server">Kinerja & Server</option>
-              <option value="Iuran & Layanan">Iuran & Layanan</option>
-              <option value="Lainnya">Lainnya</option>
+              ${Object.keys(data.aspectStats || {}).map(asp => `<option value="${asp}">${asp}</option>`).join('\n              ')}
             </select>
 
             <label style="font-size:12px; display:flex; align-items:center; gap:5px; cursor:pointer; margin-left:6px;">
@@ -725,7 +802,7 @@ function generateDashboardHtml(data) {
       </div>
       <div class="modal-body">
         <p style="margin-bottom: 12px; color:var(--text-muted);">
-          Berikut adalah perumusan matematis yang digunakan pada pipeline klasifikasi sentimen ulasan Mobile JKN:
+          Berikut adalah perumusan matematis yang digunakan pada pipeline klasifikasi sentimen ulasan ${appName}:
         </p>
 
         <h4 style="font-size:13px; font-weight:700; margin-bottom:4px;">1. Pembobotan Kata TF-IDF (Sublinear & Smooth IDF)</h4>
@@ -1013,7 +1090,7 @@ function generateDashboardHtml(data) {
         const formattedDate = item.date ? item.date.split('T')[0] : '-';
 
         // 8. Column Aksi
-        const playStoreUrl = 'https://play.google.com/store/apps/details?id=app.bpjs.mobile&hl=id&reviewId=' + encodeURIComponent(item.id || '');
+        const playStoreUrl = 'https://play.google.com/store/apps/details?id=' + encodeURIComponent('${appId}') + '&hl=id&reviewId=' + encodeURIComponent(item.id || '');
         const actionHtml = '<a href="' + playStoreUrl + '" target="_blank" rel="noopener noreferrer" class="btn btn-default btn-sm" title="Buka komentar ini di Google Play Store">Play Store ↗</a>';
 
         return [
@@ -1078,8 +1155,8 @@ function generateDashboardHtml(data) {
         order: [[0, 'asc']],
         dom: '<"dt-buttons-wrapper"B><"dt-search-wrapper"lf>rtip',
         buttons: [
-          { extend: 'csvHtml5', text: 'Ekspor CSV', className: 'dt-button', filename: 'mobile_jkn_reviews' },
-          { extend: 'excelHtml5', text: 'Ekspor Excel', className: 'dt-button', filename: 'mobile_jkn_reviews' },
+          { extend: 'csvHtml5', text: 'Ekspor CSV', className: 'dt-button', filename: 'livin_mandiri_reviews' },
+          { extend: 'excelHtml5', text: 'Ekspor Excel', className: 'dt-button', filename: 'livin_mandiri_reviews' },
           { extend: 'print', text: 'Cetak Laporan', className: 'dt-button' }
         ],
         columnDefs: [
@@ -1158,7 +1235,7 @@ function generateDashboardHtml(data) {
         '<strong>Prediksi Sentimen:</strong> ' + item.predictedLabel + ' (' + ((item.confidence || 0) * 100).toFixed(1) + '%) &nbsp;|&nbsp; <strong>P(Positif):</strong> ' + posProb + '% &nbsp;|&nbsp; <strong>P(Negatif):</strong> ' + negProb + '% &nbsp;|&nbsp; <strong>Aspek:</strong> ' + (item.aspects || []).join(', ');
 
       const playStoreLink = document.getElementById('modal-playstore-link');
-      playStoreLink.href = 'https://play.google.com/store/apps/details?id=app.bpjs.mobile&hl=id&reviewId=' + encodeURIComponent(item.id || '');
+      playStoreLink.href = 'https://play.google.com/store/apps/details?id=' + encodeURIComponent('${appId}') + '&hl=id&reviewId=' + encodeURIComponent(item.id || '');
 
       document.getElementById('review-modal').classList.add('open');
     }

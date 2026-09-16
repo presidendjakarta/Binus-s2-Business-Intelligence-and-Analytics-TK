@@ -1,0 +1,327 @@
+{
+  "metrics": {
+    "totalSamples": 37050,
+    "accuracy": 91.48,
+    "macroPrecision": 91.88,
+    "macroRecall": 88.39,
+    "macroF1": 89.84,
+    "confusionMatrix": {
+      "matrix": {
+        "Positif": {
+          "Positif": 9495,
+          "Negatif": 2415
+        },
+        "Negatif": {
+          "Positif": 740,
+          "Negatif": 24400
+        }
+      },
+      "tp": 9495,
+      "fp": 740,
+      "tn": 24400,
+      "fn": 2415
+    },
+    "classMetrics": {
+      "Positif": {
+        "support": 11910,
+        "tp": 9495,
+        "fp": 740,
+        "fn": 2415,
+        "precision": 92.77,
+        "recall": 79.72,
+        "f1": 85.75
+      },
+      "Negatif": {
+        "support": 25140,
+        "tp": 24400,
+        "fp": 2415,
+        "fn": 740,
+        "precision": 90.99,
+        "recall": 97.06,
+        "f1": 93.93
+      }
+    },
+    "kFolds": 5,
+    "meanAccuracy": 91.49,
+    "stdAccuracy": 5.1,
+    "foldMetrics": [
+      {
+        "totalSamples": 7410,
+        "accuracy": 95.4,
+        "macroPrecision": 85.34,
+        "macroRecall": 84.68,
+        "macroF1": 85.01,
+        "confusionMatrix": {
+          "matrix": {
+            "Positif": {
+              "Positif": 450,
+              "Negatif": 177
+            },
+            "Negatif": {
+              "Positif": 164,
+              "Negatif": 6619
+            }
+          },
+          "tp": 450,
+          "fp": 164,
+          "tn": 6619,
+          "fn": 177
+        },
+        "classMetrics": {
+          "Positif": {
+            "support": 627,
+            "tp": 450,
+            "fp": 164,
+            "fn": 177,
+            "precision": 73.29,
+            "recall": 71.77,
+            "f1": 72.52
+          },
+          "Negatif": {
+            "support": 6783,
+            "tp": 6619,
+            "fp": 177,
+            "fn": 164,
+            "precision": 97.4,
+            "recall": 97.58,
+            "f1": 97.49
+          }
+        }
+      },
+      {
+        "totalSamples": 7410,
+        "accuracy": 98.22,
+        "macroPrecision": 59.51,
+        "macroRecall": 78.58,
+        "macroF1": 64.07,
+        "confusionMatrix": {
+          "matrix": {
+            "Positif": {
+              "Positif": 27,
+              "Negatif": 19
+            },
+            "Negatif": {
+              "Positif": 113,
+              "Negatif": 7251
+            }
+          },
+          "tp": 27,
+          "fp": 113,
+          "tn": 7251,
+          "fn": 19
+        },
+        "classMetrics": {
+          "Positif": {
+            "support": 46,
+            "tp": 27,
+            "fp": 113,
+            "fn": 19,
+            "precision": 19.29,
+            "recall": 58.7,
+            "f1": 29.03
+          },
+          "Negatif": {
+            "support": 7364,
+            "tp": 7251,
+            "fp": 19,
+            "fn": 113,
+            "precision": 99.74,
+            "recall": 98.47,
+            "f1": 99.1
+          }
+        }
+      },
+      {
+        "totalSamples": 7410,
+        "accuracy": 92.5,
+        "macroPrecision": 93.19,
+        "macroRecall": 90.99,
+        "macroF1": 91.87,
+        "confusionMatrix": {
+          "matrix": {
+            "Positif": {
+              "Positif": 2401,
+              "Negatif": 439
+            },
+            "Negatif": {
+              "Positif": 117,
+              "Negatif": 4453
+            }
+          },
+          "tp": 2401,
+          "fp": 117,
+          "tn": 4453,
+          "fn": 439
+        },
+        "classMetrics": {
+          "Positif": {
+            "support": 2840,
+            "tp": 2401,
+            "fp": 117,
+            "fn": 439,
+            "precision": 95.35,
+            "recall": 84.54,
+            "f1": 89.62
+          },
+          "Negatif": {
+            "support": 4570,
+            "tp": 4453,
+            "fp": 439,
+            "fn": 117,
+            "precision": 91.03,
+            "recall": 97.44,
+            "f1": 94.12
+          }
+        }
+      },
+      {
+        "totalSamples": 7410,
+        "accuracy": 85.14,
+        "macroPrecision": 86.31,
+        "macroRecall": 85.11,
+        "macroF1": 85.01,
+        "confusionMatrix": {
+          "matrix": {
+            "Positif": {
+              "Positif": 2810,
+              "Negatif": 880
+            },
+            "Negatif": {
+              "Positif": 221,
+              "Negatif": 3499
+            }
+          },
+          "tp": 2810,
+          "fp": 221,
+          "tn": 3499,
+          "fn": 880
+        },
+        "classMetrics": {
+          "Positif": {
+            "support": 3690,
+            "tp": 2810,
+            "fp": 221,
+            "fn": 880,
+            "precision": 92.71,
+            "recall": 76.15,
+            "f1": 83.62
+          },
+          "Negatif": {
+            "support": 3720,
+            "tp": 3499,
+            "fp": 880,
+            "fn": 221,
+            "precision": 79.9,
+            "recall": 94.06,
+            "f1": 86.41
+          }
+        }
+      },
+      {
+        "totalSamples": 7410,
+        "accuracy": 86.17,
+        "macroPrecision": 85.47,
+        "macroRecall": 88.13,
+        "macroF1": 85.78,
+        "confusionMatrix": {
+          "matrix": {
+            "Positif": {
+              "Positif": 3807,
+              "Negatif": 900
+            },
+            "Negatif": {
+              "Positif": 125,
+              "Negatif": 2578
+            }
+          },
+          "tp": 3807,
+          "fp": 125,
+          "tn": 2578,
+          "fn": 900
+        },
+        "classMetrics": {
+          "Positif": {
+            "support": 4707,
+            "tp": 3807,
+            "fp": 125,
+            "fn": 900,
+            "precision": 96.82,
+            "recall": 80.88,
+            "f1": 88.14
+          },
+          "Negatif": {
+            "support": 2703,
+            "tp": 2578,
+            "fp": 900,
+            "fn": 125,
+            "precision": 74.12,
+            "recall": 95.38,
+            "f1": 83.42
+          }
+        }
+      }
+    ]
+  },
+  "summary": {
+    "totalReviews": 37053,
+    "avgRating": 2.36,
+    "netSentimentScore": -39.5,
+    "positiveCount": 11203,
+    "positivePercent": 30.2,
+    "negativeCount": 25850,
+    "negativePercent": 69.8,
+    "vocabularySize": 96923,
+    "totalThumbsUp": 12338,
+    "modelAccuracy": 91.48,
+    "modelMacroF1": 89.84
+  },
+  "aspectStats": {
+    "Autentikasi & Akun": {
+      "total": 10449,
+      "Positif": 490,
+      "Negatif": 9959
+    },
+    "Transaksi & Pembayaran": {
+      "total": 2148,
+      "Positif": 383,
+      "Negatif": 1765
+    },
+    "Kinerja & Server": {
+      "total": 2911,
+      "Positif": 344,
+      "Negatif": 2567
+    },
+    "Layanan & Fitur Finansial": {
+      "total": 4519,
+      "Positif": 729,
+      "Negatif": 3790
+    },
+    "Lainnya": {
+      "total": 21943,
+      "Positif": 9620,
+      "Negatif": 12323
+    }
+  },
+  "ratingDistribution": {
+    "1": {
+      "Positif": 236,
+      "Negatif": 22180
+    },
+    "2": {
+      "Positif": 53,
+      "Negatif": 1354
+    },
+    "3": {
+      "Positif": 133,
+      "Negatif": 1185
+    },
+    "4": {
+      "Positif": 828,
+      "Negatif": 292
+    },
+    "5": {
+      "Positif": 9953,
+      "Negatif": 839
+    }
+  }
+}

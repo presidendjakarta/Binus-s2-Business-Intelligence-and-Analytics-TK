@@ -24,7 +24,8 @@ const FILLER_ADVERBS = new Set([
 const CORE_SENTIMENT_WORDS = new Set([
   'bagus', 'mantap', 'mudah', 'cepat', 'puas', 'baik', 'lancar', 'hebat', 'keren', 'bermanfaat',
   'kecewa', 'buruk', 'parah', 'rusak', 'error', 'sulit', 'rugi', 'lambat', 'lemot', 'ribet', 'rumit',
-  'tunggak', 'tunggakan', 'potong', 'tagih', 'tagihan', 'bayar', 'kesal', 'marah', 'bodoh', 'jelek', 'sampah', 'tolol', 'gagal'
+  'tunggak', 'tunggakan', 'potong', 'tagih', 'tagihan', 'bayar', 'kesal', 'marah', 'bodoh', 'jelek', 'sampah', 'tolol', 'gagal',
+  'kurang', 'tidak', 'belum', 'payah', 'kacau', 'bobrok', 'mengecewakan', 'perbaiki'
 ]);
 
 const NON_NEGATABLE_WORDS = new Set([
@@ -158,8 +159,28 @@ class TextPreprocessor {
                 for (let m = 0; m < totalRep; m++) {
                   result.push(compound);
                 }
+                skipIndices.add(i);
                 skipIndices.add(targetIdx);
                 i = targetIdx;
+                continue;
+              }
+            }
+          }
+
+          // Handle post-posed 'kurang' (e.g. 'pelayanan kurang', 'fitur kurang', 'keamanan kurang')
+          if (current === 'kurang' && i > 0 && !skipIndices.has(i - 1)) {
+            const rawPrev = tokenList[i - 1];
+            if (!NON_NEGATABLE_WORDS.has(rawPrev)) {
+              const prevStemmed = stemWord(rawPrev);
+              if (prevStemmed.length >= 2) {
+                const compound = `tidak_${prevStemmed}`;
+                const totalRep = weightMultiplier * 2;
+                for (let m = 0; m < totalRep; m++) {
+                  result.push(compound);
+                  result.push('kurang');
+                }
+                skipIndices.add(i - 1);
+                skipIndices.add(i);
                 continue;
               }
             }
@@ -167,13 +188,13 @@ class TextPreprocessor {
         }
       }
 
-      // Unigram
+      // Unigram (including unbound negation words like 'kurang', 'tidak', 'belum')
       for (let i = 0; i < tokenList.length; i++) {
         const current = tokenList[i];
-        if (!skipIndices.has(i) && !NEGATION_WORDS.has(current)) {
+        if (!skipIndices.has(i)) {
           const stemmed = stemWord(current);
           if (stemmed && stemmed.length > 1 && !this.stopwords.has(stemmed)) {
-            const isSentiment = CORE_SENTIMENT_WORDS.has(stemmed);
+            const isSentiment = CORE_SENTIMENT_WORDS.has(stemmed) || NEGATION_WORDS.has(current);
             const totalRep = isSentiment ? weightMultiplier * 2 : weightMultiplier;
             for (let m = 0; m < totalRep; m++) {
               result.push(stemmed);

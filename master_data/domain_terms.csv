@@ -1,0 +1,166 @@
+term,category,description
+14000,Layanan,Nomor kontak resmi Mandiri Call 14000
+admin,Finansial,Biaya pemeliharaan atau transfer
+aktivasi,Keamanan,Pengaktifan akun di perangkat baru
+android,Teknis,Sistem operasi mobile Android
+antre,Layanan,Antrean layanan cabang atau CS
+antrean,Layanan,Antrean antrian nasabah
+apdet,Teknis,Pembaruan aplikasi ke versi baru
+aud,Valas,Mata uang Dolar Australia
+authenticator,Keamanan,Aplikasi otentikasi lapis dua
+autodebet,Transaksi,Pembayaran otomatis rutin
+belanja,Transaksi,Pembelian barang merchant
+biaya,Finansial,Biaya administrasi transaksi
+bifast,Transaksi,Layanan transfer cepat BI-Fast tarif 2500
+biller,Transaksi,Penyedia tagihan pembayaran
+billing,Layanan,Lembar tagihan transaksi kartu
+biometrik,Keamanan,Autentikasi sidik jari atau Face ID
+blank,Teknis,Layar aplikasi putih/hitam kosong
+blokir,Keamanan,Pemblokiran kartu atau akun
+bpjs,Pembayaran,Iuran BPJS Kesehatan dan Ketenagakerjaan
+briva,Transaksi,Virtual account BRI interbank
+bug,Teknis,Kutu atau celah kode program
+bunga,Finansial,Suku bunga tabungan atau kredit
+cabang,Layanan,Kantor cabang fisik Bank Mandiri
+cache,Teknis,Penyimpanan memori sementara aplikasi
+callcenter,Layanan,Layanan pengaduan telepon
+cashless,Transaksi,Pembayaran non tunai
+cicilan,Pinjaman,Angsuran pembayaran berkala
+cny,Valas,Mata uang Yuan China
+contactless,Transaksi,Fitur tap pembayaran kartu tanpa sentuh
+crash,Teknis,Aplikasi keluar sendiri tiba-tiba
+cs,Layanan,Customer Service Mandiri
+cuan,Investasi,Keuntungan imbal hasil investasi
+customer,Layanan,Layanan nasabah
+daftar,Keamanan,Registrasi akun pengguna
+dana,E-Wallet,Dompet digital DANA
+debet,Perbankan,Kartu debit dan transaksi debit
+denda,Finansial,Denda keterlambatan pembayaran
+deposito,Perbankan,Layanan deposito online
+dividen,Investasi,Pembagian laba hasil investasi
+doku,E-Wallet,Layanan pembayaran DOKU Wallet
+edc,Transaksi,Mesin gesek transaksi kartu
+emas,Investasi,Tabungan dan transaksi emas digital
+emoney,Transaksi,Uang elektronik Mandiri e-Money
+enkripsi,Keamanan,Sistem enkripsi keamanan data bank
+eror,Teknis,Kesalahan sistem aplikasi
+error,Teknis,Gangguan atau galat sistem
+estatement,Layanan,Rekening koran digital e-statement
+etoll,Transaksi,Kartu pembayaran tol elektronik
+eur,Valas,Mata uang Euro Eropa
+faceid,Keamanan,Pengenalan wajah biometrik
+fingerprint,Keamanan,Sensor sidik jari perangkat
+fintech,Finansial,Teknologi finansial digital
+forceclose,Teknis,Aplikasi tertutup paksa
+freeze,Teknis,Aplikasi macet atau berhenti merespon
+gbp,Valas,Mata uang Poundsterling Inggris
+glitch,Teknis,Gangguan tampilan atau respon
+gopay,E-Wallet,Dompet digital GoPay
+gpn,Kartu,Gerbang Pembayaran Nasional
+helpdesk,Layanan,Pusat bantuan nasabah
+instal,Teknis,Pemasangan aplikasi di handphone
+investasi,Finansial,Fitur penanaman modal/saham
+ios,Teknis,Sistem operasi mobile Apple iOS
+iuran,Pembayaran,Iuran wajib bulanan
+jaringan,Teknis,Koneksi sinyal dan internet
+jcb,Kartu,Jaringan prinsipal kartu JCB
+jpy,Valas,Mata uang Yen Jepang
+keamanan,Keamanan,Sistem proteksi data nasabah
+keluhan,Layanan,Laporan kendala layanan
+klaim,Layanan,Klaim pengembalian dana
+komplain,Layanan,Pengaduan keluhan nasabah
+koneksi,Teknis,Hubungan data ke server bank
+kpr,Pinjaman,Kredit Pemilikan Rumah
+kredit,Perbankan,Kartu kredit dan cicilan
+kreditmobil,Pinjaman,Kredit Kendaraan Bermotor
+ksm,Fitur,Kredit Serbaguna Mandiri
+ktp,Keamanan,Kartu Tanda Penduduk untuk KYC
+kuota,Pembayaran,Paket data internet operator
+kurs,Valas,Nilai tukar mata uang asing
+lambat,Teknis,Performa sistem tidak responsif
+lelet,Teknis,Kecepatan koneksi atau muat lambat
+lemot,Teknis,Respon aplikasi sangat lambat
+limit,Perbankan,Batas maksimal transaksi harian
+linkaja,E-Wallet,Dompet digital LinkAja
+liveness,Keamanan,Uji deteksi kedipan wajah verifikasi
+livin,Brand,Nama brand super app m-banking Mandiri
+loading,Teknis,Memuat data halaman aplikasi
+login,Keamanan,Masuk ke dalam aplikasi
+logout,Keamanan,Keluar dari sesi aplikasi
+lola,Teknis,Loading lama respon lambat
+maintenance,Teknis,Pemeliharaan rutin server sistem
+mandiri,Brand,Nama bank penerbit aplikasi
+mandiricard,Kartu,Kartu debit kredit Mandiri
+mandiriva,Transaksi,Virtual account Mandiri
+mastercard,Kartu,Jaringan prinsipal kartu Mastercard
+memori,Teknis,Kapasitas RAM perangkat handphone
+merchant,Transaksi,Toko atau penyedia barang/jasa
+mpin,Keamanan,Mobile PIN transaksi 6 digit
+mutasi,Perbankan,Riwayat transaksi rekening
+nasabah,Perbankan,Pengguna layanan perbankan
+nik,Keamanan,Nomor Induk Kependudukan KTP
+notifikasi,Teknis,Pemberitahuan push notif transaksi
+obligasi,Investasi,Surat utang negara atau korporasi
+ori,Investasi,Obligasi Negara Ritel
+otentikasi,Keamanan,Proses validasi kredensial
+otp,Keamanan,One Time Password SMS / WhatsApp
+ovo,E-Wallet,Dompet digital OVO
+pasang,Teknis,Install aplikasi di smartphone
+password,Keamanan,Kata sandi akses login akun
+paylater,Fitur,Fitur cicilan belanja Paylater Mandiri
+pdam,Pembayaran,Tagihan air minum daerah
+pin,Keamanan,Personal Identification Number 6 digit
+plafon,Pinjaman,Batas limit maksimal pinjaman
+pln,Pembayaran,Token listrik dan tagihan PLN
+popup,Teknis,Jendela dialog munculan di layar
+portofolio,Investasi,Kumpulan aset investasi nasabah
+pos,Transaksi,Point of Sales transaksi
+pulsa,Pembayaran,Isi ulang pulsa seluler
+qris,Transaksi,Standar pembayaran QR Nasional
+reaktivasi,Keamanan,Aktivasi ulang akun m-banking
+refund,Layanan,Pengembalian dana transaksi gagal
+registrasi,Keamanan,Pendaftaran akun pertama kali
+rekening,Perbankan,Nomor rekening bank
+rekeningvalas,Valas,Tabungan multi currency valuta asing
+reksadana,Fitur,Investasi reksa dana di aplikasi
+rto,Teknis,Request time out batas waktu habis
+saham,Investasi,Instrumen pasar modal saham di Sukha
+saldo,Perbankan,Jumlah dana di akun nasabah
+sandi,Keamanan,Kata sandi autentikasi
+sbn,Investasi,Surat Berharga Negara online
+selfie,Keamanan,Foto wajah untuk proses KYC
+server,Teknis,Server backend penyedia layanan
+service,Layanan,Kualitas pelayanan bank
+setor,Transaksi,Setor tunai di ATM CRM
+sgd,Valas,Mata uang Dolar Singapura
+shopeepay,E-Wallet,Dompet digital ShopeePay
+sidikjari,Keamanan,Autentikasi sidik jari biometrik
+sinyal,Teknis,Kekuatan penerimaan jaringan seluler
+storage,Teknis,Kapasitas ruang penyimpanan perangkat
+sukha,Fitur,Fitur lifestyle dan reservasi Livin Mandiri
+sukuk,Investasi,Surat berharga syariah negara
+tabungan,Perbankan,Rekening tabungan nasabah
+tagihan,Transaksi,Pembayaran tagihan utilitas
+tapcash,Transaksi,Uang elektronik berbasis kartu
+tarik,Transaksi,Tarik tunai tanpa kartu di ATM
+teller,Layanan,Petugas layanan transaksi di cabang
+tenor,Pinjaman,Jangka waktu pelunasan cicilan
+tiket,Fitur,Tiket transportasi dan event di Sukha
+timeout,Teknis,Waktu tunggu request habis
+token,Keamanan,Token otentikasi keamanan transaksi
+topup,Transaksi,Isi ulang saldo e-wallet
+transaksi,Transaksi,Aktivitas operasional keuangan
+transfer,Transaksi,Kirim uang antar bank / sesama
+tunai,Transaksi,Uang fisik kas
+unblock,Keamanan,Buka blokir kartu atau akun
+unduh,Teknis,Download installer aplikasi
+update,Teknis,Pembaruan versi aplikasi Play Store
+usd,Valas,Mata uang Dolar Amerika Serikat
+userid,Keamanan,User ID identitas login nasabah
+va,Transaksi,Virtual Account pembayaran
+valas,Fitur,Layanan tabungan dan transfer mata uang asing
+validasi,Keamanan,Pengecekan kebenaran data
+verifikasi,Keamanan,Proses validasi identitas nasabah
+versi,Teknis,Nomor versi rilis aplikasi
+visacard,Kartu,Jaringan prinsipal kartu VISA
+wifi,Teknis,Koneksi jaringan nirkabel internet

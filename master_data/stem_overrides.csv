@@ -1,0 +1,127 @@
+original_word,stem_override,polarity_intent,reason
+aman,aman,Positif,Melindungi polaritas sentimen positif
+bagus,bagus,Positif,Melindungi polaritas sentimen positif
+bantuan,bantu,Positif,Layanan bantuan customer
+beban,beban,Negatif,Biaya pembebanan administrasi
+benahi,perbaiki,Keluhan/Saran,Mencegah terpotong jadi kata positif baik
+berkendala,kendala,Negatif,Melindungi polaritas sentimen negatif
+bobrok,bobrok,Negatif,Kualitas aplikasi dinilai bobrok
+buruk,buruk,Negatif,Melindungi polaritas sentimen negatif
+cepat,cepat,Positif,Melindungi polaritas sentimen positif
+diamankan,aman,Positif,Sistem keamanan data terlindungi
+dibebankan,beban,Negatif,Biaya pembebanan administrasi
+dibenahi,perbaiki,Keluhan/Saran,Mencegah terpotong jadi kata positif baik
+dibobol,bobol,Negatif,Rekening nasabah dibobol
+digagalkan,gagal,Negatif,Melindungi polaritas sentimen negatif
+dikecewakan,kecewa,Negatif,Melindungi polaritas sentimen negatif
+dikeluhkan,keluh,Negatif,Menyampaikan keluhan kendala
+dilancarkan,lancar,Positif,Semua proses dilancarkan
+dimudahkan,mudah,Positif,Melindungi polaritas sentimen positif
+diperbaiki,perbaiki,Keluhan/Saran,Mencegah terpotong jadi kata positif baik
+dipercepat,cepat,Positif,Proses transaksi dipercepat
+dipermudah,mudah,Positif,Transaksi menjadi sangat mudah
+dipersulit,sulit,Negatif,Melindungi polaritas sentimen negatif
+dipotong,potong,Negatif,Pemotongan saldo atau biaya
+dirugikan,rugi,Negatif,Melindungi polaritas sentimen negatif
+dirusak,rusak,Negatif,Melindungi polaritas sentimen negatif
+gagal,gagal,Negatif,Melindungi polaritas sentimen negatif
+hancur,hancur,Negatif,Melindungi polaritas sentimen negatif
+hebat,hebat,Positif,Melindungi polaritas sentimen positif
+jelek,jelek,Negatif,Melindungi polaritas sentimen negatif
+kacau,kacau,Negatif,Kondisi sistem aplikasi kacau
+keamanan,aman,Positif,Melindungi polaritas sentimen positif
+kebagusan,bagus,Positif,Melindungi polaritas sentimen positif
+kebingungan,bingung,Negatif,Nasabah merasa bingung
+keblokir,blokir,Negatif,Kartu atau akun terblokir
+kebobolan,bobol,Negatif,Rekening nasabah dibobol
+keburukan,buruk,Negatif,Melindungi polaritas sentimen negatif
+kecepatan,cepat,Positif,Melindungi polaritas sentimen positif
+kecewa,kecewa,Negatif,Melindungi polaritas sentimen negatif
+kegagalan,gagal,Negatif,Melindungi polaritas sentimen negatif
+kehancuran,hancur,Negatif,Melindungi polaritas sentimen negatif
+kehebatan,hebat,Positif,Melindungi polaritas sentimen positif
+kehilangan,hilang,Negatif,Kehilangan dana atau kartu
+kejelekan,jelek,Negatif,Melindungi polaritas sentimen negatif
+kekacauan,kacau,Negatif,Kekacauan sistem bank
+kekecewaan,kecewa,Negatif,Melindungi polaritas sentimen negatif
+kelambatan,lambat,Negatif,Melindungi polaritas sentimen negatif
+kelancaran,lancar,Positif,Melindungi polaritas sentimen positif
+kelemonan,lemot,Negatif,Melindungi polaritas sentimen negatif
+keluhan,keluh,Negatif,Pengaduan keluhan nasabah
+kemantapan,mantap,Positif,Melindungi polaritas sentimen positif
+kemudahan,mudah,Positif,Kemudahan bertransaksi harian
+kendala,kendala,Negatif,Melindungi polaritas sentimen negatif
+kepayahan,payah,Negatif,Melindungi polaritas sentimen negatif
+kepercayaan,percaya,Positif,Kepercayaan nasabah tinggi
+kepotong,potong,Negatif,Saldo tidak sengaja terpotong
+kepuasan,puas,Positif,Melindungi polaritas sentimen positif
+keribetan,ribet,Negatif,Melindungi polaritas sentimen negatif
+kerugian,rugi,Negatif,Melindungi polaritas sentimen negatif
+kerusakan,rusak,Negatif,Melindungi polaritas sentimen negatif
+kesulitan,sulit,Negatif,Melindungi polaritas sentimen negatif
+keuntungan,untung,Positif,Manfaat keuntungan fitur
+lambat,lambat,Negatif,Melindungi polaritas sentimen negatif
+lancar,lancar,Positif,Melindungi polaritas sentimen positif
+lemot,lemot,Negatif,Melindungi polaritas sentimen negatif
+mantap,mantap,Positif,Melindungi polaritas sentimen positif
+melancarkan,lancar,Positif,Melindungi polaritas sentimen positif
+membantu,bantu,Positif,Aplikasi sangat membantu transaksi
+membenahi,perbaiki,Keluhan/Saran,Mencegah terpotong jadi kata positif baik
+membingungkan,bingung,Negatif,Alur aplikasi membingungkan
+memblokir,blokir,Negatif,Sistem memblokir akses
+memburuk,buruk,Negatif,Melindungi polaritas sentimen negatif
+memotong,potong,Negatif,Memotong saldo biaya admin
+memperbaiki,perbaiki,Keluhan/Saran,Mencegah terpotong jadi kata positif baik
+mempercayai,percaya,Positif,Nasabah mempercayai layanan bank
+mempercepat,cepat,Positif,Melindungi polaritas sentimen positif
+memperlambat,lambat,Negatif,Melindungi polaritas sentimen negatif
+mempermudah,mudah,Positif,Fitur mempermudah nasabah
+mempersulit,sulit,Negatif,Melindungi polaritas sentimen negatif
+memuaskan,puas,Positif,Melindungi polaritas sentimen positif
+memudahkan,mudah,Positif,Melindungi polaritas sentimen positif
+mengadukan,adu,Negatif,Melaporkan masalah ke bank
+mengamankan,aman,Positif,Melindungi polaritas sentimen positif
+mengecewakan,kecewa,Negatif,Melindungi polaritas sentimen negatif
+mengeluhkan,keluh,Negatif,Menyampaikan keluhan kendala
+menggagalkan,gagal,Negatif,Melindungi polaritas sentimen negatif
+menghancurkan,hancur,Negatif,Melindungi polaritas sentimen negatif
+menghilangkan,hilang,Negatif,Menghilangkan saldo akses
+mengunci,kunci,Negatif,Mengunci akses keamanan
+menguntungkan,untung,Positif,Promo dan suku bunga menguntungkan
+menipu,tipu,Negatif,Tindakan penipuan keuangan
+menjelekkan,jelek,Negatif,Melindungi polaritas sentimen negatif
+menjengkelkan,jengkel,Negatif,Sangat menjengkelkan emosi
+menyebalkan,sebal,Negatif,Sangat menjengkelkan emosi
+menyesal,sesal,Negatif,Penyesalan nasabah kecewa
+meribetkan,ribet,Negatif,Melindungi polaritas sentimen negatif
+merugikan,rugi,Negatif,Melindungi polaritas sentimen negatif
+merusak,rusak,Negatif,Melindungi polaritas sentimen negatif
+mudah,mudah,Positif,Melindungi polaritas sentimen positif
+payah,payah,Negatif,Melindungi polaritas sentimen negatif
+pembebanan,beban,Negatif,Biaya pembebanan administrasi
+pembenahan,perbaiki,Keluhan/Saran,Mencegah terpotong jadi kata positif baik
+pembobolan,bobol,Negatif,Kejahatan rekening dibobol
+pemotongan,potong,Negatif,Pemotongan saldo atau biaya
+pengaduan,adu,Negatif,Laporan pengaduan masalah
+penipu,tipu,Negatif,Pelaku penipuan kejahatan
+penipuan,tipu,Negatif,Kasus kejahatan penipuan
+penundaan,tunda,Negatif,Penundaan proses transaksi
+penyesalan,sesal,Negatif,Penyesalan nasabah kecewa
+perbaikan,perbaiki,Keluhan/Saran,Mencegah terpotong jadi kata positif baik
+perbaiki,perbaiki,Keluhan/Saran,Mencegah terpotong jadi kata positif baik
+potong,potong,Negatif,Pemotongan saldo atau biaya
+puas,puas,Positif,Melindungi polaritas sentimen positif
+ribet,ribet,Negatif,Melindungi polaritas sentimen negatif
+rugi,rugi,Negatif,Melindungi polaritas sentimen negatif
+rusak,rusak,Negatif,Melindungi polaritas sentimen negatif
+sulit,sulit,Negatif,Melindungi polaritas sentimen negatif
+terbantu,bantu,Positif,Nasabah merasa sangat terbantu
+terblokir,blokir,Negatif,Kartu atau akun terblokir
+terkendala,kendala,Negatif,Melindungi polaritas sentimen negatif
+terkunci,kunci,Negatif,Akun atau PIN terkunci sistem
+terpercaya,percaya,Positif,Bank Mandiri sangat terpercaya
+terpotong,potong,Negatif,Saldo berkurang terpotong
+terpuaskan,puas,Positif,Nasabah merasa sangat terpuaskan
+tersendat,sendat,Negatif,Proses transaksi tersendat lambat
+tertipu,tipu,Negatif,Menjadi korban penipuan
+tertunda,tunda,Negatif,Status transfer tertunda pending
